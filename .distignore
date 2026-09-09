@@ -21,3 +21,4 @@ phpcs.xml.dist
 phpunit.xml.dist
 playwright.config.js
 /scripts
+/docs-site

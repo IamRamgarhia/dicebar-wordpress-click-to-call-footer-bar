@@ -1,15 +1,977 @@
-# Copyright (C) 2026 Prince
-# This file is distributed under the GPL-2.0-or-later licence.
+# Copyright (C) 2026 Dice Codes
+# This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: DiceBar — Mobile Action Bar 1.1.0\n"
+"Project-Id-Version: DiceBar — Mobile Bottom Bar, Click to Call & Chat 1.6.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/dicebar\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-09T00:00:00+00:00\n"
+"POT-Creation-Date: 2026-09-09T17:51:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: dicebar\n"
+
+#. Plugin Name of the plugin
+#: dicebar.php
+msgid "DiceBar — Mobile Bottom Bar, Click to Call & Chat"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: dicebar.php
+msgid "https://dicecodes.com/mobile-bottom-bar-wordpress-plugin/"
+msgstr ""
+
+#. Description of the plugin
+#: dicebar.php
+msgid "A sticky bottom bar for phones with click to call, chat, directions and social buttons. Works with any theme."
+msgstr ""
+
+#. Author of the plugin
+#: dicebar.php
+msgid "Dice Codes"
+msgstr ""
+
+#. Author URI of the plugin
+#: dicebar.php
+msgid "https://dicecodes.com/"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:53
+#: admin/class-dicebar-admin.php:54
+#: admin/views/settings-page.php:49
+msgid "DiceBar"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:71
+msgid "Items"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:72
+msgid "What sits in the bar. Four is the most that fits."
+msgstr ""
+
+#: admin/class-dicebar-admin.php:75
+msgid "Design"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:76
+msgid "The look of the bar, and whether items show icons, words, or both."
+msgstr ""
+
+#: admin/class-dicebar-admin.php:79
+msgid "Where"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:80
+msgid "Which screens, which pages, and which visitors see it."
+msgstr ""
+
+#: admin/class-dicebar-admin.php:83
+msgid "Behaviour"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:84
+msgid "Where it sits, when it gets out of the way, and what it sits above."
+msgstr ""
+
+#: admin/class-dicebar-admin.php:87
+#: admin/views/settings-page.php:680
+msgid "Shortcode"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:88
+msgid "Showing the same row of buttons inside a page."
+msgstr ""
+
+#: admin/class-dicebar-admin.php:103
+msgid "Settings"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:109
+msgid "Docs"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:146
+msgid "Four items is the most that fits. At 320 pixels wide a fifth one clips its label."
+msgstr ""
+
+#: admin/class-dicebar-admin.php:147
+msgid "Remove this item?"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:148
+msgid "New item"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:149
+msgid "Saved when you save"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:150
+msgid "Default for this type"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:151
+#: admin/views/settings-page.php:175
+msgid "Label"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:152
+#: admin/views/settings-page.php:170
+msgid "Type"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:153
+#: admin/views/settings-page.php:185
+#: admin/views/settings-page.php:186
+msgid "Icon"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:154
+#: admin/views/settings-page.php:215
+msgid "Make this the standout button"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:155
+#: admin/views/settings-page.php:219
+msgid "Show on"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:156
+#: admin/views/settings-page.php:224
+msgid "Show to"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:157
+#: admin/views/settings-page.php:162
+msgid "Remove"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:158
+msgid "This replaces the items you have now. Continue?"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:159
+msgid "Starter kit applied. Fill in the numbers and links, then save."
+msgstr ""
+
+#: admin/class-dicebar-admin.php:160
+msgid "buttons"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:161
+msgid "Advanced options"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:162
+msgid "Hide advanced options"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:163
+msgid "Add an item to see it here."
+msgstr ""
+
+#: admin/class-dicebar-admin.php:164
+msgid "That word is long for this many buttons. On a narrow phone it will be cut short. Try a shorter word, one item fewer, or icons only."
+msgstr ""
+
+#: admin/class-dicebar-admin.php:168
+#: admin/class-dicebar-admin.php:174
+#: admin/views/settings-page.php:31
+#: admin/views/settings-page.php:38
+msgid "Whatever the bar does"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:169
+#: admin/views/settings-page.php:32
+#: admin/views/settings-page.php:277
+msgid "Phones only"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:170
+#: admin/views/settings-page.php:33
+#: admin/views/settings-page.php:278
+msgid "Phones and tablets"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:171
+#: admin/views/settings-page.php:34
+#: admin/views/settings-page.php:279
+msgid "Every screen"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:175
+#: admin/views/settings-page.php:39
+#: admin/views/settings-page.php:330
+msgid "Everyone"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:176
+#: admin/views/settings-page.php:40
+msgid "Signed in visitors"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:177
+#: admin/views/settings-page.php:41
+msgid "Signed out visitors"
+msgstr ""
+
+#: admin/class-dicebar-admin.php:230
+msgid "That form has expired. Please go back and try again."
+msgstr ""
+
+#: admin/class-dicebar-admin.php:234
+msgid "You do not have permission to change these settings."
+msgstr ""
+
+#: admin/class-dicebar-admin.php:269
+msgid "You do not have permission to view this page."
+msgstr ""
+
+#: admin/views/settings-page.php:50
+msgid "A bar across the bottom of the screen on phones, holding whatever you put in it."
+msgstr ""
+
+#: admin/views/settings-page.php:56
+msgid "Documentation"
+msgstr ""
+
+#: admin/views/settings-page.php:57
+msgid "(opens in a new tab)"
+msgstr ""
+
+#: admin/views/settings-page.php:60
+msgid "Live on your site"
+msgstr ""
+
+#: admin/views/settings-page.php:62
+msgid "No items yet"
+msgstr ""
+
+#: admin/views/settings-page.php:64
+msgid "Turned off"
+msgstr ""
+
+#: admin/views/settings-page.php:72
+msgid "Saved."
+msgstr ""
+
+#: admin/views/settings-page.php:81
+msgid "Settings sections"
+msgstr ""
+
+#: admin/views/settings-page.php:131
+msgid "What goes in the bar"
+msgstr ""
+
+#: admin/views/settings-page.php:133
+msgid "Drag to reorder. Four is the most that fits: at 320 pixels wide a fifth item clips its label rather than shrinking."
+msgstr ""
+
+#: admin/views/settings-page.php:137
+msgid "Start from a kit"
+msgstr ""
+
+#: admin/views/settings-page.php:138
+msgid "Fills the list in one click. Everything stays editable afterwards."
+msgstr ""
+
+#: admin/views/settings-page.php:161
+msgid "Remove this item"
+msgstr ""
+
+#: admin/views/settings-page.php:233
+msgid "Nothing in the bar yet."
+msgstr ""
+
+#: admin/views/settings-page.php:234
+msgid "Most sites start with a phone number and a WhatsApp link. Add one and look at your site on a phone."
+msgstr ""
+
+#: admin/views/settings-page.php:239
+msgid "Add an item"
+msgstr ""
+
+#: admin/views/settings-page.php:255
+msgid "Where the bar shows"
+msgstr ""
+
+#: admin/views/settings-page.php:261
+msgid "Turn it on"
+msgstr ""
+
+#: admin/views/settings-page.php:265
+msgid "Show the bar on the front end"
+msgstr ""
+
+#: admin/views/settings-page.php:271
+msgid "Screens"
+msgstr ""
+
+#: admin/views/settings-page.php:284
+msgid "A phone is anything up to the first width below. A tablet is anything up to the second."
+msgstr ""
+
+#: admin/views/settings-page.php:287
+msgid "Phone up to"
+msgstr ""
+
+#: admin/views/settings-page.php:291
+msgid "Hide above"
+msgstr ""
+
+#: admin/views/settings-page.php:299
+msgid "Pages"
+msgstr ""
+
+#: admin/views/settings-page.php:307
+msgid "Everywhere"
+msgstr ""
+
+#: admin/views/settings-page.php:308
+msgid "Only on the pages listed"
+msgstr ""
+
+#: admin/views/settings-page.php:309
+msgid "Everywhere except the pages listed"
+msgstr ""
+
+#: admin/views/settings-page.php:316
+msgid "Post or page ids, separated by commas. The id is in the address bar when you edit a page."
+msgstr ""
+
+#: admin/views/settings-page.php:324
+msgid "Visitors"
+msgstr ""
+
+#: admin/views/settings-page.php:331
+msgid "Signed in only"
+msgstr ""
+
+#: admin/views/settings-page.php:332
+msgid "Signed out only"
+msgstr ""
+
+#: admin/views/settings-page.php:352
+msgid "How it looks"
+msgstr ""
+
+#: admin/views/settings-page.php:358
+msgid "The look"
+msgstr ""
+
+#: admin/views/settings-page.php:364
+msgid "Glass"
+msgstr ""
+
+#: admin/views/settings-page.php:365
+msgid "Frosted and floating, the way a phone shows its own bars."
+msgstr ""
+
+#: admin/views/settings-page.php:368
+msgid "Solid"
+msgstr ""
+
+#: admin/views/settings-page.php:369
+msgid "No see-through. Safest over busy photography."
+msgstr ""
+
+#: admin/views/settings-page.php:372
+msgid "Minimal"
+msgstr ""
+
+#: admin/views/settings-page.php:373
+msgid "No panel. The buttons sit straight on the page."
+msgstr ""
+
+#: admin/views/settings-page.php:376
+msgid "Bold"
+msgstr ""
+
+#: admin/views/settings-page.php:377
+msgid "Filled in your accent colour. Hard to ignore."
+msgstr ""
+
+#: admin/views/settings-page.php:397
+msgid "Each item shows"
+msgstr ""
+
+#: admin/views/settings-page.php:402
+msgid "Icon and word"
+msgstr ""
+
+#: admin/views/settings-page.php:403
+msgid "Icon only"
+msgstr ""
+
+#: admin/views/settings-page.php:404
+msgid "Word only"
+msgstr ""
+
+#: admin/views/settings-page.php:415
+msgid "It applies to every item, not one. An unlabelled icon centres itself while a labelled one lifts to make room, so mixing them leaves one mark sitting low for no visible reason."
+msgstr ""
+
+#: admin/views/settings-page.php:420
+msgid "See-through"
+msgstr ""
+
+#: admin/views/settings-page.php:427
+msgid "How solid the panel is. Lower is more glass. Below about 60 percent the words start to swim against a photograph, which is what the preview is standing on one for."
+msgstr ""
+
+#: admin/views/settings-page.php:433
+msgid "How much the blur softens what is behind. It only applies where the browser supports it, and the panel falls back to solid where it does not."
+msgstr ""
+
+#: admin/views/settings-page.php:438
+msgid "Shape"
+msgstr ""
+
+#: admin/views/settings-page.php:442
+msgid "Bar"
+msgstr ""
+
+#: admin/views/settings-page.php:447
+msgid "Floating panel"
+msgstr ""
+
+#: admin/views/settings-page.php:448
+msgid "Edge to edge"
+msgstr ""
+
+#: admin/views/settings-page.php:455
+msgid "Buttons"
+msgstr ""
+
+#: admin/views/settings-page.php:460
+msgid "Plain"
+msgstr ""
+
+#: admin/views/settings-page.php:461
+msgid "Filled"
+msgstr ""
+
+#: admin/views/settings-page.php:462
+msgid "Outlined"
+msgstr ""
+
+#: admin/views/settings-page.php:463
+msgid "Tinted"
+msgstr ""
+
+#: admin/views/settings-page.php:470
+msgid "Shadow"
+msgstr ""
+
+#: admin/views/settings-page.php:475
+msgid "None"
+msgstr ""
+
+#: admin/views/settings-page.php:476
+msgid "Soft"
+msgstr ""
+
+#: admin/views/settings-page.php:477
+msgid "Strong"
+msgstr ""
+
+#: admin/views/settings-page.php:487
+msgid "Blur what is behind it"
+msgstr ""
+
+#: admin/views/settings-page.php:491
+msgid "Line between items"
+msgstr ""
+
+#: admin/views/settings-page.php:495
+msgid "Social icons in their own colours"
+msgstr ""
+
+#: admin/views/settings-page.php:505
+msgid "Colours"
+msgstr ""
+
+#: admin/views/settings-page.php:509
+msgid "Bar background"
+msgstr ""
+
+#: admin/views/settings-page.php:510
+msgid "Bold fill"
+msgstr ""
+
+#: admin/views/settings-page.php:511
+msgid "Text"
+msgstr ""
+
+#: admin/views/settings-page.php:512
+msgid "Icons"
+msgstr ""
+
+#: admin/views/settings-page.php:513
+msgid "Standout item"
+msgstr ""
+
+#: admin/views/settings-page.php:514
+msgid "Pressed"
+msgstr ""
+
+#: admin/views/settings-page.php:515
+msgid "Pressed text"
+msgstr ""
+
+#: admin/views/settings-page.php:516
+msgid "Divider line"
+msgstr ""
+
+#: admin/views/settings-page.php:520
+#: admin/views/settings-page.php:745
+msgid "Light"
+msgstr ""
+
+#: admin/views/settings-page.php:521
+#: admin/views/settings-page.php:746
+msgid "Dark"
+msgstr ""
+
+#: admin/views/settings-page.php:539
+msgid "Hex values such as #0a84ff, or rgba for the divider. The dark set applies when the visitor has dark mode on, and the preview has a Dark button so you can check it before saving."
+msgstr ""
+
+#: admin/views/settings-page.php:544
+msgid "Dark mode"
+msgstr ""
+
+#: admin/views/settings-page.php:550
+msgid "Follow the visitor's setting"
+msgstr ""
+
+#: admin/views/settings-page.php:551
+msgid "Always light"
+msgstr ""
+
+#: admin/views/settings-page.php:552
+msgid "Always dark"
+msgstr ""
+
+#: admin/views/settings-page.php:553
+msgid "My theme handles it"
+msgstr ""
+
+#: admin/views/settings-page.php:562
+msgid "Your own CSS"
+msgstr ""
+
+#: admin/views/settings-page.php:565
+msgid "Everything is a custom property on the .dicebar element, so you can override anything without fighting the plugin."
+msgstr ""
+
+#: admin/views/settings-page.php:581
+msgid "How it behaves"
+msgstr ""
+
+#: admin/views/settings-page.php:587
+msgid "Position"
+msgstr ""
+
+#: admin/views/settings-page.php:593
+msgid "Bottom of the screen"
+msgstr ""
+
+#: admin/views/settings-page.php:594
+msgid "Top of the screen"
+msgstr ""
+
+#: admin/views/settings-page.php:599
+msgid "Bottom is where thumbs are. Choose top only if your theme already puts something at the bottom."
+msgstr ""
+
+#: admin/views/settings-page.php:604
+msgid "On scroll"
+msgstr ""
+
+#: admin/views/settings-page.php:610
+msgid "Always visible"
+msgstr ""
+
+#: admin/views/settings-page.php:611
+msgid "Hide going down, return coming up"
+msgstr ""
+
+#: admin/views/settings-page.php:623
+msgid "Step aside for"
+msgstr ""
+
+#: admin/views/settings-page.php:626
+msgid "The bar gets out of the way while this element is on screen. A Call button is noise beside the contact section carrying the same number."
+msgstr ""
+
+#: admin/views/settings-page.php:631
+msgid "Keep clear"
+msgstr ""
+
+#: admin/views/settings-page.php:634
+msgid "Space below"
+msgstr ""
+
+#: admin/views/settings-page.php:637
+msgid "Use this when a cookie banner sits in the same place."
+msgstr ""
+
+#: admin/views/settings-page.php:642
+msgid "Stacking order"
+msgstr ""
+
+#: admin/views/settings-page.php:645
+msgid "z-index"
+msgstr ""
+
+#: admin/views/settings-page.php:648
+msgid "Lower it if the bar covers one of your theme's pop-ups. Raise it if something covers the bar."
+msgstr ""
+
+#: admin/views/settings-page.php:653
+msgid "When you delete"
+msgstr ""
+
+#: admin/views/settings-page.php:657
+msgid "Keep my settings, so they return if I install it again"
+msgstr ""
+
+#: admin/views/settings-page.php:674
+msgid "Putting it inside a page"
+msgstr ""
+
+#: admin/views/settings-page.php:675
+msgid "You do not have to. The bar appears by itself on every page it is allowed on. This is for showing the same row of buttons inside your content as well."
+msgstr ""
+
+#: admin/views/settings-page.php:683
+msgid "Works in the block editor, in a widget, in a theme template, and in Elementor, Divi, Beaver Builder, Bricks and Oxygen."
+msgstr ""
+
+#: admin/views/settings-page.php:688
+msgid "Only some items"
+msgstr ""
+
+#: admin/views/settings-page.php:692
+msgid "Item ids are shown beside each item on the Items tab. Separate several with commas."
+msgstr ""
+
+#: admin/views/settings-page.php:694
+msgid "Add an item first and its id will appear here."
+msgstr ""
+
+#: admin/views/settings-page.php:700
+msgid "Full documentation"
+msgstr ""
+
+#: admin/views/settings-page.php:707
+msgid "Every setting on this screen, explained, with the reasoning behind the ones that look arbitrary."
+msgstr ""
+
+#: admin/views/settings-page.php:712
+msgid "Elementor"
+msgstr ""
+
+#: admin/views/settings-page.php:715
+msgid "Elementor is active, so a DiceBar widget is in your panel. Search for \"DiceBar\"."
+msgstr ""
+
+#: admin/views/settings-page.php:717
+msgid "Elementor is not active. If you install it, a DiceBar widget appears in its panel automatically."
+msgstr ""
+
+#: admin/views/settings-page.php:729
+msgid "Preview"
+msgstr ""
+
+#: admin/views/settings-page.php:730
+msgid "The real bar, drawn with the real stylesheet, so it cannot drift from what visitors see."
+msgstr ""
+
+#: admin/views/settings-page.php:737
+msgid "Preview of the bar"
+msgstr ""
+
+#: admin/views/settings-page.php:744
+msgid "Photo"
+msgstr ""
+
+#: admin/views/settings-page.php:759
+msgid "Save changes"
+msgstr ""
+
+#: admin/views/settings-page.php:760
+msgid "Saving keeps every tab, not just this one."
+msgstr ""
+
+#. translators: 1: required PHP version, 2: running PHP version.
+#: dicebar.php:54
+#, php-format
+msgid "DiceBar needs PHP %1$s or newer. This site runs PHP %2$s."
+msgstr ""
+
+#: includes/class-dicebar-elementor-widget.php:36
+msgid "DiceBar action bar"
+msgstr ""
+
+#: includes/class-dicebar-elementor-widget.php:78
+msgid "Action bar"
+msgstr ""
+
+#: includes/class-dicebar-elementor-widget.php:86
+msgid "Items and styling come from Settings, then DiceBar. Leave the list below empty to show every item."
+msgstr ""
+
+#: includes/class-dicebar-elementor-widget.php:97
+msgid "Item ids to show"
+msgstr ""
+
+#: includes/class-dicebar-elementor-widget.php:100
+msgid "Comma separated. Ids are shown beside each item on the settings screen."
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:191
+#: includes/class-dicebar-presets.php:38
+#: includes/class-dicebar-presets.php:54
+#: includes/class-dicebar-presets.php:105
+msgid "Call"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:195
+#: includes/class-dicebar-item-types.php:218
+msgid "Phone number"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:200
+#: includes/class-dicebar-presets.php:43
+#: includes/class-dicebar-presets.php:59
+#: includes/class-dicebar-presets.php:79
+#: includes/class-dicebar-presets.php:109
+#: includes/class-dicebar-presets.php:129
+msgid "WhatsApp"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:204
+msgid "Number with country code"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:209
+#: includes/class-dicebar-item-types.php:223
+msgid "Message to prefill"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:214
+msgid "Text message"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:228
+#: includes/class-dicebar-presets.php:229
+msgid "Email"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:232
+msgid "Email address"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:237
+msgid "Subject"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:242
+msgid "Link"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:246
+#: includes/class-dicebar-item-types.php:328
+msgid "Address"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:251
+#: includes/class-dicebar-item-types.php:274
+msgid "Open in a new tab"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:255
+msgid "Add nofollow"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:260
+msgid "Social profile"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:264
+msgid "Profile address"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:269
+msgid "Network"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:279
+msgid "Scroll to a section"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:283
+msgid "Section id, such as #contact"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:288
+msgid "Page"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:292
+msgid "Choose a page"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:297
+msgid "Directions"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:301
+msgid "Address or map link"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:306
+#: includes/class-dicebar-presets.php:208
+msgid "Share"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:315
+msgid "Back to top"
+msgstr ""
+
+#: includes/class-dicebar-item-types.php:324
+msgid "Anything else"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:33
+msgid "Call and WhatsApp"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:34
+msgid "The two buttons most small businesses actually need."
+msgstr ""
+
+#: includes/class-dicebar-presets.php:49
+msgid "Call, message, directions"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:50
+msgid "For a shop or office people visit in person."
+msgstr ""
+
+#: includes/class-dicebar-presets.php:63
+#: includes/class-dicebar-presets.php:83
+#: includes/class-dicebar-presets.php:113
+msgid "Find us"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:69
+msgid "Restaurant"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:70
+msgid "Book a table, ask a question, find the door, read the menu."
+msgstr ""
+
+#: includes/class-dicebar-presets.php:74
+#: includes/class-dicebar-presets.php:99
+msgid "Book"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:87
+msgid "Menu"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:94
+msgid "Clinic or salon"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:95
+msgid "Booking is the standout button; everything else supports it."
+msgstr ""
+
+#: includes/class-dicebar-presets.php:119
+msgid "Trade or service call-out"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:120
+msgid "Someone with a leak is not filling in a contact form."
+msgstr ""
+
+#: includes/class-dicebar-presets.php:124
+msgid "Call now"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:133
+msgid "Quote"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:140
+msgid "Online shop"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:141
+msgid "The four places a shopper moves between on a phone."
+msgstr ""
+
+#: includes/class-dicebar-presets.php:145
+msgid "Shop"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:150
+msgid "Search"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:155
+msgid "Cart"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:161
+msgid "Account"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:168
+msgid "Social profiles"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:169
+msgid "Icon-only suits this one. Turn labels off on the Design tab."
+msgstr ""
+
+#: includes/class-dicebar-presets.php:203
+msgid "Blog or magazine"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:204
+msgid "Sharing and getting back up, which is all a reader wants."
+msgstr ""
+
+#: includes/class-dicebar-presets.php:212
+msgid "Subscribe"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:218
+msgid "Top"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:224
+msgid "Portfolio"
+msgstr ""
+
+#: includes/class-dicebar-presets.php:225
+msgid "One way to reach you, one way to see the work."
+msgstr ""
+
+#: includes/class-dicebar-presets.php:234
+msgid "Work"
+msgstr ""
+
+#: includes/class-dicebar-render.php:148
+msgid "Quick actions"
+msgstr ""
