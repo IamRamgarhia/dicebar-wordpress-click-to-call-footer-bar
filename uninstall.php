@@ -5,7 +5,7 @@
  * Honours the "keep my settings" checkbox: people deactivate to test a
  * conflict and are rightly furious to lose their configuration.
  *
- * @package MobileBottomBar
+ * @package DiceBar
  */
 
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
@@ -17,23 +17,23 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
  *
  * @return void
  */
-function mbbar_uninstall_site() {
-	$settings = get_option( 'mbbar_settings' );
+function dicebar_uninstall_site() {
+	$settings = get_option( 'dicebar_settings' );
 
 	if ( is_array( $settings ) && ! empty( $settings['keep_settings_on_delete'] ) ) {
 		return;
 	}
 
-	delete_option( 'mbbar_settings' );
-	delete_option( 'mbbar_version' );
+	delete_option( 'dicebar_settings' );
+	delete_option( 'dicebar_version' );
 }
 
 if ( is_multisite() ) {
-	foreach ( get_sites( array( 'fields' => 'ids' ) ) as $mbbar_site_id ) {
-		switch_to_blog( $mbbar_site_id );
-		mbbar_uninstall_site();
+	foreach ( get_sites( array( 'fields' => 'ids' ) ) as $dicebar_site_id ) {
+		switch_to_blog( $dicebar_site_id );
+		dicebar_uninstall_site();
 		restore_current_blog();
 	}
 } else {
-	mbbar_uninstall_site();
+	dicebar_uninstall_site();
 }

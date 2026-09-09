@@ -2,7 +2,7 @@
 /**
  * Settings defaults, accessor and registration.
  *
- * @package MobileBottomBar
+ * @package DiceBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,17 +12,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Holds the configuration shape, its defaults, and the accessor.
  */
-class MBBar_Settings {
+class DiceBar_Settings {
 
 	/**
 	 * Option holding the whole configuration. Autoloaded.
 	 */
-	const OPTION = 'mbbar_settings';
+	const OPTION = 'dicebar_settings';
 
 	/**
 	 * Option holding the schema version. Not autoloaded.
 	 */
-	const VERSION_OPTION = 'mbbar_version';
+	const VERSION_OPTION = 'dicebar_version';
 
 	/**
 	 * How the page rule is applied, in the order the settings screen shows them.
@@ -243,12 +243,12 @@ class MBBar_Settings {
 	 */
 	public static function register() {
 		register_setting(
-			'mbbar',
+			'dicebar',
 			self::OPTION,
 			array(
 				'type'              => 'object',
 				'default'           => self::defaults(),
-				'sanitize_callback' => array( 'MBBar_Sanitize', 'settings' ),
+				'sanitize_callback' => array( 'DiceBar_Sanitize', 'settings' ),
 				'show_in_rest'      => false,
 			)
 		);

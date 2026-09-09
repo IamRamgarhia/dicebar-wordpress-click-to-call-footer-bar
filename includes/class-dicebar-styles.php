@@ -10,7 +10,7 @@
  * properties, and the breakpoints are configurable, so those two queries are
  * written out here with the saved pixel values baked in.
  *
- * @package MobileBottomBar
+ * @package DiceBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Builds the inline style block that accompanies the bar.
  */
-class MBBar_Styles {
+class DiceBar_Styles {
 
 	/**
 	 * The settings-driven CSS, as a plain stylesheet with no tags.
@@ -33,7 +33,7 @@ class MBBar_Styles {
 	 * @return string
 	 */
 	public static function css() {
-		$settings = MBBar_Settings::get();
+		$settings = DiceBar_Settings::get();
 
 		$css = self::variables( $settings )
 			. self::device_queries( $settings )
@@ -59,27 +59,27 @@ class MBBar_Styles {
 		$style = $settings['style'];
 
 		$base = array(
-			'--mbbar-radius'      => (int) $style['radius'] . 'px',
-			'--mbbar-item-radius' => (int) $style['item']['radius'] . 'px',
-			'--mbbar-min-height'  => (int) $style['item']['min_height'] . 'px',
-			'--mbbar-icon-size'   => (int) $style['item']['icon_size'] . 'px',
-			'--mbbar-icon-gap'    => (int) $style['item']['icon_gap'] . 'px',
-			'--mbbar-gap'         => (int) $style['gap'] . 'px',
-			'--mbbar-label-size'  => (int) $style['label']['size'] . 'px',
-			'--mbbar-max-width'   => $style['max_width'] ? (int) $style['max_width'] . 'px' : 'none',
-			'--mbbar-z'           => (int) $settings['behaviour']['z_index'],
-			'--mbbar-clearance'   => (int) $settings['behaviour']['clearance'] . 'px',
-			'--mbbar-glass'       => (int) $style['glass'] . 'px',
-			'--mbbar-opacity'     => (int) $style['opacity'] . '%',
+			'--dicebar-radius'      => (int) $style['radius'] . 'px',
+			'--dicebar-item-radius' => (int) $style['item']['radius'] . 'px',
+			'--dicebar-min-height'  => (int) $style['item']['min_height'] . 'px',
+			'--dicebar-icon-size'   => (int) $style['item']['icon_size'] . 'px',
+			'--dicebar-icon-gap'    => (int) $style['item']['icon_gap'] . 'px',
+			'--dicebar-gap'         => (int) $style['gap'] . 'px',
+			'--dicebar-label-size'  => (int) $style['label']['size'] . 'px',
+			'--dicebar-max-width'   => $style['max_width'] ? (int) $style['max_width'] . 'px' : 'none',
+			'--dicebar-z'           => (int) $settings['behaviour']['z_index'],
+			'--dicebar-clearance'   => (int) $settings['behaviour']['clearance'] . 'px',
+			'--dicebar-glass'       => (int) $style['glass'] . 'px',
+			'--dicebar-opacity'     => (int) $style['opacity'] . '%',
 		);
 
-		$css = '.mbbar{' . self::declarations( $base ) . self::declarations( self::palette( $style['light'] ) ) . '}';
+		$css = '.dicebar{' . self::declarations( $base ) . self::declarations( self::palette( $style['light'] ) ) . '}';
 
 		$dark = self::declarations( self::palette( $style['dark'] ) );
 
 		if ( 'off' !== $style['scheme'] ) {
-			$css .= '@media (prefers-color-scheme: dark){.mbbar:not(.mbbar--scheme-light){' . $dark . '}}';
-			$css .= '.mbbar--scheme-dark{' . $dark . '}';
+			$css .= '@media (prefers-color-scheme: dark){.dicebar:not(.dicebar--scheme-light){' . $dark . '}}';
+			$css .= '.dicebar--scheme-dark{' . $dark . '}';
 		}
 
 		return $css;
@@ -95,7 +95,7 @@ class MBBar_Styles {
 		$properties = array();
 
 		foreach ( $palette as $token => $value ) {
-			$properties[ '--mbbar-' . str_replace( '_', '-', $token ) ] = $value;
+			$properties[ '--dicebar-' . str_replace( '_', '-', $token ) ] = $value;
 		}
 
 		return $properties;
@@ -134,16 +134,16 @@ class MBBar_Styles {
 
 		// The bar itself, by its device setting.
 		$css .= '@media (min-width:' . ( $breakpoint + 1 ) . 'px){'
-			. '.mbbar--fixed.mbbar--device-phone_tablet{display:none}'
+			. '.dicebar--fixed.dicebar--device-phone_tablet{display:none}'
 			. '}';
 
 		$css .= '@media (min-width:' . ( $phone_max + 1 ) . 'px){'
-			. '.mbbar--fixed.mbbar--device-phone{display:none}'
-			. '.mbbar__item--device-phone{display:none}'
+			. '.dicebar--fixed.dicebar--device-phone{display:none}'
+			. '.dicebar__item--device-phone{display:none}'
 			. '}';
 
 		$css .= '@media (min-width:' . ( $breakpoint + 1 ) . 'px){'
-			. '.mbbar__item--device-phone_tablet{display:none}'
+			. '.dicebar__item--device-phone_tablet{display:none}'
 			. '}';
 
 		return $css;

@@ -1,5 +1,5 @@
 /**
- * Mobile Bottom Bar front-end behaviour.
+ * DiceBar front-end behaviour.
  *
  * Deliberately small and dependency free. Everything here is either something
  * CSS genuinely cannot do, or something that must not be baked into a cached
@@ -9,13 +9,13 @@
 ( function () {
 	'use strict';
 
-	var bar = document.querySelector( '.mbbar--fixed' );
+	var bar = document.querySelector( '.dicebar--fixed' );
 
 	if ( ! bar ) {
 		return;
 	}
 
-	var inner = bar.querySelector( '.mbbar__inner' );
+	var inner = bar.querySelector( '.dicebar__inner' );
 
 	/**
 	 * Whether the visitor is signed in.
@@ -36,17 +36,17 @@
 	 */
 	function applyUserRules() {
 		var loggedIn = isLoggedIn();
-		var barRule = bar.getAttribute( 'data-mbbar-users' ) || 'all';
+		var barRule = bar.getAttribute( 'data-dicebar-users' ) || 'all';
 
 		if ( ( barRule === 'in' && ! loggedIn ) || ( barRule === 'out' && loggedIn ) ) {
 			bar.parentNode.removeChild( bar );
 			return false;
 		}
 
-		var items = bar.querySelectorAll( '[data-mbbar-users]' );
+		var items = bar.querySelectorAll( '[data-dicebar-users]' );
 
 		Array.prototype.forEach.call( items, function ( item ) {
-			var rule = item.getAttribute( 'data-mbbar-users' );
+			var rule = item.getAttribute( 'data-dicebar-users' );
 
 			if ( ( rule === 'in' && ! loggedIn ) || ( rule === 'out' && loggedIn ) ) {
 				item.parentNode.removeChild( item );
@@ -66,7 +66,7 @@
 	 * @return {boolean} True when at least one item is visible.
 	 */
 	function hasVisibleItems() {
-		var items = bar.querySelectorAll( '.mbbar__item' );
+		var items = bar.querySelectorAll( '.dicebar__item' );
 		var visible = 0;
 
 		Array.prototype.forEach.call( items, function ( item ) {
@@ -92,9 +92,9 @@
 		}
 
 		var height = Math.ceil( bar.getBoundingClientRect().height );
-		var side = bar.classList.contains( 'mbbar--top' ) ? 'Top' : 'Bottom';
+		var side = bar.classList.contains( 'dicebar--top' ) ? 'Top' : 'Bottom';
 
-		document.documentElement.style.setProperty( '--mbbar-height', height + 'px' );
+		document.documentElement.style.setProperty( '--dicebar-height', height + 'px' );
 		document.body.style[ 'padding' + side ] = height + 'px';
 	}
 
@@ -105,7 +105,7 @@
 	 * is visible.
 	 */
 	function watchHideTarget() {
-		var selector = bar.getAttribute( 'data-mbbar-hide-near' );
+		var selector = bar.getAttribute( 'data-dicebar-hide-near' );
 
 		if ( ! selector || typeof window.IntersectionObserver !== 'function' ) {
 			return;
@@ -132,7 +132,7 @@
 	 * Hide on scroll down, show on scroll up.
 	 */
 	function watchScrollDirection() {
-		if ( bar.getAttribute( 'data-mbbar-appear' ) !== 'scroll_up' ) {
+		if ( bar.getAttribute( 'data-dicebar-appear' ) !== 'scroll_up' ) {
 			return;
 		}
 
@@ -168,7 +168,7 @@
 	 */
 	function wireActions() {
 		bar.addEventListener( 'click', function ( event ) {
-			var item = event.target.closest( '[data-mbbar-item]' );
+			var item = event.target.closest( '[data-dicebar-item]' );
 
 			if ( ! item ) {
 				return;
@@ -178,15 +178,15 @@
 			// plugin sends nothing anywhere; what happens next is the owner's
 			// business.
 			document.dispatchEvent(
-				new CustomEvent( 'mbbar:click', {
+				new CustomEvent( 'dicebar:click', {
 					detail: {
-						id: item.getAttribute( 'data-mbbar-item' ),
-						type: item.getAttribute( 'data-mbbar-type' ),
+						id: item.getAttribute( 'data-dicebar-item' ),
+						type: item.getAttribute( 'data-dicebar-type' ),
 					},
 				} )
 			);
 
-			var action = item.getAttribute( 'data-mbbar-action' );
+			var action = item.getAttribute( 'data-dicebar-action' );
 
 			if ( ! action ) {
 				return;

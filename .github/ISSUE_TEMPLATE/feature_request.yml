@@ -1,0 +1,22 @@
+name: Feature request
+description: Suggest something the plugin should do
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do
+      description: Describe the situation rather than the solution. It often has a simpler answer than the feature.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What you had in mind
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Have you checked
+      options:
+        - label: The plugin does not already do this
+        - label: A filter would not solve it for you

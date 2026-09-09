@@ -1,123 +1,123 @@
 /**
- * Mobile Bottom Bar front-end styles.
+ * DiceBar front-end styles.
  *
  * Every number here has a default supplied as a custom property by
- * MBBar_Styles, so the administrator's settings drive the layout without this
+ * DiceBar_Styles, so the administrator's settings drive the layout without this
  * file changing. The fallbacks are the measured values from the design spec.
  */
 
-.mbbar {
-	--mbbar-bar-bg: #fff;
-	--mbbar-text: #1c1c1e;
-	--mbbar-accent: #0a84ff;
-	--mbbar-icon: #1c1c1e;
-	--mbbar-hover-bg: #0a84ff;
-	--mbbar-hover-text: #fff;
-	--mbbar-divider: rgba( 0, 0, 0, 0.12 );
-	--mbbar-bold-bg: #0a84ff;
-	--mbbar-radius: 18px;
-	--mbbar-item-radius: 13px;
-	--mbbar-min-height: 52px;
-	--mbbar-icon-size: 18px;
-	--mbbar-icon-gap: 3px;
-	--mbbar-gap: 11px;
-	--mbbar-label-size: 10px;
-	--mbbar-max-width: 640px;
-	--mbbar-z: 9990;
-	--mbbar-clearance: 0px;
-	--mbbar-glass: 22px;
-	--mbbar-opacity: 78%;
+.dicebar {
+	--dicebar-bar-bg: #fff;
+	--dicebar-text: #1c1c1e;
+	--dicebar-accent: #0a84ff;
+	--dicebar-icon: #1c1c1e;
+	--dicebar-hover-bg: #0a84ff;
+	--dicebar-hover-text: #fff;
+	--dicebar-divider: rgba( 0, 0, 0, 0.12 );
+	--dicebar-bold-bg: #0a84ff;
+	--dicebar-radius: 18px;
+	--dicebar-item-radius: 13px;
+	--dicebar-min-height: 52px;
+	--dicebar-icon-size: 18px;
+	--dicebar-icon-gap: 3px;
+	--dicebar-gap: 11px;
+	--dicebar-label-size: 10px;
+	--dicebar-max-width: 640px;
+	--dicebar-z: 9990;
+	--dicebar-clearance: 0px;
+	--dicebar-glass: 22px;
+	--dicebar-opacity: 78%;
 
 	box-sizing: border-box;
 }
 
-.mbbar *,
-.mbbar *::before,
-.mbbar *::after {
+.dicebar *,
+.dicebar *::before,
+.dicebar *::after {
 	box-sizing: inherit;
 }
 
 /* ---- Fixed mode ------------------------------------------------------- */
 
-.mbbar--fixed {
+.dicebar--fixed {
 	position: fixed;
 	inset-inline: 0;
-	z-index: var( --mbbar-z );
+	z-index: var( --dicebar-z );
 	padding: 10px;
 	pointer-events: none;
 	transition: transform 0.28s ease, opacity 0.28s ease;
 }
 
-.mbbar--fixed.mbbar--bottom {
+.dicebar--fixed.dicebar--bottom {
 	bottom: 0;
 	/* Without the safe-area inset the bar sits under the home indicator and
 	   the bottom row of targets cannot be hit. */
-	padding-bottom: calc( 10px + var( --mbbar-clearance ) + env( safe-area-inset-bottom, 0px ) );
+	padding-bottom: calc( 10px + var( --dicebar-clearance ) + env( safe-area-inset-bottom, 0px ) );
 }
 
-.mbbar--fixed.mbbar--top {
+.dicebar--fixed.dicebar--top {
 	top: 0;
 	padding-top: calc( 10px + env( safe-area-inset-top, 0px ) );
 }
 
-.mbbar--fixed.mbbar--top.mbbar--admin-bar {
+.dicebar--fixed.dicebar--top.dicebar--admin-bar {
 	top: 46px;
 }
 
 @media screen and ( min-width: 783px ) {
-	.mbbar--fixed.mbbar--top.mbbar--admin-bar {
+	.dicebar--fixed.dicebar--top.dicebar--admin-bar {
 		top: 32px;
 	}
 }
 
-.mbbar--fixed .mbbar__inner {
+.dicebar--fixed .dicebar__inner {
 	pointer-events: auto;
 	margin-inline: auto;
-	max-width: var( --mbbar-max-width );
+	max-width: var( --dicebar-max-width );
 }
 
-.mbbar--fixed.mbbar--full {
+.dicebar--fixed.dicebar--full {
 	padding-inline: 0;
 }
 
-.mbbar--fixed.mbbar--full .mbbar__inner {
+.dicebar--fixed.dicebar--full .dicebar__inner {
 	border-radius: 0;
 	max-width: none;
 }
 
 /* 140% rather than 100%: the shadow extends past the box, and 100% leaves a
    smudge of it visible along the edge. */
-.mbbar--fixed.is-away {
+.dicebar--fixed.is-away {
 	transform: translateY( 140% );
 	opacity: 0;
 	pointer-events: none;
 }
 
-.mbbar--fixed.mbbar--top.is-away {
+.dicebar--fixed.dicebar--top.is-away {
 	transform: translateY( -140% );
 }
 
-.mbbar--entrance-none {
+.dicebar--entrance-none {
 	transition: none;
 }
 
 /* ---- The panel -------------------------------------------------------- */
 
-.mbbar__inner {
+.dicebar__inner {
 	display: flex;
 	align-items: stretch;
-	gap: var( --mbbar-gap );
+	gap: var( --dicebar-gap );
 	padding: 6px;
-	border-radius: var( --mbbar-radius );
-	background: var( --mbbar-bar-bg );
-	color: var( --mbbar-text );
+	border-radius: var( --dicebar-radius );
+	background: var( --dicebar-bar-bg );
+	color: var( --dicebar-text );
 }
 
-.mbbar--shadow-soft .mbbar__inner {
+.dicebar--shadow-soft .dicebar__inner {
 	box-shadow: 0 4px 14px -8px rgba( 0, 0, 0, 0.22 ), 0 22px 44px -28px rgba( 0, 0, 0, 0.34 );
 }
 
-.mbbar--shadow-strong .mbbar__inner {
+.dicebar--shadow-strong .dicebar__inner {
 	box-shadow: 0 6px 18px -6px rgba( 0, 0, 0, 0.3 ), 0 28px 56px -24px rgba( 0, 0, 0, 0.45 );
 }
 
@@ -134,7 +134,7 @@
  * without a blur behind it, a see-through bar over a photograph is the one
  * case where it is genuinely unreadable. 90% opacity is where labels stop
  * swimming, and the inset highlight is what gives the top edge its lift. */
-.mbbar--preset-glass .mbbar__inner {
+.dicebar--preset-glass .dicebar__inner {
 	border: 1px solid rgba( 255, 255, 255, 0.35 );
 	box-shadow:
 		0 4px 14px -8px rgba( 0, 0, 0, 0.24 ),
@@ -143,29 +143,29 @@
 }
 
 @supports ( ( backdrop-filter: blur( 1px ) ) or ( -webkit-backdrop-filter: blur( 1px ) ) ) {
-	.mbbar--blur .mbbar__inner {
-		background: color-mix( in srgb, var( --mbbar-bar-bg ) var( --mbbar-opacity ), transparent );
-		-webkit-backdrop-filter: blur( var( --mbbar-glass ) ) saturate( 180% );
-		backdrop-filter: blur( var( --mbbar-glass ) ) saturate( 180% );
+	.dicebar--blur .dicebar__inner {
+		background: color-mix( in srgb, var( --dicebar-bar-bg ) var( --dicebar-opacity ), transparent );
+		-webkit-backdrop-filter: blur( var( --dicebar-glass ) ) saturate( 180% );
+		backdrop-filter: blur( var( --dicebar-glass ) ) saturate( 180% );
 	}
 
-	.mbbar--preset-glass.mbbar--blur .mbbar__inner {
-		background: color-mix( in srgb, var( --mbbar-bar-bg ) var( --mbbar-opacity ), transparent );
-		-webkit-backdrop-filter: blur( var( --mbbar-glass ) ) saturate( 200% );
-		backdrop-filter: blur( var( --mbbar-glass ) ) saturate( 200% );
+	.dicebar--preset-glass.dicebar--blur .dicebar__inner {
+		background: color-mix( in srgb, var( --dicebar-bar-bg ) var( --dicebar-opacity ), transparent );
+		-webkit-backdrop-filter: blur( var( --dicebar-glass ) ) saturate( 200% );
+		backdrop-filter: blur( var( --dicebar-glass ) ) saturate( 200% );
 	}
 }
 
 /* Solid. No translucency at all, for a bar sitting over busy photography or a
  * theme that already blurs its own header. */
-.mbbar--preset-solid .mbbar__inner {
-	background: var( --mbbar-bar-bg );
+.dicebar--preset-solid .dicebar__inner {
+	background: var( --dicebar-bar-bg );
 	-webkit-backdrop-filter: none;
 	backdrop-filter: none;
 }
 
 /* Minimal. No panel: the buttons sit directly on the page. */
-.mbbar--preset-minimal .mbbar__inner {
+.dicebar--preset-minimal .dicebar__inner {
 	background: transparent;
 	box-shadow: none;
 	border: 0;
@@ -173,8 +173,8 @@
 	backdrop-filter: none;
 }
 
-.mbbar--preset-minimal .mbbar__item {
-	background: color-mix( in srgb, var( --mbbar-bar-bg ) 92%, transparent );
+.dicebar--preset-minimal .dicebar__item {
+	background: color-mix( in srgb, var( --dicebar-bar-bg ) 92%, transparent );
 	box-shadow: 0 2px 10px -6px rgba( 0, 0, 0, 0.4 );
 }
 
@@ -182,31 +182,31 @@
  * rather than a quiet utility. It has its own colour rather than reusing
  * the accent, because the accent also paints the standout item and a bar
  * whose fill matches its own highlight hides that highlight. */
-.mbbar--preset-bold .mbbar__inner {
-	background: var( --mbbar-bold-bg );
-	color: var( --mbbar-hover-text );
+.dicebar--preset-bold .dicebar__inner {
+	background: var( --dicebar-bold-bg );
+	color: var( --dicebar-hover-text );
 	border: 0;
 	-webkit-backdrop-filter: none;
 	backdrop-filter: none;
 }
 
-.mbbar--preset-bold .mbbar__icon {
-	color: var( --mbbar-hover-text );
+.dicebar--preset-bold .dicebar__icon {
+	color: var( --dicebar-hover-text );
 }
 
-.mbbar--preset-bold .mbbar__item,
-.mbbar--preset-bold .mbbar__label {
-	color: var( --mbbar-hover-text );
+.dicebar--preset-bold .dicebar__item,
+.dicebar--preset-bold .dicebar__label {
+	color: var( --dicebar-hover-text );
 }
 
-.mbbar--preset-bold .mbbar__item:hover,
-.mbbar--preset-bold .mbbar__item:focus-visible {
+.dicebar--preset-bold .dicebar__item:hover,
+.dicebar--preset-bold .dicebar__item:focus-visible {
 	background: rgba( 255, 255, 255, 0.18 );
-	color: var( --mbbar-hover-text );
+	color: var( --dicebar-hover-text );
 }
 
-.mbbar--preset-bold .mbbar__item:hover .mbbar__icon {
-	color: var( --mbbar-hover-text );
+.dicebar--preset-bold .dicebar__item:hover .dicebar__icon {
+	color: var( --dicebar-hover-text );
 }
 
 /* ---- Items ------------------------------------------------------------ */
@@ -215,18 +215,18 @@
    the dividers landed wrongly and the last item read as stranded rather than
    as the third of three. min-width:0 is what lets a flex child shrink below
    its content and is why the row never scrolls sideways. */
-.mbbar__item {
+.dicebar__item {
 	flex: 1 1 0;
 	min-width: 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: var( --mbbar-icon-gap );
-	min-height: var( --mbbar-min-height );
+	gap: var( --dicebar-icon-gap );
+	min-height: var( --dicebar-min-height );
 	padding: 4px 2px;
 	border: 0;
-	border-radius: var( --mbbar-item-radius );
+	border-radius: var( --dicebar-item-radius );
 	background: transparent;
 	color: inherit;
 	font: inherit;
@@ -235,15 +235,15 @@
 	transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-.mbbar__icon {
-	width: var( --mbbar-icon-size );
-	height: var( --mbbar-icon-size );
+.dicebar__icon {
+	width: var( --dicebar-icon-size );
+	height: var( --dicebar-icon-size );
 	flex: none;
-	color: var( --mbbar-icon );
+	color: var( --dicebar-icon );
 }
 
-.mbbar__label {
-	font-size: var( --mbbar-label-size );
+.dicebar__label {
+	font-size: var( --dicebar-label-size );
 	font-weight: 600;
 	letter-spacing: 0.1em;
 	line-height: 1;
@@ -253,106 +253,106 @@
 	white-space: nowrap;
 }
 
-.mbbar--case-upper .mbbar__label {
+.dicebar--case-upper .dicebar__label {
 	text-transform: uppercase;
 }
 
 /* Label-only items sit on a single line, so the column gap would push the
    text off centre. */
-.mbbar--show-label .mbbar__item {
+.dicebar--show-label .dicebar__item {
 	gap: 0;
 }
 
-.mbbar--show-label .mbbar__label {
-	font-size: calc( var( --mbbar-label-size ) * 1.25 );
+.dicebar--show-label .dicebar__label {
+	font-size: calc( var( --dicebar-label-size ) * 1.25 );
 	letter-spacing: 0.04em;
 }
 
-.mbbar--divider-hairline .mbbar__item + .mbbar__item {
+.dicebar--divider-hairline .dicebar__item + .dicebar__item {
 	position: relative;
 }
 
-.mbbar--divider-hairline .mbbar__item + .mbbar__item::before {
+.dicebar--divider-hairline .dicebar__item + .dicebar__item::before {
 	content: "";
 	position: absolute;
-	inset-inline-start: calc( var( --mbbar-gap ) / -2 - 0.5px );
+	inset-inline-start: calc( var( --dicebar-gap ) / -2 - 0.5px );
 	top: 50%;
 	transform: translateY( -50% );
 	width: 1px;
 	height: 26px;
-	background: var( --mbbar-divider );
+	background: var( --dicebar-divider );
 }
 
 /* ---- Item shapes ------------------------------------------------------ */
 
-.mbbar--item-filled .mbbar__item {
-	background: color-mix( in srgb, var( --mbbar-text ) 6%, transparent );
+.dicebar--item-filled .dicebar__item {
+	background: color-mix( in srgb, var( --dicebar-text ) 6%, transparent );
 }
 
-.mbbar--item-outline .mbbar__item {
-	box-shadow: inset 0 0 0 1px var( --mbbar-divider );
+.dicebar--item-outline .dicebar__item {
+	box-shadow: inset 0 0 0 1px var( --dicebar-divider );
 }
 
-.mbbar--item-soft .mbbar__item {
-	background: color-mix( in srgb, var( --mbbar-accent ) 10%, transparent );
+.dicebar--item-soft .dicebar__item {
+	background: color-mix( in srgb, var( --dicebar-accent ) 10%, transparent );
 }
 
 /* ---- States ----------------------------------------------------------- */
 
-.mbbar__item:hover,
-.mbbar__item:focus-visible {
-	background: var( --mbbar-hover-bg );
-	color: var( --mbbar-hover-text );
+.dicebar__item:hover,
+.dicebar__item:focus-visible {
+	background: var( --dicebar-hover-bg );
+	color: var( --dicebar-hover-text );
 	transform: translateY( -1px );
 }
 
-.mbbar__item:hover .mbbar__icon,
-.mbbar__item:focus-visible .mbbar__icon {
-	color: var( --mbbar-hover-text );
+.dicebar__item:hover .dicebar__icon,
+.dicebar__item:focus-visible .dicebar__icon {
+	color: var( --dicebar-hover-text );
 }
 
 /* The press-down is what makes it feel like a control rather than a picture
    of one. */
-.mbbar__item:active {
+.dicebar__item:active {
 	transform: none;
 }
 
-.mbbar__item:focus-visible {
-	outline: 2px solid var( --mbbar-accent );
+.dicebar__item:focus-visible {
+	outline: 2px solid var( --dicebar-accent );
 	outline-offset: 2px;
 }
 
 /* A network's own colour, so a row of social marks reads at a glance.
    The hover state still takes the colour back, because a pressed button
    should look pressed whatever its resting colour is. */
-.mbbar__item--brand .mbbar__icon {
-	color: var( --mbbar-brand );
+.dicebar__item--brand .dicebar__icon {
+	color: var( --dicebar-brand );
 }
 
-.mbbar__item--brand:hover .mbbar__icon,
-.mbbar__item--brand:focus-visible .mbbar__icon {
-	color: var( --mbbar-hover-text );
+.dicebar__item--brand:hover .dicebar__icon,
+.dicebar__item--brand:focus-visible .dicebar__icon {
+	color: var( --dicebar-hover-text );
 }
 
-.mbbar__item--primary {
-	color: var( --mbbar-accent );
+.dicebar__item--primary {
+	color: var( --dicebar-accent );
 }
 
-.mbbar__item--primary .mbbar__icon {
-	color: var( --mbbar-accent );
+.dicebar__item--primary .dicebar__icon {
+	color: var( --dicebar-accent );
 }
 
-.mbbar__item--primary:hover,
-.mbbar__item--primary:focus-visible {
-	background: var( --mbbar-accent );
-	color: var( --mbbar-hover-text );
+.dicebar__item--primary:hover,
+.dicebar__item--primary:focus-visible {
+	background: var( --dicebar-accent );
+	color: var( --dicebar-hover-text );
 }
 
-span.mbbar__item {
+span.dicebar__item {
 	cursor: default;
 }
 
-span.mbbar__item:hover {
+span.dicebar__item:hover {
 	background: transparent;
 	color: inherit;
 	transform: none;
@@ -366,7 +366,7 @@ span.mbbar__item:hover {
  * and every preset rule, and only takes the bar out of the viewport.
  */
 
-.mbbar--preview {
+.dicebar--preview {
 	position: static;
 	padding: 0;
 	pointer-events: none;
@@ -376,12 +376,12 @@ span.mbbar__item:hover {
 
 /* A shadow pooling against a panel edge is the tell that something is nested
    wrongly, so inline mode drops the bar's own chrome entirely. */
-.mbbar--inline {
+.dicebar--inline {
 	position: static;
 	padding: 0;
 }
 
-.mbbar--inline .mbbar__inner {
+.dicebar--inline .dicebar__inner {
 	background: transparent;
 	box-shadow: none;
 	backdrop-filter: none;
@@ -395,8 +395,8 @@ span.mbbar__item:hover {
 /* The states still apply; they just arrive at once, which is what someone who
    asked for less motion wants. */
 @media ( prefers-reduced-motion: reduce ) {
-	.mbbar,
-	.mbbar__item {
+	.dicebar,
+	.dicebar__item {
 		transition-duration: 0.01ms !important;
 	}
 }
@@ -404,7 +404,7 @@ span.mbbar__item:hover {
 /* ---- Print ------------------------------------------------------------ */
 
 @media print {
-	.mbbar--fixed {
+	.dicebar--fixed {
 		display: none !important;
 	}
 }

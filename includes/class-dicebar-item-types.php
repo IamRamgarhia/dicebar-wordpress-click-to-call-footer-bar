@@ -5,7 +5,7 @@
  * A type declares what it is called, what icon it defaults to, what fields it
  * asks for, and how it becomes a hyperlink.
  *
- * @package MobileBottomBar
+ * @package DiceBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Registry of item types, their field shapes, and their link builders.
  */
-class MBBar_Item_Types {
+class DiceBar_Item_Types {
 
 	/**
 	 * The kinds of value a type can ask for.
@@ -35,11 +35,11 @@ class MBBar_Item_Types {
 		 * Filters the registered item types.
 		 *
 		 * Each entry needs a label, an icon, an extra array, and a value array
-		 * carrying a kind from MBBar_Item_Types::VALUE_KINDS.
+		 * carrying a kind from DiceBar_Item_Types::VALUE_KINDS.
 		 *
 		 * @param array $types Registered types keyed by slug.
 		 */
-		$types = apply_filters( 'mbbar_item_types', self::built_in() );
+		$types = apply_filters( 'dicebar_item_types', self::built_in() );
 
 		if ( ! is_array( $types ) ) {
 			return self::built_in();
@@ -188,122 +188,122 @@ class MBBar_Item_Types {
 	private static function built_in() {
 		return array(
 			'call'       => array(
-				'label' => __( 'Call', 'mobile-bottom-bar' ),
+				'label' => __( 'Call', 'dicebar' ),
 				'icon'  => 'phone',
 				'value' => array(
 					'kind'  => 'phone',
-					'label' => __( 'Phone number', 'mobile-bottom-bar' ),
+					'label' => __( 'Phone number', 'dicebar' ),
 				),
 				'extra' => array(),
 			),
 			'whatsapp'   => array(
-				'label' => __( 'WhatsApp', 'mobile-bottom-bar' ),
+				'label' => __( 'WhatsApp', 'dicebar' ),
 				'icon'  => 'message',
 				'value' => array(
 					'kind'  => 'phone',
-					'label' => __( 'Number with country code', 'mobile-bottom-bar' ),
+					'label' => __( 'Number with country code', 'dicebar' ),
 				),
 				'extra' => array(
 					'text' => array(
 						'kind'  => 'text',
-						'label' => __( 'Message to prefill', 'mobile-bottom-bar' ),
+						'label' => __( 'Message to prefill', 'dicebar' ),
 					),
 				),
 			),
 			'sms'        => array(
-				'label' => __( 'Text message', 'mobile-bottom-bar' ),
+				'label' => __( 'Text message', 'dicebar' ),
 				'icon'  => 'message',
 				'value' => array(
 					'kind'  => 'phone',
-					'label' => __( 'Phone number', 'mobile-bottom-bar' ),
+					'label' => __( 'Phone number', 'dicebar' ),
 				),
 				'extra' => array(
 					'body' => array(
 						'kind'  => 'text',
-						'label' => __( 'Message to prefill', 'mobile-bottom-bar' ),
+						'label' => __( 'Message to prefill', 'dicebar' ),
 					),
 				),
 			),
 			'email'      => array(
-				'label' => __( 'Email', 'mobile-bottom-bar' ),
+				'label' => __( 'Email', 'dicebar' ),
 				'icon'  => 'mail',
 				'value' => array(
 					'kind'  => 'email',
-					'label' => __( 'Email address', 'mobile-bottom-bar' ),
+					'label' => __( 'Email address', 'dicebar' ),
 				),
 				'extra' => array(
 					'subject' => array(
 						'kind'  => 'text',
-						'label' => __( 'Subject', 'mobile-bottom-bar' ),
+						'label' => __( 'Subject', 'dicebar' ),
 					),
 				),
 			),
 			'link'       => array(
-				'label' => __( 'Link', 'mobile-bottom-bar' ),
+				'label' => __( 'Link', 'dicebar' ),
 				'icon'  => 'link',
 				'value' => array(
 					'kind'  => 'url',
-					'label' => __( 'Address', 'mobile-bottom-bar' ),
+					'label' => __( 'Address', 'dicebar' ),
 				),
 				'extra' => array(
 					'new_tab'  => array(
 						'kind'  => 'boolean',
-						'label' => __( 'Open in a new tab', 'mobile-bottom-bar' ),
+						'label' => __( 'Open in a new tab', 'dicebar' ),
 					),
 					'nofollow' => array(
 						'kind'  => 'boolean',
-						'label' => __( 'Add nofollow', 'mobile-bottom-bar' ),
+						'label' => __( 'Add nofollow', 'dicebar' ),
 					),
 				),
 			),
 			'social'     => array(
-				'label' => __( 'Social profile', 'mobile-bottom-bar' ),
+				'label' => __( 'Social profile', 'dicebar' ),
 				'icon'  => 'share',
 				'value' => array(
 					'kind'  => 'url',
-					'label' => __( 'Profile address', 'mobile-bottom-bar' ),
+					'label' => __( 'Profile address', 'dicebar' ),
 				),
 				'extra' => array(
 					'network' => array(
 						'kind'    => 'choice',
-						'label'   => __( 'Network', 'mobile-bottom-bar' ),
-						'choices' => MBBar_Icons::brand_names(),
+						'label'   => __( 'Network', 'dicebar' ),
+						'choices' => DiceBar_Icons::brand_names(),
 					),
 					'new_tab' => array(
 						'kind'  => 'boolean',
-						'label' => __( 'Open in a new tab', 'mobile-bottom-bar' ),
+						'label' => __( 'Open in a new tab', 'dicebar' ),
 					),
 				),
 			),
 			'anchor'     => array(
-				'label' => __( 'Scroll to a section', 'mobile-bottom-bar' ),
+				'label' => __( 'Scroll to a section', 'dicebar' ),
 				'icon'  => 'arrow-down',
 				'value' => array(
 					'kind'  => 'selector',
-					'label' => __( 'Section id, such as #contact', 'mobile-bottom-bar' ),
+					'label' => __( 'Section id, such as #contact', 'dicebar' ),
 				),
 				'extra' => array(),
 			),
 			'page'       => array(
-				'label' => __( 'Page', 'mobile-bottom-bar' ),
+				'label' => __( 'Page', 'dicebar' ),
 				'icon'  => 'file',
 				'value' => array(
 					'kind'  => 'post',
-					'label' => __( 'Choose a page', 'mobile-bottom-bar' ),
+					'label' => __( 'Choose a page', 'dicebar' ),
 				),
 				'extra' => array(),
 			),
 			'directions' => array(
-				'label' => __( 'Directions', 'mobile-bottom-bar' ),
+				'label' => __( 'Directions', 'dicebar' ),
 				'icon'  => 'map-pin',
 				'value' => array(
 					'kind'  => 'text',
-					'label' => __( 'Address or map link', 'mobile-bottom-bar' ),
+					'label' => __( 'Address or map link', 'dicebar' ),
 				),
 				'extra' => array(),
 			),
 			'share'      => array(
-				'label' => __( 'Share', 'mobile-bottom-bar' ),
+				'label' => __( 'Share', 'dicebar' ),
 				'icon'  => 'share',
 				'value' => array(
 					'kind'  => 'none',
@@ -312,7 +312,7 @@ class MBBar_Item_Types {
 				'extra' => array(),
 			),
 			'top'        => array(
-				'label' => __( 'Back to top', 'mobile-bottom-bar' ),
+				'label' => __( 'Back to top', 'dicebar' ),
 				'icon'  => 'arrow-up',
 				'value' => array(
 					'kind'  => 'none',
@@ -321,11 +321,11 @@ class MBBar_Item_Types {
 				'extra' => array(),
 			),
 			'custom'     => array(
-				'label' => __( 'Anything else', 'mobile-bottom-bar' ),
+				'label' => __( 'Anything else', 'dicebar' ),
 				'icon'  => 'star',
 				'value' => array(
 					'kind'  => 'url',
-					'label' => __( 'Address', 'mobile-bottom-bar' ),
+					'label' => __( 'Address', 'dicebar' ),
 				),
 				'extra' => array(),
 			),

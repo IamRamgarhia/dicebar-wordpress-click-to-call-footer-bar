@@ -1,0 +1,45 @@
+name: Bug report
+description: Something is not working as described
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Add a Call item
+        2. Save
+        3. Open the site on a phone
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: DiceBar, WordPress and PHP.
+      placeholder: DiceBar 1.6.0, WordPress 6.8, PHP 8.2
+    validations:
+      required: true
+  - type: input
+    id: theme
+    attributes:
+      label: Theme
+      placeholder: Astra 4.6
+  - type: input
+    id: caching
+    attributes:
+      label: Caching or optimising plugin
+      description: Most layout and timing reports trace back to one of these.
+      placeholder: WP Rocket, LiteSpeed, Autoptimize, or none
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: A picture of the settings screen or the bar resolves most reports in one round.

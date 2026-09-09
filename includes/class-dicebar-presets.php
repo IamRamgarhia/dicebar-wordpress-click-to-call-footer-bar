@@ -9,7 +9,7 @@
  * Every kit is editable the moment it is applied. Nothing here is a mode the
  * owner is then stuck inside.
  *
- * @package MobileBottomBar
+ * @package DiceBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Ready-made item sets, grouped by how many buttons they use.
  */
-class MBBar_Presets {
+class DiceBar_Presets {
 
 	/**
 	 * Every starter kit.
@@ -30,143 +30,143 @@ class MBBar_Presets {
 		$kits = array(
 			array(
 				'id'    => 'call-whatsapp',
-				'name'  => __( 'Call and WhatsApp', 'mobile-bottom-bar' ),
-				'note'  => __( 'The two buttons most small businesses actually need.', 'mobile-bottom-bar' ),
+				'name'  => __( 'Call and WhatsApp', 'dicebar' ),
+				'note'  => __( 'The two buttons most small businesses actually need.', 'dicebar' ),
 				'items' => array(
 					array(
 						'type'    => 'call',
-						'label'   => __( 'Call', 'mobile-bottom-bar' ),
+						'label'   => __( 'Call', 'dicebar' ),
 						'primary' => true,
 					),
 					array(
 						'type'  => 'whatsapp',
-						'label' => __( 'WhatsApp', 'mobile-bottom-bar' ),
+						'label' => __( 'WhatsApp', 'dicebar' ),
 					),
 				),
 			),
 			array(
 				'id'    => 'call-message-directions',
-				'name'  => __( 'Call, message, directions', 'mobile-bottom-bar' ),
-				'note'  => __( 'For a shop or office people visit in person.', 'mobile-bottom-bar' ),
+				'name'  => __( 'Call, message, directions', 'dicebar' ),
+				'note'  => __( 'For a shop or office people visit in person.', 'dicebar' ),
 				'items' => array(
 					array(
 						'type'    => 'call',
-						'label'   => __( 'Call', 'mobile-bottom-bar' ),
+						'label'   => __( 'Call', 'dicebar' ),
 						'primary' => true,
 					),
 					array(
 						'type'  => 'whatsapp',
-						'label' => __( 'WhatsApp', 'mobile-bottom-bar' ),
+						'label' => __( 'WhatsApp', 'dicebar' ),
 					),
 					array(
 						'type'  => 'directions',
-						'label' => __( 'Find us', 'mobile-bottom-bar' ),
+						'label' => __( 'Find us', 'dicebar' ),
 					),
 				),
 			),
 			array(
 				'id'    => 'restaurant',
-				'name'  => __( 'Restaurant', 'mobile-bottom-bar' ),
-				'note'  => __( 'Book a table, ask a question, find the door, read the menu.', 'mobile-bottom-bar' ),
+				'name'  => __( 'Restaurant', 'dicebar' ),
+				'note'  => __( 'Book a table, ask a question, find the door, read the menu.', 'dicebar' ),
 				'items' => array(
 					array(
 						'type'    => 'call',
-						'label'   => __( 'Book', 'mobile-bottom-bar' ),
+						'label'   => __( 'Book', 'dicebar' ),
 						'primary' => true,
 					),
 					array(
 						'type'  => 'whatsapp',
-						'label' => __( 'WhatsApp', 'mobile-bottom-bar' ),
+						'label' => __( 'WhatsApp', 'dicebar' ),
 					),
 					array(
 						'type'  => 'directions',
-						'label' => __( 'Find us', 'mobile-bottom-bar' ),
+						'label' => __( 'Find us', 'dicebar' ),
 					),
 					array(
 						'type'  => 'link',
-						'label' => __( 'Menu', 'mobile-bottom-bar' ),
+						'label' => __( 'Menu', 'dicebar' ),
 						'icon'  => 'file',
 					),
 				),
 			),
 			array(
 				'id'    => 'clinic',
-				'name'  => __( 'Clinic or salon', 'mobile-bottom-bar' ),
-				'note'  => __( 'Booking is the standout button; everything else supports it.', 'mobile-bottom-bar' ),
+				'name'  => __( 'Clinic or salon', 'dicebar' ),
+				'note'  => __( 'Booking is the standout button; everything else supports it.', 'dicebar' ),
 				'items' => array(
 					array(
 						'type'    => 'link',
-						'label'   => __( 'Book', 'mobile-bottom-bar' ),
+						'label'   => __( 'Book', 'dicebar' ),
 						'icon'    => 'calendar',
 						'primary' => true,
 					),
 					array(
 						'type'  => 'call',
-						'label' => __( 'Call', 'mobile-bottom-bar' ),
+						'label' => __( 'Call', 'dicebar' ),
 					),
 					array(
 						'type'  => 'whatsapp',
-						'label' => __( 'WhatsApp', 'mobile-bottom-bar' ),
+						'label' => __( 'WhatsApp', 'dicebar' ),
 					),
 					array(
 						'type'  => 'directions',
-						'label' => __( 'Find us', 'mobile-bottom-bar' ),
+						'label' => __( 'Find us', 'dicebar' ),
 					),
 				),
 			),
 			array(
 				'id'    => 'trade',
-				'name'  => __( 'Trade or service call-out', 'mobile-bottom-bar' ),
-				'note'  => __( 'Someone with a leak is not filling in a contact form.', 'mobile-bottom-bar' ),
+				'name'  => __( 'Trade or service call-out', 'dicebar' ),
+				'note'  => __( 'Someone with a leak is not filling in a contact form.', 'dicebar' ),
 				'items' => array(
 					array(
 						'type'    => 'call',
-						'label'   => __( 'Call now', 'mobile-bottom-bar' ),
+						'label'   => __( 'Call now', 'dicebar' ),
 						'primary' => true,
 					),
 					array(
 						'type'  => 'whatsapp',
-						'label' => __( 'WhatsApp', 'mobile-bottom-bar' ),
+						'label' => __( 'WhatsApp', 'dicebar' ),
 					),
 					array(
 						'type'  => 'link',
-						'label' => __( 'Quote', 'mobile-bottom-bar' ),
+						'label' => __( 'Quote', 'dicebar' ),
 						'icon'  => 'file',
 					),
 				),
 			),
 			array(
 				'id'    => 'shop',
-				'name'  => __( 'Online shop', 'mobile-bottom-bar' ),
-				'note'  => __( 'The four places a shopper moves between on a phone.', 'mobile-bottom-bar' ),
+				'name'  => __( 'Online shop', 'dicebar' ),
+				'note'  => __( 'The four places a shopper moves between on a phone.', 'dicebar' ),
 				'items' => array(
 					array(
 						'type'  => 'link',
-						'label' => __( 'Shop', 'mobile-bottom-bar' ),
+						'label' => __( 'Shop', 'dicebar' ),
 						'icon'  => 'home',
 					),
 					array(
 						'type'  => 'link',
-						'label' => __( 'Search', 'mobile-bottom-bar' ),
+						'label' => __( 'Search', 'dicebar' ),
 						'icon'  => 'search',
 					),
 					array(
 						'type'    => 'link',
-						'label'   => __( 'Cart', 'mobile-bottom-bar' ),
+						'label'   => __( 'Cart', 'dicebar' ),
 						'icon'    => 'cart',
 						'primary' => true,
 					),
 					array(
 						'type'  => 'link',
-						'label' => __( 'Account', 'mobile-bottom-bar' ),
+						'label' => __( 'Account', 'dicebar' ),
 						'icon'  => 'user',
 					),
 				),
 			),
 			array(
 				'id'    => 'social',
-				'name'  => __( 'Social profiles', 'mobile-bottom-bar' ),
-				'note'  => __( 'Icon-only suits this one. Turn labels off on the Design tab.', 'mobile-bottom-bar' ),
+				'name'  => __( 'Social profiles', 'dicebar' ),
+				'note'  => __( 'Icon-only suits this one. Turn labels off on the Design tab.', 'dicebar' ),
 				'items' => array(
 					array(
 						'type'  => 'social',
@@ -200,38 +200,38 @@ class MBBar_Presets {
 			),
 			array(
 				'id'    => 'blog',
-				'name'  => __( 'Blog or magazine', 'mobile-bottom-bar' ),
-				'note'  => __( 'Sharing and getting back up, which is all a reader wants.', 'mobile-bottom-bar' ),
+				'name'  => __( 'Blog or magazine', 'dicebar' ),
+				'note'  => __( 'Sharing and getting back up, which is all a reader wants.', 'dicebar' ),
 				'items' => array(
 					array(
 						'type'  => 'share',
-						'label' => __( 'Share', 'mobile-bottom-bar' ),
+						'label' => __( 'Share', 'dicebar' ),
 					),
 					array(
 						'type'    => 'link',
-						'label'   => __( 'Subscribe', 'mobile-bottom-bar' ),
+						'label'   => __( 'Subscribe', 'dicebar' ),
 						'icon'    => 'mail',
 						'primary' => true,
 					),
 					array(
 						'type'  => 'top',
-						'label' => __( 'Top', 'mobile-bottom-bar' ),
+						'label' => __( 'Top', 'dicebar' ),
 					),
 				),
 			),
 			array(
 				'id'    => 'portfolio',
-				'name'  => __( 'Portfolio', 'mobile-bottom-bar' ),
-				'note'  => __( 'One way to reach you, one way to see the work.', 'mobile-bottom-bar' ),
+				'name'  => __( 'Portfolio', 'dicebar' ),
+				'note'  => __( 'One way to reach you, one way to see the work.', 'dicebar' ),
 				'items' => array(
 					array(
 						'type'    => 'email',
-						'label'   => __( 'Email', 'mobile-bottom-bar' ),
+						'label'   => __( 'Email', 'dicebar' ),
 						'primary' => true,
 					),
 					array(
 						'type'  => 'link',
-						'label' => __( 'Work', 'mobile-bottom-bar' ),
+						'label' => __( 'Work', 'dicebar' ),
 						'icon'  => 'star',
 					),
 					array(
@@ -251,7 +251,7 @@ class MBBar_Presets {
 		 *
 		 * @param array $kits Kits, each with an id, name, note and items.
 		 */
-		return apply_filters( 'mbbar_presets', $kits );
+		return apply_filters( 'dicebar_presets', $kits );
 	}
 
 	/**
@@ -271,7 +271,7 @@ class MBBar_Presets {
 				continue;
 			}
 
-			$items = MBBar_Sanitize::items( $kit['items'] );
+			$items = DiceBar_Sanitize::items( $kit['items'] );
 
 			if ( ! $items ) {
 				continue;

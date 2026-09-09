@@ -2,7 +2,7 @@
 /**
  * Conditional asset loading.
  *
- * @package MobileBottomBar
+ * @package DiceBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Enqueues the front-end stylesheet and script, and only when they are needed.
  */
-class MBBar_Assets {
+class DiceBar_Assets {
 
 	/**
 	 * Whether an inline copy of the bar has been rendered this request.
@@ -47,30 +47,30 @@ class MBBar_Assets {
 	 * @return void
 	 */
 	public static function enqueue() {
-		if ( ! self::$inline_used && ! MBBar_Render::will_render() ) {
+		if ( ! self::$inline_used && ! DiceBar_Render::will_render() ) {
 			return;
 		}
 
-		if ( wp_style_is( 'mbbar', 'enqueued' ) ) {
+		if ( wp_style_is( 'dicebar', 'enqueued' ) ) {
 			return;
 		}
 
 		wp_enqueue_style(
-			'mbbar',
-			MBBAR_URL . 'assets/css/mbbar.css',
+			'dicebar',
+			DICEBAR_URL . 'assets/css/dicebar.css',
 			array(),
-			MBBAR_VERSION
+			DICEBAR_VERSION
 		);
 
 		// The settings-driven CSS rides along with the stylesheet rather
 		// than being printed as its own style element.
-		wp_add_inline_style( 'mbbar', MBBar_Styles::css() );
+		wp_add_inline_style( 'dicebar', DiceBar_Styles::css() );
 
 		wp_enqueue_script(
-			'mbbar',
-			MBBAR_URL . 'assets/js/mbbar.js',
+			'dicebar',
+			DICEBAR_URL . 'assets/js/dicebar.js',
 			array(),
-			MBBAR_VERSION,
+			DICEBAR_VERSION,
 			true
 		);
 	}
@@ -88,7 +88,7 @@ class MBBar_Assets {
 	 * @return string
 	 */
 	public static function protect_script( $tag, $handle ) {
-		if ( 'mbbar' !== $handle ) {
+		if ( 'dicebar' !== $handle ) {
 			return $tag;
 		}
 

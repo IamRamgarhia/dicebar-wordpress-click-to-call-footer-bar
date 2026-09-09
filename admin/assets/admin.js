@@ -1,5 +1,5 @@
 /**
- * Mobile Bottom Bar settings screen.
+ * DiceBar settings screen.
  *
  * Three jobs: switch tabs without losing unsaved changes, build item rows from
  * the type definitions, and reorder by dragging.
@@ -12,18 +12,18 @@
 ( function () {
 	'use strict';
 
-	var config = window.mbbarAdmin;
+	var config = window.dicebarAdmin;
 
 	if ( ! config ) {
 		return;
 	}
 
 	var strings = config.strings;
-	var list = document.getElementById( 'mbbar-items' );
-	var addButton = document.getElementById( 'mbbar-add-item' );
-	var hint = document.getElementById( 'mbbar-add-hint' );
-	var empty = document.querySelector( '.mbbarui__empty' );
-	var activeTab = document.getElementById( 'mbbar-active-tab' );
+	var list = document.getElementById( 'dicebar-items' );
+	var addButton = document.getElementById( 'dicebar-add-item' );
+	var hint = document.getElementById( 'dicebar-add-hint' );
+	var empty = document.querySelector( '.dicebarui__empty' );
+	var activeTab = document.getElementById( 'dicebar-active-tab' );
 
 	/**
 	 * One item type by slug.
@@ -78,7 +78,7 @@
 	 * @return {Element} The field.
 	 */
 	function field( label, control, role ) {
-		return make( 'label', { class: 'mbbarui__field', 'data-role': role || null }, [
+		return make( 'label', { class: 'dicebarui__field', 'data-role': role || null }, [
 			make( 'span', { text: label } ),
 			control,
 		] );
@@ -134,7 +134,7 @@
 	 * @return {Element} The picker.
 	 */
 	function iconPicker( name, current ) {
-		var grid = make( 'div', { class: 'mbbarui__iconpicker', role: 'radiogroup' } );
+		var grid = make( 'div', { class: 'dicebarui__iconpicker', role: 'radiogroup' } );
 
 		config.icons.forEach( function ( icon ) {
 			var input = make( 'input', { type: 'radio', name: name, value: icon } );
@@ -146,14 +146,14 @@
 			var svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
 			var use = document.createElementNS( 'http://www.w3.org/2000/svg', 'use' );
 
-			svg.setAttribute( 'class', 'mbbarui__iconglyph' );
+			svg.setAttribute( 'class', 'dicebarui__iconglyph' );
 			svg.setAttribute( 'viewBox', '0 0 24 24' );
 			svg.setAttribute( 'aria-hidden', 'true' );
-			use.setAttribute( 'href', '#mbbar-i-' + icon );
+			use.setAttribute( 'href', '#dicebar-i-' + icon );
 			svg.appendChild( use );
 
 			grid.appendChild(
-				make( 'label', { class: 'mbbarui__iconopt', title: icon }, [
+				make( 'label', { class: 'dicebarui__iconopt', title: icon }, [
 					input,
 					svg,
 					make( 'span', { class: 'screen-reader-text', text: icon } ),
@@ -203,29 +203,29 @@
 	 */
 	function buildRow( index ) {
 		var type = config.types[ 0 ];
-		var base = 'mbbar[items][' + index + ']';
+		var base = 'dicebar[items][' + index + ']';
 
-		var head = make( 'div', { class: 'mbbarui__item-head' }, [
-			make( 'span', { class: 'mbbarui__grip', 'aria-hidden': 'true' } ),
-			make( 'strong', { class: 'mbbarui__item-title', text: strings.untitled } ),
-			make( 'code', { class: 'mbbarui__item-id', text: strings.newId } ),
+		var head = make( 'div', { class: 'dicebarui__item-head' }, [
+			make( 'span', { class: 'dicebarui__grip', 'aria-hidden': 'true' } ),
+			make( 'strong', { class: 'dicebarui__item-title', text: strings.untitled } ),
+			make( 'code', { class: 'dicebarui__item-id', text: strings.newId } ),
 			make( 'button', {
 				type: 'button',
-				class: 'mbbarui__remove',
+				class: 'dicebarui__remove',
 				text: strings.remove,
 			} ),
 		] );
 
-		var fields = make( 'div', { class: 'mbbarui__fields' }, [
+		var fields = make( 'div', { class: 'dicebarui__fields' }, [
 			field( strings.type, select( base + '[type]', typeChoices(), type.slug ) ),
 			field( strings.label, make( 'input', { type: 'text', name: base + '[label]', placeholder: type.label } ) ),
 			field( type.valueLabel, make( 'input', { type: 'text', name: base + '[value]' } ), 'value' ),
-			make( 'div', { class: 'mbbarui__field mbbarui__field--icons', 'data-role': 'iconfield' }, [
+			make( 'div', { class: 'dicebarui__field dicebarui__field--icons', 'data-role': 'iconfield' }, [
 				make( 'span', { text: strings.icon } ),
 				iconPicker( base + '[icon]', type.icon ),
 			] ),
-			make( 'div', { class: 'mbbarui__extra', 'data-role': 'extra' } ),
-			make( 'label', { class: 'mbbarui__field mbbarui__field--check' }, [
+			make( 'div', { class: 'dicebarui__extra', 'data-role': 'extra' } ),
+			make( 'label', { class: 'dicebarui__field dicebarui__field--check' }, [
 				make( 'input', { type: 'checkbox', name: base + '[primary]', value: '1' } ),
 				make( 'span', { text: strings.primary } ),
 			] ),
@@ -233,7 +233,7 @@
 			field( strings.users, select( base + '[show][users]', config.choices.users, 'inherit' ) ),
 		] );
 
-		var row = make( 'div', { class: 'mbbarui__item', draggable: 'true' }, [
+		var row = make( 'div', { class: 'dicebarui__item', draggable: 'true' }, [
 			head,
 			make( 'input', { type: 'hidden', name: base + '[id]', value: '' } ),
 			fields,
@@ -266,11 +266,11 @@
 		}
 
 		type.extra.forEach( function ( extra ) {
-			var name = 'mbbar[items][' + index + '][extra][' + extra.key + ']';
+			var name = 'dicebar[items][' + index + '][extra][' + extra.key + ']';
 
 			if ( extra.kind === 'boolean' ) {
 				holder.appendChild(
-					make( 'label', { class: 'mbbarui__field mbbarui__field--check' }, [
+					make( 'label', { class: 'dicebarui__field dicebarui__field--check' }, [
 						make( 'input', { type: 'checkbox', name: name, value: '1' } ),
 						make( 'span', { text: extra.label } ),
 					] )
@@ -289,20 +289,20 @@
 	 * removal actually stick.
 	 */
 	function reindex() {
-		var rows = list.querySelectorAll( '.mbbarui__item' );
+		var rows = list.querySelectorAll( '.dicebarui__item' );
 
 		Array.prototype.forEach.call( rows, function ( row, index ) {
 			row.setAttribute( 'data-index', index );
 
-			Array.prototype.forEach.call( row.querySelectorAll( '[name^="mbbar[items]"]' ), function ( input ) {
-				input.name = input.name.replace( /mbbar\[items\]\[\d+\]/, 'mbbar[items][' + index + ']' );
+			Array.prototype.forEach.call( row.querySelectorAll( '[name^="dicebar[items]"]' ), function ( input ) {
+				input.name = input.name.replace( /dicebar\[items\]\[\d+\]/, 'dicebar[items][' + index + ']' );
 			} );
 		} );
 
 		updateState();
 
-		if ( typeof window.mbbarRefreshPreview === 'function' ) {
-			window.mbbarRefreshPreview();
+		if ( typeof window.dicebarRefreshPreview === 'function' ) {
+			window.dicebarRefreshPreview();
 		}
 	}
 
@@ -310,7 +310,7 @@
 	 * Reflect the item count in the button, the hint and the empty state.
 	 */
 	function updateState() {
-		var count = list.querySelectorAll( '.mbbarui__item' ).length;
+		var count = list.querySelectorAll( '.dicebarui__item' ).length;
 		var full = count >= config.maxItems;
 
 		addButton.disabled = full;
@@ -327,7 +327,7 @@
 	 * @param {Element} row The item row.
 	 */
 	function refreshTitle( row ) {
-		var title = row.querySelector( '.mbbarui__item-title' );
+		var title = row.querySelector( '.dicebarui__item-title' );
 		var label = row.querySelector( '[name$="[label]"]' );
 		var type = row.querySelector( '[name$="[type]"]' );
 
@@ -348,7 +348,7 @@
 	/* ---- Adding, removing, editing ------------------------------------- */
 
 	addButton.addEventListener( 'click', function () {
-		var count = list.querySelectorAll( '.mbbarui__item' ).length;
+		var count = list.querySelectorAll( '.dicebarui__item' ).length;
 
 		if ( count >= config.maxItems ) {
 			return;
@@ -367,7 +367,7 @@
 	} );
 
 	list.addEventListener( 'click', function ( event ) {
-		if ( ! event.target.classList.contains( 'mbbarui__remove' ) ) {
+		if ( ! event.target.classList.contains( 'dicebarui__remove' ) ) {
 			return;
 		}
 
@@ -375,12 +375,12 @@
 			return;
 		}
 
-		event.target.closest( '.mbbarui__item' ).remove();
+		event.target.closest( '.dicebarui__item' ).remove();
 		reindex();
 	} );
 
 	list.addEventListener( 'change', function ( event ) {
-		var row = event.target.closest( '.mbbarui__item' );
+		var row = event.target.closest( '.dicebarui__item' );
 
 		if ( ! row ) {
 			return;
@@ -419,7 +419,7 @@
 
 	list.addEventListener( 'input', function ( event ) {
 		if ( event.target.name && event.target.name.indexOf( '[label]' ) !== -1 ) {
-			refreshTitle( event.target.closest( '.mbbarui__item' ) );
+			refreshTitle( event.target.closest( '.dicebarui__item' ) );
 		}
 	} );
 
@@ -458,7 +458,7 @@
 		} );
 	}
 
-	Array.prototype.forEach.call( list.querySelectorAll( '.mbbarui__item' ), function ( row ) {
+	Array.prototype.forEach.call( list.querySelectorAll( '.dicebarui__item' ), function ( row ) {
 		makeDraggable( row );
 
 		var typeControl = row.querySelector( '[name$="[type]"]' );
@@ -556,7 +556,7 @@
 		}
 	}
 
-	Array.prototype.forEach.call( document.querySelectorAll( '.mbbarui__kit' ), function ( button ) {
+	Array.prototype.forEach.call( document.querySelectorAll( '.dicebarui__kit' ), function ( button ) {
 		button.addEventListener( 'click', function () {
 			var id = button.getAttribute( 'data-kit' );
 			var kit = null;
@@ -573,7 +573,7 @@
 			}
 
 			// Replacing what is already there is destructive, so it asks.
-			if ( list.querySelector( '.mbbarui__item' ) && ! window.confirm( strings.replace ) ) {
+			if ( list.querySelector( '.dicebarui__item' ) && ! window.confirm( strings.replace ) ) {
 				return;
 			}
 
@@ -584,7 +584,7 @@
 	/* ---- Advanced options ------------------------------------------------ */
 
 	Array.prototype.forEach.call( document.querySelectorAll( '[data-advanced]' ), function ( group ) {
-		var rows = group.querySelectorAll( '.mbbarui__row' );
+		var rows = group.querySelectorAll( '.dicebarui__row' );
 
 		if ( ! rows.length ) {
 			return;
@@ -593,7 +593,7 @@
 		var toggle = document.createElement( 'button' );
 
 		toggle.type = 'button';
-		toggle.className = 'mbbarui__advanced-toggle';
+		toggle.className = 'dicebarui__advanced-toggle';
 		toggle.setAttribute( 'aria-expanded', 'false' );
 		toggle.textContent = strings.more;
 
@@ -613,8 +613,8 @@
 
 	// Switching in the page rather than following the link, so a change made on
 	// one tab is still there when the form is submitted from another.
-	var tabs = document.querySelectorAll( '.mbbarui__tab' );
-	var panels = document.querySelectorAll( '.mbbarui__panel' );
+	var tabs = document.querySelectorAll( '.dicebarui__tab' );
+	var panels = document.querySelectorAll( '.dicebarui__panel' );
 
 	function showTab( name ) {
 		Array.prototype.forEach.call( tabs, function ( tab ) {
@@ -625,7 +625,7 @@
 		} );
 
 		Array.prototype.forEach.call( panels, function ( panel ) {
-			panel.hidden = panel.id !== 'mbbar-panel-' + name;
+			panel.hidden = panel.id !== 'dicebar-panel-' + name;
 		} );
 
 		if ( activeTab ) {
@@ -651,12 +651,12 @@
 
 	/* ---- Live preview ---------------------------------------------------- */
 
-	var preview = document.getElementById( 'mbbar-preview' );
-	var previewInner = document.getElementById( 'mbbar-preview-inner' );
-	var previewScreen = document.getElementById( 'mbbar-preview-screen' );
-	var previewNote = document.getElementById( 'mbbar-preview-note' );
+	var preview = document.getElementById( 'dicebar-preview' );
+	var previewInner = document.getElementById( 'dicebar-preview-inner' );
+	var previewScreen = document.getElementById( 'dicebar-preview-screen' );
+	var previewNote = document.getElementById( 'dicebar-preview-note' );
 	var previewStage = 'photo';
-	var form = document.querySelector( '.mbbarui__form' );
+	var form = document.querySelector( '.dicebarui__form' );
 
 	/**
 	 * The value of a named control in the form.
@@ -704,34 +704,34 @@
 			return;
 		}
 
-		var mode = chosen( 'mbbar[style][label][mode]', 'icon_label' );
-		var look = chosen( 'mbbar[style][preset]', 'glass' );
+		var mode = chosen( 'dicebar[style][label][mode]', 'icon_label' );
+		var look = chosen( 'dicebar[style][preset]', 'glass' );
 
 		preview.className = [
-			'mbbar',
-			'mbbar--preview',
-			previewStage === 'dark' ? 'mbbar--scheme-dark' : 'mbbar--scheme-light',
-			'mbbar--preset-' + look,
-			'mbbar--item-' + value( 'mbbar[style][item][shape]', 'plain' ),
-			'mbbar--shadow-' + value( 'mbbar[style][shadow]', 'soft' ),
-			'mbbar--show-' + mode.replace( '_', '-' ),
-			'mbbar--divider-' + ( value( 'mbbar[style][divider]', '' ) ? 'hairline' : 'none' ),
-			'mbbar--case-upper',
-			value( 'mbbar[style][blur]', '' ) ? 'mbbar--blur' : 'mbbar--no-blur',
+			'dicebar',
+			'dicebar--preview',
+			previewStage === 'dark' ? 'dicebar--scheme-dark' : 'dicebar--scheme-light',
+			'dicebar--preset-' + look,
+			'dicebar--item-' + value( 'dicebar[style][item][shape]', 'plain' ),
+			'dicebar--shadow-' + value( 'dicebar[style][shadow]', 'soft' ),
+			'dicebar--show-' + mode.replace( '_', '-' ),
+			'dicebar--divider-' + ( value( 'dicebar[style][divider]', '' ) ? 'hairline' : 'none' ),
+			'dicebar--case-upper',
+			value( 'dicebar[style][blur]', '' ) ? 'dicebar--blur' : 'dicebar--no-blur',
 		].join( ' ' );
 
 		var palette = previewStage === 'dark' ? 'dark' : 'light';
 
 		var tokens = {
-			'--mbbar-bar-bg': value( 'mbbar[style][' + palette + '][bar_bg]', previewStage === 'dark' ? '#1c1c1e' : '#ffffff' ),
-			'--mbbar-text': value( 'mbbar[style][' + palette + '][text]', '#1c1c1e' ),
-			'--mbbar-icon': value( 'mbbar[style][' + palette + '][icon]', '#1c1c1e' ),
-			'--mbbar-accent': value( 'mbbar[style][' + palette + '][accent]', '#0a84ff' ),
-			'--mbbar-hover-bg': value( 'mbbar[style][' + palette + '][hover_bg]', '#0a84ff' ),
-			'--mbbar-hover-text': value( 'mbbar[style][' + palette + '][hover_text]', '#ffffff' ),
-			'--mbbar-opacity': value( 'mbbar[style][opacity]', '78' ) + '%',
-			'--mbbar-glass': value( 'mbbar[style][glass]', '22' ) + 'px',
-			'--mbbar-radius': value( 'mbbar[style][radius]', '18' ) + 'px',
+			'--dicebar-bar-bg': value( 'dicebar[style][' + palette + '][bar_bg]', previewStage === 'dark' ? '#1c1c1e' : '#ffffff' ),
+			'--dicebar-text': value( 'dicebar[style][' + palette + '][text]', '#1c1c1e' ),
+			'--dicebar-icon': value( 'dicebar[style][' + palette + '][icon]', '#1c1c1e' ),
+			'--dicebar-accent': value( 'dicebar[style][' + palette + '][accent]', '#0a84ff' ),
+			'--dicebar-hover-bg': value( 'dicebar[style][' + palette + '][hover_bg]', '#0a84ff' ),
+			'--dicebar-hover-text': value( 'dicebar[style][' + palette + '][hover_text]', '#ffffff' ),
+			'--dicebar-opacity': value( 'dicebar[style][opacity]', '78' ) + '%',
+			'--dicebar-glass': value( 'dicebar[style][glass]', '22' ) + 'px',
+			'--dicebar-radius': value( 'dicebar[style][radius]', '18' ) + 'px',
 		};
 
 		Object.keys( tokens ).forEach( function ( token ) {
@@ -742,12 +742,12 @@
 			previewInner.removeChild( previewInner.firstChild );
 		}
 
-		var rows = list.querySelectorAll( '.mbbarui__item' );
+		var rows = list.querySelectorAll( '.dicebarui__item' );
 
 		if ( ! rows.length ) {
 			var empty = document.createElement( 'p' );
 
-			empty.className = 'mbbarui__preview-empty';
+			empty.className = 'dicebarui__preview-empty';
 			empty.textContent = strings.previewEmpty;
 			previewInner.appendChild( empty );
 			previewNote.textContent = '';
@@ -774,26 +774,26 @@
 
 			var button = document.createElement( 'span' );
 
-			var brand = value( 'mbbar[style][brand_icons]', '' ) && config.brandColors[ icon ]
+			var brand = value( 'dicebar[style][brand_icons]', '' ) && config.brandColors[ icon ]
 				? config.brandColors[ icon ]
 				: '';
 
-			button.className = 'mbbar__item'
-				+ ( primary && primary.checked ? ' mbbar__item--primary' : '' )
-				+ ( brand ? ' mbbar__item--brand' : '' );
+			button.className = 'dicebar__item'
+				+ ( primary && primary.checked ? ' dicebar__item--primary' : '' )
+				+ ( brand ? ' dicebar__item--brand' : '' );
 
 			if ( brand ) {
-				button.style.setProperty( '--mbbar-brand', brand );
+				button.style.setProperty( '--dicebar-brand', brand );
 			}
 
 			if ( mode !== 'label' && icon ) {
 				var svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
 				var use = document.createElementNS( 'http://www.w3.org/2000/svg', 'use' );
 
-				svg.setAttribute( 'class', 'mbbar__icon' );
+				svg.setAttribute( 'class', 'dicebar__icon' );
 				svg.setAttribute( 'viewBox', '0 0 24 24' );
 				svg.setAttribute( 'aria-hidden', 'true' );
-				use.setAttribute( 'href', '#mbbar-i-' + icon );
+				use.setAttribute( 'href', '#dicebar-i-' + icon );
 				svg.appendChild( use );
 				button.appendChild( svg );
 			}
@@ -801,7 +801,7 @@
 			if ( mode !== 'icon' ) {
 				var text = document.createElement( 'span' );
 
-				text.className = 'mbbar__label';
+				text.className = 'dicebar__label';
 				text.textContent = label;
 				button.appendChild( text );
 			}
@@ -822,7 +822,7 @@
 		form.addEventListener( 'input', refreshPreview );
 		form.addEventListener( 'change', refreshPreview );
 
-		Array.prototype.forEach.call( document.querySelectorAll( '.mbbarui__preview-stages button' ), function ( button ) {
+		Array.prototype.forEach.call( document.querySelectorAll( '.dicebarui__preview-stages button' ), function ( button ) {
 			button.addEventListener( 'click', function () {
 				Array.prototype.forEach.call( button.parentNode.children, function ( other ) {
 					other.classList.toggle( 'is-current', other === button );
@@ -834,7 +834,7 @@
 			} );
 		} );
 
-		Array.prototype.forEach.call( document.querySelectorAll( '.mbbarui__preview-widths button' ), function ( button ) {
+		Array.prototype.forEach.call( document.querySelectorAll( '.dicebarui__preview-widths button' ), function ( button ) {
 			button.addEventListener( 'click', function () {
 				Array.prototype.forEach.call( button.parentNode.children, function ( other ) {
 					other.classList.toggle( 'is-current', other === button );
@@ -845,7 +845,7 @@
 			} );
 		} );
 
-		window.mbbarRefreshPreview = refreshPreview;
+		window.dicebarRefreshPreview = refreshPreview;
 		refreshPreview();
 	}
 

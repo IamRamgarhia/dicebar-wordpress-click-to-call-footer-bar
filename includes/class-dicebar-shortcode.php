@@ -1,6 +1,6 @@
 <?php
 /**
- * The [mobile_bottom_bar] shortcode, and the Elementor widget that wraps it.
+ * The [dicebar] shortcode, and the Elementor widget that wraps it.
  *
  * The shortcode is the universal answer to "does it work with my page
  * builder". Divi, Beaver Builder, Bricks and Oxygen all render shortcodes, so
@@ -8,7 +8,7 @@
  * its panel is where its users look first, and its own load hook makes the
  * integration genuinely cheap.
  *
- * @package MobileBottomBar
+ * @package DiceBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Renders the bar inline, wherever the owner puts it.
  */
-class MBBar_Shortcode {
+class DiceBar_Shortcode {
 
 	/**
 	 * Register the shortcode and the Elementor hook.
@@ -26,7 +26,7 @@ class MBBar_Shortcode {
 	 * @return void
 	 */
 	public static function register() {
-		add_shortcode( 'mobile-bottom-bar', array( __CLASS__, 'render' ) );
+		add_shortcode( 'dicebar', array( __CLASS__, 'render' ) );
 
 		// Nothing Elementor-related is loaded, required or executed unless
 		// Elementor has actually booted, so an install without it pays
@@ -48,10 +48,10 @@ class MBBar_Shortcode {
 				'items' => '',
 			),
 			$atts,
-			'mobile-bottom-bar'
+			'dicebar'
 		);
 
-		$settings = MBBar_Settings::get();
+		$settings = DiceBar_Settings::get();
 
 		if ( empty( $settings['items'] ) ) {
 			return '';
@@ -69,13 +69,13 @@ class MBBar_Shortcode {
 			}
 		}
 
-		$markup = MBBar_Render::bar( $settings, 'inline', $only );
+		$markup = DiceBar_Render::bar( $settings, 'inline', $only );
 
 		if ( '' === $markup ) {
 			return '';
 		}
 
-		MBBar_Assets::mark_inline_used();
+		DiceBar_Assets::mark_inline_used();
 
 		return $markup;
 	}
@@ -87,8 +87,8 @@ class MBBar_Shortcode {
 	 * @return void
 	 */
 	public static function register_elementor_widget( $widgets ) {
-		require_once MBBAR_PATH . 'includes/class-mbbar-elementor-widget.php';
+		require_once DICEBAR_PATH . 'includes/class-dicebar-elementor-widget.php';
 
-		$widgets->register( new MBBar_Elementor_Widget() );
+		$widgets->register( new DiceBar_Elementor_Widget() );
 	}
 }

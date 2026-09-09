@@ -1,4 +1,4 @@
-=== Mobile Bottom Bar — Click to Call & Chat Buttons ===
+=== DiceBar — Mobile Bottom Bar, Click to Call & Chat ===
 Contributors: dicecodes
 Tags: click to call, call now button, floating button, mobile menu, sticky bar
 Requires at least: 6.0
@@ -12,7 +12,7 @@ A sticky bottom bar for phones with click to call, chat, directions and social b
 
 == Description ==
 
-Mobile Bottom Bar puts a fixed bar across the bottom of the screen on phones and
+DiceBar puts a fixed bar across the bottom of the screen on phones and
 tablets, holding the buttons your visitors actually need: a click to call
 button, a WhatsApp chat button, directions, email, or a link to anywhere on your
 site.
@@ -66,9 +66,9 @@ The bar needs no placement work: it appears by itself on every page you allow
 it on, in any theme.
 
 To also drop the same row of buttons inside your content, use the shortcode
-`[mobile_bottom_bar]`. It works in the block editor, in a widget, in a theme
+`[dicebar]`. It works in the block editor, in a widget, in a theme
 template, and in Elementor, Divi, Beaver Builder, Bricks and Oxygen. Elementor
-users also get a Mobile Bottom Bar widget in the panel.
+users also get a DiceBar widget in the panel.
 
 = Choose exactly where it appears =
 
@@ -120,12 +120,12 @@ something, change the stacking order on the Behaviour tab.
 
 Yes, in two ways. The bar itself appears on Elementor pages like any other,
 with no setup. To place the same row of buttons inside a page, Elementor users
-get a Mobile Bottom Bar widget in the panel, and everyone can use the
-`[mobile_bottom_bar]` shortcode.
+get a DiceBar widget in the panel, and everyone can use the
+`[dicebar]` shortcode.
 
 = Does it work with Divi, Beaver Builder, Bricks or Oxygen? =
 
-Yes. All of them render shortcodes, so `[mobile_bottom_bar]` works in each.
+Yes. All of them render shortcodes, so `[dicebar]` works in each.
 
 = Does it work with a caching plugin? =
 
@@ -169,7 +169,7 @@ entirely your own code's business.
 == Changelog ==
 
 = 1.6.0 =
-* Renamed to Mobile Bottom Bar.
+* Renamed to DiceBar.
 * Social icons can now use each network's own colour.
 * Both light and dark colour sets have their own controls.
 * Bold has its own fill colour instead of borrowing the standout item's.
@@ -204,4 +204,4 @@ entirely your own code's business.
 == Upgrade Notice ==
 
 = 1.6.0 =
-Renamed to Mobile Bottom Bar, with brand-coloured social icons and separate dark colours.
+Renamed to DiceBar, with brand-coloured social icons and separate dark colours.

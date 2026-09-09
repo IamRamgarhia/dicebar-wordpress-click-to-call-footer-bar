@@ -6,7 +6,7 @@
  * the viewport. Inline mode prints wherever the owner puts it, with the fixed
  * positioning, blur, shadow and body offset all removed.
  *
- * @package MobileBottomBar
+ * @package DiceBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Builds the bar's markup and decides whether it should exist at all.
  */
-class MBBar_Render {
+class DiceBar_Render {
 
 	/**
 	 * Whether the fixed bar should render on this request.
@@ -38,7 +38,7 @@ class MBBar_Render {
 			return false;
 		}
 
-		$settings = MBBar_Settings::get();
+		$settings = DiceBar_Settings::get();
 
 		if ( empty( $settings['enabled'] ) || empty( $settings['items'] ) ) {
 			return false;
@@ -54,7 +54,7 @@ class MBBar_Render {
 		 * @param bool  $render   Whether to render.
 		 * @param array $settings The configuration.
 		 */
-		return (bool) apply_filters( 'mbbar_will_render', true, $settings );
+		return (bool) apply_filters( 'dicebar_will_render', true, $settings );
 	}
 
 	/**
@@ -89,7 +89,7 @@ class MBBar_Render {
 		// The stylesheet is attached through wp_add_inline_style() at enqueue
 		// time. Only the markup is printed here, and every value in it was
 		// escaped by the method that built it.
-		echo self::bar( MBBar_Settings::get(), 'fixed' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo self::bar( DiceBar_Settings::get(), 'fixed' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -108,32 +108,32 @@ class MBBar_Render {
 		}
 
 		$classes = array(
-			'mbbar',
-			'mbbar--' . ( 'inline' === $mode ? 'inline' : 'fixed' ),
-			'mbbar--' . $settings['behaviour']['position'],
-			'mbbar--' . $settings['style']['layout'],
-			'mbbar--item-' . $settings['style']['item']['shape'],
-			'mbbar--shadow-' . $settings['style']['shadow'],
-			'mbbar--show-' . str_replace( '_', '-', $settings['style']['label']['mode'] ),
-			'mbbar--preset-' . $settings['style']['preset'],
-			$settings['style']['blur'] ? 'mbbar--blur' : 'mbbar--no-blur',
-			'mbbar--divider-' . $settings['style']['divider'],
-			'mbbar--case-' . $settings['style']['label']['case'],
-			'mbbar--count-' . count( $items ),
+			'dicebar',
+			'dicebar--' . ( 'inline' === $mode ? 'inline' : 'fixed' ),
+			'dicebar--' . $settings['behaviour']['position'],
+			'dicebar--' . $settings['style']['layout'],
+			'dicebar--item-' . $settings['style']['item']['shape'],
+			'dicebar--shadow-' . $settings['style']['shadow'],
+			'dicebar--show-' . str_replace( '_', '-', $settings['style']['label']['mode'] ),
+			'dicebar--preset-' . $settings['style']['preset'],
+			$settings['style']['blur'] ? 'dicebar--blur' : 'dicebar--no-blur',
+			'dicebar--divider-' . $settings['style']['divider'],
+			'dicebar--case-' . $settings['style']['label']['case'],
+			'dicebar--count-' . count( $items ),
 		);
 
 		if ( 'fixed' === $mode ) {
-			$classes[] = 'mbbar--device-' . $settings['display']['devices'];
-			$classes[] = 'mbbar--appear-' . $settings['behaviour']['appear'];
-			$classes[] = 'mbbar--entrance-' . $settings['behaviour']['entrance'];
+			$classes[] = 'dicebar--device-' . $settings['display']['devices'];
+			$classes[] = 'dicebar--appear-' . $settings['behaviour']['appear'];
+			$classes[] = 'dicebar--entrance-' . $settings['behaviour']['entrance'];
 
 			if ( is_admin_bar_showing() ) {
-				$classes[] = 'mbbar--admin-bar';
+				$classes[] = 'dicebar--admin-bar';
 			}
 		}
 
 		if ( 'system' !== $settings['style']['scheme'] ) {
-			$classes[] = 'mbbar--scheme-' . $settings['style']['scheme'];
+			$classes[] = 'dicebar--scheme-' . $settings['style']['scheme'];
 		}
 
 		$markup = '';
@@ -143,9 +143,9 @@ class MBBar_Render {
 		}
 
 		return sprintf(
-			'<nav class="%1$s" aria-label="%2$s" data-mbbar-mode="%3$s"%4$s><div class="mbbar__inner">%5$s</div></nav>',
+			'<nav class="%1$s" aria-label="%2$s" data-dicebar-mode="%3$s"%4$s><div class="dicebar__inner">%5$s</div></nav>',
 			esc_attr( implode( ' ', $classes ) ),
-			esc_attr__( 'Quick actions', 'mobile-bottom-bar' ),
+			esc_attr__( 'Quick actions', 'dicebar' ),
 			esc_attr( $mode ),
 			'fixed' === $mode ? ' ' . self::fixed_attributes( $settings ) : '',
 			$markup
@@ -160,13 +160,13 @@ class MBBar_Render {
 	 */
 	private static function fixed_attributes( array $settings ) {
 		$attributes = array(
-			'data-mbbar-users'     => $settings['display']['users'],
-			'data-mbbar-appear'    => $settings['behaviour']['appear'],
-			'data-mbbar-clearance' => (string) $settings['behaviour']['clearance'],
+			'data-dicebar-users'     => $settings['display']['users'],
+			'data-dicebar-appear'    => $settings['behaviour']['appear'],
+			'data-dicebar-clearance' => (string) $settings['behaviour']['clearance'],
 		);
 
 		if ( '' !== $settings['behaviour']['hide_selector'] ) {
-			$attributes['data-mbbar-hide-near'] = $settings['behaviour']['hide_selector'];
+			$attributes['data-dicebar-hide-near'] = $settings['behaviour']['hide_selector'];
 		}
 
 		$out = array();
@@ -197,7 +197,7 @@ class MBBar_Render {
 				continue;
 			}
 
-			$href = MBBar_Item_Types::href( $item );
+			$href = DiceBar_Item_Types::href( $item );
 
 			// A link type with nothing to link to is a gap in the row rather
 			// than a button, so it is dropped instead of rendered dead.
@@ -224,16 +224,16 @@ class MBBar_Render {
 		$mode       = $settings['style']['label']['mode'];
 		$show_label = 'icon' !== $mode;
 		$show_icon  = 'label' !== $mode;
-		$icon       = $show_icon ? MBBar_Icons::render( $item['icon'] ) : '';
+		$icon       = $show_icon ? DiceBar_Icons::render( $item['icon'] ) : '';
 
-		$classes = array( 'mbbar__item' );
+		$classes = array( 'dicebar__item' );
 
 		if ( ! empty( $item['primary'] ) ) {
-			$classes[] = 'mbbar__item--primary';
+			$classes[] = 'dicebar__item--primary';
 		}
 
 		if ( 'inherit' !== $item['show']['devices'] ) {
-			$classes[] = 'mbbar__item--device-' . $item['show']['devices'];
+			$classes[] = 'dicebar__item--device-' . $item['show']['devices'];
 		}
 
 		// A network's own colour, when the owner asked for it. Set as a
@@ -242,28 +242,28 @@ class MBBar_Render {
 		$brand = '';
 
 		if ( ! empty( $settings['style']['brand_icons'] ) ) {
-			$brand = MBBar_Icons::brand_color( $item['icon'] );
+			$brand = DiceBar_Icons::brand_color( $item['icon'] );
 		}
 
 		if ( '' !== $brand ) {
-			$classes[] = 'mbbar__item--brand';
+			$classes[] = 'dicebar__item--brand';
 		}
 
 		$inner = $icon;
 
 		if ( $show_label ) {
-			$inner .= '<span class="mbbar__label">' . esc_html( $label ) . '</span>';
+			$inner .= '<span class="dicebar__label">' . esc_html( $label ) . '</span>';
 		}
 
 		$attributes = sprintf(
-			'class="%s" data-mbbar-item="%s" data-mbbar-type="%s"',
+			'class="%s" data-dicebar-item="%s" data-dicebar-type="%s"',
 			esc_attr( implode( ' ', $classes ) ),
 			esc_attr( $item['id'] ),
 			esc_attr( $item['type'] )
 		);
 
 		if ( '' !== $brand ) {
-			$attributes .= sprintf( ' style="--mbbar-brand:%s"', esc_attr( $brand ) );
+			$attributes .= sprintf( ' style="--dicebar-brand:%s"', esc_attr( $brand ) );
 		}
 
 		// An icon-only item has no visible text, so it needs an accessible
@@ -274,11 +274,11 @@ class MBBar_Render {
 		}
 
 		if ( 'inherit' !== $item['show']['users'] ) {
-			$attributes .= sprintf( ' data-mbbar-users="%s"', esc_attr( $item['show']['users'] ) );
+			$attributes .= sprintf( ' data-dicebar-users="%s"', esc_attr( $item['show']['users'] ) );
 		}
 
 		if ( in_array( $item['type'], array( 'top', 'share', 'anchor' ), true ) ) {
-			$attributes .= sprintf( ' data-mbbar-action="%s"', esc_attr( $item['type'] ) );
+			$attributes .= sprintf( ' data-dicebar-action="%s"', esc_attr( $item['type'] ) );
 		}
 
 		if ( 'text' === $item['type'] ) {
@@ -309,7 +309,7 @@ class MBBar_Render {
 
 		return sprintf(
 			'<a href="%s" %s>%s</a>',
-			esc_url( $item['href'], MBBar_Sanitize::ALLOWED_SCHEMES ),
+			esc_url( $item['href'], DiceBar_Sanitize::ALLOWED_SCHEMES ),
 			$attributes,
 			$inner
 		);
@@ -322,7 +322,7 @@ class MBBar_Render {
 	 * @return string
 	 */
 	private static function default_label( array $item ) {
-		$type = MBBar_Item_Types::get( $item['type'] );
+		$type = DiceBar_Item_Types::get( $item['type'] );
 
 		return $type ? $type['label'] : '';
 	}

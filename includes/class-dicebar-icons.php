@@ -15,7 +15,7 @@
  * nominative use, and nothing here is redistributed under anyone's brand
  * licence.
  *
- * @package MobileBottomBar
+ * @package DiceBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Supplies icon markup by name.
  */
-class MBBar_Icons {
+class DiceBar_Icons {
 
 	/**
 	 * Interface icons: stroked, on a 24 unit grid.
@@ -190,7 +190,7 @@ class MBBar_Icons {
 		 *
 		 * @param array $icons Icon markup keyed by name.
 		 */
-		return apply_filters( 'mbbar_icons', array_merge( self::outline(), self::brands() ) );
+		return apply_filters( 'dicebar_icons', array_merge( self::outline(), self::brands() ) );
 	}
 
 	/**
@@ -224,7 +224,7 @@ class MBBar_Icons {
 			? 'fill="currentColor"'
 			: 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
 
-		return '<svg class="mbbar__icon" viewBox="0 0 24 24" ' . $paint . ' aria-hidden="true" focusable="false">'
+		return '<svg class="dicebar__icon" viewBox="0 0 24 24" ' . $paint . ' aria-hidden="true" focusable="false">'
 			. wp_kses( $icons[ $name ], self::allowed_svg() )
 			. '</svg>';
 	}
@@ -240,14 +240,14 @@ class MBBar_Icons {
 	 * @return string
 	 */
 	public static function sprite() {
-		$out = '<svg class="mbbar-sprite" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">';
+		$out = '<svg class="dicebar-sprite" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">';
 
 		foreach ( self::all() as $name => $markup ) {
 			$paint = self::is_brand( $name )
 				? 'fill="currentColor"'
 				: 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
 
-			$out .= '<symbol id="mbbar-i-' . esc_attr( $name ) . '" viewBox="0 0 24 24" ' . $paint . '>'
+			$out .= '<symbol id="dicebar-i-' . esc_attr( $name ) . '" viewBox="0 0 24 24" ' . $paint . '>'
 				. wp_kses( $markup, self::allowed_svg() )
 				. '</symbol>';
 		}

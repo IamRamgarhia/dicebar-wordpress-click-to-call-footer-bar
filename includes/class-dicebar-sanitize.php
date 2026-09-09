@@ -6,7 +6,7 @@
  * type. None throw and none return null: a bad value becomes the fallback,
  * because a settings save must never store half a configuration.
  *
- * @package MobileBottomBar
+ * @package DiceBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Primitive and structural sanitisers for the configuration.
  */
-class MBBar_Sanitize {
+class DiceBar_Sanitize {
 
 	/**
 	 * The only URL schemes this plugin will ever put in an href.
@@ -265,11 +265,11 @@ class MBBar_Sanitize {
 
 		$type_slug = isset( $value['type'] ) ? $value['type'] : '';
 
-		if ( ! MBBar_Item_Types::exists( $type_slug ) ) {
+		if ( ! DiceBar_Item_Types::exists( $type_slug ) ) {
 			return null;
 		}
 
-		$type = MBBar_Item_Types::get( $type_slug );
+		$type = DiceBar_Item_Types::get( $type_slug );
 		$show = isset( $value['show'] ) && is_array( $value['show'] ) ? $value['show'] : array();
 
 		$id = isset( $value['id'] ) && is_string( $value['id'] )
@@ -434,13 +434,13 @@ class MBBar_Sanitize {
 	 * @return array
 	 */
 	public static function settings( $value ) {
-		$defaults = MBBar_Settings::defaults();
+		$defaults = DiceBar_Settings::defaults();
 
 		if ( ! is_array( $value ) ) {
 			return $defaults;
 		}
 
-		MBBar_Settings::flush();
+		DiceBar_Settings::flush();
 
 		$display   = self::group( $value, 'display' );
 		$content   = self::group( $display, 'content' );
@@ -485,7 +485,7 @@ class MBBar_Sanitize {
 			),
 
 			'style'                   => array(
-				'preset'      => self::choice( self::pick( $style, 'preset', 'glass' ), MBBar_Settings::PRESETS, 'glass' ),
+				'preset'      => self::choice( self::pick( $style, 'preset', 'glass' ), DiceBar_Settings::PRESETS, 'glass' ),
 				'brand_icons' => self::boolean( self::pick( $style, 'brand_icons', true ) ),
 				'glass'       => self::int_in_range( self::pick( $style, 'glass', 22 ), 0, 60, 22 ),
 				'opacity'     => self::int_in_range( self::pick( $style, 'opacity', 78 ), 20, 100, 78 ),
@@ -504,7 +504,7 @@ class MBBar_Sanitize {
 					'icon_gap'   => self::int_in_range( self::pick( $item, 'icon_gap', 3 ), 0, 20, 3 ),
 				),
 				'label'       => array(
-					'mode' => self::choice( self::pick( $label, 'mode', 'icon_label' ), MBBar_Settings::LABEL_MODES, 'icon_label' ),
+					'mode' => self::choice( self::pick( $label, 'mode', 'icon_label' ), DiceBar_Settings::LABEL_MODES, 'icon_label' ),
 					'size' => self::int_in_range( self::pick( $label, 'size', 10 ), 7, 20, 10 ),
 					'case' => self::choice( self::pick( $label, 'case', 'upper' ), array( 'upper', 'normal' ), 'upper' ),
 				),

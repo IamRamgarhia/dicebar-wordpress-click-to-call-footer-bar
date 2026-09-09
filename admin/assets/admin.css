@@ -1,24 +1,24 @@
 /**
- * Mobile Bottom Bar settings screen.
+ * DiceBar settings screen.
  *
- * Scoped entirely under .mbbar so nothing here can leak into the rest of the
+ * Scoped entirely under .dicebar so nothing here can leak into the rest of the
  * dashboard. Colours are taken from WordPress's own admin palette rather than
  * invented, so the screen still looks native next to core pages, and it
  * follows the dashboard's dark scheme where the browser reports one.
  */
 
-.mbbarui {
-	--mbbarui-ink: #1d2327;
-	--mbbarui-muted: #646970;
-	--mbbarui-line: #dcdcde;
-	--mbbarui-surface: #fff;
-	--mbbarui-sunken: #f6f7f7;
-	--mbbarui-brand: #2271b1;
-	--mbbarui-brand-soft: #f0f6fc;
-	--mbbarui-ok: #00a32a;
-	--mbbarui-danger: #b32d2e;
-	--mbbarui-shadow: 0 1px 2px rgba( 0, 0, 0, 0.06 );
-	--mbbarui-round: 8px;
+.dicebarui {
+	--dicebarui-ink: #1d2327;
+	--dicebarui-muted: #646970;
+	--dicebarui-line: #dcdcde;
+	--dicebarui-surface: #fff;
+	--dicebarui-sunken: #f6f7f7;
+	--dicebarui-brand: #2271b1;
+	--dicebarui-brand-soft: #f0f6fc;
+	--dicebarui-ok: #00a32a;
+	--dicebarui-danger: #b32d2e;
+	--dicebarui-shadow: 0 1px 2px rgba( 0, 0, 0, 0.06 );
+	--dicebarui-round: 8px;
 
 	/* No width cap. A settings screen that leaves half a wide monitor empty is
 	   wasting the space it was given; long text is held to a comfortable
@@ -26,13 +26,13 @@
 	margin-inline-end: 20px;
 }
 
-.mbbarui * {
+.dicebarui * {
 	box-sizing: border-box;
 }
 
 /* ---- Masthead --------------------------------------------------------- */
 
-.mbbarui__masthead {
+.dicebarui__masthead {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -40,59 +40,59 @@
 	flex-wrap: wrap;
 	padding: 22px 24px;
 	margin: 20px 0 0;
-	background: var( --mbbarui-surface );
-	border: 1px solid var( --mbbarui-line );
-	border-radius: var( --mbbarui-round ) var( --mbbarui-round ) 0 0;
+	background: var( --dicebarui-surface );
+	border: 1px solid var( --dicebarui-line );
+	border-radius: var( --dicebarui-round ) var( --dicebarui-round ) 0 0;
 	border-bottom: 0;
 }
 
-.mbbarui__brand {
+.dicebarui__brand {
 	display: flex;
 	align-items: center;
 	gap: 14px;
 }
 
-.mbbarui__brand .dashicons {
+.dicebarui__brand .dashicons {
 	width: 40px;
 	height: 40px;
 	font-size: 40px;
-	color: var( --mbbarui-brand );
+	color: var( --dicebarui-brand );
 	flex: none;
 }
 
-.mbbarui__brand h1 {
+.dicebarui__brand h1 {
 	margin: 0;
 	padding: 0;
 	font-size: 22px;
 	line-height: 1.2;
-	color: var( --mbbarui-ink );
+	color: var( --dicebarui-ink );
 }
 
-.mbbarui__brand p {
+.dicebarui__brand p {
 	margin: 4px 0 0;
-	color: var( --mbbarui-muted );
+	color: var( --dicebarui-muted );
 	font-size: 13px;
 	max-width: 52ch;
 }
 
-.mbbarui__pill {
+.dicebarui__pill {
 	display: inline-block;
 	padding: 5px 12px;
 	border-radius: 999px;
-	background: var( --mbbarui-sunken );
-	border: 1px solid var( --mbbarui-line );
-	color: var( --mbbarui-muted );
+	background: var( --dicebarui-sunken );
+	border: 1px solid var( --dicebarui-line );
+	color: var( --dicebarui-muted );
 	font-size: 12px;
 	font-weight: 600;
 }
 
-.mbbarui__pill--on {
+.dicebarui__pill--on {
 	background: #edfaef;
 	border-color: #b8e6c1;
 	color: #14622a;
 }
 
-.mbbarui__notice {
+.dicebarui__notice {
 	margin: 12px 0 0;
 }
 
@@ -100,74 +100,74 @@
 
 /* Numbered, because the sections read as an order the first time through:
    put something in the bar, decide where it shows, then make it look right. */
-.mbbarui__tabs {
+.dicebarui__tabs {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0;
-	background: var( --mbbarui-sunken );
-	border: 1px solid var( --mbbarui-line );
+	background: var( --dicebarui-sunken );
+	border: 1px solid var( --dicebarui-line );
 	border-bottom: 0;
 	padding: 0 12px;
 }
 
-.mbbarui__tab {
+.dicebarui__tab {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	padding: 14px 16px;
 	text-decoration: none;
-	color: var( --mbbarui-muted );
+	color: var( --dicebarui-muted );
 	border-bottom: 3px solid transparent;
 	transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.mbbarui__tab:hover,
-.mbbarui__tab:focus {
-	color: var( --mbbarui-ink );
+.dicebarui__tab:hover,
+.dicebarui__tab:focus {
+	color: var( --dicebarui-ink );
 	box-shadow: none;
 }
 
-.mbbarui__tab.is-current {
-	color: var( --mbbarui-ink );
-	border-bottom-color: var( --mbbarui-brand );
-	background: var( --mbbarui-surface );
+.dicebarui__tab.is-current {
+	color: var( --dicebarui-ink );
+	border-bottom-color: var( --dicebarui-brand );
+	background: var( --dicebarui-surface );
 }
 
-.mbbarui__tab:focus-visible {
-	outline: 2px solid var( --mbbarui-brand );
+.dicebarui__tab:focus-visible {
+	outline: 2px solid var( --dicebarui-brand );
 	outline-offset: -2px;
 }
 
-.mbbarui__tab-step {
+.dicebarui__tab-step {
 	display: grid;
 	place-items: center;
 	width: 24px;
 	height: 24px;
 	flex: none;
 	border-radius: 50%;
-	background: var( --mbbarui-line );
-	color: var( --mbbarui-surface );
+	background: var( --dicebarui-line );
+	color: var( --dicebarui-surface );
 	font-size: 12px;
 	font-weight: 700;
 }
 
-.mbbarui__tab.is-current .mbbarui__tab-step {
-	background: var( --mbbarui-brand );
+.dicebarui__tab.is-current .dicebarui__tab-step {
+	background: var( --dicebarui-brand );
 }
 
-.mbbarui__tab-text {
+.dicebarui__tab-text {
 	display: flex;
 	flex-direction: column;
 	line-height: 1.3;
 }
 
-.mbbarui__tab-text strong {
+.dicebarui__tab-text strong {
 	font-size: 14px;
 }
 
-.mbbarui__tab-text small {
+.dicebarui__tab-text small {
 	font-size: 11px;
-	color: var( --mbbarui-muted );
+	color: var( --dicebarui-muted );
 	font-weight: 400;
 }
 
@@ -175,53 +175,53 @@
 
 /* Without JavaScript every panel stays visible, so the screen still works;
    the script hides the inactive ones once it runs. */
-.mbbarui__panel + .mbbarui__panel {
+.dicebarui__panel + .dicebarui__panel {
 	margin-top: 20px;
 }
 
-.mbbarui__card {
-	background: var( --mbbarui-surface );
-	border: 1px solid var( --mbbarui-line );
-	box-shadow: var( --mbbarui-shadow );
+.dicebarui__card {
+	background: var( --dicebarui-surface );
+	border: 1px solid var( --dicebarui-line );
+	box-shadow: var( --dicebarui-shadow );
 }
 
-.mbbarui__panel:first-of-type .mbbarui__card {
-	border-radius: 0 0 var( --mbbarui-round ) var( --mbbarui-round );
+.dicebarui__panel:first-of-type .dicebarui__card {
+	border-radius: 0 0 var( --dicebarui-round ) var( --dicebarui-round );
 }
 
-.mbbarui__card-head {
+.dicebarui__card-head {
 	padding: 22px 24px 0;
 }
 
-.mbbarui__card-head h2 {
+.dicebarui__card-head h2 {
 	margin: 0;
 	font-size: 16px;
-	color: var( --mbbarui-ink );
+	color: var( --dicebarui-ink );
 }
 
-.mbbarui__card-head p {
+.dicebarui__card-head p {
 	margin: 6px 0 0;
-	color: var( --mbbarui-muted );
+	color: var( --dicebarui-muted );
 	font-size: 13px;
 	max-width: 70ch;
 }
 
-.mbbarui__card-foot {
+.dicebarui__card-foot {
 	display: flex;
 	align-items: center;
 	gap: 12px;
 	padding: 18px 24px 22px;
-	border-top: 1px solid var( --mbbarui-line );
+	border-top: 1px solid var( --dicebarui-line );
 	margin-top: 20px;
 }
 
 /* ---- Setting rows ----------------------------------------------------- */
 
-.mbbarui__rows {
+.dicebarui__rows {
 	padding: 8px 24px 24px;
 }
 
-.mbbarui__row {
+.dicebarui__row {
 	display: grid;
 	grid-template-columns: 200px minmax( 0, 1fr );
 	gap: 24px;
@@ -229,29 +229,29 @@
 	border-bottom: 1px solid #f0f0f1;
 }
 
-.mbbarui__row:last-child {
+.dicebarui__row:last-child {
 	border-bottom: 0;
 	padding-bottom: 0;
 }
 
-.mbbarui__row-label {
+.dicebarui__row-label {
 	font-weight: 600;
-	color: var( --mbbarui-ink );
+	color: var( --dicebarui-ink );
 	padding-top: 6px;
 }
 
-.mbbarui__row-field > * + * {
+.dicebarui__row-field > * + * {
 	margin-top: 10px;
 }
 
-.mbbarui__help {
+.dicebarui__help {
 	margin: 8px 0 0;
-	color: var( --mbbarui-muted );
+	color: var( --dicebarui-muted );
 	font-size: 13px;
 	max-width: 68ch;
 }
 
-.mbbarui__inline {
+.dicebarui__inline {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 16px;
@@ -260,7 +260,7 @@
 
 /* ---- Fields ----------------------------------------------------------- */
 
-.mbbarui__field {
+.dicebarui__field {
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
@@ -268,38 +268,38 @@
 	min-width: 0;
 }
 
-.mbbarui__field > span {
+.dicebarui__field > span {
 	font-weight: 600;
-	color: var( --mbbarui-ink );
+	color: var( --dicebarui-ink );
 }
 
-.mbbarui__field input[type="text"],
-.mbbarui__field input[type="number"],
-.mbbarui__field select {
+.dicebarui__field input[type="text"],
+.dicebarui__field input[type="number"],
+.dicebarui__field select {
 	width: 100%;
 	max-width: 320px;
 }
 
-.mbbarui__field--narrow input {
+.dicebarui__field--narrow input {
 	max-width: 110px;
 }
 
-.mbbarui__field--check {
+.dicebarui__field--check {
 	flex-direction: row;
 	align-items: center;
 	gap: 8px;
 }
 
-.mbbarui__field--check span {
+.dicebarui__field--check span {
 	font-weight: 400;
 }
 
-.mbbarui__wide {
+.dicebarui__wide {
 	width: 100%;
 	max-width: 460px;
 }
 
-.mbbarui__code {
+.dicebarui__code {
 	width: 100%;
 	max-width: 640px;
 	font-family: Consolas, Monaco, monospace;
@@ -307,17 +307,17 @@
 	line-height: 1.6;
 }
 
-.mbbarui__switch {
+.dicebarui__switch {
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
 	font-size: 13px;
 }
 
-.mbbarui__snippet {
+.dicebarui__snippet {
 	display: inline-block;
 	padding: 8px 14px;
-	background: var( --mbbarui-brand-soft );
+	background: var( --dicebarui-brand-soft );
 	border: 1px solid #c5d9ed;
 	border-radius: 5px;
 	font-size: 13px;
@@ -325,22 +325,22 @@
 	user-select: all;
 }
 
-.mbbarui__swatches {
+.dicebarui__swatches {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 14px;
 }
 
-.mbbarui__swatch {
+.dicebarui__swatch {
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
 	font-size: 12px;
 	font-weight: 600;
-	color: var( --mbbarui-ink );
+	color: var( --dicebarui-ink );
 }
 
-.mbbarui__swatch input {
+.dicebarui__swatch input {
 	width: 120px;
 	font-family: Consolas, Monaco, monospace;
 	font-size: 12px;
@@ -348,37 +348,37 @@
 
 /* ---- Items ------------------------------------------------------------ */
 
-.mbbarui__items {
+.dicebarui__items {
 	padding: 20px 24px 0;
 }
 
-.mbbarui__items:empty {
+.dicebarui__items:empty {
 	padding: 0;
 }
 
-.mbbarui__item {
-	border: 1px solid var( --mbbarui-line );
-	border-radius: var( --mbbarui-round );
-	background: var( --mbbarui-surface );
+.dicebarui__item {
+	border: 1px solid var( --dicebarui-line );
+	border-radius: var( --dicebarui-round );
+	background: var( --dicebarui-surface );
 	margin-bottom: 14px;
 	overflow: hidden;
 }
 
-.mbbarui__item.is-dragging {
+.dicebarui__item.is-dragging {
 	opacity: 0.4;
 }
 
-.mbbarui__item-head {
+.dicebarui__item-head {
 	display: flex;
 	align-items: center;
 	gap: 12px;
 	padding: 12px 16px;
-	background: var( --mbbarui-sunken );
-	border-bottom: 1px solid var( --mbbarui-line );
+	background: var( --dicebarui-sunken );
+	border-bottom: 1px solid var( --dicebarui-line );
 }
 
 /* A six-dot grip reads as draggable without needing a label. */
-.mbbarui__grip {
+.dicebarui__grip {
 	width: 12px;
 	height: 18px;
 	flex: none;
@@ -388,73 +388,73 @@
 	color: #a7aaad;
 }
 
-.mbbarui__item-title {
+.dicebarui__item-title {
 	flex: 1 1 auto;
 	font-size: 14px;
-	color: var( --mbbarui-ink );
+	color: var( --dicebarui-ink );
 }
 
-.mbbarui__item-id {
+.dicebarui__item-id {
 	font-size: 11px;
-	color: var( --mbbarui-muted );
-	background: var( --mbbarui-surface );
-	border: 1px solid var( --mbbarui-line );
+	color: var( --dicebarui-muted );
+	background: var( --dicebarui-surface );
+	border: 1px solid var( --dicebarui-line );
 	padding: 3px 8px;
 	border-radius: 4px;
 }
 
-.mbbarui__remove {
+.dicebarui__remove {
 	background: none;
 	border: 0;
-	color: var( --mbbarui-danger );
+	color: var( --dicebarui-danger );
 	cursor: pointer;
 	font-size: 13px;
 	padding: 4px 6px;
 	border-radius: 4px;
 }
 
-.mbbarui__remove:hover {
+.dicebarui__remove:hover {
 	background: #fcf0f1;
 }
 
-.mbbarui__fields {
+.dicebarui__fields {
 	display: grid;
 	grid-template-columns: repeat( auto-fit, minmax( 230px, 1fr ) );
 	gap: 16px;
 	padding: 18px 16px;
 }
 
-.mbbarui__extra {
+.dicebarui__extra {
 	display: contents;
 }
 
-.mbbarui__empty {
+.dicebarui__empty {
 	margin: 20px 24px 0;
 	padding: 32px 24px;
 	text-align: center;
-	border: 1px dashed var( --mbbarui-line );
-	border-radius: var( --mbbarui-round );
-	background: var( --mbbarui-sunken );
+	border: 1px dashed var( --dicebarui-line );
+	border-radius: var( --dicebarui-round );
+	background: var( --dicebarui-sunken );
 }
 
-.mbbarui__empty p {
+.dicebarui__empty p {
 	margin: 0;
-	color: var( --mbbarui-muted );
+	color: var( --dicebarui-muted );
 	font-size: 13px;
 }
 
-.mbbarui__empty p + p {
+.dicebarui__empty p + p {
 	margin-top: 6px;
 }
 
-.mbbarui__empty strong {
-	color: var( --mbbarui-ink );
+.dicebarui__empty strong {
+	color: var( --dicebarui-ink );
 	font-size: 14px;
 }
 
 /* ---- Actions ---------------------------------------------------------- */
 
-.mbbarui__actions {
+.dicebarui__actions {
 	position: sticky;
 	bottom: 0;
 	display: flex;
@@ -462,30 +462,30 @@
 	gap: 14px;
 	margin-top: 20px;
 	padding: 16px 24px;
-	background: var( --mbbarui-surface );
-	border: 1px solid var( --mbbarui-line );
-	border-radius: var( --mbbarui-round );
+	background: var( --dicebarui-surface );
+	border: 1px solid var( --dicebarui-line );
+	border-radius: var( --dicebarui-round );
 	box-shadow: 0 -2px 8px rgba( 0, 0, 0, 0.05 );
 }
 
-.mbbarui__hint {
-	color: var( --mbbarui-muted );
+.dicebarui__hint {
+	color: var( --dicebarui-muted );
 	font-size: 13px;
 }
 
 /* ---- Narrow screens --------------------------------------------------- */
 
 @media screen and ( max-width: 782px ) {
-	.mbbarui__row {
+	.dicebarui__row {
 		grid-template-columns: 1fr;
 		gap: 8px;
 	}
 
-	.mbbarui__row-label {
+	.dicebarui__row-label {
 		padding-top: 0;
 	}
 
-	.mbbarui__tab-text small {
+	.dicebarui__tab-text small {
 		display: none;
 	}
 }
@@ -498,155 +498,155 @@
  * the row scrolls sideways rather than wrapping.
  */
 
-.mbbarui__tabs {
+.dicebarui__tabs {
 	flex-wrap: nowrap;
 	overflow-x: auto;
 	scrollbar-width: thin;
 }
 
-.mbbarui__tab {
+.dicebarui__tab {
 	white-space: nowrap;
 	flex: none;
 	padding: 13px 18px;
 }
 
-.mbbarui__tab-text small {
+.dicebarui__tab-text small {
 	display: none;
 }
 
-.mbbarui__tab-text strong {
+.dicebarui__tab-text strong {
 	font-size: 14px;
 	font-weight: 600;
 }
 
-.mbbarui__panel-note {
+.dicebarui__panel-note {
 	margin: 6px 0 0;
-	color: var( --mbbarui-muted );
+	color: var( --dicebarui-muted );
 	font-size: 13px;
 }
 
 /* ---- Starter kits ------------------------------------------------------ */
 
-.mbbarui__kits {
+.dicebarui__kits {
 	padding: 20px 24px 0;
 }
 
-.mbbarui__kits h3 {
+.dicebarui__kits h3 {
 	margin: 0;
 	font-size: 14px;
-	color: var( --mbbarui-ink );
+	color: var( --dicebarui-ink );
 }
 
-.mbbarui__kit-grid {
+.dicebarui__kit-grid {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 250px, 1fr ) );
 	gap: 10px;
 	margin-top: 12px;
 }
 
-.mbbarui__kit {
+.dicebarui__kit {
 	display: flex;
 	align-items: flex-start;
 	gap: 12px;
 	padding: 12px 14px;
 	text-align: start;
-	background: var( --mbbarui-surface );
-	border: 1px solid var( --mbbarui-line );
-	border-radius: var( --mbbarui-round );
+	background: var( --dicebarui-surface );
+	border: 1px solid var( --dicebarui-line );
+	border-radius: var( --dicebarui-round );
 	cursor: pointer;
 	transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.mbbarui__kit:hover {
-	border-color: var( --mbbarui-brand );
-	box-shadow: 0 0 0 1px var( --mbbarui-brand );
+.dicebarui__kit:hover {
+	border-color: var( --dicebarui-brand );
+	box-shadow: 0 0 0 1px var( --dicebarui-brand );
 }
 
-.mbbarui__kit-count {
+.dicebarui__kit-count {
 	display: grid;
 	place-items: center;
 	width: 26px;
 	height: 26px;
 	flex: none;
 	border-radius: 7px;
-	background: var( --mbbarui-brand-soft );
-	color: var( --mbbarui-brand );
+	background: var( --dicebarui-brand-soft );
+	color: var( --dicebarui-brand );
 	font-size: 12px;
 	font-weight: 700;
 }
 
-.mbbarui__kit-text {
+.dicebarui__kit-text {
 	display: flex;
 	flex-direction: column;
 	gap: 2px;
 	min-width: 0;
 }
 
-.mbbarui__kit-text strong {
+.dicebarui__kit-text strong {
 	font-size: 13px;
-	color: var( --mbbarui-ink );
+	color: var( --dicebarui-ink );
 }
 
-.mbbarui__kit-text small {
+.dicebarui__kit-text small {
 	font-size: 12px;
-	color: var( --mbbarui-muted );
+	color: var( --dicebarui-muted );
 	line-height: 1.4;
 }
 
 /* ---- Look presets ------------------------------------------------------ */
 
-.mbbarui__presets {
+.dicebarui__presets {
 	display: grid;
 	grid-template-columns: repeat( auto-fit, minmax( 180px, 1fr ) );
 	gap: 12px;
 	max-width: 800px;
 }
 
-.mbbarui__preset {
+.dicebarui__preset {
 	position: relative;
 	display: grid;
 	grid-template-columns: auto 1fr;
 	grid-template-areas: "swatch name" "swatch note";
 	gap: 2px 12px;
 	padding: 14px;
-	border: 1px solid var( --mbbarui-line );
-	border-radius: var( --mbbarui-round );
+	border: 1px solid var( --dicebarui-line );
+	border-radius: var( --dicebarui-round );
 	cursor: pointer;
-	background: var( --mbbarui-surface );
+	background: var( --dicebarui-surface );
 }
 
-.mbbarui__preset input {
+.dicebarui__preset input {
 	position: absolute;
 	opacity: 0;
 	pointer-events: none;
 }
 
-.mbbarui__preset:has( input:checked ) {
-	border-color: var( --mbbarui-brand );
-	box-shadow: 0 0 0 1px var( --mbbarui-brand );
+.dicebarui__preset:has( input:checked ) {
+	border-color: var( --dicebarui-brand );
+	box-shadow: 0 0 0 1px var( --dicebarui-brand );
 }
 
-.mbbarui__preset:has( input:focus-visible ) {
-	outline: 2px solid var( --mbbarui-brand );
+.dicebarui__preset:has( input:focus-visible ) {
+	outline: 2px solid var( --dicebarui-brand );
 	outline-offset: 2px;
 }
 
-.mbbarui__preset-name {
+.dicebarui__preset-name {
 	grid-area: name;
 	font-weight: 600;
 	font-size: 13px;
-	color: var( --mbbarui-ink );
+	color: var( --dicebarui-ink );
 }
 
-.mbbarui__preset-note {
+.dicebarui__preset-note {
 	grid-area: note;
 	font-size: 12px;
-	color: var( --mbbarui-muted );
+	color: var( --dicebarui-muted );
 	line-height: 1.4;
 }
 
 /* A miniature of the bar itself, so the choice is shown rather than described. */
-.mbbarui__preset-swatch {
+.dicebarui__preset-swatch {
 	grid-area: swatch;
 	display: flex;
 	align-items: center;
@@ -660,76 +660,76 @@
 	align-self: center;
 }
 
-.mbbarui__preset-swatch span {
+.dicebarui__preset-swatch span {
 	width: 8px;
 	height: 100%;
 	border-radius: 3px;
 	background: rgba( 255, 255, 255, 0.9 );
 }
 
-.mbbarui__preset--glass .mbbarui__preset-swatch span {
+.dicebarui__preset--glass .dicebarui__preset-swatch span {
 	background: rgba( 255, 255, 255, 0.55 );
 	box-shadow: inset 0 1px 0 rgba( 255, 255, 255, 0.9 );
 }
 
-.mbbarui__preset--solid .mbbarui__preset-swatch span {
+.dicebarui__preset--solid .dicebarui__preset-swatch span {
 	background: #fff;
 }
 
-.mbbarui__preset--minimal .mbbarui__preset-swatch span {
+.dicebarui__preset--minimal .dicebarui__preset-swatch span {
 	background: rgba( 255, 255, 255, 0.95 );
 	width: 7px;
 	height: 14px;
 	border-radius: 4px;
 }
 
-.mbbarui__preset--bold .mbbarui__preset-swatch span {
+.dicebarui__preset--bold .dicebarui__preset-swatch span {
 	background: #0a84ff;
 }
 
 /* ---- Segmented control ------------------------------------------------- */
 
-.mbbarui__segmented {
+.dicebarui__segmented {
 	display: inline-flex;
-	border: 1px solid var( --mbbarui-line );
+	border: 1px solid var( --dicebarui-line );
 	border-radius: 7px;
 	overflow: hidden;
-	background: var( --mbbarui-sunken );
+	background: var( --dicebarui-sunken );
 }
 
-.mbbarui__segmented label {
+.dicebarui__segmented label {
 	position: relative;
 	margin: 0;
 }
 
-.mbbarui__segmented input {
+.dicebarui__segmented input {
 	position: absolute;
 	opacity: 0;
 	pointer-events: none;
 }
 
-.mbbarui__segmented span {
+.dicebarui__segmented span {
 	display: block;
 	padding: 8px 16px;
 	font-size: 13px;
-	color: var( --mbbarui-muted );
+	color: var( --dicebarui-muted );
 	cursor: pointer;
-	border-inline-end: 1px solid var( --mbbarui-line );
+	border-inline-end: 1px solid var( --dicebarui-line );
 }
 
-.mbbarui__segmented label:last-child span {
+.dicebarui__segmented label:last-child span {
 	border-inline-end: 0;
 }
 
-.mbbarui__segmented input:checked + span {
-	background: var( --mbbarui-surface );
-	color: var( --mbbarui-ink );
+.dicebarui__segmented input:checked + span {
+	background: var( --dicebarui-surface );
+	color: var( --dicebarui-ink );
 	font-weight: 600;
-	box-shadow: inset 0 -2px 0 var( --mbbarui-brand );
+	box-shadow: inset 0 -2px 0 var( --dicebarui-brand );
 }
 
-.mbbarui__segmented input:focus-visible + span {
-	outline: 2px solid var( --mbbarui-brand );
+.dicebarui__segmented input:focus-visible + span {
+	outline: 2px solid var( --dicebarui-brand );
 	outline-offset: -2px;
 }
 
@@ -737,7 +737,7 @@
 
 /* Most people set four things and leave. The rest is here for the ones who
    need it, and out of the way for everyone else. */
-.mbbarui__advanced-toggle {
+.dicebarui__advanced-toggle {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
@@ -745,12 +745,12 @@
 	padding: 8px 0;
 	background: none;
 	border: 0;
-	color: var( --mbbarui-brand );
+	color: var( --dicebarui-brand );
 	font-size: 13px;
 	cursor: pointer;
 }
 
-.mbbarui__advanced-toggle::before {
+.dicebarui__advanced-toggle::before {
 	content: "";
 	width: 0;
 	height: 0;
@@ -760,12 +760,12 @@
 	transition: transform 0.15s ease;
 }
 
-.mbbarui__advanced-toggle[aria-expanded="true"]::before {
+.dicebarui__advanced-toggle[aria-expanded="true"]::before {
 	transform: rotate( 90deg );
 }
 
-.mbbarui__advanced {
-	border-top: 1px dashed var( --mbbarui-line );
+.dicebarui__advanced {
+	border-top: 1px dashed var( --dicebarui-line );
 	margin-top: 4px;
 	padding-top: 4px;
 }
@@ -776,7 +776,7 @@
  * 1400 pixels the preview drops under the settings rather than squeezing both.
  */
 
-.mbbarui__body {
+.dicebarui__body {
 	display: grid;
 	grid-template-columns: minmax( 0, 1fr );
 	gap: 20px;
@@ -784,49 +784,49 @@
 }
 
 @media screen and ( min-width: 1400px ) {
-	.mbbarui__body {
+	.dicebarui__body {
 		grid-template-columns: minmax( 0, 1fr ) 380px;
 	}
 }
 
-.mbbarui__main {
+.dicebarui__main {
 	min-width: 0;
 }
 
-.mbbarui__side {
+.dicebarui__side {
 	min-width: 0;
 }
 
 @media screen and ( min-width: 1400px ) {
-	.mbbarui__side {
+	.dicebarui__side {
 		position: sticky;
 		top: 52px;
 	}
 }
 
-.mbbarui__preview-card {
-	background: var( --mbbarui-surface );
-	border: 1px solid var( --mbbarui-line );
-	border-radius: var( --mbbarui-round );
-	box-shadow: var( --mbbarui-shadow );
+.dicebarui__preview-card {
+	background: var( --dicebarui-surface );
+	border: 1px solid var( --dicebarui-line );
+	border-radius: var( --dicebarui-round );
+	box-shadow: var( --dicebarui-shadow );
 	padding: 20px;
 }
 
-.mbbarui__preview-card h2 {
+.dicebarui__preview-card h2 {
 	margin: 0;
 	font-size: 15px;
-	color: var( --mbbarui-ink );
+	color: var( --dicebarui-ink );
 }
 
 /* ---- The phone --------------------------------------------------------- */
 
-.mbbarui__phone {
+.dicebarui__phone {
 	display: flex;
 	justify-content: center;
 	margin: 16px 0 12px;
 }
 
-.mbbarui__phone-screen {
+.dicebarui__phone-screen {
 	position: relative;
 	width: 320px;
 	max-width: 100%;
@@ -841,10 +841,10 @@
 	transition: width 0.2s ease;
 	/* A photograph is where a translucent bar is hardest to read, so the
 	   preview stands the bar on one rather than on flat white. */
-	background: var( --mbbarui-stage );
+	background: var( --dicebarui-stage );
 }
 
-.mbbarui__phone-lines {
+.dicebarui__phone-lines {
 	position: absolute;
 	inset: 26px 22px auto;
 	display: flex;
@@ -852,53 +852,53 @@
 	gap: 9px;
 }
 
-.mbbarui__phone-lines span {
+.dicebarui__phone-lines span {
 	height: 8px;
 	border-radius: 4px;
 	background: rgba( 255, 255, 255, 0.5 );
 }
 
-.mbbarui__phone-lines span:nth-child(1) { width: 70%; height: 14px; }
-.mbbarui__phone-lines span:nth-child(2) { width: 100%; }
-.mbbarui__phone-lines span:nth-child(3) { width: 92%; }
-.mbbarui__phone-lines span:nth-child(4) { width: 96%; }
-.mbbarui__phone-lines span:nth-child(5) { width: 60%; }
-.mbbarui__phone-lines span:nth-child(6) { width: 84%; }
+.dicebarui__phone-lines span:nth-child(1) { width: 70%; height: 14px; }
+.dicebarui__phone-lines span:nth-child(2) { width: 100%; }
+.dicebarui__phone-lines span:nth-child(3) { width: 92%; }
+.dicebarui__phone-lines span:nth-child(4) { width: 96%; }
+.dicebarui__phone-lines span:nth-child(5) { width: 60%; }
+.dicebarui__phone-lines span:nth-child(6) { width: 84%; }
 
-#mbbar-preview {
+#dicebar-preview {
 	position: relative;
 	z-index: 1;
 }
 
-.mbbarui__preview-widths {
+.dicebarui__preview-widths {
 	display: flex;
 	justify-content: center;
 	gap: 6px;
 }
 
-.mbbarui__preview-widths button {
+.dicebarui__preview-widths button {
 	padding: 5px 12px;
 	font-size: 12px;
-	border: 1px solid var( --mbbarui-line );
-	background: var( --mbbarui-surface );
-	color: var( --mbbarui-muted );
+	border: 1px solid var( --dicebarui-line );
+	background: var( --dicebarui-surface );
+	color: var( --dicebarui-muted );
 	border-radius: 6px;
 	cursor: pointer;
 }
 
-.mbbarui__preview-widths button.is-current {
-	border-color: var( --mbbarui-brand );
-	color: var( --mbbarui-brand );
+.dicebarui__preview-widths button.is-current {
+	border-color: var( --dicebarui-brand );
+	color: var( --dicebarui-brand );
 	font-weight: 600;
 }
 
-#mbbar-preview-note {
+#dicebar-preview-note {
 	text-align: center;
 	min-height: 2.6em;
 }
 
-.mbbarui__preview-empty {
-	color: var( --mbbarui-muted );
+.dicebarui__preview-empty {
+	color: var( --dicebarui-muted );
 	font-size: 12px;
 	text-align: center;
 	padding: 14px;
@@ -906,30 +906,30 @@
 
 /* ---- Sliders ----------------------------------------------------------- */
 
-.mbbarui__slider {
+.dicebarui__slider {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	max-width: 340px;
 }
 
-.mbbarui__slider input[type="range"] {
+.dicebarui__slider input[type="range"] {
 	flex: 1 1 auto;
 	min-width: 0;
-	accent-color: var( --mbbarui-brand );
+	accent-color: var( --dicebarui-brand );
 }
 
-.mbbarui__slider output {
+.dicebarui__slider output {
 	min-width: 2.5em;
 	text-align: end;
 	font-variant-numeric: tabular-nums;
 	font-weight: 600;
 	font-size: 13px;
-	color: var( --mbbarui-ink );
+	color: var( --dicebarui-ink );
 }
 
-.mbbarui__slider-unit {
-	color: var( --mbbarui-muted );
+.dicebarui__slider-unit {
+	color: var( --dicebarui-muted );
 	font-size: 12px;
 	width: 1.6em;
 }
@@ -941,46 +941,46 @@
  * flattering the design.
  */
 
-.mbbarui__phone-screen {
-	--mbbarui-stage: linear-gradient( 160deg, #6f9ceb 0%, #a5c4f2 38%, #f2c9a8 68%, #e8927c 100% );
+.dicebarui__phone-screen {
+	--dicebarui-stage: linear-gradient( 160deg, #6f9ceb 0%, #a5c4f2 38%, #f2c9a8 68%, #e8927c 100% );
 }
 
-.mbbarui__phone-screen[data-stage="light"] {
-	--mbbarui-stage: #f4f4f5;
+.dicebarui__phone-screen[data-stage="light"] {
+	--dicebarui-stage: #f4f4f5;
 }
 
-.mbbarui__phone-screen[data-stage="dark"] {
-	--mbbarui-stage: #101114;
+.dicebarui__phone-screen[data-stage="dark"] {
+	--dicebarui-stage: #101114;
 }
 
-.mbbarui__phone-screen[data-stage="light"] .mbbarui__phone-lines span {
+.dicebarui__phone-screen[data-stage="light"] .dicebarui__phone-lines span {
 	background: rgba( 0, 0, 0, 0.1 );
 }
 
-.mbbarui__phone-screen[data-stage="dark"] .mbbarui__phone-lines span {
+.dicebarui__phone-screen[data-stage="dark"] .dicebarui__phone-lines span {
 	background: rgba( 255, 255, 255, 0.14 );
 }
 
-.mbbarui__preview-stages {
+.dicebarui__preview-stages {
 	display: flex;
 	justify-content: center;
 	gap: 6px;
 	margin-bottom: 8px;
 }
 
-.mbbarui__preview-stages button {
+.dicebarui__preview-stages button {
 	padding: 5px 14px;
 	font-size: 12px;
-	border: 1px solid var( --mbbarui-line );
-	background: var( --mbbarui-surface );
-	color: var( --mbbarui-muted );
+	border: 1px solid var( --dicebarui-line );
+	background: var( --dicebarui-surface );
+	color: var( --dicebarui-muted );
 	border-radius: 6px;
 	cursor: pointer;
 }
 
-.mbbarui__preview-stages button.is-current {
-	border-color: var( --mbbarui-brand );
-	color: var( --mbbarui-brand );
+.dicebarui__preview-stages button.is-current {
+	border-color: var( --dicebarui-brand );
+	color: var( --dicebarui-brand );
 	font-weight: 600;
 }
 
@@ -988,7 +988,7 @@
 
 /* It was a bare text link that looked like nothing and sat with no separation
    from the settings above it. */
-.mbbarui__advanced-toggle {
+.dicebarui__advanced-toggle {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -996,28 +996,28 @@
 	width: 100%;
 	margin: 16px 0 0;
 	padding: 12px 16px;
-	background: var( --mbbarui-sunken );
-	border: 1px solid var( --mbbarui-line );
-	border-radius: var( --mbbarui-round );
-	color: var( --mbbarui-ink );
+	background: var( --dicebarui-sunken );
+	border: 1px solid var( --dicebarui-line );
+	border-radius: var( --dicebarui-round );
+	color: var( --dicebarui-ink );
 	font-size: 13px;
 	font-weight: 600;
 	cursor: pointer;
 	transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.mbbarui__advanced-toggle:hover {
-	background: var( --mbbarui-brand-soft );
-	border-color: var( --mbbarui-brand );
-	color: var( --mbbarui-brand );
+.dicebarui__advanced-toggle:hover {
+	background: var( --dicebarui-brand-soft );
+	border-color: var( --dicebarui-brand );
+	color: var( --dicebarui-brand );
 }
 
-.mbbarui__advanced-toggle:focus-visible {
-	outline: 2px solid var( --mbbarui-brand );
+.dicebarui__advanced-toggle:focus-visible {
+	outline: 2px solid var( --dicebarui-brand );
 	outline-offset: 2px;
 }
 
-.mbbarui__advanced {
+.dicebarui__advanced {
 	border-top: 0;
 	margin-top: 0;
 	padding-top: 0;
@@ -1029,74 +1029,74 @@
  * same sprite the preview uses, so what is chosen here is what appears there.
  */
 
-.mbbarui__field--icons {
+.dicebarui__field--icons {
 	grid-column: 1 / -1;
 }
 
-.mbbarui__iconpicker {
+.dicebarui__iconpicker {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 38px, 1fr ) );
 	gap: 4px;
 	max-height: 132px;
 	overflow-y: auto;
 	padding: 8px;
-	border: 1px solid var( --mbbarui-line );
+	border: 1px solid var( --dicebarui-line );
 	border-radius: 6px;
-	background: var( --mbbarui-sunken );
+	background: var( --dicebarui-sunken );
 }
 
-.mbbarui__iconopt {
+.dicebarui__iconopt {
 	position: relative;
 	display: grid;
 	place-items: center;
 	aspect-ratio: 1;
 	border-radius: 6px;
 	cursor: pointer;
-	color: var( --mbbarui-muted );
-	background: var( --mbbarui-surface );
+	color: var( --dicebarui-muted );
+	background: var( --dicebarui-surface );
 	border: 1px solid transparent;
 }
 
-.mbbarui__iconopt:hover {
-	color: var( --mbbarui-ink );
-	border-color: var( --mbbarui-line );
+.dicebarui__iconopt:hover {
+	color: var( --dicebarui-ink );
+	border-color: var( --dicebarui-line );
 }
 
-.mbbarui__iconopt input {
+.dicebarui__iconopt input {
 	position: absolute;
 	opacity: 0;
 	pointer-events: none;
 }
 
-.mbbarui__iconopt:has( input:checked ) {
-	color: var( --mbbarui-brand );
-	border-color: var( --mbbarui-brand );
-	background: var( --mbbarui-brand-soft );
+.dicebarui__iconopt:has( input:checked ) {
+	color: var( --dicebarui-brand );
+	border-color: var( --dicebarui-brand );
+	background: var( --dicebarui-brand-soft );
 }
 
-.mbbarui__iconopt:has( input:focus-visible ) {
-	outline: 2px solid var( --mbbarui-brand );
+.dicebarui__iconopt:has( input:focus-visible ) {
+	outline: 2px solid var( --dicebarui-brand );
 	outline-offset: 1px;
 }
 
-.mbbarui__iconglyph {
+.dicebarui__iconglyph {
 	width: 20px;
 	height: 20px;
 }
 
 /* ---- Palettes ---------------------------------------------------------- */
 
-.mbbarui__palette + .mbbarui__palette {
+.dicebarui__palette + .dicebarui__palette {
 	margin-top: 16px;
 	padding-top: 16px;
-	border-top: 1px solid var( --mbbarui-line );
+	border-top: 1px solid var( --dicebarui-line );
 }
 
-.mbbarui__palette h4 {
+.dicebarui__palette h4 {
 	margin: 0 0 10px;
 	font-size: 12px;
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
-	color: var( --mbbarui-muted );
+	color: var( --dicebarui-muted );
 }
