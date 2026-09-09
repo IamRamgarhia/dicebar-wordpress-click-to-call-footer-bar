@@ -6,6 +6,8 @@
 /scripts
 /tests
 /docs
+*.md
+*.zip
 /src
 .distignore
 .gitignore

@@ -6,3 +6,4 @@ playwright-report/
 .wp-env-home/
 *.log
 .phpunit.result.cache
+dist/
