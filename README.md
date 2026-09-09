@@ -8,21 +8,21 @@
 
 <br>
 
-<a href="https://github.com/IamRamgarhia/dicebar/releases/latest/download/dicebar.zip"><img src=".github/download.svg" alt="Download DiceBar, the latest release" width="300"></a>
+<a href="https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/releases/latest/download/dicebar.zip"><img src=".github/download.svg" alt="Download DiceBar, the latest release" width="300"></a>
 &nbsp;
 <a href="https://dicecodes.com/mobile-bottom-bar-wordpress-plugin/"><img src=".github/docs.svg" alt="Read the DiceBar documentation" width="220"></a>
 
 <br><br>
 
-[![Version](https://img.shields.io/badge/version-1.6.0-2563eb?style=flat-square)](https://github.com/IamRamgarhia/dicebar/releases)
+[![Version](https://img.shields.io/badge/version-1.6.0-2563eb?style=flat-square)](https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/releases)
 [![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-21759b?style=flat-square)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-GPL--2.0--or--later-3fb950?style=flat-square)](LICENSE)
 [![Plugin Check](https://img.shields.io/badge/Plugin%20Check-passing-3fb950?style=flat-square)](https://wordpress.org/plugins/plugin-check/)
 
 **[Documentation](https://dicecodes.com/mobile-bottom-bar-wordpress-plugin/)** ·
-[Report a bug](https://github.com/IamRamgarhia/dicebar/issues) ·
-[Releases](https://github.com/IamRamgarhia/dicebar/releases)
+[Report a bug](https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/issues) ·
+[Releases](https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/releases)
 
 </div>
 
@@ -63,7 +63,7 @@ advert in your dashboard, and no tracking of any kind.
 
 From your dashboard, go to **Plugins**, then **Add New**, and search for
 **DiceBar**. Or download the archive from
-[the latest release](https://github.com/IamRamgarhia/dicebar/releases/latest) and
+[the latest release](https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/releases/latest) and
 upload it.
 
 With WP-CLI:

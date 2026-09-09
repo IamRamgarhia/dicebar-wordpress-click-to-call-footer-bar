@@ -5,7 +5,7 @@
 Please do not open a public issue for a security problem.
 
 Email **security@dicecodes.com** with the details, or report it privately through
-[GitHub's advisory form](https://github.com/IamRamgarhia/dicebar/security/advisories/new).
+[GitHub's advisory form](https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/security/advisories/new).
 
 Tell us what version you tested, what an attacker can do, and the smallest steps
 that reproduce it. We will confirm receipt, agree a disclosure date with you, and
