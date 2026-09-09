@@ -240,6 +240,10 @@
 		} );
 
 		updateState();
+
+		if ( typeof window.fbarRefreshPreview === 'function' ) {
+			window.fbarRefreshPreview();
+		}
 	}
 
 	/**
@@ -567,6 +571,177 @@
 	} );
 
 	showTab( activeTab ? activeTab.value : 'items' );
+
+	/* ---- Live preview ---------------------------------------------------- */
+
+	var preview = document.getElementById( 'fbar-preview' );
+	var previewInner = document.getElementById( 'fbar-preview-inner' );
+	var previewScreen = document.getElementById( 'fbar-preview-screen' );
+	var previewNote = document.getElementById( 'fbar-preview-note' );
+	var form = document.querySelector( '.fbar__form' );
+
+	/**
+	 * The value of a named control in the form.
+	 *
+	 * @param {string} name    Control name.
+	 * @param {string} missing Value to use when the control is absent.
+	 * @return {string} The value.
+	 */
+	function value( name, missing ) {
+		var control = form.querySelector( '[name="' + name + '"]' );
+
+		if ( ! control ) {
+			return missing;
+		}
+
+		if ( control.type === 'checkbox' ) {
+			return control.checked ? control.value : '';
+		}
+
+		return control.value;
+	}
+
+	/**
+	 * The chosen value of a radio group.
+	 *
+	 * @param {string} name    Group name.
+	 * @param {string} missing Value to use when nothing is chosen.
+	 * @return {string} The value.
+	 */
+	function chosen( name, missing ) {
+		var control = form.querySelector( '[name="' + name + '"]:checked' );
+
+		return control ? control.value : missing;
+	}
+
+	/**
+	 * Redraw the preview from whatever the form currently says.
+	 *
+	 * Reads the live controls rather than the saved settings, so the effect of
+	 * a change is visible before anything is saved. That is the whole point:
+	 * choosing a look from a written description is guesswork.
+	 */
+	function refreshPreview() {
+		if ( ! preview || ! previewInner ) {
+			return;
+		}
+
+		var mode = chosen( 'fbar[style][label][mode]', 'icon_label' );
+		var look = chosen( 'fbar[style][preset]', 'glass' );
+
+		preview.className = [
+			'fbar',
+			'fbar--inline',
+			'fbar--preset-' + look,
+			'fbar--item-' + value( 'fbar[style][item][shape]', 'plain' ),
+			'fbar--shadow-' + value( 'fbar[style][shadow]', 'soft' ),
+			'fbar--show-' + mode.replace( '_', '-' ),
+			'fbar--divider-' + ( value( 'fbar[style][divider]', '' ) ? 'hairline' : 'none' ),
+			'fbar--case-upper',
+			value( 'fbar[style][blur]', '' ) ? 'fbar--blur' : 'fbar--no-blur',
+		].join( ' ' );
+
+		var tokens = {
+			'--fbar-bar-bg': value( 'fbar[style][light][bar_bg]', '#ffffff' ),
+			'--fbar-text': value( 'fbar[style][light][text]', '#1c1c1e' ),
+			'--fbar-icon': value( 'fbar[style][light][icon]', '#1c1c1e' ),
+			'--fbar-accent': value( 'fbar[style][light][accent]', '#0a84ff' ),
+			'--fbar-hover-bg': value( 'fbar[style][light][hover_bg]', '#0a84ff' ),
+			'--fbar-hover-text': value( 'fbar[style][light][hover_text]', '#ffffff' ),
+			'--fbar-opacity': value( 'fbar[style][opacity]', '90' ) + '%',
+			'--fbar-glass': value( 'fbar[style][glass]', '22' ) + 'px',
+			'--fbar-radius': value( 'fbar[style][radius]', '18' ) + 'px',
+		};
+
+		Object.keys( tokens ).forEach( function ( token ) {
+			preview.style.setProperty( token, tokens[ token ] );
+		} );
+
+		while ( previewInner.firstChild ) {
+			previewInner.removeChild( previewInner.firstChild );
+		}
+
+		var rows = list.querySelectorAll( '.fbar__item' );
+
+		if ( ! rows.length ) {
+			var empty = document.createElement( 'p' );
+
+			empty.className = 'fbar__preview-empty';
+			empty.textContent = strings.previewEmpty;
+			previewInner.appendChild( empty );
+			previewNote.textContent = '';
+			return;
+		}
+
+		var longest = 0;
+
+		Array.prototype.forEach.call( rows, function ( row ) {
+			var typeControl = row.querySelector( '[name$="[type]"]' );
+			var type = typeControl ? typeBySlug( typeControl.value ) : null;
+			var labelInput = row.querySelector( '[name$="[label]"]' );
+			var iconControl = row.querySelector( '[name$="[icon]"]' );
+			var network = row.querySelector( '[name$="[extra][network]"]' );
+			var primary = row.querySelector( '[name$="[primary]"]' );
+
+			var label = ( labelInput && labelInput.value.trim() ) || ( type ? type.label : '' );
+			var icon = ( network && network.value ) || ( iconControl && iconControl.value ) || ( type ? type.icon : '' );
+
+			longest = Math.max( longest, label.length );
+
+			var button = document.createElement( 'span' );
+
+			button.className = 'fbar__item' + ( primary && primary.checked ? ' fbar__item--primary' : '' );
+
+			if ( mode !== 'label' && icon ) {
+				var svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
+				var use = document.createElementNS( 'http://www.w3.org/2000/svg', 'use' );
+
+				svg.setAttribute( 'class', 'fbar__icon' );
+				svg.setAttribute( 'viewBox', '0 0 24 24' );
+				svg.setAttribute( 'aria-hidden', 'true' );
+				use.setAttribute( 'href', '#fbar-i-' + icon );
+				svg.appendChild( use );
+				button.appendChild( svg );
+			}
+
+			if ( mode !== 'icon' ) {
+				var text = document.createElement( 'span' );
+
+				text.className = 'fbar__label';
+				text.textContent = label;
+				button.appendChild( text );
+			}
+
+			previewInner.appendChild( button );
+		} );
+
+		// The four-item cap exists because a fifth clips its label at 320. The
+		// same arithmetic warns when one long word will clip in a smaller row.
+		var perItem = Math.floor( ( 320 - 28 - 12 - ( rows.length - 1 ) * 11 ) / rows.length );
+
+		previewNote.textContent = mode !== 'icon' && longest * 7 > perItem
+			? strings.previewTight
+			: '';
+	}
+
+	if ( preview && form ) {
+		form.addEventListener( 'input', refreshPreview );
+		form.addEventListener( 'change', refreshPreview );
+
+		Array.prototype.forEach.call( document.querySelectorAll( '.fbar__preview-widths button' ), function ( button ) {
+			button.addEventListener( 'click', function () {
+				Array.prototype.forEach.call( button.parentNode.children, function ( other ) {
+					other.classList.toggle( 'is-current', other === button );
+				} );
+
+				previewScreen.style.width = button.getAttribute( 'data-width' ) + 'px';
+				refreshPreview();
+			} );
+		} );
+
+		window.fbarRefreshPreview = refreshPreview;
+		refreshPreview();
+	}
 
 	updateState();
 } )();

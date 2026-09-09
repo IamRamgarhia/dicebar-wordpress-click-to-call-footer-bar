@@ -89,6 +89,7 @@ class FBar_Settings {
 			'style'                   => array(
 				'preset'     => 'glass',
 				'glass'      => 22,
+				'opacity'    => 78,
 				'layout'     => 'island',
 				'max_width'  => 640,
 				'radius'     => 18,

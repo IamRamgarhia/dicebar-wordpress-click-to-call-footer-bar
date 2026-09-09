@@ -487,6 +487,7 @@ class FBar_Sanitize {
 			'style'                   => array(
 				'preset'     => self::choice( self::pick( $style, 'preset', 'glass' ), FBar_Settings::PRESETS, 'glass' ),
 				'glass'      => self::int_in_range( self::pick( $style, 'glass', 22 ), 0, 60, 22 ),
+				'opacity'    => self::int_in_range( self::pick( $style, 'opacity', 78 ), 20, 100, 78 ),
 				'layout'     => self::choice( self::pick( $style, 'layout', 'island' ), array( 'island', 'full' ), 'island' ),
 				'max_width'  => self::int_in_range( self::pick( $style, 'max_width', 640 ), 0, 2560, 640 ),
 				'radius'     => self::int_in_range( self::pick( $style, 'radius', 18 ), 0, 60, 18 ),

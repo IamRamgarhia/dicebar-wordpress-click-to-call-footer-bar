@@ -174,6 +174,32 @@ class FBar_Icons {
 	}
 
 	/**
+	 * Every icon as a hidden sprite of symbols.
+	 *
+	 * The settings screen's live preview builds items in the browser, and
+	 * passing forty icons of markup through to a script would mean the script
+	 * handling SVG source as strings. A sprite rendered here keeps every glyph
+	 * server-escaped and lets the preview reference one by id.
+	 *
+	 * @return string
+	 */
+	public static function sprite() {
+		$out = '<svg class="fbar-sprite" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">';
+
+		foreach ( self::all() as $name => $markup ) {
+			$paint = self::is_brand( $name )
+				? 'fill="currentColor"'
+				: 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+
+			$out .= '<symbol id="fbar-i-' . esc_attr( $name ) . '" viewBox="0 0 24 24" ' . $paint . '>'
+				. wp_kses( $markup, self::allowed_svg() )
+				. '</symbol>';
+		}
+
+		return $out . '</svg>';
+	}
+
+	/**
 	 * The SVG elements and attributes permitted inside an icon.
 	 *
 	 * The icon set is filterable, so this is what stops a filtered icon from

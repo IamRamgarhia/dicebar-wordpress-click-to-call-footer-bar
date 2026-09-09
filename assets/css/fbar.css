@@ -25,6 +25,7 @@
 	--fbar-z: 9990;
 	--fbar-clearance: 0px;
 	--fbar-glass: 22px;
+	--fbar-opacity: 78%;
 
 	box-sizing: border-box;
 }
@@ -142,13 +143,13 @@
 
 @supports ( ( backdrop-filter: blur( 1px ) ) or ( -webkit-backdrop-filter: blur( 1px ) ) ) {
 	.fbar--blur .fbar__inner {
-		background: color-mix( in srgb, var( --fbar-bar-bg ) 90%, transparent );
+		background: color-mix( in srgb, var( --fbar-bar-bg ) var( --fbar-opacity ), transparent );
 		-webkit-backdrop-filter: blur( var( --fbar-glass ) ) saturate( 180% );
 		backdrop-filter: blur( var( --fbar-glass ) ) saturate( 180% );
 	}
 
 	.fbar--preset-glass.fbar--blur .fbar__inner {
-		background: color-mix( in srgb, var( --fbar-bar-bg ) 72%, transparent );
+		background: color-mix( in srgb, var( --fbar-bar-bg ) var( --fbar-opacity ), transparent );
 		-webkit-backdrop-filter: blur( var( --fbar-glass ) ) saturate( 200% );
 		backdrop-filter: blur( var( --fbar-glass ) ) saturate( 200% );
 	}

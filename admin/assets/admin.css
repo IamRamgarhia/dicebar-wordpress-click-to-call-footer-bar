@@ -20,7 +20,9 @@
 	--fbar-shadow: 0 1px 2px rgba( 0, 0, 0, 0.06 );
 	--fbar-round: 8px;
 
-	max-width: 1080px;
+	/* No width cap. A settings screen that leaves half a wide monitor empty is
+	   wasting the space it was given; long text is held to a comfortable
+	   measure per block instead. */
 	margin-inline-end: 20px;
 }
 
@@ -766,4 +768,177 @@
 	border-top: 1px dashed var( --fbar-line );
 	margin-top: 4px;
 	padding-top: 4px;
+}
+
+/* ---- Two columns on a wide screen -------------------------------------
+ *
+ * The settings take the room they need and the preview takes the rest. Below
+ * 1400 pixels the preview drops under the settings rather than squeezing both.
+ */
+
+.fbar__body {
+	display: grid;
+	grid-template-columns: minmax( 0, 1fr );
+	gap: 20px;
+	align-items: start;
+}
+
+@media screen and ( min-width: 1400px ) {
+	.fbar__body {
+		grid-template-columns: minmax( 0, 1fr ) 380px;
+	}
+}
+
+.fbar__main {
+	min-width: 0;
+}
+
+.fbar__side {
+	min-width: 0;
+}
+
+@media screen and ( min-width: 1400px ) {
+	.fbar__side {
+		position: sticky;
+		top: 52px;
+	}
+}
+
+.fbar__preview-card {
+	background: var( --fbar-surface );
+	border: 1px solid var( --fbar-line );
+	border-radius: var( --fbar-round );
+	box-shadow: var( --fbar-shadow );
+	padding: 20px;
+}
+
+.fbar__preview-card h2 {
+	margin: 0;
+	font-size: 15px;
+	color: var( --fbar-ink );
+}
+
+/* ---- The phone --------------------------------------------------------- */
+
+.fbar__phone {
+	display: flex;
+	justify-content: center;
+	margin: 16px 0 12px;
+}
+
+.fbar__phone-screen {
+	position: relative;
+	width: 320px;
+	max-width: 100%;
+	height: 300px;
+	padding: 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	border: 8px solid #1d2327;
+	border-radius: 26px;
+	overflow: hidden;
+	transition: width 0.2s ease;
+	/* A photograph is where a translucent bar is hardest to read, so the
+	   preview stands the bar on one rather than on flat white. */
+	background:
+		linear-gradient( 160deg, #6f9ceb 0%, #a5c4f2 38%, #f2c9a8 68%, #e8927c 100% );
+}
+
+.fbar__phone-lines {
+	position: absolute;
+	inset: 26px 22px auto;
+	display: flex;
+	flex-direction: column;
+	gap: 9px;
+}
+
+.fbar__phone-lines span {
+	height: 8px;
+	border-radius: 4px;
+	background: rgba( 255, 255, 255, 0.5 );
+}
+
+.fbar__phone-lines span:nth-child(1) { width: 70%; height: 14px; }
+.fbar__phone-lines span:nth-child(2) { width: 100%; }
+.fbar__phone-lines span:nth-child(3) { width: 92%; }
+.fbar__phone-lines span:nth-child(4) { width: 96%; }
+.fbar__phone-lines span:nth-child(5) { width: 60%; }
+.fbar__phone-lines span:nth-child(6) { width: 84%; }
+
+/* The preview is the real bar in inline mode, so it needs its panel back. */
+#fbar-preview.fbar--inline .fbar__inner {
+	background: var( --fbar-bar-bg );
+	padding: 6px;
+	border-radius: var( --fbar-radius );
+	max-width: none;
+}
+
+#fbar-preview {
+	position: relative;
+	z-index: 1;
+}
+
+.fbar__preview-widths {
+	display: flex;
+	justify-content: center;
+	gap: 6px;
+}
+
+.fbar__preview-widths button {
+	padding: 5px 12px;
+	font-size: 12px;
+	border: 1px solid var( --fbar-line );
+	background: var( --fbar-surface );
+	color: var( --fbar-muted );
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.fbar__preview-widths button.is-current {
+	border-color: var( --fbar-brand );
+	color: var( --fbar-brand );
+	font-weight: 600;
+}
+
+#fbar-preview-note {
+	text-align: center;
+	min-height: 2.6em;
+}
+
+.fbar__preview-empty {
+	color: var( --fbar-muted );
+	font-size: 12px;
+	text-align: center;
+	padding: 14px;
+}
+
+/* ---- Sliders ----------------------------------------------------------- */
+
+.fbar__slider {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	max-width: 340px;
+}
+
+.fbar__slider input[type="range"] {
+	flex: 1 1 auto;
+	min-width: 0;
+	accent-color: var( --fbar-brand );
+}
+
+.fbar__slider output {
+	min-width: 2.5em;
+	text-align: end;
+	font-variant-numeric: tabular-nums;
+	font-weight: 600;
+	font-size: 13px;
+	color: var( --fbar-ink );
+}
+
+.fbar__slider-unit {
+	color: var( --fbar-muted );
+	font-size: 12px;
+	width: 1.6em;
 }

@@ -118,6 +118,9 @@ $fbar_user_choices = array(
 			<?php endforeach; ?>
 		</nav>
 
+		<div class="fbar__body">
+		<div class="fbar__main">
+
 		<?php // ---------------------------------------------------- Items ?>
 		<section
 			class="fbar__panel<?php echo 'items' === $current ? ' is-current' : ''; ?>"
@@ -408,6 +411,24 @@ $fbar_user_choices = array(
 					</div>
 
 					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'See-through', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<div class="fbar__slider">
+								<input type="range" name="fbar[style][opacity]" min="20" max="100" step="1" value="<?php echo esc_attr( $settings['style']['opacity'] ); ?>" oninput="this.nextElementSibling.value = this.value">
+								<output><?php echo esc_html( $settings['style']['opacity'] ); ?></output>
+								<span class="fbar__slider-unit">%</span>
+							</div>
+							<p class="fbar__help"><?php esc_html_e( 'How solid the panel is. Lower is more glass. Below about 60 percent the words start to swim against a photograph, which is what the preview is standing on one for.', 'footer-bar-mobile-action-bar' ); ?></p>
+							<div class="fbar__slider">
+								<input type="range" name="fbar[style][glass]" min="0" max="60" step="1" value="<?php echo esc_attr( $settings['style']['glass'] ); ?>" oninput="this.nextElementSibling.value = this.value">
+								<output><?php echo esc_html( $settings['style']['glass'] ); ?></output>
+								<span class="fbar__slider-unit">px</span>
+							</div>
+							<p class="fbar__help"><?php esc_html_e( 'How much the blur softens what is behind. It only applies where the browser supports it, and the panel falls back to solid where it does not.', 'footer-bar-mobile-action-bar' ); ?></p>
+						</div>
+					</div>
+
+					<div class="fbar__row">
 						<div class="fbar__row-label"><?php esc_html_e( 'Shape', 'footer-bar-mobile-action-bar' ); ?></div>
 						<div class="fbar__row-field">
 							<div class="fbar__inline">
@@ -666,9 +687,39 @@ $fbar_user_choices = array(
 			</div>
 		</section>
 
+		</div><?php // .fbar__main ?>
+
+		<aside class="fbar__side">
+			<div class="fbar__preview-card">
+				<h2><?php esc_html_e( 'Preview', 'footer-bar-mobile-action-bar' ); ?></h2>
+				<p class="fbar__help"><?php esc_html_e( 'The real bar, drawn with the real stylesheet, so it cannot drift from what visitors see.', 'footer-bar-mobile-action-bar' ); ?></p>
+
+				<div class="fbar__phone">
+					<div class="fbar__phone-screen" id="fbar-preview-screen">
+						<div class="fbar__phone-lines" aria-hidden="true">
+							<span></span><span></span><span></span><span></span><span></span><span></span>
+						</div>
+						<nav class="fbar fbar--inline" id="fbar-preview" aria-label="<?php esc_attr_e( 'Preview of the bar', 'footer-bar-mobile-action-bar' ); ?>">
+							<div class="fbar__inner" id="fbar-preview-inner"></div>
+						</nav>
+					</div>
+				</div>
+
+				<div class="fbar__preview-widths">
+					<button type="button" data-width="320" class="is-current">320</button>
+					<button type="button" data-width="375">375</button>
+					<button type="button" data-width="414">414</button>
+				</div>
+				<p class="fbar__help" id="fbar-preview-note"></p>
+			</div>
+		</aside>
+		</div><?php // .fbar__body ?>
+
 		<div class="fbar__actions">
 			<?php submit_button( __( 'Save changes', 'footer-bar-mobile-action-bar' ), 'primary', 'submit', false ); ?>
 			<span class="fbar__hint"><?php esc_html_e( 'Saving keeps every tab, not just this one.', 'footer-bar-mobile-action-bar' ); ?></span>
 		</div>
 	</form>
 </div>
+
+<?php echo FBar_Icons::sprite(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped inside sprite(). ?>

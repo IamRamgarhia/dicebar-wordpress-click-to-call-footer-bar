@@ -119,7 +119,10 @@ class FBar_Admin {
 			return;
 		}
 
-		wp_enqueue_style( 'fbar-admin', FBAR_URL . 'admin/assets/admin.css', array(), FBAR_VERSION );
+		// The preview is the real bar, styled by the real stylesheet, so it
+		// cannot drift from what visitors see.
+		wp_enqueue_style( 'fbar', FBAR_URL . 'assets/css/fbar.css', array(), FBAR_VERSION );
+		wp_enqueue_style( 'fbar-admin', FBAR_URL . 'admin/assets/admin.css', array( 'fbar' ), FBAR_VERSION );
 		wp_enqueue_script( 'fbar-admin', FBAR_URL . 'admin/assets/admin.js', array(), FBAR_VERSION, true );
 
 		wp_localize_script(
@@ -132,23 +135,25 @@ class FBar_Admin {
 				'brands'   => FBar_Icons::brand_names(),
 				'presets'  => FBar_Presets::for_script(),
 				'strings'  => array(
-					'full'        => __( 'Four items is the most that fits. At 320 pixels wide a fifth one clips its label.', 'footer-bar-mobile-action-bar' ),
-					'confirm'     => __( 'Remove this item?', 'footer-bar-mobile-action-bar' ),
-					'untitled'    => __( 'New item', 'footer-bar-mobile-action-bar' ),
-					'newId'       => __( 'Saved when you save', 'footer-bar-mobile-action-bar' ),
-					'defaultIcon' => __( 'Default for this type', 'footer-bar-mobile-action-bar' ),
-					'label'       => __( 'Label', 'footer-bar-mobile-action-bar' ),
-					'type'        => __( 'Type', 'footer-bar-mobile-action-bar' ),
-					'icon'        => __( 'Icon', 'footer-bar-mobile-action-bar' ),
-					'primary'     => __( 'Make this the standout button', 'footer-bar-mobile-action-bar' ),
-					'devices'     => __( 'Show on', 'footer-bar-mobile-action-bar' ),
-					'users'       => __( 'Show to', 'footer-bar-mobile-action-bar' ),
-					'remove'      => __( 'Remove', 'footer-bar-mobile-action-bar' ),
-					'replace'     => __( 'This replaces the items you have now. Continue?', 'footer-bar-mobile-action-bar' ),
-					'applied'     => __( 'Starter kit applied. Fill in the numbers and links, then save.', 'footer-bar-mobile-action-bar' ),
-					'buttons'     => __( 'buttons', 'footer-bar-mobile-action-bar' ),
-					'more'        => __( 'Advanced options', 'footer-bar-mobile-action-bar' ),
-					'less'        => __( 'Hide advanced options', 'footer-bar-mobile-action-bar' ),
+					'full'         => __( 'Four items is the most that fits. At 320 pixels wide a fifth one clips its label.', 'footer-bar-mobile-action-bar' ),
+					'confirm'      => __( 'Remove this item?', 'footer-bar-mobile-action-bar' ),
+					'untitled'     => __( 'New item', 'footer-bar-mobile-action-bar' ),
+					'newId'        => __( 'Saved when you save', 'footer-bar-mobile-action-bar' ),
+					'defaultIcon'  => __( 'Default for this type', 'footer-bar-mobile-action-bar' ),
+					'label'        => __( 'Label', 'footer-bar-mobile-action-bar' ),
+					'type'         => __( 'Type', 'footer-bar-mobile-action-bar' ),
+					'icon'         => __( 'Icon', 'footer-bar-mobile-action-bar' ),
+					'primary'      => __( 'Make this the standout button', 'footer-bar-mobile-action-bar' ),
+					'devices'      => __( 'Show on', 'footer-bar-mobile-action-bar' ),
+					'users'        => __( 'Show to', 'footer-bar-mobile-action-bar' ),
+					'remove'       => __( 'Remove', 'footer-bar-mobile-action-bar' ),
+					'replace'      => __( 'This replaces the items you have now. Continue?', 'footer-bar-mobile-action-bar' ),
+					'applied'      => __( 'Starter kit applied. Fill in the numbers and links, then save.', 'footer-bar-mobile-action-bar' ),
+					'buttons'      => __( 'buttons', 'footer-bar-mobile-action-bar' ),
+					'more'         => __( 'Advanced options', 'footer-bar-mobile-action-bar' ),
+					'less'         => __( 'Hide advanced options', 'footer-bar-mobile-action-bar' ),
+					'previewEmpty' => __( 'Add an item to see it here.', 'footer-bar-mobile-action-bar' ),
+					'previewTight' => __( 'That word is long for this many buttons. On a narrow phone it will be cut short. Try a shorter word, one item fewer, or icons only.', 'footer-bar-mobile-action-bar' ),
 				),
 				'choices'  => array(
 					'devices' => array(

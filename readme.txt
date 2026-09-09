@@ -4,7 +4,7 @@ Tags: mobile, sticky bar, click to call, floating bar, call button
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,12 @@ and whether the visitor is signed in, are worked out in the browser.
 2. The settings screen.
 
 == Changelog ==
+
+= 1.3.0 =
+* A live preview beside the settings, showing the real bar drawn with the real stylesheet, on a photograph at 320, 375 and 414 pixels.
+* Transparency and blur strength are now sliders rather than a single on or off.
+* The settings screen uses the whole window instead of stopping at 1080 pixels.
+* The preview warns when a label is too long for the number of buttons.
 
 = 1.2.0 =
 * Social profile items, with thirty brand marks including Instagram, Facebook, X, YouTube, TikTok, LinkedIn, WhatsApp, Telegram, Pinterest and Threads.

@@ -69,6 +69,7 @@ class FBar_Styles {
 			'--fbar-z'           => (int) $settings['behaviour']['z_index'],
 			'--fbar-clearance'   => (int) $settings['behaviour']['clearance'] . 'px',
 			'--fbar-glass'       => (int) $style['glass'] . 'px',
+			'--fbar-opacity'     => (int) $style['opacity'] . '%',
 		);
 
 		$css = '.fbar{' . self::declarations( $base ) . self::declarations( self::palette( $style['light'] ) ) . '}';
