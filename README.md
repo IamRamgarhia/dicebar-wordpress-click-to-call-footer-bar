@@ -77,6 +77,9 @@ no external requests at any point.
 
 ## Putting the bar inside a page
 
+> **Most sites need none of this.** Install, add your buttons, and the bar is
+> live. This section is only for showing the same row inside your content too.
+
 The bar appears by itself on every page you allow it on. To also show the same
 row of buttons inside your content, use the shortcode:
 
@@ -93,6 +96,26 @@ To show only some of the buttons, name them by id:
 The shortcode works in the block editor, in widgets, in theme templates, and in
 **Elementor, Divi, Beaver Builder, Bricks and Oxygen**. Elementor users also get
 a DiceBar widget in the panel, registered only when Elementor is actually loaded.
+
+### Adding it to a theme template
+
+Only needed for a template file, where a shortcode in the editor cannot reach.
+Edit a child theme, or the next update overwrites it.
+
+```php
+<?php echo do_shortcode( '[dicebar]' ); ?>
+```
+
+Guard it if the plugin might ever be deactivated, so the template does not print
+the raw shortcode text:
+
+```php
+<?php
+if ( shortcode_exists( 'dicebar' ) ) {
+	echo do_shortcode( '[dicebar]' );
+}
+?>
+```
 
 ## Frequently asked questions
 

@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1544 500" width="1544" height="500">
+	<defs>
+		<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0%" stop-color="#0a1020"/>
+			<stop offset="55%" stop-color="#121a35"/>
+			<stop offset="100%" stop-color="#1c1233"/>
+		</linearGradient>
+		<radialGradient id="gA" cx="0.5" cy="0.5" r="0.5">
+			<stop offset="0%" stop-color="#4f8cff" stop-opacity="0.80"/>
+			<stop offset="100%" stop-color="#4f8cff" stop-opacity="0"/>
+		</radialGradient>
+		<radialGradient id="gB" cx="0.5" cy="0.5" r="0.5">
+			<stop offset="0%" stop-color="#ff7a59" stop-opacity="0.70"/>
+			<stop offset="100%" stop-color="#ff7a59" stop-opacity="0"/>
+		</radialGradient>
+		<radialGradient id="gC" cx="0.5" cy="0.5" r="0.5">
+			<stop offset="0%" stop-color="#22d3a7" stop-opacity="0.52"/>
+			<stop offset="100%" stop-color="#22d3a7" stop-opacity="0"/>
+		</radialGradient>
+		<linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+			<stop offset="0%" stop-color="#ffffff" stop-opacity="0.34"/>
+			<stop offset="100%" stop-color="#ffffff" stop-opacity="0.12"/>
+		</linearGradient>
+		<linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0%" stop-color="#7fa9f5"/>
+			<stop offset="45%" stop-color="#bcd0f4"/>
+			<stop offset="76%" stop-color="#f5d0af"/>
+			<stop offset="100%" stop-color="#ec8f77"/>
+		</linearGradient>
+	</defs>
+
+	<rect width="1544" height="500" fill="url(#bg)"/>
+	<ellipse cx="300" cy="130" rx="470" ry="310" fill="url(#gA)"/>
+	<ellipse cx="1270" cy="400" rx="520" ry="340" fill="url(#gB)"/>
+	<ellipse cx="880" cy="60" rx="400" ry="230" fill="url(#gC)"/>
+
+	<g transform="translate(104 150)">
+		<text x="0" y="0" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="76" font-weight="700" fill="#ffffff" letter-spacing="-2">DiceBar</text>
+		<text x="0" y="58" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="30" font-weight="600" fill="#a7bde6">A mobile bottom bar for WordPress</text>
+		<text x="0" y="112" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="21" fill="#8296bd">Click to call, chat, directions and social icons,</text>
+		<text x="0" y="144" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="21" fill="#8296bd">pinned under the thumb on every page.</text>
+
+		<g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="600">
+			<rect x="0" y="180" width="148" height="40" rx="20" fill="#ffffff" fill-opacity="0.11" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.4"/>
+			<text x="26" y="206" fill="#d3e2ff">Any theme</text>
+			<rect x="164" y="180" width="158" height="40" rx="20" fill="#ffffff" fill-opacity="0.11" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.4"/>
+			<text x="190" y="206" fill="#d3e2ff">No tracking</text>
+			<rect x="338" y="180" width="128" height="40" rx="20" fill="#ffffff" fill-opacity="0.11" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.4"/>
+			<text x="364" y="206" fill="#d3e2ff">Free</text>
+		</g>
+	</g>
+
+	<g transform="translate(1010 52)">
+		<rect x="0" y="0" width="386" height="396" rx="52" fill="#05070d" stroke="#ffffff" stroke-opacity="0.16" stroke-width="2"/>
+		<rect x="13" y="13" width="360" height="370" rx="40" fill="url(#screen)"/>
+
+		<g fill="#ffffff" opacity="0.55">
+			<rect x="48" y="56" width="210" height="18" rx="9"/>
+			<rect x="48" y="92" width="282" height="13" rx="6.5"/>
+			<rect x="48" y="118" width="260" height="13" rx="6.5"/>
+			<rect x="48" y="144" width="274" height="13" rx="6.5"/>
+			<rect x="48" y="170" width="176" height="13" rx="6.5"/>
+		</g>
+
+		<g transform="translate(36 254)">
+			<rect x="0" y="0" width="314" height="98" rx="30" fill="url(#glass)" stroke="#ffffff" stroke-opacity="0.44" stroke-width="1.6"/>
+			<rect x="18" y="2" width="278" height="2.4" rx="1.2" fill="#ffffff" fill-opacity="0.72"/>
+
+			<g stroke="#14171e" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+				<g transform="translate(28 26)">
+					<path d="M22 15v2.7a1.8 1.8 0 0 1-2 1.8 17.8 17.8 0 0 1-7.7-2.8 17.5 17.5 0 0 1-5.4-5.4A17.8 17.8 0 0 1 4.1 3.8 1.8 1.8 0 0 1 5.9 1.8h2.7a1.8 1.8 0 0 1 1.8 1.5c.1.9.3 1.7.6 2.5a1.8 1.8 0 0 1-.4 1.9l-1.1 1.1a14.4 14.4 0 0 0 5.4 5.4l1.1-1.1a1.8 1.8 0 0 1 1.9-.4c.8.3 1.6.5 2.5.6A1.8 1.8 0 0 1 22 15Z"/>
+				</g>
+				<g transform="translate(107 26)">
+					<path d="M20 10.3a7.5 7.5 0 0 1-8 7.5 7.6 7.6 0 0 1-3.5-.8L3.4 18.4l1.4-4.6a7.6 7.6 0 0 1-.8-3.5 7.5 7.5 0 0 1 7.5-8 7.5 7.5 0 0 1 8.5 8Z"/>
+				</g>
+				<g transform="translate(186 26)">
+					<path d="M19 9c0 5.4-7.2 10.8-7.2 10.8S4.6 14.4 4.6 9a7.2 7.2 0 0 1 14.4 0Z"/>
+					<circle cx="11.8" cy="9" r="2.7"/>
+				</g>
+				<g transform="translate(263 26)">
+					<circle cx="16" cy="4.4" r="2.7"/>
+					<circle cx="5.4" cy="10.8" r="2.7"/>
+					<circle cx="16" cy="17.2" r="2.7"/>
+					<path d="m7.7 12.2 6 3.6M13.7 5.8l-6 3.6"/>
+				</g>
+			</g>
+
+			<g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="11" font-weight="700" fill="#14171e" letter-spacing="1.3" text-anchor="middle" opacity="0.86">
+				<text x="39" y="76">CALL</text>
+				<text x="118" y="76">CHAT</text>
+				<text x="197" y="76">FIND US</text>
+				<text x="276" y="76">SHARE</text>
+			</g>
+		</g>
+	</g>
+</svg>
