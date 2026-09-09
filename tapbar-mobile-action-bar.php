@@ -62,3 +62,25 @@ if ( ! tbar_php_is_supported() ) {
 	add_action( 'admin_notices', 'tbar_php_notice' );
 	return;
 }
+
+require_once TBAR_PATH . 'includes/class-tbar-settings.php';
+require_once TBAR_PATH . 'includes/class-tbar-sanitize.php';
+require_once TBAR_PATH . 'includes/class-tbar-item-types.php';
+require_once TBAR_PATH . 'includes/class-tbar-icons.php';
+require_once TBAR_PATH . 'includes/class-tbar-styles.php';
+require_once TBAR_PATH . 'includes/class-tbar-render.php';
+require_once TBAR_PATH . 'includes/class-tbar-assets.php';
+require_once TBAR_PATH . 'includes/class-tbar-shortcode.php';
+
+if ( is_admin() ) {
+	require_once TBAR_PATH . 'admin/class-tbar-admin.php';
+	TBar_Admin::init();
+}
+
+add_action( 'init', array( 'TBar_Settings', 'register' ) );
+add_action( 'init', array( 'TBar_Shortcode', 'register' ) );
+add_action( 'wp_enqueue_scripts', array( 'TBar_Assets', 'enqueue' ) );
+add_filter( 'script_loader_tag', array( 'TBar_Assets', 'protect_script' ), 10, 2 );
+
+// Late, so the bar sits after the theme's own footer markup in the source.
+add_action( 'wp_footer', array( 'TBar_Render', 'footer' ), 100 );

@@ -68,10 +68,10 @@ if ( ! file_exists( $tbar_main ) ) {
 $tbar_headers = get_file_data(
 	$tbar_main,
 	array(
-		'Name'       => 'Plugin Name',
-		'Version'    => 'Version',
-		'TextDomain' => 'Text Domain',
-		'RequiresWP' => 'Requires at least',
+		'Name'        => 'Plugin Name',
+		'Version'     => 'Version',
+		'TextDomain'  => 'Text Domain',
+		'RequiresWP'  => 'Requires at least',
 		'RequiresPHP' => 'Requires PHP',
 	)
 );

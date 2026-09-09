@@ -1,0 +1,96 @@
+/* TapBar settings screen. */
+
+.tbar-admin__intro {
+	max-width: 46em;
+	font-size: 14px;
+}
+
+.tbar-items {
+	max-width: 900px;
+}
+
+.tbar-item {
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	background: #fff;
+	margin-bottom: 12px;
+}
+
+.tbar-item__head {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px 12px;
+	border-bottom: 1px solid #f0f0f1;
+	background: #f6f7f7;
+	border-radius: 6px 6px 0 0;
+}
+
+.tbar-item__handle {
+	cursor: grab;
+	color: #8c8f94;
+	letter-spacing: -2px;
+}
+
+.tbar-item__title {
+	flex: 1 1 auto;
+}
+
+.tbar-item__id {
+	font-size: 11px;
+	color: #646970;
+	background: #fff;
+	padding: 2px 6px;
+	border-radius: 3px;
+}
+
+.tbar-item__remove {
+	color: #b32d2e;
+}
+
+.tbar-item__fields {
+	display: grid;
+	grid-template-columns: repeat( auto-fit, minmax( 220px, 1fr ) );
+	gap: 12px 16px;
+	padding: 14px;
+}
+
+.tbar-item__fields label {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	font-size: 13px;
+}
+
+.tbar-item__fields label > span {
+	font-weight: 600;
+	color: #1d2327;
+}
+
+.tbar-item__fields input[type="text"],
+.tbar-item__fields select {
+	width: 100%;
+}
+
+.tbar-item__check {
+	flex-direction: row !important;
+	align-items: center;
+}
+
+.tbar-item.is-dragging {
+	opacity: 0.5;
+}
+
+.tbar-colour {
+	display: inline-flex;
+	flex-direction: column;
+	gap: 4px;
+	margin: 0 16px 10px 0;
+	font-size: 13px;
+}
+
+.tbar-admin__hint {
+	margin-left: 10px;
+	color: #646970;
+	font-style: italic;
+}
