@@ -110,7 +110,7 @@ class DiceBar_Settings {
 					'size' => 10,
 					'case' => 'upper',
 				),
-				'scheme'      => 'system',
+				'scheme'      => 'light',
 				'light'       => array(
 					'bar_bg'     => '#ffffff',
 					'text'       => '#1c1c1e',

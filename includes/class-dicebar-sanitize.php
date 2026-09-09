@@ -508,7 +508,7 @@ class DiceBar_Sanitize {
 					'size' => self::int_in_range( self::pick( $label, 'size', 10 ), 7, 20, 10 ),
 					'case' => self::choice( self::pick( $label, 'case', 'upper' ), array( 'upper', 'normal' ), 'upper' ),
 				),
-				'scheme'      => self::choice( self::pick( $style, 'scheme', 'system' ), array( 'system', 'light', 'dark', 'off' ), 'system' ),
+				'scheme'      => self::choice( self::pick( $style, 'scheme', 'light' ), array( 'system', 'light', 'dark', 'off' ), 'light' ),
 				'light'       => self::palette( self::group( $style, 'light' ), $defaults['style']['light'] ),
 				'dark'        => self::palette( self::group( $style, 'dark' ), $defaults['style']['dark'] ),
 				'custom_css'  => self::css( self::pick( $style, 'custom_css', '' ) ),

@@ -555,6 +555,7 @@ $dicebar_user_choices = array(
 								$settings['style']['scheme']
 							);
 							?>
+							<p class="dicebarui__help"><?php esc_html_e( 'Light is the default because most themes are light only. Following the visitor setting puts a dark bar on a light page for anyone whose phone is in dark mode, which looks like a mistake. Choose it if your theme has a dark mode of its own.', 'dicebar' ); ?></p>
 						</div>
 					</div>
 

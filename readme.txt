@@ -4,7 +4,7 @@ Tags: click to call, call now button, footer bar, floating button, mobile menu
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.6.0
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -172,6 +172,11 @@ entirely your own code's business.
 5. Choosing where the bar appears.
 
 == Changelog ==
+
+= 1.7.0 =
+* The colour scheme now defaults to light rather than following the visitor's device. Most themes are light only, so a visitor with dark mode on was getting a dark bar on a light page. Following the device is still an option for themes that have their own dark mode.
+* Fixed: the documentation page was being included inside the plugin archive.
+* The translation template now carries all 229 strings; it was previously an empty stub.
 
 = 1.6.0 =
 * Renamed to DiceBar.
