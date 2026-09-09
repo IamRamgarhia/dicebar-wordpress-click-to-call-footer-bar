@@ -52,6 +52,10 @@ $dicebar_user_choices = array(
 		</div>
 
 		<div class="dicebarui__status">
+			<a class="dicebarui__docs" href="<?php echo esc_url( DICEBAR_DOCS ); ?>" target="_blank" rel="noopener noreferrer">
+				<?php esc_html_e( 'Documentation', 'dicebar' ); ?>
+				<span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'dicebar' ); ?></span>
+			</a>
 			<?php if ( ! empty( $settings['enabled'] ) && ! empty( $settings['items'] ) ) : ?>
 				<span class="dicebarui__pill dicebarui__pill--on"><?php esc_html_e( 'Live on your site', 'dicebar' ); ?></span>
 			<?php elseif ( empty( $settings['items'] ) ) : ?>
@@ -689,6 +693,18 @@ $dicebar_user_choices = array(
 							<?php else : ?>
 								<p class="dicebarui__help"><?php esc_html_e( 'Add an item first and its id will appear here.', 'dicebar' ); ?></p>
 							<?php endif; ?>
+						</div>
+					</div>
+
+					<div class="dicebarui__row">
+						<div class="dicebarui__row-label"><?php esc_html_e( 'Full documentation', 'dicebar' ); ?></div>
+						<div class="dicebarui__row-field">
+							<p>
+								<a href="<?php echo esc_url( DICEBAR_DOCS ); ?>" target="_blank" rel="noopener noreferrer">
+									<?php echo esc_html( DICEBAR_DOCS ); ?>
+								</a>
+							</p>
+							<p class="dicebarui__help"><?php esc_html_e( 'Every setting on this screen, explained, with the reasoning behind the ones that look arbitrary.', 'dicebar' ); ?></p>
 						</div>
 					</div>
 

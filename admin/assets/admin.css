@@ -1100,3 +1100,22 @@
 	letter-spacing: 0.06em;
 	color: var( --dicebarui-muted );
 }
+
+/* ---- Documentation link ------------------------------------------------ */
+
+.dicebarui__status {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.dicebarui__docs {
+	font-size: 13px;
+	font-weight: 600;
+	color: var( --dicebarui-brand );
+	text-decoration: none;
+}
+
+.dicebarui__docs:hover {
+	text-decoration: underline;
+}

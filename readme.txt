@@ -101,6 +101,8 @@ users also get a DiceBar widget in the panel.
 Every feature described here is in the free plugin. There is no locked tier and
 no adverts in your dashboard.
 
+**Full documentation:** [dicecodes.com/mobile-bottom-bar-wordpress-plugin](https://dicecodes.com/mobile-bottom-bar-wordpress-plugin/)
+
 Built and maintained by [Dice Codes](https://dicecodes.com/).
 
 == Installation ==

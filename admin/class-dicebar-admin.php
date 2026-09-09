@@ -103,7 +103,13 @@ class DiceBar_Admin {
 			esc_html__( 'Settings', 'dicebar' )
 		);
 
-		array_unshift( $links, $settings );
+		$docs = sprintf(
+			'<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>',
+			esc_url( DICEBAR_DOCS ),
+			esc_html__( 'Docs', 'dicebar' )
+		);
+
+		array_unshift( $links, $settings, $docs );
 
 		return $links;
 	}

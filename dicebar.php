@@ -5,7 +5,7 @@
  * Version:           1.6.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
- * Plugin URI:        https://dicecodes.com/dicebar-wordpress-plugin/
+ * Plugin URI:        https://dicecodes.com/mobile-bottom-bar-wordpress-plugin/
  * Author:            Dice Codes
  * Author URI:        https://dicecodes.com/
  * License:           GPL-2.0-or-later
@@ -26,6 +26,7 @@ define( 'DICEBAR_FILE', __FILE__ );
 define( 'DICEBAR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'DICEBAR_URL', plugin_dir_url( __FILE__ ) );
 define( 'DICEBAR_SCHEMA_VERSION', 1 );
+define( 'DICEBAR_DOCS', 'https://dicecodes.com/mobile-bottom-bar-wordpress-plugin/' );
 
 /**
  * Whether the running PHP version meets the plugin's floor.

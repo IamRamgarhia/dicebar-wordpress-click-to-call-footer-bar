@@ -7,3 +7,4 @@ playwright-report/
 *.log
 .phpunit.result.cache
 dist/
+docs-site/

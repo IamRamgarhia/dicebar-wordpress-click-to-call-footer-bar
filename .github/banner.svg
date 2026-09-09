@@ -1,62 +1,105 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" width="720" height="260" role="img" aria-label="Mobile Bottom Bar for WordPress: a phone showing a sticky bar with call, chat, directions and share buttons">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420" role="img" aria-label="DiceBar: a frosted glass footer bar on a phone, holding call, chat, directions and share buttons">
 	<defs>
-		<linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
-			<stop offset="0%" stop-color="#6f9ceb"/>
-			<stop offset="38%" stop-color="#a5c4f2"/>
-			<stop offset="70%" stop-color="#f2c9a8"/>
-			<stop offset="100%" stop-color="#e8927c"/>
+		<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0%" stop-color="#0b1020"/>
+			<stop offset="55%" stop-color="#131a33"/>
+			<stop offset="100%" stop-color="#1b1230"/>
 		</linearGradient>
-		<linearGradient id="page" x1="0" y1="0" x2="0" y2="1">
-			<stop offset="0%" stop-color="#f7f8fa"/>
-			<stop offset="100%" stop-color="#ffffff"/>
+		<radialGradient id="glowA" cx="0.5" cy="0.5" r="0.5">
+			<stop offset="0%" stop-color="#4f8cff" stop-opacity="0.85"/>
+			<stop offset="100%" stop-color="#4f8cff" stop-opacity="0"/>
+		</radialGradient>
+		<radialGradient id="glowB" cx="0.5" cy="0.5" r="0.5">
+			<stop offset="0%" stop-color="#ff7a59" stop-opacity="0.75"/>
+			<stop offset="100%" stop-color="#ff7a59" stop-opacity="0"/>
+		</radialGradient>
+		<radialGradient id="glowC" cx="0.5" cy="0.5" r="0.5">
+			<stop offset="0%" stop-color="#22d3a7" stop-opacity="0.6"/>
+			<stop offset="100%" stop-color="#22d3a7" stop-opacity="0"/>
+		</radialGradient>
+		<linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+			<stop offset="0%" stop-color="#ffffff" stop-opacity="0.30"/>
+			<stop offset="55%" stop-color="#ffffff" stop-opacity="0.14"/>
+			<stop offset="100%" stop-color="#ffffff" stop-opacity="0.09"/>
+		</linearGradient>
+		<linearGradient id="sheen" x1="0" y1="0" x2="1" y2="0">
+			<stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
+			<stop offset="50%" stop-color="#ffffff" stop-opacity="0.12"/>
+			<stop offset="100%" stop-color="#ffffff" stop-opacity="0.45"/>
+		</linearGradient>
+		<linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0%" stop-color="#7fa9f5"/>
+			<stop offset="45%" stop-color="#b9cdf3"/>
+			<stop offset="75%" stop-color="#f4cfae"/>
+			<stop offset="100%" stop-color="#ec8f77"/>
 		</linearGradient>
 	</defs>
 
-	<rect width="720" height="260" fill="url(#page)"/>
+	<rect width="1200" height="420" fill="url(#bg)"/>
 
-	<g transform="translate(44 34)">
-		<text x="0" y="24" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="27" font-weight="700" fill="#16181d">Mobile Bottom Bar</text>
-		<text x="0" y="56" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="15" fill="#43474f">Click to call, chat, directions and social buttons,</text>
-		<text x="0" y="78" font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="15" fill="#43474f">pinned under the thumb on every page.</text>
+	<!-- Soft light behind the glass, which is what makes frosting read as frosting. -->
+	<ellipse cx="250" cy="120" rx="380" ry="260" fill="url(#glowA)"/>
+	<ellipse cx="980" cy="330" rx="420" ry="280" fill="url(#glowB)"/>
+	<ellipse cx="700" cy="60" rx="320" ry="200" fill="url(#glowC)"/>
 
-		<g font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="12" fill="#2563eb">
-			<rect x="0" y="102" width="104" height="26" rx="13" fill="#eff5ff"/>
-			<text x="16" y="119">Any theme</text>
-			<rect x="112" y="102" width="112" height="26" rx="13" fill="#eff5ff"/>
-			<text x="128" y="119">No tracking</text>
-			<rect x="232" y="102" width="76" height="26" rx="13" fill="#eff5ff"/>
-			<text x="248" y="119">Free</text>
+	<g transform="translate(78 96)">
+		<text x="0" y="0" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="52" font-weight="700" fill="#ffffff" letter-spacing="-1.2">DiceBar</text>
+		<text x="0" y="44" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="21" font-weight="600" fill="#9fb4dd">A mobile bottom bar for WordPress</text>
+		<text x="0" y="86" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="16" fill="#7f92b8">Click to call, chat, directions and social icons,</text>
+		<text x="0" y="110" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="16" fill="#7f92b8">pinned under the thumb on every page.</text>
+
+		<g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="13" font-weight="600">
+			<rect x="0" y="140" width="118" height="32" rx="16" fill="#ffffff" fill-opacity="0.10" stroke="#ffffff" stroke-opacity="0.22"/>
+			<text x="20" y="161" fill="#cfe0ff">Any theme</text>
+			<rect x="130" y="140" width="126" height="32" rx="16" fill="#ffffff" fill-opacity="0.10" stroke="#ffffff" stroke-opacity="0.22"/>
+			<text x="150" y="161" fill="#cfe0ff">No tracking</text>
+			<rect x="268" y="140" width="152" height="32" rx="16" fill="#ffffff" fill-opacity="0.10" stroke="#ffffff" stroke-opacity="0.22"/>
+			<text x="288" y="161" fill="#cfe0ff">Free and GPL</text>
 		</g>
 	</g>
 
-	<g transform="translate(452 26)">
-		<rect x="0" y="0" width="212" height="208" rx="26" fill="#16181d"/>
-		<rect x="8" y="8" width="196" height="192" rx="19" fill="url(#sky)"/>
+	<!-- The phone, and the frosted dock inside it. -->
+	<g transform="translate(700 42)">
+		<rect x="0" y="0" width="330" height="336" rx="44" fill="#05070d" stroke="#ffffff" stroke-opacity="0.14" stroke-width="1.5"/>
+		<rect x="11" y="11" width="308" height="314" rx="34" fill="url(#screen)"/>
 
 		<g fill="#ffffff" opacity="0.55">
-			<rect x="26" y="30" width="120" height="11" rx="5"/>
-			<rect x="26" y="50" width="156" height="8" rx="4"/>
-			<rect x="26" y="66" width="142" height="8" rx="4"/>
-			<rect x="26" y="82" width="150" height="8" rx="4"/>
+			<rect x="40" y="48" width="180" height="15" rx="7"/>
+			<rect x="40" y="78" width="240" height="11" rx="5"/>
+			<rect x="40" y="100" width="222" height="11" rx="5"/>
+			<rect x="40" y="122" width="234" height="11" rx="5"/>
+			<rect x="40" y="144" width="150" height="11" rx="5"/>
 		</g>
 
-		<g transform="translate(20 132)">
-			<rect x="0" y="0" width="172" height="52" rx="16" fill="#ffffff" opacity="0.78"/>
-			<g stroke="#1c1c1e" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round">
-				<path d="M25 16.9v2a1.3 1.3 0 0 1-1.5 1.3 13 13 0 0 1-5.7-2 12.8 12.8 0 0 1-4-4 13 13 0 0 1-2-5.7A1.3 1.3 0 0 1 13.1 7h2a1.3 1.3 0 0 1 1.3 1.1c.1.6.2 1.2.5 1.8a1.3 1.3 0 0 1-.3 1.4l-.9.8a10.5 10.5 0 0 0 4 4l.8-.8a1.3 1.3 0 0 1 1.4-.3c.6.2 1.2.4 1.8.5A1.3 1.3 0 0 1 25 16.9Z" transform="translate(6 2)"/>
-				<path d="M75 13.5a5.5 5.5 0 0 1-5.9 5.5 5.6 5.6 0 0 1-2.6-.6l-3.4 1 1-3.4a5.6 5.6 0 0 1-.6-2.6 5.5 5.5 0 0 1 5.5-5.9 5.5 5.5 0 0 1 5.9 5.9Z" transform="translate(-1 2)"/>
-				<path d="M124 12.4c0 3.9-5.2 7.8-5.2 7.8s-5.2-3.9-5.2-7.8a5.2 5.2 0 0 1 10.4 0Z" transform="translate(-1 2)"/>
-				<circle cx="118.6" cy="12.4" r="1.9" transform="translate(-1 2)"/>
-				<circle cx="160" cy="10" r="2" transform="translate(-1 2)"/>
-				<circle cx="152" cy="14.5" r="2" transform="translate(-1 2)"/>
-				<circle cx="160" cy="19" r="2" transform="translate(-1 2)"/>
-				<path d="m153.7 15.6 4.6 2.7M158.3 11.2l-4.6 2.7" transform="translate(-1 2)"/>
+		<!-- Frosted panel: translucent fill, a lit top edge, a hairline border. -->
+		<g transform="translate(30 216)">
+			<rect x="0" y="0" width="270" height="84" rx="26" fill="url(#glass)" stroke="#ffffff" stroke-opacity="0.42" stroke-width="1.2"/>
+			<rect x="14" y="1.5" width="242" height="1.6" rx="0.8" fill="url(#sheen)"/>
+
+			<g stroke="#15181f" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+				<g transform="translate(22 22) scale(0.95)">
+					<path d="M20 13.5v2.4a1.6 1.6 0 0 1-1.8 1.6 15.8 15.8 0 0 1-6.9-2.5 15.6 15.6 0 0 1-4.8-4.8A15.8 15.8 0 0 1 4 3.4 1.6 1.6 0 0 1 5.6 1.6h2.4a1.6 1.6 0 0 1 1.6 1.4c.1.8.3 1.5.6 2.2a1.6 1.6 0 0 1-.4 1.7l-1 1a12.8 12.8 0 0 0 4.8 4.8l1-1a1.6 1.6 0 0 1 1.7-.4c.7.3 1.4.5 2.2.6A1.6 1.6 0 0 1 20 13.5Z"/>
+				</g>
+				<g transform="translate(90 22) scale(0.95)">
+					<path d="M18 9.2a6.7 6.7 0 0 1-7.2 6.7 6.8 6.8 0 0 1-3.1-.7L3 16.4l1.2-4.1a6.8 6.8 0 0 1-.7-3.1A6.7 6.7 0 0 1 10.2 2 6.7 6.7 0 0 1 18 9.2Z"/>
+				</g>
+				<g transform="translate(158 22) scale(0.95)">
+					<path d="M17 8c0 4.8-6.4 9.6-6.4 9.6S4.2 12.8 4.2 8a6.4 6.4 0 0 1 12.8 0Z"/>
+					<circle cx="10.6" cy="8" r="2.4"/>
+				</g>
+				<g transform="translate(226 22) scale(0.95)">
+					<circle cx="14.4" cy="4" r="2.4"/>
+					<circle cx="4.8" cy="9.6" r="2.4"/>
+					<circle cx="14.4" cy="15.2" r="2.4"/>
+					<path d="m6.9 10.8 5.4 3.2M12.3 5.2 6.9 8.4"/>
+				</g>
 			</g>
-			<g font-family="-apple-system,Segoe UI,Roboto,sans-serif" font-size="6.5" font-weight="700" fill="#1c1c1e" letter-spacing="0.7" text-anchor="middle">
-				<text x="21" y="40">CALL</text>
-				<text x="64" y="40">CHAT</text>
-				<text x="107" y="40">FIND US</text>
-				<text x="150" y="40">SHARE</text>
+
+			<g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="9" font-weight="700" fill="#15181f" letter-spacing="1.1" text-anchor="middle" opacity="0.88">
+				<text x="33" y="66">CALL</text>
+				<text x="101" y="66">CHAT</text>
+				<text x="169" y="66">FIND US</text>
+				<text x="237" y="66">SHARE</text>
 			</g>
 		</g>
 	</g>

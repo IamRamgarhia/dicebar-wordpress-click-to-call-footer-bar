@@ -1,20 +1,28 @@
 <div align="center">
 
-<img src=".github/banner.svg" alt="DiceBar: a WordPress footer bar on a phone showing click to call, chat, directions and share buttons" width="720">
+<img src=".github/banner.svg" alt="DiceBar: a frosted glass footer bar on a phone, holding call, chat, directions and share buttons" width="900">
 
 # DiceBar — Mobile Bottom Bar &amp; Click to Call Button for WordPress
 
 **A sticky footer bar for phones with a click to call button, a WhatsApp chat button, directions and social icons. Free, no tracking, works with any theme.**
 
-[![Version](https://img.shields.io/badge/version-1.6.0-2563eb)](https://github.com/IamRamgarhia/dicebar/releases)
-[![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-21759b)](https://wordpress.org/)
-[![PHP](https://img.shields.io/badge/PHP-7.4%2B-777bb4)](https://www.php.net/)
-[![License](https://img.shields.io/badge/license-GPL--2.0--or--later-green)](LICENSE)
-[![Plugin Check](https://img.shields.io/badge/Plugin%20Check-passing-brightgreen)](https://wordpress.org/plugins/plugin-check/)
+<br>
 
-[Documentation](https://dicecodes.com/dicebar-wordpress-plugin/) ·
-[Download](https://github.com/IamRamgarhia/dicebar/releases/latest) ·
-[Report a bug](https://github.com/IamRamgarhia/dicebar/issues)
+<a href="https://github.com/IamRamgarhia/dicebar/releases/latest/download/dicebar.zip"><img src=".github/download.svg" alt="Download DiceBar, the latest release" width="300"></a>
+&nbsp;
+<a href="https://dicecodes.com/mobile-bottom-bar-wordpress-plugin/"><img src=".github/docs.svg" alt="Read the DiceBar documentation" width="220"></a>
+
+<br><br>
+
+[![Version](https://img.shields.io/badge/version-1.6.0-2563eb?style=flat-square)](https://github.com/IamRamgarhia/dicebar/releases)
+[![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-21759b?style=flat-square)](https://wordpress.org/)
+[![PHP](https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square)](https://www.php.net/)
+[![License](https://img.shields.io/badge/license-GPL--2.0--or--later-3fb950?style=flat-square)](LICENSE)
+[![Plugin Check](https://img.shields.io/badge/Plugin%20Check-passing-3fb950?style=flat-square)](https://wordpress.org/plugins/plugin-check/)
+
+**[Documentation](https://dicecodes.com/mobile-bottom-bar-wordpress-plugin/)** ·
+[Report a bug](https://github.com/IamRamgarhia/dicebar/issues) ·
+[Releases](https://github.com/IamRamgarhia/dicebar/releases)
 
 </div>
 
