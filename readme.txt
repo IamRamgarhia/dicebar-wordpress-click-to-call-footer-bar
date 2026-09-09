@@ -1,6 +1,6 @@
 === DiceBar — Mobile Bottom Bar, Click to Call & Chat ===
 Contributors: dicecodes
-Tags: click to call, call now button, floating button, mobile menu, sticky bar
+Tags: click to call, call now button, footer bar, floating button, mobile menu
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -8,14 +8,17 @@ Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A sticky bottom bar for phones with click to call, chat, directions and social buttons. Works with any theme.
+Sticky footer bar for phones with a click to call button, chat button, directions and social icons. Works with any theme.
 
 == Description ==
 
-DiceBar puts a fixed bar across the bottom of the screen on phones and
-tablets, holding the buttons your visitors actually need: a click to call
-button, a WhatsApp chat button, directions, email, or a link to anywhere on your
-site.
+DiceBar adds a **mobile bottom bar** to your site, also called a sticky footer
+bar, holding the buttons your visitors actually need: a **click to call button**,
+a **WhatsApp chat button**, directions, email, social media icons, or a link to
+anywhere on your site.
+
+It is the simplest way to add a **call now button** to WordPress without touching
+a theme file, and it works with every theme and every page builder.
 
 Most people arrive on a phone. On a phone, a phone number in the footer is four
 scrolls away, and a contact form is a wall. A bottom bar puts the action under

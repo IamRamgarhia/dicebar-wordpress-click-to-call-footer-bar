@@ -1,34 +1,35 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="DiceBar, a mobile bottom bar for WordPress — a sticky bar with click to call, chat and directions buttons" width="720">
+<img src="assets/banner.svg" alt="DiceBar: a WordPress footer bar on a phone showing click to call, chat, directions and share buttons" width="720">
 
-# DiceBar — Mobile Bottom Bar, Click to Call &amp; Chat for WordPress
+# DiceBar — Mobile Bottom Bar &amp; Click to Call Button for WordPress
 
-**A sticky bottom bar for phones. Click to call, chat, directions and social icons. Free, no tracking, works with any theme.**
+**A sticky footer bar for phones with a click to call button, a WhatsApp chat button, directions and social icons. Free, no tracking, works with any theme.**
 
-[![WordPress Plugin Version](https://img.shields.io/badge/version-1.6.0-2563eb)](https://wordpress.org/plugins/dicebar/)
+[![Version](https://img.shields.io/badge/version-1.6.0-2563eb)](https://github.com/IamRamgarhia/dicebar/releases)
 [![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-21759b)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-777bb4)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-GPL--2.0--or--later-green)](LICENSE)
 [![Plugin Check](https://img.shields.io/badge/Plugin%20Check-passing-brightgreen)](https://wordpress.org/plugins/plugin-check/)
 
 [Documentation](https://dicecodes.com/dicebar-wordpress-plugin/) ·
-[Download](https://wordpress.org/plugins/dicebar/) ·
+[Download](https://github.com/IamRamgarhia/dicebar/releases/latest) ·
 [Report a bug](https://github.com/IamRamgarhia/dicebar/issues)
 
 </div>
 
 ---
 
-## What it does
+## What DiceBar does
+
+DiceBar is a WordPress plugin that adds a **mobile bottom bar**, also called a
+sticky footer bar, across the bottom of the screen on phones and tablets. It
+holds a **click to call button**, a **WhatsApp chat button**, directions, email,
+social media icons, or a link to anywhere on your site.
 
 Most visitors arrive on a phone. On a phone, a phone number in the footer is four
-scrolls away and a contact form is a wall.
-
-**DiceBar** adds a fixed bar across the bottom of the screen holding the
-buttons people actually need: a **click to call button**, a **WhatsApp chat
-button**, **directions**, email, social profiles, or a link to anywhere on your
-site. It works with any WordPress theme and any page builder.
+scrolls away and a contact form is a wall. A footer bar puts the action under the
+thumb on every page, which is the whole idea behind a call now button.
 
 Every feature listed here is in the free plugin. There is no locked tier, no
 advert in your dashboard, and no tracking of any kind.
@@ -37,24 +38,27 @@ advert in your dashboard, and no tracking of any kind.
 
 | | |
 |---|---|
-| **Click to call button** | Taps straight into the dialler |
-| **WhatsApp button** | Opens a chat, optionally with a message already written |
+| **Click to call button** | Taps straight into the phone's dialler |
+| **WhatsApp chat button** | Opens a chat, optionally with a message already written |
 | **SMS and email buttons** | With a prefilled body or subject |
 | **Directions button** | Opens the map app with your address searched |
-| **Social profile buttons** | Thirty networks, optionally in their own brand colours |
-| **Link, page, anchor, share, back to top** | The rest of what a bar needs |
+| **Social media icons** | Thirty networks, optionally in their own brand colours |
+| **Link, page, anchor, share, back to top** | The rest of what a footer bar needs |
 | **Four looks** | Glass, solid, minimal and bold, with adjustable blur and transparency |
-| **Icons, words, or both** | A whole-bar choice, for a reason explained below |
-| **Nine starter kits** | Restaurant, clinic, trade, shop, blog, portfolio, social, and more |
+| **Icons, words, or both** | A whole-bar choice, for the reason given below |
+| **Nine starter kits** | Restaurant, clinic, trade, shop, blog, portfolio, social |
 | **Live preview** | The real bar, on a photograph, light or dark, at 320, 375 and 414 px |
 | **Shortcode and Elementor widget** | Put the same row inside any page |
-| **Cache-safe** | Designed for full-page caching rather than patched for it |
+| **Cache-safe** | Designed for full-page caching rather than patched for it afterwards |
 
-## Install
+## Installing
 
-From your dashboard, search for **DiceBar** under Plugins, then Add New.
+From your dashboard, go to **Plugins**, then **Add New**, and search for
+**DiceBar**. Or download the archive from
+[the latest release](https://github.com/IamRamgarhia/dicebar/releases/latest) and
+upload it.
 
-Or with WP-CLI:
+With WP-CLI:
 
 ```bash
 wp plugin install dicebar --activate
@@ -63,15 +67,16 @@ wp plugin install dicebar --activate
 Requires WordPress 6.0 or newer and PHP 7.4 or newer. No other dependencies, and
 no external requests at any point.
 
-## Use it inside a page
+## Putting the bar inside a page
 
-The bar appears by itself. To also show the same row of buttons in your content:
+The bar appears by itself on every page you allow it on. To also show the same
+row of buttons inside your content, use the shortcode:
 
 ```
 [dicebar]
 ```
 
-To show only some buttons, name them by id:
+To show only some of the buttons, name them by id:
 
 ```
 [dicebar items="itm_a1b2c3d4, itm_e5f6a7b8"]
@@ -79,29 +84,74 @@ To show only some buttons, name them by id:
 
 The shortcode works in the block editor, in widgets, in theme templates, and in
 **Elementor, Divi, Beaver Builder, Bricks and Oxygen**. Elementor users also get
-a DiceBar widget in the panel, registered only when Elementor is
-actually loaded.
+a DiceBar widget in the panel, registered only when Elementor is actually loaded.
 
-## Why it works with caching
+## Frequently asked questions
 
-A full-page cache stores one copy of a page and serves it to everybody, which
-quietly breaks any rule that differs between two visitors at the same address.
-The plugin splits its rules by kind:
+### Does a mobile bottom bar work with any WordPress theme?
 
-| Rule | Worked out | Why |
-|---|---|---|
-| Which page | On the server | Varies with the address, so a cache keyed on the address is correct |
-| Screen width | In CSS | The browser re-evaluates on rotation for free |
-| Signed in or out | In the browser | Differs between two visitors at the same address |
+Yes. DiceBar attaches to the `wp_footer` hook, which every theme the WordPress
+directory accepts is required to call. The realistic conflict is stacking order,
+and there is a z-index setting on the Behaviour tab for exactly that.
 
-The front-end script also carries the opt-out attributes WP Rocket, LiteSpeed,
-Autoptimize and Rocket Loader respect, because deferring a script that decides
-what a visitor sees shows the wrong thing first.
+### How do I add a click to call button in WordPress?
+
+Install DiceBar, open it in the dashboard menu, press **Add an item**, choose
+**Call** as the type, and enter your phone number. The button becomes a `tel:`
+link, so tapping it opens the dialler with the number already entered. No page
+load happens in between.
+
+### Can I add a WhatsApp chat button to the footer bar?
+
+Yes. Choose **WhatsApp** as the type and enter your number including the country
+code. You can also write a message that is prefilled when the chat opens, which
+noticeably raises how many people actually send one.
+
+### How many buttons fit in a mobile footer bar?
+
+Four. At 320 pixels wide, the narrowest phone still in real use, the bar has 288
+pixels of usable width. Four labelled buttons is 72 pixels each, which fits a
+word of about eight characters. A fifth button does not shrink the words, it cuts
+them off, so the plugin caps the list at four and explains why.
+
+### Does a sticky footer bar slow a site down?
+
+Not measurably. DiceBar loads nothing at all on any page where the bar does not
+appear, not even a stylesheet. Where it does appear it adds one small stylesheet
+and one small script, with no jQuery and no external requests.
+
+### Does it work with WP Rocket, LiteSpeed or other caching plugins?
+
+Yes, and it was designed for caching rather than patched for it. Rules that
+depend on which page you are on run on the server and cache correctly. Rules that
+differ between two visitors at the same address, such as whether they are signed
+in, run in the browser instead. The script also carries the opt-out attributes
+those plugins respect, so it is never deferred or combined.
+
+### Can I show the bar only on some pages?
+
+Yes. Choose everywhere, only on the pages you list, or everywhere except those
+pages. Individual buttons can also have their own screen and visitor rules, so
+one button can appear where another does not.
+
+### Can I show icons only, without labels?
+
+Yes: icons and words, icons only, or words only. It applies to the whole bar
+rather than one button, because an unlabelled icon centres itself while a
+labelled one lifts to make room. Mixing them leaves one mark sitting lower than
+its neighbours for no reason anybody can see.
+
+### Does DiceBar track visitors?
+
+No. Nothing is collected, nothing is sent anywhere, and the plugin contacts no
+external service at any point. A tap does fire an event inside the page so your
+own analytics can listen for it, and what happens next is entirely your own code.
+
+### Is it really free?
+
+Yes. Every feature described on this page is in the free plugin, under the GPL.
 
 ## Tracking taps, without the plugin tracking anything
-
-Nothing is collected and nothing is sent anywhere. A tap does fire an event
-inside the page so your own analytics can listen for it:
 
 ```js
 document.addEventListener( 'dicebar:click', function ( event ) {
@@ -112,6 +162,21 @@ document.addEventListener( 'dicebar:click', function ( event ) {
 	} );
 } );
 ```
+
+Every button also carries stable data attributes, so a tag manager can target one
+with a selector instead.
+
+## Why it works with page caching
+
+A full-page cache stores one copy of a page and serves it to everybody, which
+quietly breaks any rule that differs between two visitors at the same address.
+DiceBar splits its rules by kind:
+
+| Rule | Worked out | Why |
+|---|---|---|
+| Which page | On the server | Varies with the address, so a cache keyed on the address is correct |
+| Screen width | In CSS | The browser re-evaluates it on rotation for free |
+| Signed in or out | In the browser | Differs between two visitors at the same address |
 
 ## Extending it
 
@@ -148,22 +213,17 @@ anything without an `!important`:
 
 ## A few decisions, and why
 
-**Four buttons is the cap.** At 320 px the bar has 288 px of usable width. Four
-labelled buttons is 72 px each, which fits about eight characters. A fifth does
-not shrink the words, it cuts them off. The plugin caps it and says why, rather
-than letting you find out on a visitor's screen.
-
-**Labels are all or none.** An unlabelled icon centres itself while a labelled one
-lifts to make room. Mixing them leaves one mark sitting 10 px lower than its
-neighbours for no reason anybody can see.
-
 **Five link schemes, and no others.** Web, secure web, telephone, email and text
 message. Everything else is rejected on save, including for administrators,
-because administrator accounts get compromised and a script link in a button is
-stored cross-site scripting.
+because administrator accounts get compromised and a script link inside a button
+is stored cross-site scripting.
 
 **Dark colours are chosen, not derived.** An automatically inverted brand colour
-is almost always wrong.
+is almost always wrong, so the dark palette is set separately.
+
+**Nothing renders on an AMP request.** The AMP plugin rejects custom script
+outright, so shipping markup that fails its validation would be worse than
+shipping none.
 
 ## Development
 
@@ -178,27 +238,15 @@ npm run verify:zip      # unpack it the way WordPress does
 ```
 
 `npm run version:set -- 1.7.0` writes the version to all four places that have to
-agree. A test asserts they match, because a header and a readme stable tag that
-disagree ship the wrong code with no warning.
+agree. A test asserts they match, because a plugin header and a readme stable tag
+that disagree ship the wrong code with no warning.
 
-## Contributing
-
-Bug reports and pull requests are welcome. Please read
-[CONTRIBUTING.md](CONTRIBUTING.md) first, and run `composer lint` and
-`npm run test:php` before opening a pull request.
+See [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request, and
+[SECURITY.md](SECURITY.md) to report a vulnerability privately.
 
 ## License
 
 GPL-2.0-or-later. See [LICENSE](LICENSE).
 
-Built and maintained by [Dice Codes](https://dicecodes.com/).
-
----
-
-<div align="center">
-
-**Keywords:** WordPress click to call button · call now button plugin · mobile
-bottom bar · sticky footer bar · WhatsApp chat button · floating action button ·
-mobile menu bar · bottom navigation bar for WordPress · contact button plugin
-
-</div>
+Built and maintained by **[Dice Codes](https://dicecodes.com/)**, who also make
+[DiceStack](https://wordpress.org/plugins/dicestack/).
