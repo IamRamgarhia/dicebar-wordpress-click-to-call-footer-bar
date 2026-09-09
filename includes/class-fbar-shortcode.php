@@ -1,6 +1,6 @@
 <?php
 /**
- * The [tapbar] shortcode, and the Elementor widget that wraps it.
+ * The [footerbar] shortcode, and the Elementor widget that wraps it.
  *
  * The shortcode is the universal answer to "does it work with my page
  * builder". Divi, Beaver Builder, Bricks and Oxygen all render shortcodes, so
@@ -8,7 +8,7 @@
  * its panel is where its users look first, and its own load hook makes the
  * integration genuinely cheap.
  *
- * @package TapBar
+ * @package FooterBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Renders the bar inline, wherever the owner puts it.
  */
-class TBar_Shortcode {
+class FBar_Shortcode {
 
 	/**
 	 * Register the shortcode and the Elementor hook.
@@ -26,7 +26,7 @@ class TBar_Shortcode {
 	 * @return void
 	 */
 	public static function register() {
-		add_shortcode( 'tapbar', array( __CLASS__, 'render' ) );
+		add_shortcode( 'footerbar', array( __CLASS__, 'render' ) );
 
 		// Nothing Elementor-related is loaded, required or executed unless
 		// Elementor has actually booted, so an install without it pays
@@ -48,10 +48,10 @@ class TBar_Shortcode {
 				'items' => '',
 			),
 			$atts,
-			'tapbar'
+			'footerbar'
 		);
 
-		$settings = TBar_Settings::get();
+		$settings = FBar_Settings::get();
 
 		if ( empty( $settings['items'] ) ) {
 			return '';
@@ -69,15 +69,15 @@ class TBar_Shortcode {
 			}
 		}
 
-		$markup = TBar_Render::bar( $settings, 'inline', $only );
+		$markup = FBar_Render::bar( $settings, 'inline', $only );
 
 		if ( '' === $markup ) {
 			return '';
 		}
 
-		TBar_Assets::mark_inline_used();
+		FBar_Assets::mark_inline_used();
 
-		return TBar_Styles::inline_block() . $markup;
+		return FBar_Styles::inline_block() . $markup;
 	}
 
 	/**
@@ -87,8 +87,8 @@ class TBar_Shortcode {
 	 * @return void
 	 */
 	public static function register_elementor_widget( $widgets ) {
-		require_once TBAR_PATH . 'includes/class-tbar-elementor-widget.php';
+		require_once FBAR_PATH . 'includes/class-fbar-elementor-widget.php';
 
-		$widgets->register( new TBar_Elementor_Widget() );
+		$widgets->register( new FBar_Elementor_Widget() );
 	}
 }

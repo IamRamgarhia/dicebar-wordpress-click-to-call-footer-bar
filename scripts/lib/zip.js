@@ -12,7 +12,7 @@
  * happens to be installed, and makes the output byte-identical on Windows,
  * macOS and CI.
  *
- * @package TapBar
+ * @package FooterBar
  */
 
 'use strict';

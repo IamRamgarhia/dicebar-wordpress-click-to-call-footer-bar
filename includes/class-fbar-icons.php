@@ -7,7 +7,7 @@
  * the bar renders at most four of them and a request for a sprite costs more
  * than the markup it saves.
  *
- * @package TapBar
+ * @package FooterBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Supplies icon markup by name.
  */
-class TBar_Icons {
+class FBar_Icons {
 
 	/**
 	 * Path data for each icon, as one or more SVG child elements.
@@ -53,7 +53,7 @@ class TBar_Icons {
 		 *
 		 * @param array $icons Icon markup keyed by name.
 		 */
-		return apply_filters( 'tbar_icons', $icons );
+		return apply_filters( 'fbar_icons', $icons );
 	}
 
 	/**
@@ -82,7 +82,7 @@ class TBar_Icons {
 			return '';
 		}
 
-		return '<svg class="tbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
+		return '<svg class="fbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
 			. wp_kses( $icons[ $name ], self::allowed_svg() )
 			. '</svg>';
 	}

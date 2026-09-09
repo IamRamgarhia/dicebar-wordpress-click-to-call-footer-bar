@@ -3,416 +3,592 @@
  * The settings screen markup.
  *
  * Template only: no queries, no logic beyond presentation. Variables come from
- * TBar_Admin::render_page().
+ * FBar_Admin::render_page().
  *
- * @package TapBar
+ * Every panel lives in one form and saves together, so moving between tabs
+ * never loses a change. Without JavaScript every panel is simply visible.
  *
- * @var array $settings The configuration.
- * @var array $types    Registered item types.
- * @var array $icons    Available icon names.
+ * @package FooterBar
+ *
+ * @var array  $settings The configuration.
+ * @var array  $types    Registered item types.
+ * @var array  $icons    Available icon names.
+ * @var array  $tabs     Tab slugs mapped to labels and blurbs.
+ * @var string $current  The active tab slug.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$tbar_type_choices = array();
+$fbar_type_choices = array();
 
-foreach ( $types as $tbar_slug => $tbar_type ) {
-	$tbar_type_choices[ $tbar_slug ] = $tbar_type['label'];
+foreach ( $types as $fbar_slug => $fbar_type ) {
+	$fbar_type_choices[ $fbar_slug ] = $fbar_type['label'];
 }
 
-$tbar_icon_choices = array( '' => __( 'Default for this type', 'tapbar-mobile-action-bar' ) );
+$fbar_icon_choices = array( '' => __( 'Default for this type', 'footer-bar-mobile-action-bar' ) );
 
-foreach ( $icons as $tbar_icon ) {
-	$tbar_icon_choices[ $tbar_icon ] = $tbar_icon;
+foreach ( $icons as $fbar_icon ) {
+	$fbar_icon_choices[ $fbar_icon ] = $fbar_icon;
 }
+
+$fbar_device_choices = array(
+	'inherit'      => __( 'Whatever the bar does', 'footer-bar-mobile-action-bar' ),
+	'phone'        => __( 'Phones only', 'footer-bar-mobile-action-bar' ),
+	'phone_tablet' => __( 'Phones and tablets', 'footer-bar-mobile-action-bar' ),
+	'all'          => __( 'Every screen', 'footer-bar-mobile-action-bar' ),
+);
+
+$fbar_user_choices = array(
+	'inherit' => __( 'Whatever the bar does', 'footer-bar-mobile-action-bar' ),
+	'all'     => __( 'Everyone', 'footer-bar-mobile-action-bar' ),
+	'in'      => __( 'Signed in visitors', 'footer-bar-mobile-action-bar' ),
+	'out'     => __( 'Signed out visitors', 'footer-bar-mobile-action-bar' ),
+);
 ?>
-<div class="wrap tbar-admin">
-	<h1><?php esc_html_e( 'TapBar', 'tapbar-mobile-action-bar' ); ?></h1>
+<div class="wrap fbar">
+	<header class="fbar__masthead">
+		<div class="fbar__brand">
+			<span class="dashicons dashicons-smartphone" aria-hidden="true"></span>
+			<div>
+				<h1><?php esc_html_e( 'Footer Bar', 'footer-bar-mobile-action-bar' ); ?></h1>
+				<p><?php esc_html_e( 'A bar across the bottom of the screen on phones, holding whatever you put in it.', 'footer-bar-mobile-action-bar' ); ?></p>
+			</div>
+		</div>
 
-	<?php if ( isset( $_GET['updated'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
-		<div class="notice notice-success is-dismissible">
-			<p><?php esc_html_e( 'Settings saved.', 'tapbar-mobile-action-bar' ); ?></p>
+		<div class="fbar__status">
+			<?php if ( ! empty( $settings['enabled'] ) && ! empty( $settings['items'] ) ) : ?>
+				<span class="fbar__pill fbar__pill--on"><?php esc_html_e( 'Live on your site', 'footer-bar-mobile-action-bar' ); ?></span>
+			<?php elseif ( empty( $settings['items'] ) ) : ?>
+				<span class="fbar__pill"><?php esc_html_e( 'No items yet', 'footer-bar-mobile-action-bar' ); ?></span>
+			<?php else : ?>
+				<span class="fbar__pill"><?php esc_html_e( 'Turned off', 'footer-bar-mobile-action-bar' ); ?></span>
+			<?php endif; ?>
+		</div>
+	</header>
+
+	<?php // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading a redirect flag, changing nothing. ?>
+	<?php if ( isset( $_GET['updated'] ) ) : ?>
+		<div class="notice notice-success is-dismissible fbar__notice">
+			<p><?php esc_html_e( 'Saved.', 'footer-bar-mobile-action-bar' ); ?></p>
 		</div>
 	<?php endif; ?>
 
-	<p class="tbar-admin__intro">
-		<?php esc_html_e( 'A bar across the bottom of the screen on phones and tablets, holding whatever you put in it. Add items below, then look at your site on a phone.', 'tapbar-mobile-action-bar' ); ?>
-	</p>
+	<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="fbar__form">
+		<input type="hidden" name="action" value="fbar_save">
+		<input type="hidden" name="fbar_tab" id="fbar-active-tab" value="<?php echo esc_attr( $current ); ?>">
+		<?php wp_nonce_field( 'fbar_save', 'fbar_nonce' ); ?>
 
-	<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-		<input type="hidden" name="action" value="tbar_save">
-		<?php wp_nonce_field( 'tbar_save', 'tbar_nonce' ); ?>
-
-		<h2 class="title"><?php esc_html_e( 'Items', 'tapbar-mobile-action-bar' ); ?></h2>
-		<p class="description">
-			<?php esc_html_e( 'Four is the most that fits. At 320 pixels wide a fifth item clips its label rather than shrinking.', 'tapbar-mobile-action-bar' ); ?>
-		</p>
-
-		<div id="tbar-items" class="tbar-items">
+		<nav class="fbar__tabs" role="tablist" aria-label="<?php esc_attr_e( 'Settings sections', 'footer-bar-mobile-action-bar' ); ?>">
 			<?php
-			$tbar_rows = $settings['items'];
+			$fbar_step = 0;
 
-			if ( empty( $tbar_rows ) ) {
-				$tbar_rows = array();
-			}
-
-			foreach ( $tbar_rows as $tbar_index => $tbar_item ) :
+			foreach ( $tabs as $fbar_key => $fbar_tab ) :
+				++$fbar_step;
+				$fbar_is_current = ( $fbar_key === $current );
 				?>
-				<div class="tbar-item" data-index="<?php echo esc_attr( $tbar_index ); ?>">
-					<div class="tbar-item__head">
-						<span class="tbar-item__handle" aria-hidden="true">⋮⋮</span>
-						<strong class="tbar-item__title">
-							<?php echo esc_html( '' !== $tbar_item['label'] ? $tbar_item['label'] : $tbar_type_choices[ $tbar_item['type'] ] ); ?>
-						</strong>
-						<code class="tbar-item__id"><?php echo esc_html( $tbar_item['id'] ); ?></code>
-						<button type="button" class="button-link tbar-item__remove">
-							<?php esc_html_e( 'Remove', 'tapbar-mobile-action-bar' ); ?>
-						</button>
+				<a
+					href="
+					<?php
+					echo esc_url(
+						add_query_arg(
+							array(
+								'page' => 'footerbar',
+								'tab'  => $fbar_key,
+							),
+							admin_url( 'admin.php' )
+						)
+					);
+					?>
+							"
+					class="fbar__tab<?php echo $fbar_is_current ? ' is-current' : ''; ?>"
+					id="fbar-tab-<?php echo esc_attr( $fbar_key ); ?>"
+					role="tab"
+					aria-controls="fbar-panel-<?php echo esc_attr( $fbar_key ); ?>"
+					aria-selected="<?php echo $fbar_is_current ? 'true' : 'false'; ?>"
+					data-tab="<?php echo esc_attr( $fbar_key ); ?>"
+				>
+					<span class="fbar__tab-step"><?php echo esc_html( $fbar_step ); ?></span>
+					<span class="fbar__tab-text">
+						<strong><?php echo esc_html( $fbar_tab['label'] ); ?></strong>
+						<small><?php echo esc_html( $fbar_tab['blurb'] ); ?></small>
+					</span>
+				</a>
+			<?php endforeach; ?>
+		</nav>
+
+		<?php // ---------------------------------------------------- Items ?>
+		<section
+			class="fbar__panel<?php echo 'items' === $current ? ' is-current' : ''; ?>"
+			id="fbar-panel-items"
+			role="tabpanel"
+			aria-labelledby="fbar-tab-items"
+		>
+			<div class="fbar__card">
+				<div class="fbar__card-head">
+					<h2><?php esc_html_e( 'What goes in the bar', 'footer-bar-mobile-action-bar' ); ?></h2>
+					<p><?php esc_html_e( 'Drag to reorder. Four is the most that fits: at 320 pixels wide a fifth item clips its label rather than shrinking.', 'footer-bar-mobile-action-bar' ); ?></p>
+				</div>
+
+				<div id="fbar-items" class="fbar__items">
+					<?php foreach ( $settings['items'] as $fbar_index => $fbar_item ) : ?>
+						<div class="fbar__item" data-index="<?php echo esc_attr( $fbar_index ); ?>" draggable="true">
+							<div class="fbar__item-head">
+								<span class="fbar__grip" aria-hidden="true"></span>
+								<strong class="fbar__item-title">
+									<?php echo esc_html( '' !== $fbar_item['label'] ? $fbar_item['label'] : $fbar_type_choices[ $fbar_item['type'] ] ); ?>
+								</strong>
+								<code class="fbar__item-id"><?php echo esc_html( $fbar_item['id'] ); ?></code>
+								<button type="button" class="fbar__remove" aria-label="<?php esc_attr_e( 'Remove this item', 'footer-bar-mobile-action-bar' ); ?>">
+									<?php esc_html_e( 'Remove', 'footer-bar-mobile-action-bar' ); ?>
+								</button>
+							</div>
+
+							<input type="hidden" name="fbar[items][<?php echo esc_attr( $fbar_index ); ?>][id]" value="<?php echo esc_attr( $fbar_item['id'] ); ?>">
+
+							<div class="fbar__fields">
+								<label class="fbar__field">
+									<span><?php esc_html_e( 'Type', 'footer-bar-mobile-action-bar' ); ?></span>
+									<?php FBar_Admin::select( 'fbar[items][' . $fbar_index . '][type]', $fbar_type_choices, $fbar_item['type'] ); ?>
+								</label>
+
+								<label class="fbar__field">
+									<span><?php esc_html_e( 'Label', 'footer-bar-mobile-action-bar' ); ?></span>
+									<input type="text" name="fbar[items][<?php echo esc_attr( $fbar_index ); ?>][label]" value="<?php echo esc_attr( $fbar_item['label'] ); ?>" placeholder="<?php echo esc_attr( $fbar_type_choices[ $fbar_item['type'] ] ); ?>">
+								</label>
+
+								<label class="fbar__field" data-role="value">
+									<span><?php echo esc_html( $types[ $fbar_item['type'] ]['value']['label'] ); ?></span>
+									<input type="text" name="fbar[items][<?php echo esc_attr( $fbar_index ); ?>][value]" value="<?php echo esc_attr( (string) $fbar_item['value'] ); ?>">
+								</label>
+
+								<label class="fbar__field">
+									<span><?php esc_html_e( 'Icon', 'footer-bar-mobile-action-bar' ); ?></span>
+									<?php FBar_Admin::select( 'fbar[items][' . $fbar_index . '][icon]', $fbar_icon_choices, $fbar_item['icon'] ); ?>
+								</label>
+
+								<div class="fbar__extra" data-role="extra">
+									<?php foreach ( $types[ $fbar_item['type'] ]['extra'] as $fbar_key => $fbar_field ) : ?>
+										<?php if ( 'boolean' === $fbar_field['kind'] ) : ?>
+											<label class="fbar__field fbar__field--check">
+												<input type="checkbox" name="fbar[items][<?php echo esc_attr( $fbar_index ); ?>][extra][<?php echo esc_attr( $fbar_key ); ?>]" value="1" <?php checked( ! empty( $fbar_item['extra'][ $fbar_key ] ) ); ?>>
+												<span><?php echo esc_html( $fbar_field['label'] ); ?></span>
+											</label>
+										<?php else : ?>
+											<label class="fbar__field">
+												<span><?php echo esc_html( $fbar_field['label'] ); ?></span>
+												<input type="text" name="fbar[items][<?php echo esc_attr( $fbar_index ); ?>][extra][<?php echo esc_attr( $fbar_key ); ?>]" value="<?php echo esc_attr( isset( $fbar_item['extra'][ $fbar_key ] ) ? (string) $fbar_item['extra'][ $fbar_key ] : '' ); ?>">
+											</label>
+										<?php endif; ?>
+									<?php endforeach; ?>
+								</div>
+
+								<label class="fbar__field fbar__field--check">
+									<input type="checkbox" name="fbar[items][<?php echo esc_attr( $fbar_index ); ?>][primary]" value="1" <?php checked( ! empty( $fbar_item['primary'] ) ); ?>>
+									<span><?php esc_html_e( 'Make this the standout button', 'footer-bar-mobile-action-bar' ); ?></span>
+								</label>
+
+								<label class="fbar__field">
+									<span><?php esc_html_e( 'Show on', 'footer-bar-mobile-action-bar' ); ?></span>
+									<?php FBar_Admin::select( 'fbar[items][' . $fbar_index . '][show][devices]', $fbar_device_choices, $fbar_item['show']['devices'] ); ?>
+								</label>
+
+								<label class="fbar__field">
+									<span><?php esc_html_e( 'Show to', 'footer-bar-mobile-action-bar' ); ?></span>
+									<?php FBar_Admin::select( 'fbar[items][' . $fbar_index . '][show][users]', $fbar_user_choices, $fbar_item['show']['users'] ); ?>
+								</label>
+							</div>
+						</div>
+					<?php endforeach; ?>
+				</div>
+
+				<div class="fbar__empty"<?php echo $settings['items'] ? ' hidden' : ''; ?>>
+					<p><strong><?php esc_html_e( 'Nothing in the bar yet.', 'footer-bar-mobile-action-bar' ); ?></strong></p>
+					<p><?php esc_html_e( 'Most sites start with a phone number and a WhatsApp link. Add one and look at your site on a phone.', 'footer-bar-mobile-action-bar' ); ?></p>
+				</div>
+
+				<div class="fbar__card-foot">
+					<button type="button" class="button button-primary" id="fbar-add-item">
+						<?php esc_html_e( 'Add an item', 'footer-bar-mobile-action-bar' ); ?>
+					</button>
+					<span class="fbar__hint" id="fbar-add-hint" role="status"></span>
+				</div>
+			</div>
+		</section>
+
+		<?php // ------------------------------------------------ Placement ?>
+		<section
+			class="fbar__panel<?php echo 'placement' === $current ? ' is-current' : ''; ?>"
+			id="fbar-panel-placement"
+			role="tabpanel"
+			aria-labelledby="fbar-tab-placement"
+		>
+			<div class="fbar__card">
+				<div class="fbar__card-head">
+					<h2><?php esc_html_e( 'Where the bar shows', 'footer-bar-mobile-action-bar' ); ?></h2>
+				</div>
+
+				<div class="fbar__rows">
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Turn it on', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<label class="fbar__switch">
+								<input type="checkbox" name="fbar[enabled]" value="1" <?php checked( ! empty( $settings['enabled'] ) ); ?>>
+								<span><?php esc_html_e( 'Show the bar on the front end', 'footer-bar-mobile-action-bar' ); ?></span>
+							</label>
+						</div>
 					</div>
 
-					<input type="hidden" name="tbar[items][<?php echo esc_attr( $tbar_index ); ?>][id]" value="<?php echo esc_attr( $tbar_item['id'] ); ?>">
-
-					<div class="tbar-item__fields">
-						<label>
-							<span><?php esc_html_e( 'Type', 'tapbar-mobile-action-bar' ); ?></span>
-							<?php TBar_Admin::select( 'tbar[items][' . $tbar_index . '][type]', $tbar_type_choices, $tbar_item['type'] ); ?>
-						</label>
-
-						<label>
-							<span><?php esc_html_e( 'Label', 'tapbar-mobile-action-bar' ); ?></span>
-							<input type="text" name="tbar[items][<?php echo esc_attr( $tbar_index ); ?>][label]" value="<?php echo esc_attr( $tbar_item['label'] ); ?>" placeholder="<?php echo esc_attr( $tbar_type_choices[ $tbar_item['type'] ] ); ?>">
-						</label>
-
-						<label>
-							<span><?php echo esc_html( $types[ $tbar_item['type'] ]['value']['label'] ); ?></span>
-							<input type="text" name="tbar[items][<?php echo esc_attr( $tbar_index ); ?>][value]" value="<?php echo esc_attr( (string) $tbar_item['value'] ); ?>">
-						</label>
-
-						<label>
-							<span><?php esc_html_e( 'Icon', 'tapbar-mobile-action-bar' ); ?></span>
-							<?php TBar_Admin::select( 'tbar[items][' . $tbar_index . '][icon]', $tbar_icon_choices, $tbar_item['icon'] ); ?>
-						</label>
-
-						<?php foreach ( $types[ $tbar_item['type'] ]['extra'] as $tbar_key => $tbar_field ) : ?>
-							<label>
-								<span><?php echo esc_html( $tbar_field['label'] ); ?></span>
-								<?php if ( 'boolean' === $tbar_field['kind'] ) : ?>
-									<input type="checkbox" name="tbar[items][<?php echo esc_attr( $tbar_index ); ?>][extra][<?php echo esc_attr( $tbar_key ); ?>]" value="1" <?php checked( ! empty( $tbar_item['extra'][ $tbar_key ] ) ); ?>>
-								<?php else : ?>
-									<input type="text" name="tbar[items][<?php echo esc_attr( $tbar_index ); ?>][extra][<?php echo esc_attr( $tbar_key ); ?>]" value="<?php echo esc_attr( isset( $tbar_item['extra'][ $tbar_key ] ) ? (string) $tbar_item['extra'][ $tbar_key ] : '' ); ?>">
-								<?php endif; ?>
-							</label>
-						<?php endforeach; ?>
-
-						<label class="tbar-item__check">
-							<input type="checkbox" name="tbar[items][<?php echo esc_attr( $tbar_index ); ?>][primary]" value="1" <?php checked( ! empty( $tbar_item['primary'] ) ); ?>>
-							<span><?php esc_html_e( 'Make this the standout button', 'tapbar-mobile-action-bar' ); ?></span>
-						</label>
-
-						<label>
-							<span><?php esc_html_e( 'Show on', 'tapbar-mobile-action-bar' ); ?></span>
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Screens', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
 							<?php
-							TBar_Admin::select(
-								'tbar[items][' . $tbar_index . '][show][devices]',
+							FBar_Admin::select(
+								'fbar[display][devices]',
 								array(
-									'inherit'      => __( 'Whatever the bar does', 'tapbar-mobile-action-bar' ),
-									'phone'        => __( 'Phones only', 'tapbar-mobile-action-bar' ),
-									'phone_tablet' => __( 'Phones and tablets', 'tapbar-mobile-action-bar' ),
-									'all'          => __( 'Every screen', 'tapbar-mobile-action-bar' ),
+									'phone'        => __( 'Phones only', 'footer-bar-mobile-action-bar' ),
+									'phone_tablet' => __( 'Phones and tablets', 'footer-bar-mobile-action-bar' ),
+									'all'          => __( 'Every screen', 'footer-bar-mobile-action-bar' ),
 								),
-								$tbar_item['show']['devices']
+								$settings['display']['devices']
 							);
 							?>
-						</label>
+							<p class="fbar__help"><?php esc_html_e( 'A phone is anything up to the first width below. A tablet is anything up to the second.', 'footer-bar-mobile-action-bar' ); ?></p>
+							<div class="fbar__inline">
+								<label class="fbar__field fbar__field--narrow">
+									<span><?php esc_html_e( 'Phone up to', 'footer-bar-mobile-action-bar' ); ?></span>
+									<input type="number" name="fbar[display][phone_max]" value="<?php echo esc_attr( $settings['display']['phone_max'] ); ?>" min="320" max="2560">
+								</label>
+								<label class="fbar__field fbar__field--narrow">
+									<span><?php esc_html_e( 'Hide above', 'footer-bar-mobile-action-bar' ); ?></span>
+									<input type="number" name="fbar[display][breakpoint]" value="<?php echo esc_attr( $settings['display']['breakpoint'] ); ?>" min="320" max="2560">
+								</label>
+							</div>
+						</div>
+					</div>
 
-						<label>
-							<span><?php esc_html_e( 'Show to', 'tapbar-mobile-action-bar' ); ?></span>
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Pages', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
 							<?php
-							TBar_Admin::select(
-								'tbar[items][' . $tbar_index . '][show][users]',
-								array(
-									'inherit' => __( 'Whatever the bar does', 'tapbar-mobile-action-bar' ),
-									'all'     => __( 'Everyone', 'tapbar-mobile-action-bar' ),
-									'in'      => __( 'Signed in visitors', 'tapbar-mobile-action-bar' ),
-									'out'     => __( 'Signed out visitors', 'tapbar-mobile-action-bar' ),
+							FBar_Admin::select(
+								'fbar[display][content][mode]',
+								array_combine(
+									FBar_Settings::CONTENT_MODES,
+									array(
+										__( 'Everywhere', 'footer-bar-mobile-action-bar' ),
+										__( 'Only on the pages listed', 'footer-bar-mobile-action-bar' ),
+										__( 'Everywhere except the pages listed', 'footer-bar-mobile-action-bar' ),
+									)
 								),
-								$tbar_item['show']['users']
+								$settings['display']['content']['mode']
 							);
 							?>
-						</label>
+							<input type="text" name="fbar[display][content][ids]" class="fbar__wide" value="<?php echo esc_attr( implode( ', ', $settings['display']['content']['ids'] ) ); ?>" placeholder="12, 48, 105">
+							<p class="fbar__help"><?php esc_html_e( 'Post or page ids, separated by commas. The id is in the address bar when you edit a page.', 'footer-bar-mobile-action-bar' ); ?></p>
+						</div>
+					</div>
+
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Visitors', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<?php
+							FBar_Admin::select(
+								'fbar[display][users]',
+								array(
+									'all' => __( 'Everyone', 'footer-bar-mobile-action-bar' ),
+									'in'  => __( 'Signed in only', 'footer-bar-mobile-action-bar' ),
+									'out' => __( 'Signed out only', 'footer-bar-mobile-action-bar' ),
+								),
+								$settings['display']['users']
+							);
+							?>
+						</div>
 					</div>
 				</div>
-			<?php endforeach; ?>
+			</div>
+		</section>
+
+		<?php // --------------------------------------------------- Design ?>
+		<section
+			class="fbar__panel<?php echo 'design' === $current ? ' is-current' : ''; ?>"
+			id="fbar-panel-design"
+			role="tabpanel"
+			aria-labelledby="fbar-tab-design"
+		>
+			<div class="fbar__card">
+				<div class="fbar__card-head">
+					<h2><?php esc_html_e( 'How it looks', 'footer-bar-mobile-action-bar' ); ?></h2>
+				</div>
+
+				<div class="fbar__rows">
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Labels', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<label class="fbar__switch">
+								<input type="checkbox" name="fbar[style][label][show]" value="1" <?php checked( ! empty( $settings['style']['label']['show'] ) ); ?>>
+								<span><?php esc_html_e( 'Show a word under each icon', 'footer-bar-mobile-action-bar' ); ?></span>
+							</label>
+							<p class="fbar__help"><?php esc_html_e( 'All of them or none. An unlabelled icon centres itself while a labelled one lifts to make room, so mixing them leaves one mark sitting low.', 'footer-bar-mobile-action-bar' ); ?></p>
+						</div>
+					</div>
+
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Shape', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<div class="fbar__inline">
+								<label class="fbar__field">
+									<span><?php esc_html_e( 'Bar', 'footer-bar-mobile-action-bar' ); ?></span>
+									<?php
+									FBar_Admin::select(
+										'fbar[style][layout]',
+										array(
+											'island' => __( 'Floating panel', 'footer-bar-mobile-action-bar' ),
+											'full'   => __( 'Edge to edge', 'footer-bar-mobile-action-bar' ),
+										),
+										$settings['style']['layout']
+									);
+									?>
+								</label>
+								<label class="fbar__field">
+									<span><?php esc_html_e( 'Buttons', 'footer-bar-mobile-action-bar' ); ?></span>
+									<?php
+									FBar_Admin::select(
+										'fbar[style][item][shape]',
+										array(
+											'plain'   => __( 'Plain', 'footer-bar-mobile-action-bar' ),
+											'filled'  => __( 'Filled', 'footer-bar-mobile-action-bar' ),
+											'outline' => __( 'Outlined', 'footer-bar-mobile-action-bar' ),
+											'soft'    => __( 'Tinted', 'footer-bar-mobile-action-bar' ),
+										),
+										$settings['style']['item']['shape']
+									);
+									?>
+								</label>
+								<label class="fbar__field">
+									<span><?php esc_html_e( 'Shadow', 'footer-bar-mobile-action-bar' ); ?></span>
+									<?php
+									FBar_Admin::select(
+										'fbar[style][shadow]',
+										array(
+											'none'   => __( 'None', 'footer-bar-mobile-action-bar' ),
+											'soft'   => __( 'Soft', 'footer-bar-mobile-action-bar' ),
+											'strong' => __( 'Strong', 'footer-bar-mobile-action-bar' ),
+										),
+										$settings['style']['shadow']
+									);
+									?>
+								</label>
+							</div>
+							<div class="fbar__inline">
+								<label class="fbar__switch">
+									<input type="checkbox" name="fbar[style][blur]" value="1" <?php checked( ! empty( $settings['style']['blur'] ) ); ?>>
+									<span><?php esc_html_e( 'Blur what is behind it', 'footer-bar-mobile-action-bar' ); ?></span>
+								</label>
+								<label class="fbar__switch">
+									<input type="checkbox" name="fbar[style][divider]" value="hairline" <?php checked( 'hairline', $settings['style']['divider'] ); ?>>
+									<span><?php esc_html_e( 'Line between items', 'footer-bar-mobile-action-bar' ); ?></span>
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Colours', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<div class="fbar__swatches">
+								<?php
+								$fbar_colour_labels = array(
+									'bar_bg'     => __( 'Background', 'footer-bar-mobile-action-bar' ),
+									'text'       => __( 'Text', 'footer-bar-mobile-action-bar' ),
+									'icon'       => __( 'Icons', 'footer-bar-mobile-action-bar' ),
+									'accent'     => __( 'Accent', 'footer-bar-mobile-action-bar' ),
+									'hover_bg'   => __( 'Pressed', 'footer-bar-mobile-action-bar' ),
+									'hover_text' => __( 'Pressed text', 'footer-bar-mobile-action-bar' ),
+								);
+
+								foreach ( $fbar_colour_labels as $fbar_token => $fbar_label ) :
+									?>
+									<label class="fbar__swatch">
+										<span><?php echo esc_html( $fbar_label ); ?></span>
+										<input type="text" name="fbar[style][light][<?php echo esc_attr( $fbar_token ); ?>]" value="<?php echo esc_attr( $settings['style']['light'][ $fbar_token ] ); ?>" data-role="colour">
+									</label>
+								<?php endforeach; ?>
+							</div>
+							<p class="fbar__help"><?php esc_html_e( 'Hex values such as #0a84ff. Dark mode has its own set and follows the visitor\'s system preference.', 'footer-bar-mobile-action-bar' ); ?></p>
+						</div>
+					</div>
+
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Dark mode', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<?php
+							FBar_Admin::select(
+								'fbar[style][scheme]',
+								array(
+									'system' => __( 'Follow the visitor\'s setting', 'footer-bar-mobile-action-bar' ),
+									'light'  => __( 'Always light', 'footer-bar-mobile-action-bar' ),
+									'dark'   => __( 'Always dark', 'footer-bar-mobile-action-bar' ),
+									'off'    => __( 'My theme handles it', 'footer-bar-mobile-action-bar' ),
+								),
+								$settings['style']['scheme']
+							);
+							?>
+						</div>
+					</div>
+
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Your own CSS', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<textarea name="fbar[style][custom_css]" rows="6" class="fbar__code" spellcheck="false"><?php echo esc_textarea( $settings['style']['custom_css'] ); ?></textarea>
+							<p class="fbar__help"><?php esc_html_e( 'Everything is a custom property on the .fbar element, so you can override anything without fighting the plugin.', 'footer-bar-mobile-action-bar' ); ?></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<?php // ------------------------------------------------ Behaviour ?>
+		<section
+			class="fbar__panel<?php echo 'behaviour' === $current ? ' is-current' : ''; ?>"
+			id="fbar-panel-behaviour"
+			role="tabpanel"
+			aria-labelledby="fbar-tab-behaviour"
+		>
+			<div class="fbar__card">
+				<div class="fbar__card-head">
+					<h2><?php esc_html_e( 'How it behaves', 'footer-bar-mobile-action-bar' ); ?></h2>
+				</div>
+
+				<div class="fbar__rows">
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Position', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<?php
+							FBar_Admin::select(
+								'fbar[behaviour][position]',
+								array(
+									'bottom' => __( 'Bottom of the screen', 'footer-bar-mobile-action-bar' ),
+									'top'    => __( 'Top of the screen', 'footer-bar-mobile-action-bar' ),
+								),
+								$settings['behaviour']['position']
+							);
+							?>
+							<p class="fbar__help"><?php esc_html_e( 'Bottom is where thumbs are. Choose top only if your theme already puts something at the bottom.', 'footer-bar-mobile-action-bar' ); ?></p>
+						</div>
+					</div>
+
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'On scroll', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<?php
+							FBar_Admin::select(
+								'fbar[behaviour][appear]',
+								array(
+									'always'    => __( 'Always visible', 'footer-bar-mobile-action-bar' ),
+									'scroll_up' => __( 'Hide going down, return coming up', 'footer-bar-mobile-action-bar' ),
+								),
+								$settings['behaviour']['appear']
+							);
+							?>
+						</div>
+					</div>
+
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Step aside for', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<input type="text" name="fbar[behaviour][hide_selector]" class="fbar__wide" value="<?php echo esc_attr( $settings['behaviour']['hide_selector'] ); ?>" placeholder="#contact">
+							<p class="fbar__help"><?php esc_html_e( 'The bar gets out of the way while this element is on screen. A Call button is noise beside the contact section carrying the same number.', 'footer-bar-mobile-action-bar' ); ?></p>
+						</div>
+					</div>
+
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Keep clear', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<label class="fbar__field fbar__field--narrow">
+								<span><?php esc_html_e( 'Space below', 'footer-bar-mobile-action-bar' ); ?></span>
+								<input type="number" name="fbar[behaviour][clearance]" value="<?php echo esc_attr( $settings['behaviour']['clearance'] ); ?>" min="0" max="400">
+							</label>
+							<p class="fbar__help"><?php esc_html_e( 'Use this when a cookie banner sits in the same place.', 'footer-bar-mobile-action-bar' ); ?></p>
+						</div>
+					</div>
+
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Stacking order', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<label class="fbar__field fbar__field--narrow">
+								<span><?php esc_html_e( 'z-index', 'footer-bar-mobile-action-bar' ); ?></span>
+								<input type="number" name="fbar[behaviour][z_index]" value="<?php echo esc_attr( $settings['behaviour']['z_index'] ); ?>" min="1">
+							</label>
+							<p class="fbar__help"><?php esc_html_e( 'Lower it if the bar covers one of your theme\'s pop-ups. Raise it if something covers the bar.', 'footer-bar-mobile-action-bar' ); ?></p>
+						</div>
+					</div>
+
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'When you delete', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<label class="fbar__switch">
+								<input type="checkbox" name="fbar[keep_settings_on_delete]" value="1" <?php checked( ! empty( $settings['keep_settings_on_delete'] ) ); ?>>
+								<span><?php esc_html_e( 'Keep my settings, so they return if I install it again', 'footer-bar-mobile-action-bar' ); ?></span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<?php // ---------------------------------------- Put it in a page ?>
+		<section
+			class="fbar__panel<?php echo 'place' === $current ? ' is-current' : ''; ?>"
+			id="fbar-panel-place"
+			role="tabpanel"
+			aria-labelledby="fbar-tab-place"
+		>
+			<div class="fbar__card">
+				<div class="fbar__card-head">
+					<h2><?php esc_html_e( 'Putting it inside a page', 'footer-bar-mobile-action-bar' ); ?></h2>
+					<p><?php esc_html_e( 'You do not have to. The bar appears by itself on every page it is allowed on. This is for showing the same row of buttons inside your content as well.', 'footer-bar-mobile-action-bar' ); ?></p>
+				</div>
+
+				<div class="fbar__rows">
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Shortcode', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<code class="fbar__snippet">[footerbar]</code>
+							<p class="fbar__help"><?php esc_html_e( 'Works in the block editor, in a widget, in a theme template, and in Elementor, Divi, Beaver Builder, Bricks and Oxygen.', 'footer-bar-mobile-action-bar' ); ?></p>
+						</div>
+					</div>
+
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Only some items', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<?php if ( $settings['items'] ) : ?>
+								<code class="fbar__snippet">[footerbar items="<?php echo esc_html( $settings['items'][0]['id'] ); ?>"]</code>
+								<p class="fbar__help"><?php esc_html_e( 'Item ids are shown beside each item on the Items tab. Separate several with commas.', 'footer-bar-mobile-action-bar' ); ?></p>
+							<?php else : ?>
+								<p class="fbar__help"><?php esc_html_e( 'Add an item first and its id will appear here.', 'footer-bar-mobile-action-bar' ); ?></p>
+							<?php endif; ?>
+						</div>
+					</div>
+
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Elementor', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<?php if ( did_action( 'elementor/loaded' ) ) : ?>
+								<p><?php esc_html_e( 'Elementor is active, so a Footer Bar widget is in your panel. Search for "Footer Bar".', 'footer-bar-mobile-action-bar' ); ?></p>
+							<?php else : ?>
+								<p class="fbar__help"><?php esc_html_e( 'Elementor is not active. If you install it, a Footer Bar widget appears in its panel automatically.', 'footer-bar-mobile-action-bar' ); ?></p>
+							<?php endif; ?>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="fbar__actions">
+			<?php submit_button( __( 'Save changes', 'footer-bar-mobile-action-bar' ), 'primary', 'submit', false ); ?>
+			<span class="fbar__hint"><?php esc_html_e( 'Saving keeps every tab, not just this one.', 'footer-bar-mobile-action-bar' ); ?></span>
 		</div>
-
-		<p>
-			<button type="button" class="button" id="tbar-add-item">
-				<?php esc_html_e( 'Add an item', 'tapbar-mobile-action-bar' ); ?>
-			</button>
-			<span class="tbar-admin__hint" id="tbar-add-hint"></span>
-		</p>
-
-		<h2 class="title"><?php esc_html_e( 'Where it shows', 'tapbar-mobile-action-bar' ); ?></h2>
-		<table class="form-table" role="presentation">
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Turn the bar on', 'tapbar-mobile-action-bar' ); ?></th>
-				<td>
-					<label>
-						<input type="checkbox" name="tbar[enabled]" value="1" <?php checked( ! empty( $settings['enabled'] ) ); ?>>
-						<?php esc_html_e( 'Show the bar on the front end', 'tapbar-mobile-action-bar' ); ?>
-					</label>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Screens', 'tapbar-mobile-action-bar' ); ?></th>
-				<td>
-					<?php
-					TBar_Admin::select(
-						'tbar[display][devices]',
-						array(
-							'phone'        => __( 'Phones only', 'tapbar-mobile-action-bar' ),
-							'phone_tablet' => __( 'Phones and tablets', 'tapbar-mobile-action-bar' ),
-							'all'          => __( 'Every screen', 'tapbar-mobile-action-bar' ),
-						),
-						$settings['display']['devices']
-					);
-					?>
-					<p class="description">
-						<?php esc_html_e( 'Phones end and tablets begin at the phone width below. Tablets end at the wide width.', 'tapbar-mobile-action-bar' ); ?>
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Widths', 'tapbar-mobile-action-bar' ); ?></th>
-				<td>
-					<label>
-						<?php esc_html_e( 'Phone up to', 'tapbar-mobile-action-bar' ); ?>
-						<input type="number" name="tbar[display][phone_max]" value="<?php echo esc_attr( $settings['display']['phone_max'] ); ?>" min="320" max="2560" class="small-text"> px
-					</label>
-					<label>
-						<?php esc_html_e( 'Hide above', 'tapbar-mobile-action-bar' ); ?>
-						<input type="number" name="tbar[display][breakpoint]" value="<?php echo esc_attr( $settings['display']['breakpoint'] ); ?>" min="320" max="2560" class="small-text"> px
-					</label>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Pages', 'tapbar-mobile-action-bar' ); ?></th>
-				<td>
-					<?php
-					TBar_Admin::select(
-						'tbar[display][content][mode]',
-						array(
-							'all'     => __( 'Everywhere', 'tapbar-mobile-action-bar' ),
-							'include' => __( 'Only on the pages listed below', 'tapbar-mobile-action-bar' ),
-							'exclude' => __( 'Everywhere except the pages listed below', 'tapbar-mobile-action-bar' ),
-						),
-						$settings['display']['content']['mode']
-					);
-					?>
-					<br>
-					<input type="text" name="tbar[display][content][ids]" class="regular-text" value="<?php echo esc_attr( implode( ', ', $settings['display']['content']['ids'] ) ); ?>" placeholder="12, 48, 105">
-					<p class="description"><?php esc_html_e( 'Post or page ids, separated by commas.', 'tapbar-mobile-action-bar' ); ?></p>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Visitors', 'tapbar-mobile-action-bar' ); ?></th>
-				<td>
-					<?php
-					TBar_Admin::select(
-						'tbar[display][users]',
-						array(
-							'all' => __( 'Everyone', 'tapbar-mobile-action-bar' ),
-							'in'  => __( 'Signed in only', 'tapbar-mobile-action-bar' ),
-							'out' => __( 'Signed out only', 'tapbar-mobile-action-bar' ),
-						),
-						$settings['display']['users']
-					);
-					?>
-				</td>
-			</tr>
-		</table>
-
-		<h2 class="title"><?php esc_html_e( 'How it behaves', 'tapbar-mobile-action-bar' ); ?></h2>
-		<table class="form-table" role="presentation">
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Position', 'tapbar-mobile-action-bar' ); ?></th>
-				<td>
-					<?php
-					TBar_Admin::select(
-						'tbar[behaviour][position]',
-						array(
-							'bottom' => __( 'Bottom of the screen', 'tapbar-mobile-action-bar' ),
-							'top'    => __( 'Top of the screen', 'tapbar-mobile-action-bar' ),
-						),
-						$settings['behaviour']['position']
-					);
-					?>
-					<p class="description"><?php esc_html_e( 'Bottom is where thumbs are. Choose top only if your theme already puts something at the bottom.', 'tapbar-mobile-action-bar' ); ?></p>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Appearance', 'tapbar-mobile-action-bar' ); ?></th>
-				<td>
-					<?php
-					TBar_Admin::select(
-						'tbar[behaviour][appear]',
-						array(
-							'always'    => __( 'Always visible', 'tapbar-mobile-action-bar' ),
-							'scroll_up' => __( 'Hide when scrolling down', 'tapbar-mobile-action-bar' ),
-						),
-						$settings['behaviour']['appear']
-					);
-					?>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Hide near', 'tapbar-mobile-action-bar' ); ?></th>
-				<td>
-					<input type="text" name="tbar[behaviour][hide_selector]" class="regular-text" value="<?php echo esc_attr( $settings['behaviour']['hide_selector'] ); ?>" placeholder="#contact">
-					<p class="description"><?php esc_html_e( 'The bar steps out of the way while this element is on screen. A Call button is noise beside the contact section carrying the same number.', 'tapbar-mobile-action-bar' ); ?></p>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Keep clear', 'tapbar-mobile-action-bar' ); ?></th>
-				<td>
-					<input type="number" name="tbar[behaviour][clearance]" value="<?php echo esc_attr( $settings['behaviour']['clearance'] ); ?>" min="0" max="400" class="small-text"> px
-					<p class="description"><?php esc_html_e( 'Space left below the bar. Use it when a cookie banner sits in the same place.', 'tapbar-mobile-action-bar' ); ?></p>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Stacking order', 'tapbar-mobile-action-bar' ); ?></th>
-				<td>
-					<input type="number" name="tbar[behaviour][z_index]" value="<?php echo esc_attr( $settings['behaviour']['z_index'] ); ?>" min="1" class="small-text">
-					<p class="description"><?php esc_html_e( 'Lower this if the bar covers one of your theme\'s pop-ups. Raise it if something covers the bar.', 'tapbar-mobile-action-bar' ); ?></p>
-				</td>
-			</tr>
-		</table>
-
-		<h2 class="title"><?php esc_html_e( 'How it looks', 'tapbar-mobile-action-bar' ); ?></h2>
-		<table class="form-table" role="presentation">
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Labels', 'tapbar-mobile-action-bar' ); ?></th>
-				<td>
-					<label>
-						<input type="checkbox" name="tbar[style][label][show]" value="1" <?php checked( ! empty( $settings['style']['label']['show'] ) ); ?>>
-						<?php esc_html_e( 'Show a word under each icon', 'tapbar-mobile-action-bar' ); ?>
-					</label>
-					<p class="description"><?php esc_html_e( 'All of them or none. An unlabelled icon centres itself while a labelled one lifts to make room, so mixing them leaves one mark sitting low.', 'tapbar-mobile-action-bar' ); ?></p>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Shape', 'tapbar-mobile-action-bar' ); ?></th>
-				<td>
-					<?php
-					TBar_Admin::select(
-						'tbar[style][layout]',
-						array(
-							'island' => __( 'Floating panel', 'tapbar-mobile-action-bar' ),
-							'full'   => __( 'Edge to edge', 'tapbar-mobile-action-bar' ),
-						),
-						$settings['style']['layout']
-					);
-
-					TBar_Admin::select(
-						'tbar[style][item][shape]',
-						array(
-							'plain'   => __( 'Plain buttons', 'tapbar-mobile-action-bar' ),
-							'filled'  => __( 'Filled buttons', 'tapbar-mobile-action-bar' ),
-							'outline' => __( 'Outlined buttons', 'tapbar-mobile-action-bar' ),
-							'soft'    => __( 'Tinted buttons', 'tapbar-mobile-action-bar' ),
-						),
-						$settings['style']['item']['shape']
-					);
-
-					TBar_Admin::select(
-						'tbar[style][shadow]',
-						array(
-							'none'   => __( 'No shadow', 'tapbar-mobile-action-bar' ),
-							'soft'   => __( 'Soft shadow', 'tapbar-mobile-action-bar' ),
-							'strong' => __( 'Strong shadow', 'tapbar-mobile-action-bar' ),
-						),
-						$settings['style']['shadow']
-					);
-					?>
-					<br>
-					<label>
-						<input type="checkbox" name="tbar[style][blur]" value="1" <?php checked( ! empty( $settings['style']['blur'] ) ); ?>>
-						<?php esc_html_e( 'Blur what is behind the bar', 'tapbar-mobile-action-bar' ); ?>
-					</label>
-					<label>
-						<input type="checkbox" name="tbar[style][divider]" value="hairline" <?php checked( 'hairline', $settings['style']['divider'] ); ?>>
-						<?php esc_html_e( 'Line between items', 'tapbar-mobile-action-bar' ); ?>
-					</label>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Colours', 'tapbar-mobile-action-bar' ); ?></th>
-				<td>
-					<?php
-					$tbar_colour_labels = array(
-						'bar_bg'     => __( 'Bar background', 'tapbar-mobile-action-bar' ),
-						'text'       => __( 'Text', 'tapbar-mobile-action-bar' ),
-						'icon'       => __( 'Icons', 'tapbar-mobile-action-bar' ),
-						'accent'     => __( 'Accent', 'tapbar-mobile-action-bar' ),
-						'hover_bg'   => __( 'Pressed background', 'tapbar-mobile-action-bar' ),
-						'hover_text' => __( 'Pressed text', 'tapbar-mobile-action-bar' ),
-					);
-
-					foreach ( $tbar_colour_labels as $tbar_token => $tbar_label ) :
-						?>
-						<label class="tbar-colour">
-							<span><?php echo esc_html( $tbar_label ); ?></span>
-							<input type="text" name="tbar[style][light][<?php echo esc_attr( $tbar_token ); ?>]" value="<?php echo esc_attr( $settings['style']['light'][ $tbar_token ] ); ?>" class="small-text">
-						</label>
-					<?php endforeach; ?>
-					<p class="description"><?php esc_html_e( 'Hex values such as #0a84ff. Dark mode uses its own set, which follows the visitor\'s system preference.', 'tapbar-mobile-action-bar' ); ?></p>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Dark mode', 'tapbar-mobile-action-bar' ); ?></th>
-				<td>
-					<?php
-					TBar_Admin::select(
-						'tbar[style][scheme]',
-						array(
-							'system' => __( 'Follow the visitor\'s setting', 'tapbar-mobile-action-bar' ),
-							'light'  => __( 'Always light', 'tapbar-mobile-action-bar' ),
-							'dark'   => __( 'Always dark', 'tapbar-mobile-action-bar' ),
-							'off'    => __( 'My theme handles it', 'tapbar-mobile-action-bar' ),
-						),
-						$settings['style']['scheme']
-					);
-					?>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Your own CSS', 'tapbar-mobile-action-bar' ); ?></th>
-				<td>
-					<textarea name="tbar[style][custom_css]" rows="5" class="large-text code" spellcheck="false"><?php echo esc_textarea( $settings['style']['custom_css'] ); ?></textarea>
-					<p class="description"><?php esc_html_e( 'Everything is exposed as a custom property on the .tbar element, so you can override anything without fighting the plugin.', 'tapbar-mobile-action-bar' ); ?></p>
-				</td>
-			</tr>
-		</table>
-
-		<h2 class="title"><?php esc_html_e( 'Putting it in a page', 'tapbar-mobile-action-bar' ); ?></h2>
-		<p>
-			<?php esc_html_e( 'The bar appears by itself, so you do not have to place it anywhere. To also drop the same row of buttons inside a page, use this shortcode. It works in the block editor, in Elementor, Divi, Beaver Builder, Bricks and Oxygen, and in any theme template.', 'tapbar-mobile-action-bar' ); ?>
-		</p>
-		<p><code>[tapbar]</code></p>
-		<p class="description">
-			<?php esc_html_e( 'Add item ids to show only some of them, for example [tapbar items="itm_a1b2c3d4"]. Elementor users also get a TapBar widget in the panel.', 'tapbar-mobile-action-bar' ); ?>
-		</p>
-
-		<h2 class="title"><?php esc_html_e( 'When you delete this plugin', 'tapbar-mobile-action-bar' ); ?></h2>
-		<p>
-			<label>
-				<input type="checkbox" name="tbar[keep_settings_on_delete]" value="1" <?php checked( ! empty( $settings['keep_settings_on_delete'] ) ); ?>>
-				<?php esc_html_e( 'Keep my settings, so they are still here if I install it again', 'tapbar-mobile-action-bar' ); ?>
-			</label>
-		</p>
-
-		<?php submit_button(); ?>
 	</form>
 </div>

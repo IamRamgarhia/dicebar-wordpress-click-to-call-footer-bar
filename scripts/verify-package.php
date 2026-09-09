@@ -11,62 +11,62 @@
  * "The plugin file does not exist." This script reproduces that exact path so
  * the failure is caught here rather than in somebody's dashboard.
  *
- * @package TapBar
+ * @package FooterBar
  */
 
-$tbar_slug    = 'tapbar-mobile-action-bar';
-$tbar_archive = __DIR__ . '/../dist/' . $tbar_slug . '.zip';
+$fbar_slug    = 'footer-bar-mobile-action-bar';
+$fbar_archive = __DIR__ . '/../dist/' . $fbar_slug . '.zip';
 
-if ( ! file_exists( $tbar_archive ) ) {
-	WP_CLI::error( 'No archive at dist/' . $tbar_slug . '.zip. Run npm run build:zip first.' );
+if ( ! file_exists( $fbar_archive ) ) {
+	WP_CLI::error( 'No archive at dist/' . $fbar_slug . '.zip. Run npm run build:zip first.' );
 }
 
-$tbar_zip    = new ZipArchive();
-$tbar_opened = $tbar_zip->open( $tbar_archive );
+$fbar_zip    = new ZipArchive();
+$fbar_opened = $fbar_zip->open( $fbar_archive );
 
-if ( true !== $tbar_opened ) {
-	WP_CLI::error( 'ZipArchive refused the file, code ' . $tbar_opened . '.' );
+if ( true !== $fbar_opened ) {
+	WP_CLI::error( 'ZipArchive refused the file, code ' . $fbar_opened . '.' );
 }
 
-$tbar_separators = array();
+$fbar_separators = array();
 
 // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- numFiles is PHP's own ZipArchive property.
-for ( $tbar_i = 0; $tbar_i < $tbar_zip->numFiles; $tbar_i++ ) {
-	$tbar_name = $tbar_zip->getNameIndex( $tbar_i );
+for ( $fbar_i = 0; $fbar_i < $fbar_zip->numFiles; $fbar_i++ ) {
+	$fbar_name = $fbar_zip->getNameIndex( $fbar_i );
 
 	// chr( 92 ) is a backslash. Written this way because a literal one in a
 	// string is exactly the character most likely to be mangled by whatever
 	// writes this file.
-	if ( false !== strpos( $tbar_name, chr( 92 ) ) ) {
-		$tbar_separators[] = $tbar_name;
+	if ( false !== strpos( $fbar_name, chr( 92 ) ) ) {
+		$fbar_separators[] = $fbar_name;
 	}
 }
 
-if ( $tbar_separators ) {
-	$tbar_zip->close();
+if ( $fbar_separators ) {
+	$fbar_zip->close();
 	WP_CLI::error(
 		"Entry names contain backslashes, which the ZIP spec forbids:\n  " .
-		implode( "\n  ", $tbar_separators )
+		implode( "\n  ", $fbar_separators )
 	);
 }
 
-$tbar_destination = sys_get_temp_dir() . '/tbar-verify-' . getmypid();
+$fbar_destination = sys_get_temp_dir() . '/fbar-verify-' . getmypid();
 
-if ( ! $tbar_zip->extractTo( $tbar_destination ) ) {
-	$tbar_zip->close();
+if ( ! $fbar_zip->extractTo( $fbar_destination ) ) {
+	$fbar_zip->close();
 	WP_CLI::error( 'Extraction failed.' );
 }
 
-$tbar_zip->close();
+$fbar_zip->close();
 
-$tbar_main = $tbar_destination . '/' . $tbar_slug . '/' . $tbar_slug . '.php';
+$fbar_main = $fbar_destination . '/' . $fbar_slug . '/' . $fbar_slug . '.php';
 
-if ( ! file_exists( $tbar_main ) ) {
-	WP_CLI::error( 'Extracted tree has no ' . $tbar_slug . '/' . $tbar_slug . '.php — this is the error WordPress reports.' );
+if ( ! file_exists( $fbar_main ) ) {
+	WP_CLI::error( 'Extracted tree has no ' . $fbar_slug . '/' . $fbar_slug . '.php — this is the error WordPress reports.' );
 }
 
-$tbar_headers = get_file_data(
-	$tbar_main,
+$fbar_headers = get_file_data(
+	$fbar_main,
 	array(
 		'Name'        => 'Plugin Name',
 		'Version'     => 'Version',
@@ -76,31 +76,31 @@ $tbar_headers = get_file_data(
 	)
 );
 
-foreach ( array( 'Name', 'Version', 'TextDomain' ) as $tbar_required ) {
-	if ( '' === $tbar_headers[ $tbar_required ] ) {
-		WP_CLI::error( 'The main file has no ' . $tbar_required . ' header.' );
+foreach ( array( 'Name', 'Version', 'TextDomain' ) as $fbar_required ) {
+	if ( '' === $fbar_headers[ $fbar_required ] ) {
+		WP_CLI::error( 'The main file has no ' . $fbar_required . ' header.' );
 	}
 }
 
-if ( $tbar_headers['TextDomain'] !== $tbar_slug ) {
-	WP_CLI::error( 'Text Domain is "' . $tbar_headers['TextDomain'] . '" but must equal the slug "' . $tbar_slug . '".' );
+if ( $fbar_headers['TextDomain'] !== $fbar_slug ) {
+	WP_CLI::error( 'Text Domain is "' . $fbar_headers['TextDomain'] . '" but must equal the slug "' . $fbar_slug . '".' );
 }
 
-$tbar_readme = $tbar_destination . '/' . $tbar_slug . '/readme.txt';
+$fbar_readme = $fbar_destination . '/' . $fbar_slug . '/readme.txt';
 
-if ( file_exists( $tbar_readme ) && preg_match( '/^Stable tag:\s*(\S+)/m', file_get_contents( $tbar_readme ), $tbar_m ) ) {
-	if ( $tbar_m[1] !== $tbar_headers['Version'] ) {
-		WP_CLI::error( 'readme.txt Stable tag ' . $tbar_m[1] . ' does not match header Version ' . $tbar_headers['Version'] . '.' );
+if ( file_exists( $fbar_readme ) && preg_match( '/^Stable tag:\s*(\S+)/m', file_get_contents( $fbar_readme ), $fbar_m ) ) {
+	if ( $fbar_m[1] !== $fbar_headers['Version'] ) {
+		WP_CLI::error( 'readme.txt Stable tag ' . $fbar_m[1] . ' does not match header Version ' . $fbar_headers['Version'] . '.' );
 	}
 }
 
 WP_CLI::success(
 	sprintf(
 		'Archive unpacks correctly. %s %s, text domain %s, needs WP %s and PHP %s.',
-		$tbar_headers['Name'],
-		$tbar_headers['Version'],
-		$tbar_headers['TextDomain'],
-		$tbar_headers['RequiresWP'],
-		$tbar_headers['RequiresPHP']
+		$fbar_headers['Name'],
+		$fbar_headers['Version'],
+		$fbar_headers['TextDomain'],
+		$fbar_headers['RequiresWP'],
+		$fbar_headers['RequiresPHP']
 	)
 );

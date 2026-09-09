@@ -5,7 +5,7 @@
  * Honours the "keep my settings" checkbox: people deactivate to test a
  * conflict and are rightly furious to lose their configuration.
  *
- * @package TapBar
+ * @package FooterBar
  */
 
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
@@ -17,23 +17,23 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
  *
  * @return void
  */
-function tbar_uninstall_site() {
-	$settings = get_option( 'tbar_settings' );
+function fbar_uninstall_site() {
+	$settings = get_option( 'fbar_settings' );
 
 	if ( is_array( $settings ) && ! empty( $settings['keep_settings_on_delete'] ) ) {
 		return;
 	}
 
-	delete_option( 'tbar_settings' );
-	delete_option( 'tbar_version' );
+	delete_option( 'fbar_settings' );
+	delete_option( 'fbar_version' );
 }
 
 if ( is_multisite() ) {
-	foreach ( get_sites( array( 'fields' => 'ids' ) ) as $tbar_site_id ) {
-		switch_to_blog( $tbar_site_id );
-		tbar_uninstall_site();
+	foreach ( get_sites( array( 'fields' => 'ids' ) ) as $fbar_site_id ) {
+		switch_to_blog( $fbar_site_id );
+		fbar_uninstall_site();
 		restore_current_blog();
 	}
 } else {
-	tbar_uninstall_site();
+	fbar_uninstall_site();
 }

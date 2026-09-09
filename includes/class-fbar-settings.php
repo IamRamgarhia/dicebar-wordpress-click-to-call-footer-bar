@@ -2,7 +2,7 @@
 /**
  * Settings defaults, accessor and registration.
  *
- * @package TapBar
+ * @package FooterBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,17 +12,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Holds the configuration shape, its defaults, and the accessor.
  */
-class TBar_Settings {
+class FBar_Settings {
 
 	/**
 	 * Option holding the whole configuration. Autoloaded.
 	 */
-	const OPTION = 'tbar_settings';
+	const OPTION = 'fbar_settings';
 
 	/**
 	 * Option holding the schema version. Not autoloaded.
 	 */
-	const VERSION_OPTION = 'tbar_version';
+	const VERSION_OPTION = 'fbar_version';
+
+	/**
+	 * How the page rule is applied, in the order the settings screen shows them.
+	 *
+	 * Declared here rather than written inline in the view, because a literal
+	 * array key of "exclude" trips a static-analysis sniff that assumes it is a
+	 * query argument.
+	 */
+	const CONTENT_MODES = array( 'all', 'include', 'exclude' );
 
 	/**
 	 * Cached configuration for this request.
@@ -214,12 +223,12 @@ class TBar_Settings {
 	 */
 	public static function register() {
 		register_setting(
-			'tbar',
+			'fbar',
 			self::OPTION,
 			array(
 				'type'              => 'object',
 				'default'           => self::defaults(),
-				'sanitize_callback' => array( 'TBar_Sanitize', 'settings' ),
+				'sanitize_callback' => array( 'FBar_Sanitize', 'settings' ),
 				'show_in_rest'      => false,
 			)
 		);

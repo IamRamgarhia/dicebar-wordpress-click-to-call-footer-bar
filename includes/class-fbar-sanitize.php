@@ -6,7 +6,7 @@
  * type. None throw and none return null: a bad value becomes the fallback,
  * because a settings save must never store half a configuration.
  *
- * @package TapBar
+ * @package FooterBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Primitive and structural sanitisers for the configuration.
  */
-class TBar_Sanitize {
+class FBar_Sanitize {
 
 	/**
 	 * The only URL schemes this plugin will ever put in an href.
@@ -265,11 +265,11 @@ class TBar_Sanitize {
 
 		$type_slug = isset( $value['type'] ) ? $value['type'] : '';
 
-		if ( ! TBar_Item_Types::exists( $type_slug ) ) {
+		if ( ! FBar_Item_Types::exists( $type_slug ) ) {
 			return null;
 		}
 
-		$type = TBar_Item_Types::get( $type_slug );
+		$type = FBar_Item_Types::get( $type_slug );
 		$show = isset( $value['show'] ) && is_array( $value['show'] ) ? $value['show'] : array();
 
 		$id = isset( $value['id'] ) && is_string( $value['id'] )
@@ -423,13 +423,13 @@ class TBar_Sanitize {
 	 * @return array
 	 */
 	public static function settings( $value ) {
-		$defaults = TBar_Settings::defaults();
+		$defaults = FBar_Settings::defaults();
 
 		if ( ! is_array( $value ) ) {
 			return $defaults;
 		}
 
-		TBar_Settings::flush();
+		FBar_Settings::flush();
 
 		$display   = self::group( $value, 'display' );
 		$content   = self::group( $display, 'content' );

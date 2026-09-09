@@ -2,7 +2,7 @@
 /**
  * Conditional asset loading.
  *
- * @package TapBar
+ * @package FooterBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Enqueues the front-end stylesheet and script, and only when they are needed.
  */
-class TBar_Assets {
+class FBar_Assets {
 
 	/**
 	 * Whether an inline copy of the bar has been rendered this request.
@@ -47,26 +47,26 @@ class TBar_Assets {
 	 * @return void
 	 */
 	public static function enqueue() {
-		if ( ! self::$inline_used && ! TBar_Render::will_render() ) {
+		if ( ! self::$inline_used && ! FBar_Render::will_render() ) {
 			return;
 		}
 
-		if ( wp_style_is( 'tbar', 'enqueued' ) ) {
+		if ( wp_style_is( 'fbar', 'enqueued' ) ) {
 			return;
 		}
 
 		wp_enqueue_style(
-			'tbar',
-			TBAR_URL . 'assets/css/tbar.css',
+			'fbar',
+			FBAR_URL . 'assets/css/fbar.css',
 			array(),
-			TBAR_VERSION
+			FBAR_VERSION
 		);
 
 		wp_enqueue_script(
-			'tbar',
-			TBAR_URL . 'assets/js/tbar.js',
+			'fbar',
+			FBAR_URL . 'assets/js/fbar.js',
 			array(),
-			TBAR_VERSION,
+			FBAR_VERSION,
 			true
 		);
 	}
@@ -84,7 +84,7 @@ class TBar_Assets {
 	 * @return string
 	 */
 	public static function protect_script( $tag, $handle ) {
-		if ( 'tbar' !== $handle ) {
+		if ( 'fbar' !== $handle ) {
 			return $tag;
 		}
 

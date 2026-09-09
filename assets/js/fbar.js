@@ -1,5 +1,5 @@
 /**
- * TapBar front-end behaviour.
+ * Footer Bar front-end behaviour.
  *
  * Deliberately small and dependency free. Everything here is either something
  * CSS genuinely cannot do, or something that must not be baked into a cached
@@ -9,13 +9,13 @@
 ( function () {
 	'use strict';
 
-	var bar = document.querySelector( '.tbar--fixed' );
+	var bar = document.querySelector( '.fbar--fixed' );
 
 	if ( ! bar ) {
 		return;
 	}
 
-	var inner = bar.querySelector( '.tbar__inner' );
+	var inner = bar.querySelector( '.fbar__inner' );
 
 	/**
 	 * Whether the visitor is signed in.
@@ -36,17 +36,17 @@
 	 */
 	function applyUserRules() {
 		var loggedIn = isLoggedIn();
-		var barRule = bar.getAttribute( 'data-tbar-users' ) || 'all';
+		var barRule = bar.getAttribute( 'data-fbar-users' ) || 'all';
 
 		if ( ( barRule === 'in' && ! loggedIn ) || ( barRule === 'out' && loggedIn ) ) {
 			bar.parentNode.removeChild( bar );
 			return false;
 		}
 
-		var items = bar.querySelectorAll( '[data-tbar-users]' );
+		var items = bar.querySelectorAll( '[data-fbar-users]' );
 
 		Array.prototype.forEach.call( items, function ( item ) {
-			var rule = item.getAttribute( 'data-tbar-users' );
+			var rule = item.getAttribute( 'data-fbar-users' );
 
 			if ( ( rule === 'in' && ! loggedIn ) || ( rule === 'out' && loggedIn ) ) {
 				item.parentNode.removeChild( item );
@@ -66,7 +66,7 @@
 	 * @return {boolean} True when at least one item is visible.
 	 */
 	function hasVisibleItems() {
-		var items = bar.querySelectorAll( '.tbar__item' );
+		var items = bar.querySelectorAll( '.fbar__item' );
 		var visible = 0;
 
 		Array.prototype.forEach.call( items, function ( item ) {
@@ -92,9 +92,9 @@
 		}
 
 		var height = Math.ceil( bar.getBoundingClientRect().height );
-		var side = bar.classList.contains( 'tbar--top' ) ? 'Top' : 'Bottom';
+		var side = bar.classList.contains( 'fbar--top' ) ? 'Top' : 'Bottom';
 
-		document.documentElement.style.setProperty( '--tbar-height', height + 'px' );
+		document.documentElement.style.setProperty( '--fbar-height', height + 'px' );
 		document.body.style[ 'padding' + side ] = height + 'px';
 	}
 
@@ -105,7 +105,7 @@
 	 * is visible.
 	 */
 	function watchHideTarget() {
-		var selector = bar.getAttribute( 'data-tbar-hide-near' );
+		var selector = bar.getAttribute( 'data-fbar-hide-near' );
 
 		if ( ! selector || typeof window.IntersectionObserver !== 'function' ) {
 			return;
@@ -132,7 +132,7 @@
 	 * Hide on scroll down, show on scroll up.
 	 */
 	function watchScrollDirection() {
-		if ( bar.getAttribute( 'data-tbar-appear' ) !== 'scroll_up' ) {
+		if ( bar.getAttribute( 'data-fbar-appear' ) !== 'scroll_up' ) {
 			return;
 		}
 
@@ -168,7 +168,7 @@
 	 */
 	function wireActions() {
 		bar.addEventListener( 'click', function ( event ) {
-			var item = event.target.closest( '[data-tbar-item]' );
+			var item = event.target.closest( '[data-fbar-item]' );
 
 			if ( ! item ) {
 				return;
@@ -178,15 +178,15 @@
 			// plugin sends nothing anywhere; what happens next is the owner's
 			// business.
 			document.dispatchEvent(
-				new CustomEvent( 'tbar:click', {
+				new CustomEvent( 'fbar:click', {
 					detail: {
-						id: item.getAttribute( 'data-tbar-item' ),
-						type: item.getAttribute( 'data-tbar-type' ),
+						id: item.getAttribute( 'data-fbar-item' ),
+						type: item.getAttribute( 'data-fbar-type' ),
 					},
 				} )
 			);
 
-			var action = item.getAttribute( 'data-tbar-action' );
+			var action = item.getAttribute( 'data-fbar-action' );
 
 			if ( ! action ) {
 				return;

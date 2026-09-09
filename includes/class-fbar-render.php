@@ -6,7 +6,7 @@
  * the viewport. Inline mode prints wherever the owner puts it, with the fixed
  * positioning, blur, shadow and body offset all removed.
  *
- * @package TapBar
+ * @package FooterBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Builds the bar's markup and decides whether it should exist at all.
  */
-class TBar_Render {
+class FBar_Render {
 
 	/**
 	 * Whether the fixed bar should render on this request.
@@ -38,7 +38,7 @@ class TBar_Render {
 			return false;
 		}
 
-		$settings = TBar_Settings::get();
+		$settings = FBar_Settings::get();
 
 		if ( empty( $settings['enabled'] ) || empty( $settings['items'] ) ) {
 			return false;
@@ -54,7 +54,7 @@ class TBar_Render {
 		 * @param bool  $render   Whether to render.
 		 * @param array $settings The configuration.
 		 */
-		return (bool) apply_filters( 'tbar_will_render', true, $settings );
+		return (bool) apply_filters( 'fbar_will_render', true, $settings );
 	}
 
 	/**
@@ -88,8 +88,8 @@ class TBar_Render {
 
 		// Only the inline style block and the markup are echoed, and both are
 		// assembled from escaped parts by the methods that build them.
-		echo TBar_Styles::inline_block(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo self::bar( TBar_Settings::get(), 'fixed' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo FBar_Styles::inline_block(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo self::bar( FBar_Settings::get(), 'fixed' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -108,31 +108,31 @@ class TBar_Render {
 		}
 
 		$classes = array(
-			'tbar',
-			'tbar--' . ( 'inline' === $mode ? 'inline' : 'fixed' ),
-			'tbar--' . $settings['behaviour']['position'],
-			'tbar--' . $settings['style']['layout'],
-			'tbar--item-' . $settings['style']['item']['shape'],
-			'tbar--shadow-' . $settings['style']['shadow'],
-			$settings['style']['label']['show'] ? 'tbar--labelled' : 'tbar--unlabelled',
-			$settings['style']['blur'] ? 'tbar--blur' : 'tbar--no-blur',
-			'tbar--divider-' . $settings['style']['divider'],
-			'tbar--case-' . $settings['style']['label']['case'],
-			'tbar--count-' . count( $items ),
+			'fbar',
+			'fbar--' . ( 'inline' === $mode ? 'inline' : 'fixed' ),
+			'fbar--' . $settings['behaviour']['position'],
+			'fbar--' . $settings['style']['layout'],
+			'fbar--item-' . $settings['style']['item']['shape'],
+			'fbar--shadow-' . $settings['style']['shadow'],
+			$settings['style']['label']['show'] ? 'fbar--labelled' : 'fbar--unlabelled',
+			$settings['style']['blur'] ? 'fbar--blur' : 'fbar--no-blur',
+			'fbar--divider-' . $settings['style']['divider'],
+			'fbar--case-' . $settings['style']['label']['case'],
+			'fbar--count-' . count( $items ),
 		);
 
 		if ( 'fixed' === $mode ) {
-			$classes[] = 'tbar--device-' . $settings['display']['devices'];
-			$classes[] = 'tbar--appear-' . $settings['behaviour']['appear'];
-			$classes[] = 'tbar--entrance-' . $settings['behaviour']['entrance'];
+			$classes[] = 'fbar--device-' . $settings['display']['devices'];
+			$classes[] = 'fbar--appear-' . $settings['behaviour']['appear'];
+			$classes[] = 'fbar--entrance-' . $settings['behaviour']['entrance'];
 
 			if ( is_admin_bar_showing() ) {
-				$classes[] = 'tbar--admin-bar';
+				$classes[] = 'fbar--admin-bar';
 			}
 		}
 
 		if ( 'system' !== $settings['style']['scheme'] ) {
-			$classes[] = 'tbar--scheme-' . $settings['style']['scheme'];
+			$classes[] = 'fbar--scheme-' . $settings['style']['scheme'];
 		}
 
 		$markup = '';
@@ -142,9 +142,9 @@ class TBar_Render {
 		}
 
 		return sprintf(
-			'<nav class="%1$s" aria-label="%2$s" data-tbar-mode="%3$s"%4$s><div class="tbar__inner">%5$s</div></nav>',
+			'<nav class="%1$s" aria-label="%2$s" data-fbar-mode="%3$s"%4$s><div class="fbar__inner">%5$s</div></nav>',
 			esc_attr( implode( ' ', $classes ) ),
-			esc_attr__( 'Quick actions', 'tapbar-mobile-action-bar' ),
+			esc_attr__( 'Quick actions', 'footer-bar-mobile-action-bar' ),
 			esc_attr( $mode ),
 			'fixed' === $mode ? ' ' . self::fixed_attributes( $settings ) : '',
 			$markup
@@ -159,13 +159,13 @@ class TBar_Render {
 	 */
 	private static function fixed_attributes( array $settings ) {
 		$attributes = array(
-			'data-tbar-users'     => $settings['display']['users'],
-			'data-tbar-appear'    => $settings['behaviour']['appear'],
-			'data-tbar-clearance' => (string) $settings['behaviour']['clearance'],
+			'data-fbar-users'     => $settings['display']['users'],
+			'data-fbar-appear'    => $settings['behaviour']['appear'],
+			'data-fbar-clearance' => (string) $settings['behaviour']['clearance'],
 		);
 
 		if ( '' !== $settings['behaviour']['hide_selector'] ) {
-			$attributes['data-tbar-hide-near'] = $settings['behaviour']['hide_selector'];
+			$attributes['data-fbar-hide-near'] = $settings['behaviour']['hide_selector'];
 		}
 
 		$out = array();
@@ -196,7 +196,7 @@ class TBar_Render {
 				continue;
 			}
 
-			$href = TBar_Item_Types::href( $item );
+			$href = FBar_Item_Types::href( $item );
 
 			// A link type with nothing to link to is a gap in the row rather
 			// than a button, so it is dropped instead of rendered dead.
@@ -221,26 +221,26 @@ class TBar_Render {
 	private static function item( array $item, array $settings ) {
 		$label      = '' !== $item['label'] ? $item['label'] : self::default_label( $item );
 		$show_label = ! empty( $settings['style']['label']['show'] );
-		$icon       = TBar_Icons::render( $item['icon'] );
+		$icon       = FBar_Icons::render( $item['icon'] );
 
-		$classes = array( 'tbar__item' );
+		$classes = array( 'fbar__item' );
 
 		if ( ! empty( $item['primary'] ) ) {
-			$classes[] = 'tbar__item--primary';
+			$classes[] = 'fbar__item--primary';
 		}
 
 		if ( 'inherit' !== $item['show']['devices'] ) {
-			$classes[] = 'tbar__item--device-' . $item['show']['devices'];
+			$classes[] = 'fbar__item--device-' . $item['show']['devices'];
 		}
 
 		$inner = $icon;
 
 		if ( $show_label ) {
-			$inner .= '<span class="tbar__label">' . esc_html( $label ) . '</span>';
+			$inner .= '<span class="fbar__label">' . esc_html( $label ) . '</span>';
 		}
 
 		$attributes = sprintf(
-			'class="%s" data-tbar-item="%s" data-tbar-type="%s"',
+			'class="%s" data-fbar-item="%s" data-fbar-type="%s"',
 			esc_attr( implode( ' ', $classes ) ),
 			esc_attr( $item['id'] ),
 			esc_attr( $item['type'] )
@@ -254,11 +254,11 @@ class TBar_Render {
 		}
 
 		if ( 'inherit' !== $item['show']['users'] ) {
-			$attributes .= sprintf( ' data-tbar-users="%s"', esc_attr( $item['show']['users'] ) );
+			$attributes .= sprintf( ' data-fbar-users="%s"', esc_attr( $item['show']['users'] ) );
 		}
 
 		if ( in_array( $item['type'], array( 'top', 'share', 'anchor' ), true ) ) {
-			$attributes .= sprintf( ' data-tbar-action="%s"', esc_attr( $item['type'] ) );
+			$attributes .= sprintf( ' data-fbar-action="%s"', esc_attr( $item['type'] ) );
 		}
 
 		if ( 'text' === $item['type'] ) {
@@ -289,7 +289,7 @@ class TBar_Render {
 
 		return sprintf(
 			'<a href="%s" %s>%s</a>',
-			esc_url( $item['href'], TBar_Sanitize::ALLOWED_SCHEMES ),
+			esc_url( $item['href'], FBar_Sanitize::ALLOWED_SCHEMES ),
 			$attributes,
 			$inner
 		);
@@ -302,7 +302,7 @@ class TBar_Render {
 	 * @return string
 	 */
 	private static function default_label( array $item ) {
-		$type = TBar_Item_Types::get( $item['type'] );
+		$type = FBar_Item_Types::get( $item['type'] );
 
 		return $type ? $type['label'] : '';
 	}

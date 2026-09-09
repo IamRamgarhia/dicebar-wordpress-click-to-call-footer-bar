@@ -10,7 +10,7 @@
  * properties, and the breakpoints are configurable, so those two queries are
  * written out here with the saved pixel values baked in.
  *
- * @package TapBar
+ * @package FooterBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Builds the inline style block that accompanies the bar.
  */
-class TBar_Styles {
+class FBar_Styles {
 
 	/**
 	 * The complete inline style element, escaped and ready to echo.
@@ -28,7 +28,7 @@ class TBar_Styles {
 	 * @return string
 	 */
 	public static function inline_block() {
-		$settings = TBar_Settings::get();
+		$settings = FBar_Settings::get();
 
 		$css = self::variables( $settings )
 			. self::device_queries( $settings )
@@ -40,7 +40,7 @@ class TBar_Styles {
 
 		// wp_strip_all_tags on the whole block is the last line of defence: no
 		// value reaching here can close the style element and start a script.
-		return '<style id="tbar-inline">' . wp_strip_all_tags( $css ) . '</style>';
+		return '<style id="fbar-inline">' . wp_strip_all_tags( $css ) . '</style>';
 	}
 
 	/**
@@ -58,25 +58,25 @@ class TBar_Styles {
 		$style = $settings['style'];
 
 		$base = array(
-			'--tbar-radius'      => (int) $style['radius'] . 'px',
-			'--tbar-item-radius' => (int) $style['item']['radius'] . 'px',
-			'--tbar-min-height'  => (int) $style['item']['min_height'] . 'px',
-			'--tbar-icon-size'   => (int) $style['item']['icon_size'] . 'px',
-			'--tbar-icon-gap'    => (int) $style['item']['icon_gap'] . 'px',
-			'--tbar-gap'         => (int) $style['gap'] . 'px',
-			'--tbar-label-size'  => (int) $style['label']['size'] . 'px',
-			'--tbar-max-width'   => $style['max_width'] ? (int) $style['max_width'] . 'px' : 'none',
-			'--tbar-z'           => (int) $settings['behaviour']['z_index'],
-			'--tbar-clearance'   => (int) $settings['behaviour']['clearance'] . 'px',
+			'--fbar-radius'      => (int) $style['radius'] . 'px',
+			'--fbar-item-radius' => (int) $style['item']['radius'] . 'px',
+			'--fbar-min-height'  => (int) $style['item']['min_height'] . 'px',
+			'--fbar-icon-size'   => (int) $style['item']['icon_size'] . 'px',
+			'--fbar-icon-gap'    => (int) $style['item']['icon_gap'] . 'px',
+			'--fbar-gap'         => (int) $style['gap'] . 'px',
+			'--fbar-label-size'  => (int) $style['label']['size'] . 'px',
+			'--fbar-max-width'   => $style['max_width'] ? (int) $style['max_width'] . 'px' : 'none',
+			'--fbar-z'           => (int) $settings['behaviour']['z_index'],
+			'--fbar-clearance'   => (int) $settings['behaviour']['clearance'] . 'px',
 		);
 
-		$css = '.tbar{' . self::declarations( $base ) . self::declarations( self::palette( $style['light'] ) ) . '}';
+		$css = '.fbar{' . self::declarations( $base ) . self::declarations( self::palette( $style['light'] ) ) . '}';
 
 		$dark = self::declarations( self::palette( $style['dark'] ) );
 
 		if ( 'off' !== $style['scheme'] ) {
-			$css .= '@media (prefers-color-scheme: dark){.tbar:not(.tbar--scheme-light){' . $dark . '}}';
-			$css .= '.tbar--scheme-dark{' . $dark . '}';
+			$css .= '@media (prefers-color-scheme: dark){.fbar:not(.fbar--scheme-light){' . $dark . '}}';
+			$css .= '.fbar--scheme-dark{' . $dark . '}';
 		}
 
 		return $css;
@@ -92,7 +92,7 @@ class TBar_Styles {
 		$properties = array();
 
 		foreach ( $palette as $token => $value ) {
-			$properties[ '--tbar-' . str_replace( '_', '-', $token ) ] = $value;
+			$properties[ '--fbar-' . str_replace( '_', '-', $token ) ] = $value;
 		}
 
 		return $properties;
@@ -131,16 +131,16 @@ class TBar_Styles {
 
 		// The bar itself, by its device setting.
 		$css .= '@media (min-width:' . ( $breakpoint + 1 ) . 'px){'
-			. '.tbar--fixed.tbar--device-phone_tablet{display:none}'
+			. '.fbar--fixed.fbar--device-phone_tablet{display:none}'
 			. '}';
 
 		$css .= '@media (min-width:' . ( $phone_max + 1 ) . 'px){'
-			. '.tbar--fixed.tbar--device-phone{display:none}'
-			. '.tbar__item--device-phone{display:none}'
+			. '.fbar--fixed.fbar--device-phone{display:none}'
+			. '.fbar__item--device-phone{display:none}'
 			. '}';
 
 		$css .= '@media (min-width:' . ( $breakpoint + 1 ) . 'px){'
-			. '.tbar__item--device-phone_tablet{display:none}'
+			. '.fbar__item--device-phone_tablet{display:none}'
 			. '}';
 
 		return $css;

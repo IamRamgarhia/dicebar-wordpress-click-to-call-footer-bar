@@ -1,6 +1,6 @@
 {
-	"name": "tapbar-mobile-action-bar",
-	"version": "1.0.0",
+	"name": "footer-bar-mobile-action-bar",
+	"version": "1.1.0",
 	"description": "A bottom bar on phones and tablets holding whatever you put in it.",
 	"license": "GPL-2.0-or-later",
 	"private": true,
@@ -8,14 +8,16 @@
 		"env:start": "wp-env start",
 		"env:stop": "wp-env stop",
 		"env:destroy": "wp-env destroy",
-		"env:activate": "wp-env run cli wp plugin activate tapbar-mobile-action-bar",
-		"env:install-tests": "wp-env run tests-cli --env-cwd=wp-content/plugins/tapbar-mobile-action-bar composer install",
-		"test:php": "wp-env run tests-cli --env-cwd=wp-content/plugins/tapbar-mobile-action-bar vendor/bin/phpunit",
+		"env:activate": "wp-env run cli wp plugin activate footer-bar-mobile-action-bar",
+		"env:install-tests": "wp-env run tests-cli --env-cwd=wp-content/plugins/footer-bar-mobile-action-bar composer install",
+		"test:php": "wp-env run tests-cli --env-cwd=wp-content/plugins/footer-bar-mobile-action-bar vendor/bin/phpunit",
 		"env:restart": "wp-env stop && wp-env start",
 		"env:rebuild": "node scripts/env-rebuild.js",
 		"test:fresh": "npm run env:rebuild && npm run env:install-tests && npm run test:php",
 		"build:zip": "node scripts/build-zip.js",
-		"verify:zip": "wp-env run cli --env-cwd=wp-content/plugins/tapbar-mobile-action-bar wp eval-file scripts/verify-package.php"
+		"verify:zip": "wp-env run cli --env-cwd=wp-content/plugins/footer-bar-mobile-action-bar wp eval-file scripts/verify-package.php",
+		"version:set": "node scripts/set-version.js",
+		"check": "wp-env run cli wp plugin check footer-bar-mobile-action-bar --exclude-directories=dist,scripts,tests,docs,node_modules,vendor,.superpowers,.github --exclude-files=phpcs.xml.dist,phpunit.xml.dist,.wp-env.json,jest.config.js,playwright.config.js,package.json,package-lock.json,composer.json,composer.lock,.distignore,.gitignore,.phpunit.result.cache"
 	},
 	"devDependencies": {
 		"@wordpress/env": "^10.0.0"
