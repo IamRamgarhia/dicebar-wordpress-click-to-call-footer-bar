@@ -117,6 +117,7 @@ class FBar_Settings {
 					'icon'       => '#1c1c1e',
 					'hover_bg'   => '#0a84ff',
 					'hover_text' => '#ffffff',
+					'bold_bg'    => '#0a84ff',
 					'divider'    => 'rgba(0,0,0,0.12)',
 				),
 				'dark'       => array(
@@ -126,6 +127,7 @@ class FBar_Settings {
 					'icon'       => '#f2f2f7',
 					'hover_bg'   => '#0a84ff',
 					'hover_text' => '#ffffff',
+					'bold_bg'    => '#0a84ff',
 					'divider'    => 'rgba(255,255,255,0.16)',
 				),
 				'custom_css' => '',

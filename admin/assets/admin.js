@@ -760,7 +760,10 @@
 			var typeControl = row.querySelector( '[name$="[type]"]' );
 			var type = typeControl ? typeBySlug( typeControl.value ) : null;
 			var labelInput = row.querySelector( '[name$="[label]"]' );
-			var iconControl = row.querySelector( '[name$="[icon]"]' );
+			// The icon field is a radio group, so this has to ask for the
+			// checked one. Without :checked it always answered with the
+			// first icon in the grid and the preview never moved.
+			var iconControl = row.querySelector( '[name$="[icon]"]:checked' );
 			var network = row.querySelector( '[name$="[extra][network]"]' );
 			var primary = row.querySelector( '[name$="[primary]"]' );
 

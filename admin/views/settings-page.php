@@ -496,26 +496,39 @@ $fbar_user_choices = array(
 					<div class="fbarui__row">
 						<div class="fbarui__row-label"><?php esc_html_e( 'Colours', 'footer-bar-mobile-action-bar' ); ?></div>
 						<div class="fbarui__row-field">
-							<div class="fbarui__swatches">
-								<?php
-								$fbar_colour_labels = array(
-									'bar_bg'     => __( 'Background', 'footer-bar-mobile-action-bar' ),
-									'text'       => __( 'Text', 'footer-bar-mobile-action-bar' ),
-									'icon'       => __( 'Icons', 'footer-bar-mobile-action-bar' ),
-									'accent'     => __( 'Accent', 'footer-bar-mobile-action-bar' ),
-									'hover_bg'   => __( 'Pressed', 'footer-bar-mobile-action-bar' ),
-									'hover_text' => __( 'Pressed text', 'footer-bar-mobile-action-bar' ),
-								);
+							<?php
+							$fbar_colour_labels = array(
+								'bar_bg'     => __( 'Bar background', 'footer-bar-mobile-action-bar' ),
+								'bold_bg'    => __( 'Bold fill', 'footer-bar-mobile-action-bar' ),
+								'text'       => __( 'Text', 'footer-bar-mobile-action-bar' ),
+								'icon'       => __( 'Icons', 'footer-bar-mobile-action-bar' ),
+								'accent'     => __( 'Standout item', 'footer-bar-mobile-action-bar' ),
+								'hover_bg'   => __( 'Pressed', 'footer-bar-mobile-action-bar' ),
+								'hover_text' => __( 'Pressed text', 'footer-bar-mobile-action-bar' ),
+								'divider'    => __( 'Divider line', 'footer-bar-mobile-action-bar' ),
+							);
 
-								foreach ( $fbar_colour_labels as $fbar_token => $fbar_label ) :
-									?>
-									<label class="fbarui__swatch">
-										<span><?php echo esc_html( $fbar_label ); ?></span>
-										<input type="text" name="fbar[style][light][<?php echo esc_attr( $fbar_token ); ?>]" value="<?php echo esc_attr( $settings['style']['light'][ $fbar_token ] ); ?>" data-role="colour">
-									</label>
-								<?php endforeach; ?>
-							</div>
-							<p class="fbarui__help"><?php esc_html_e( 'Hex values such as #0a84ff. Dark mode has its own set and follows the visitor\'s system preference.', 'footer-bar-mobile-action-bar' ); ?></p>
+							$fbar_palettes = array(
+								'light' => __( 'Light', 'footer-bar-mobile-action-bar' ),
+								'dark'  => __( 'Dark', 'footer-bar-mobile-action-bar' ),
+							);
+
+							foreach ( $fbar_palettes as $fbar_palette => $fbar_palette_name ) :
+								?>
+								<div class="fbarui__palette">
+									<h4><?php echo esc_html( $fbar_palette_name ); ?></h4>
+									<div class="fbarui__swatches">
+										<?php foreach ( $fbar_colour_labels as $fbar_token => $fbar_label ) : ?>
+											<label class="fbarui__swatch">
+												<span><?php echo esc_html( $fbar_label ); ?></span>
+												<input type="text" name="fbar[style][<?php echo esc_attr( $fbar_palette ); ?>][<?php echo esc_attr( $fbar_token ); ?>]" value="<?php echo esc_attr( $settings['style'][ $fbar_palette ][ $fbar_token ] ); ?>" data-role="colour">
+											</label>
+										<?php endforeach; ?>
+									</div>
+								</div>
+							<?php endforeach; ?>
+
+							<p class="fbarui__help"><?php esc_html_e( 'Hex values such as #0a84ff, or rgba for the divider. The dark set applies when the visitor has dark mode on, and the preview has a Dark button so you can check it before saving.', 'footer-bar-mobile-action-bar' ); ?></p>
 						</div>
 					</div>
 

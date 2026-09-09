@@ -8,17 +8,17 @@
  */
 
 .fbarui {
-	--fbar-ink: #1d2327;
-	--fbar-muted: #646970;
-	--fbar-line: #dcdcde;
-	--fbar-surface: #fff;
-	--fbar-sunken: #f6f7f7;
-	--fbar-brand: #2271b1;
-	--fbar-brand-soft: #f0f6fc;
-	--fbar-ok: #00a32a;
-	--fbar-danger: #b32d2e;
-	--fbar-shadow: 0 1px 2px rgba( 0, 0, 0, 0.06 );
-	--fbar-round: 8px;
+	--fbarui-ink: #1d2327;
+	--fbarui-muted: #646970;
+	--fbarui-line: #dcdcde;
+	--fbarui-surface: #fff;
+	--fbarui-sunken: #f6f7f7;
+	--fbarui-brand: #2271b1;
+	--fbarui-brand-soft: #f0f6fc;
+	--fbarui-ok: #00a32a;
+	--fbarui-danger: #b32d2e;
+	--fbarui-shadow: 0 1px 2px rgba( 0, 0, 0, 0.06 );
+	--fbarui-round: 8px;
 
 	/* No width cap. A settings screen that leaves half a wide monitor empty is
 	   wasting the space it was given; long text is held to a comfortable
@@ -40,9 +40,9 @@
 	flex-wrap: wrap;
 	padding: 22px 24px;
 	margin: 20px 0 0;
-	background: var( --fbar-surface );
-	border: 1px solid var( --fbar-line );
-	border-radius: var( --fbar-round ) var( --fbar-round ) 0 0;
+	background: var( --fbarui-surface );
+	border: 1px solid var( --fbarui-line );
+	border-radius: var( --fbarui-round ) var( --fbarui-round ) 0 0;
 	border-bottom: 0;
 }
 
@@ -56,7 +56,7 @@
 	width: 40px;
 	height: 40px;
 	font-size: 40px;
-	color: var( --fbar-brand );
+	color: var( --fbarui-brand );
 	flex: none;
 }
 
@@ -65,12 +65,12 @@
 	padding: 0;
 	font-size: 22px;
 	line-height: 1.2;
-	color: var( --fbar-ink );
+	color: var( --fbarui-ink );
 }
 
 .fbarui__brand p {
 	margin: 4px 0 0;
-	color: var( --fbar-muted );
+	color: var( --fbarui-muted );
 	font-size: 13px;
 	max-width: 52ch;
 }
@@ -79,9 +79,9 @@
 	display: inline-block;
 	padding: 5px 12px;
 	border-radius: 999px;
-	background: var( --fbar-sunken );
-	border: 1px solid var( --fbar-line );
-	color: var( --fbar-muted );
+	background: var( --fbarui-sunken );
+	border: 1px solid var( --fbarui-line );
+	color: var( --fbarui-muted );
 	font-size: 12px;
 	font-weight: 600;
 }
@@ -104,8 +104,8 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0;
-	background: var( --fbar-sunken );
-	border: 1px solid var( --fbar-line );
+	background: var( --fbarui-sunken );
+	border: 1px solid var( --fbarui-line );
 	border-bottom: 0;
 	padding: 0 12px;
 }
@@ -116,25 +116,25 @@
 	gap: 10px;
 	padding: 14px 16px;
 	text-decoration: none;
-	color: var( --fbar-muted );
+	color: var( --fbarui-muted );
 	border-bottom: 3px solid transparent;
 	transition: color 0.15s ease, border-color 0.15s ease;
 }
 
 .fbarui__tab:hover,
 .fbarui__tab:focus {
-	color: var( --fbar-ink );
+	color: var( --fbarui-ink );
 	box-shadow: none;
 }
 
 .fbarui__tab.is-current {
-	color: var( --fbar-ink );
-	border-bottom-color: var( --fbar-brand );
-	background: var( --fbar-surface );
+	color: var( --fbarui-ink );
+	border-bottom-color: var( --fbarui-brand );
+	background: var( --fbarui-surface );
 }
 
 .fbarui__tab:focus-visible {
-	outline: 2px solid var( --fbar-brand );
+	outline: 2px solid var( --fbarui-brand );
 	outline-offset: -2px;
 }
 
@@ -145,14 +145,14 @@
 	height: 24px;
 	flex: none;
 	border-radius: 50%;
-	background: var( --fbar-line );
-	color: var( --fbar-surface );
+	background: var( --fbarui-line );
+	color: var( --fbarui-surface );
 	font-size: 12px;
 	font-weight: 700;
 }
 
 .fbarui__tab.is-current .fbarui__tab-step {
-	background: var( --fbar-brand );
+	background: var( --fbarui-brand );
 }
 
 .fbarui__tab-text {
@@ -167,7 +167,7 @@
 
 .fbarui__tab-text small {
 	font-size: 11px;
-	color: var( --fbar-muted );
+	color: var( --fbarui-muted );
 	font-weight: 400;
 }
 
@@ -180,13 +180,13 @@
 }
 
 .fbarui__card {
-	background: var( --fbar-surface );
-	border: 1px solid var( --fbar-line );
-	box-shadow: var( --fbar-shadow );
+	background: var( --fbarui-surface );
+	border: 1px solid var( --fbarui-line );
+	box-shadow: var( --fbarui-shadow );
 }
 
 .fbarui__panel:first-of-type .fbarui__card {
-	border-radius: 0 0 var( --fbar-round ) var( --fbar-round );
+	border-radius: 0 0 var( --fbarui-round ) var( --fbarui-round );
 }
 
 .fbarui__card-head {
@@ -196,12 +196,12 @@
 .fbarui__card-head h2 {
 	margin: 0;
 	font-size: 16px;
-	color: var( --fbar-ink );
+	color: var( --fbarui-ink );
 }
 
 .fbarui__card-head p {
 	margin: 6px 0 0;
-	color: var( --fbar-muted );
+	color: var( --fbarui-muted );
 	font-size: 13px;
 	max-width: 70ch;
 }
@@ -211,7 +211,7 @@
 	align-items: center;
 	gap: 12px;
 	padding: 18px 24px 22px;
-	border-top: 1px solid var( --fbar-line );
+	border-top: 1px solid var( --fbarui-line );
 	margin-top: 20px;
 }
 
@@ -236,7 +236,7 @@
 
 .fbarui__row-label {
 	font-weight: 600;
-	color: var( --fbar-ink );
+	color: var( --fbarui-ink );
 	padding-top: 6px;
 }
 
@@ -246,7 +246,7 @@
 
 .fbarui__help {
 	margin: 8px 0 0;
-	color: var( --fbar-muted );
+	color: var( --fbarui-muted );
 	font-size: 13px;
 	max-width: 68ch;
 }
@@ -270,7 +270,7 @@
 
 .fbarui__field > span {
 	font-weight: 600;
-	color: var( --fbar-ink );
+	color: var( --fbarui-ink );
 }
 
 .fbarui__field input[type="text"],
@@ -317,7 +317,7 @@
 .fbarui__snippet {
 	display: inline-block;
 	padding: 8px 14px;
-	background: var( --fbar-brand-soft );
+	background: var( --fbarui-brand-soft );
 	border: 1px solid #c5d9ed;
 	border-radius: 5px;
 	font-size: 13px;
@@ -337,7 +337,7 @@
 	gap: 5px;
 	font-size: 12px;
 	font-weight: 600;
-	color: var( --fbar-ink );
+	color: var( --fbarui-ink );
 }
 
 .fbarui__swatch input {
@@ -357,9 +357,9 @@
 }
 
 .fbarui__item {
-	border: 1px solid var( --fbar-line );
-	border-radius: var( --fbar-round );
-	background: var( --fbar-surface );
+	border: 1px solid var( --fbarui-line );
+	border-radius: var( --fbarui-round );
+	background: var( --fbarui-surface );
 	margin-bottom: 14px;
 	overflow: hidden;
 }
@@ -373,8 +373,8 @@
 	align-items: center;
 	gap: 12px;
 	padding: 12px 16px;
-	background: var( --fbar-sunken );
-	border-bottom: 1px solid var( --fbar-line );
+	background: var( --fbarui-sunken );
+	border-bottom: 1px solid var( --fbarui-line );
 }
 
 /* A six-dot grip reads as draggable without needing a label. */
@@ -391,14 +391,14 @@
 .fbarui__item-title {
 	flex: 1 1 auto;
 	font-size: 14px;
-	color: var( --fbar-ink );
+	color: var( --fbarui-ink );
 }
 
 .fbarui__item-id {
 	font-size: 11px;
-	color: var( --fbar-muted );
-	background: var( --fbar-surface );
-	border: 1px solid var( --fbar-line );
+	color: var( --fbarui-muted );
+	background: var( --fbarui-surface );
+	border: 1px solid var( --fbarui-line );
 	padding: 3px 8px;
 	border-radius: 4px;
 }
@@ -406,7 +406,7 @@
 .fbarui__remove {
 	background: none;
 	border: 0;
-	color: var( --fbar-danger );
+	color: var( --fbarui-danger );
 	cursor: pointer;
 	font-size: 13px;
 	padding: 4px 6px;
@@ -432,14 +432,14 @@
 	margin: 20px 24px 0;
 	padding: 32px 24px;
 	text-align: center;
-	border: 1px dashed var( --fbar-line );
-	border-radius: var( --fbar-round );
-	background: var( --fbar-sunken );
+	border: 1px dashed var( --fbarui-line );
+	border-radius: var( --fbarui-round );
+	background: var( --fbarui-sunken );
 }
 
 .fbarui__empty p {
 	margin: 0;
-	color: var( --fbar-muted );
+	color: var( --fbarui-muted );
 	font-size: 13px;
 }
 
@@ -448,7 +448,7 @@
 }
 
 .fbarui__empty strong {
-	color: var( --fbar-ink );
+	color: var( --fbarui-ink );
 	font-size: 14px;
 }
 
@@ -462,14 +462,14 @@
 	gap: 14px;
 	margin-top: 20px;
 	padding: 16px 24px;
-	background: var( --fbar-surface );
-	border: 1px solid var( --fbar-line );
-	border-radius: var( --fbar-round );
+	background: var( --fbarui-surface );
+	border: 1px solid var( --fbarui-line );
+	border-radius: var( --fbarui-round );
 	box-shadow: 0 -2px 8px rgba( 0, 0, 0, 0.05 );
 }
 
 .fbarui__hint {
-	color: var( --fbar-muted );
+	color: var( --fbarui-muted );
 	font-size: 13px;
 }
 
@@ -521,7 +521,7 @@
 
 .fbarui__panel-note {
 	margin: 6px 0 0;
-	color: var( --fbar-muted );
+	color: var( --fbarui-muted );
 	font-size: 13px;
 }
 
@@ -534,7 +534,7 @@
 .fbarui__kits h3 {
 	margin: 0;
 	font-size: 14px;
-	color: var( --fbar-ink );
+	color: var( --fbarui-ink );
 }
 
 .fbarui__kit-grid {
@@ -550,16 +550,16 @@
 	gap: 12px;
 	padding: 12px 14px;
 	text-align: start;
-	background: var( --fbar-surface );
-	border: 1px solid var( --fbar-line );
-	border-radius: var( --fbar-round );
+	background: var( --fbarui-surface );
+	border: 1px solid var( --fbarui-line );
+	border-radius: var( --fbarui-round );
 	cursor: pointer;
 	transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .fbarui__kit:hover {
-	border-color: var( --fbar-brand );
-	box-shadow: 0 0 0 1px var( --fbar-brand );
+	border-color: var( --fbarui-brand );
+	box-shadow: 0 0 0 1px var( --fbarui-brand );
 }
 
 .fbarui__kit-count {
@@ -569,8 +569,8 @@
 	height: 26px;
 	flex: none;
 	border-radius: 7px;
-	background: var( --fbar-brand-soft );
-	color: var( --fbar-brand );
+	background: var( --fbarui-brand-soft );
+	color: var( --fbarui-brand );
 	font-size: 12px;
 	font-weight: 700;
 }
@@ -584,12 +584,12 @@
 
 .fbarui__kit-text strong {
 	font-size: 13px;
-	color: var( --fbar-ink );
+	color: var( --fbarui-ink );
 }
 
 .fbarui__kit-text small {
 	font-size: 12px;
-	color: var( --fbar-muted );
+	color: var( --fbarui-muted );
 	line-height: 1.4;
 }
 
@@ -609,10 +609,10 @@
 	grid-template-areas: "swatch name" "swatch note";
 	gap: 2px 12px;
 	padding: 14px;
-	border: 1px solid var( --fbar-line );
-	border-radius: var( --fbar-round );
+	border: 1px solid var( --fbarui-line );
+	border-radius: var( --fbarui-round );
 	cursor: pointer;
-	background: var( --fbar-surface );
+	background: var( --fbarui-surface );
 }
 
 .fbarui__preset input {
@@ -622,12 +622,12 @@
 }
 
 .fbarui__preset:has( input:checked ) {
-	border-color: var( --fbar-brand );
-	box-shadow: 0 0 0 1px var( --fbar-brand );
+	border-color: var( --fbarui-brand );
+	box-shadow: 0 0 0 1px var( --fbarui-brand );
 }
 
 .fbarui__preset:has( input:focus-visible ) {
-	outline: 2px solid var( --fbar-brand );
+	outline: 2px solid var( --fbarui-brand );
 	outline-offset: 2px;
 }
 
@@ -635,13 +635,13 @@
 	grid-area: name;
 	font-weight: 600;
 	font-size: 13px;
-	color: var( --fbar-ink );
+	color: var( --fbarui-ink );
 }
 
 .fbarui__preset-note {
 	grid-area: note;
 	font-size: 12px;
-	color: var( --fbar-muted );
+	color: var( --fbarui-muted );
 	line-height: 1.4;
 }
 
@@ -691,10 +691,10 @@
 
 .fbarui__segmented {
 	display: inline-flex;
-	border: 1px solid var( --fbar-line );
+	border: 1px solid var( --fbarui-line );
 	border-radius: 7px;
 	overflow: hidden;
-	background: var( --fbar-sunken );
+	background: var( --fbarui-sunken );
 }
 
 .fbarui__segmented label {
@@ -712,9 +712,9 @@
 	display: block;
 	padding: 8px 16px;
 	font-size: 13px;
-	color: var( --fbar-muted );
+	color: var( --fbarui-muted );
 	cursor: pointer;
-	border-inline-end: 1px solid var( --fbar-line );
+	border-inline-end: 1px solid var( --fbarui-line );
 }
 
 .fbarui__segmented label:last-child span {
@@ -722,14 +722,14 @@
 }
 
 .fbarui__segmented input:checked + span {
-	background: var( --fbar-surface );
-	color: var( --fbar-ink );
+	background: var( --fbarui-surface );
+	color: var( --fbarui-ink );
 	font-weight: 600;
-	box-shadow: inset 0 -2px 0 var( --fbar-brand );
+	box-shadow: inset 0 -2px 0 var( --fbarui-brand );
 }
 
 .fbarui__segmented input:focus-visible + span {
-	outline: 2px solid var( --fbar-brand );
+	outline: 2px solid var( --fbarui-brand );
 	outline-offset: -2px;
 }
 
@@ -745,7 +745,7 @@
 	padding: 8px 0;
 	background: none;
 	border: 0;
-	color: var( --fbar-brand );
+	color: var( --fbarui-brand );
 	font-size: 13px;
 	cursor: pointer;
 }
@@ -765,7 +765,7 @@
 }
 
 .fbarui__advanced {
-	border-top: 1px dashed var( --fbar-line );
+	border-top: 1px dashed var( --fbarui-line );
 	margin-top: 4px;
 	padding-top: 4px;
 }
@@ -805,17 +805,17 @@
 }
 
 .fbarui__preview-card {
-	background: var( --fbar-surface );
-	border: 1px solid var( --fbar-line );
-	border-radius: var( --fbar-round );
-	box-shadow: var( --fbar-shadow );
+	background: var( --fbarui-surface );
+	border: 1px solid var( --fbarui-line );
+	border-radius: var( --fbarui-round );
+	box-shadow: var( --fbarui-shadow );
 	padding: 20px;
 }
 
 .fbarui__preview-card h2 {
 	margin: 0;
 	font-size: 15px;
-	color: var( --fbar-ink );
+	color: var( --fbarui-ink );
 }
 
 /* ---- The phone --------------------------------------------------------- */
@@ -879,16 +879,16 @@
 .fbarui__preview-widths button {
 	padding: 5px 12px;
 	font-size: 12px;
-	border: 1px solid var( --fbar-line );
-	background: var( --fbar-surface );
-	color: var( --fbar-muted );
+	border: 1px solid var( --fbarui-line );
+	background: var( --fbarui-surface );
+	color: var( --fbarui-muted );
 	border-radius: 6px;
 	cursor: pointer;
 }
 
 .fbarui__preview-widths button.is-current {
-	border-color: var( --fbar-brand );
-	color: var( --fbar-brand );
+	border-color: var( --fbarui-brand );
+	color: var( --fbarui-brand );
 	font-weight: 600;
 }
 
@@ -898,7 +898,7 @@
 }
 
 .fbarui__preview-empty {
-	color: var( --fbar-muted );
+	color: var( --fbarui-muted );
 	font-size: 12px;
 	text-align: center;
 	padding: 14px;
@@ -916,7 +916,7 @@
 .fbarui__slider input[type="range"] {
 	flex: 1 1 auto;
 	min-width: 0;
-	accent-color: var( --fbar-brand );
+	accent-color: var( --fbarui-brand );
 }
 
 .fbarui__slider output {
@@ -925,11 +925,11 @@
 	font-variant-numeric: tabular-nums;
 	font-weight: 600;
 	font-size: 13px;
-	color: var( --fbar-ink );
+	color: var( --fbarui-ink );
 }
 
 .fbarui__slider-unit {
-	color: var( --fbar-muted );
+	color: var( --fbarui-muted );
 	font-size: 12px;
 	width: 1.6em;
 }
@@ -1082,4 +1082,21 @@
 .fbarui__iconglyph {
 	width: 20px;
 	height: 20px;
+}
+
+/* ---- Palettes ---------------------------------------------------------- */
+
+.fbarui__palette + .fbarui__palette {
+	margin-top: 16px;
+	padding-top: 16px;
+	border-top: 1px solid var( --fbarui-line );
+}
+
+.fbarui__palette h4 {
+	margin: 0 0 10px;
+	font-size: 12px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var( --fbarui-muted );
 }

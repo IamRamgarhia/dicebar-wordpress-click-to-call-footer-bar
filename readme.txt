@@ -4,7 +4,7 @@ Tags: mobile, sticky bar, click to call, floating bar, call button
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,20 @@ and whether the visitor is signed in, are worked out in the browser.
 2. The settings screen.
 
 == Changelog ==
+
+= 1.5.0 =
+* Fixed: the Photo, Light and Dark preview buttons rendered as bare text, because the settings screen's colour variables were renamed without the rules that used them being updated.
+* Fixed: changing an item's icon did not change the preview.
+* The dark preview now has its own colour controls to read, instead of falling back to the light ones and drawing dark icons on a dark bar.
+* Bold has its own fill colour rather than borrowing the standout item's, which used to hide the standout item.
+* Colours are now a light set and a dark set, eight values each, including the divider line.
+
+= 1.4.0 =
+* Fixed: the settings screen shared a class name with the bar itself, so once the bar's stylesheet loaded for the preview it also styled the settings screen, centring every item card's fields on a slab of colour.
+* Fixed: every look previewed identically.
+* Fixed: choosing Social profile left the previous type's icon selected.
+* The icon field is a grid of real icons instead of a list of names.
+* The preview offers light and dark grounds as well as a photograph.
 
 = 1.3.0 =
 * A live preview beside the settings, showing the real bar drawn with the real stylesheet, on a photograph at 320, 375 and 414 pixels.

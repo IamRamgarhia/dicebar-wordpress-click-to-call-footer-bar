@@ -14,6 +14,7 @@
 	--fbar-hover-bg: #0a84ff;
 	--fbar-hover-text: #fff;
 	--fbar-divider: rgba( 0, 0, 0, 0.12 );
+	--fbar-bold-bg: #0a84ff;
 	--fbar-radius: 18px;
 	--fbar-item-radius: 13px;
 	--fbar-min-height: 52px;
@@ -177,10 +178,12 @@
 	box-shadow: 0 2px 10px -6px rgba( 0, 0, 0, 0.4 );
 }
 
-/* Bold. Filled in the accent, for a bar that is the page's main call to
- * action rather than a quiet utility. */
+/* Bold. A filled bar, for one that is the page's main call to action
+ * rather than a quiet utility. It has its own colour rather than reusing
+ * the accent, because the accent also paints the standout item and a bar
+ * whose fill matches its own highlight hides that highlight. */
 .fbar--preset-bold .fbar__inner {
-	background: var( --fbar-accent );
+	background: var( --fbar-bold-bg );
 	color: var( --fbar-hover-text );
 	border: 0;
 	-webkit-backdrop-filter: none;
@@ -188,6 +191,11 @@
 }
 
 .fbar--preset-bold .fbar__icon {
+	color: var( --fbar-hover-text );
+}
+
+.fbar--preset-bold .fbar__item,
+.fbar--preset-bold .fbar__label {
 	color: var( --fbar-hover-text );
 }
 
