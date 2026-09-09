@@ -1,6 +1,6 @@
 <?php
 /**
- * The [footerbar] shortcode, and the Elementor widget that wraps it.
+ * The [mobile_bottom_bar] shortcode, and the Elementor widget that wraps it.
  *
  * The shortcode is the universal answer to "does it work with my page
  * builder". Divi, Beaver Builder, Bricks and Oxygen all render shortcodes, so
@@ -8,7 +8,7 @@
  * its panel is where its users look first, and its own load hook makes the
  * integration genuinely cheap.
  *
- * @package FooterBar
+ * @package MobileBottomBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Renders the bar inline, wherever the owner puts it.
  */
-class FBar_Shortcode {
+class MBBar_Shortcode {
 
 	/**
 	 * Register the shortcode and the Elementor hook.
@@ -26,7 +26,7 @@ class FBar_Shortcode {
 	 * @return void
 	 */
 	public static function register() {
-		add_shortcode( 'footerbar', array( __CLASS__, 'render' ) );
+		add_shortcode( 'mobile-bottom-bar', array( __CLASS__, 'render' ) );
 
 		// Nothing Elementor-related is loaded, required or executed unless
 		// Elementor has actually booted, so an install without it pays
@@ -48,10 +48,10 @@ class FBar_Shortcode {
 				'items' => '',
 			),
 			$atts,
-			'footerbar'
+			'mobile-bottom-bar'
 		);
 
-		$settings = FBar_Settings::get();
+		$settings = MBBar_Settings::get();
 
 		if ( empty( $settings['items'] ) ) {
 			return '';
@@ -69,15 +69,15 @@ class FBar_Shortcode {
 			}
 		}
 
-		$markup = FBar_Render::bar( $settings, 'inline', $only );
+		$markup = MBBar_Render::bar( $settings, 'inline', $only );
 
 		if ( '' === $markup ) {
 			return '';
 		}
 
-		FBar_Assets::mark_inline_used();
+		MBBar_Assets::mark_inline_used();
 
-		return FBar_Styles::inline_block() . $markup;
+		return $markup;
 	}
 
 	/**
@@ -87,8 +87,8 @@ class FBar_Shortcode {
 	 * @return void
 	 */
 	public static function register_elementor_widget( $widgets ) {
-		require_once FBAR_PATH . 'includes/class-fbar-elementor-widget.php';
+		require_once MBBAR_PATH . 'includes/class-mbbar-elementor-widget.php';
 
-		$widgets->register( new FBar_Elementor_Widget() );
+		$widgets->register( new MBBar_Elementor_Widget() );
 	}
 }

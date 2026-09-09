@@ -6,7 +6,7 @@
  * the viewport. Inline mode prints wherever the owner puts it, with the fixed
  * positioning, blur, shadow and body offset all removed.
  *
- * @package FooterBar
+ * @package MobileBottomBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Builds the bar's markup and decides whether it should exist at all.
  */
-class FBar_Render {
+class MBBar_Render {
 
 	/**
 	 * Whether the fixed bar should render on this request.
@@ -38,7 +38,7 @@ class FBar_Render {
 			return false;
 		}
 
-		$settings = FBar_Settings::get();
+		$settings = MBBar_Settings::get();
 
 		if ( empty( $settings['enabled'] ) || empty( $settings['items'] ) ) {
 			return false;
@@ -54,7 +54,7 @@ class FBar_Render {
 		 * @param bool  $render   Whether to render.
 		 * @param array $settings The configuration.
 		 */
-		return (bool) apply_filters( 'fbar_will_render', true, $settings );
+		return (bool) apply_filters( 'mbbar_will_render', true, $settings );
 	}
 
 	/**
@@ -86,10 +86,10 @@ class FBar_Render {
 			return;
 		}
 
-		// Only the inline style block and the markup are echoed, and both are
-		// assembled from escaped parts by the methods that build them.
-		echo FBar_Styles::inline_block(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo self::bar( FBar_Settings::get(), 'fixed' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		// The stylesheet is attached through wp_add_inline_style() at enqueue
+		// time. Only the markup is printed here, and every value in it was
+		// escaped by the method that built it.
+		echo self::bar( MBBar_Settings::get(), 'fixed' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -108,32 +108,32 @@ class FBar_Render {
 		}
 
 		$classes = array(
-			'fbar',
-			'fbar--' . ( 'inline' === $mode ? 'inline' : 'fixed' ),
-			'fbar--' . $settings['behaviour']['position'],
-			'fbar--' . $settings['style']['layout'],
-			'fbar--item-' . $settings['style']['item']['shape'],
-			'fbar--shadow-' . $settings['style']['shadow'],
-			'fbar--show-' . str_replace( '_', '-', $settings['style']['label']['mode'] ),
-			'fbar--preset-' . $settings['style']['preset'],
-			$settings['style']['blur'] ? 'fbar--blur' : 'fbar--no-blur',
-			'fbar--divider-' . $settings['style']['divider'],
-			'fbar--case-' . $settings['style']['label']['case'],
-			'fbar--count-' . count( $items ),
+			'mbbar',
+			'mbbar--' . ( 'inline' === $mode ? 'inline' : 'fixed' ),
+			'mbbar--' . $settings['behaviour']['position'],
+			'mbbar--' . $settings['style']['layout'],
+			'mbbar--item-' . $settings['style']['item']['shape'],
+			'mbbar--shadow-' . $settings['style']['shadow'],
+			'mbbar--show-' . str_replace( '_', '-', $settings['style']['label']['mode'] ),
+			'mbbar--preset-' . $settings['style']['preset'],
+			$settings['style']['blur'] ? 'mbbar--blur' : 'mbbar--no-blur',
+			'mbbar--divider-' . $settings['style']['divider'],
+			'mbbar--case-' . $settings['style']['label']['case'],
+			'mbbar--count-' . count( $items ),
 		);
 
 		if ( 'fixed' === $mode ) {
-			$classes[] = 'fbar--device-' . $settings['display']['devices'];
-			$classes[] = 'fbar--appear-' . $settings['behaviour']['appear'];
-			$classes[] = 'fbar--entrance-' . $settings['behaviour']['entrance'];
+			$classes[] = 'mbbar--device-' . $settings['display']['devices'];
+			$classes[] = 'mbbar--appear-' . $settings['behaviour']['appear'];
+			$classes[] = 'mbbar--entrance-' . $settings['behaviour']['entrance'];
 
 			if ( is_admin_bar_showing() ) {
-				$classes[] = 'fbar--admin-bar';
+				$classes[] = 'mbbar--admin-bar';
 			}
 		}
 
 		if ( 'system' !== $settings['style']['scheme'] ) {
-			$classes[] = 'fbar--scheme-' . $settings['style']['scheme'];
+			$classes[] = 'mbbar--scheme-' . $settings['style']['scheme'];
 		}
 
 		$markup = '';
@@ -143,9 +143,9 @@ class FBar_Render {
 		}
 
 		return sprintf(
-			'<nav class="%1$s" aria-label="%2$s" data-fbar-mode="%3$s"%4$s><div class="fbar__inner">%5$s</div></nav>',
+			'<nav class="%1$s" aria-label="%2$s" data-mbbar-mode="%3$s"%4$s><div class="mbbar__inner">%5$s</div></nav>',
 			esc_attr( implode( ' ', $classes ) ),
-			esc_attr__( 'Quick actions', 'footer-bar-mobile-action-bar' ),
+			esc_attr__( 'Quick actions', 'mobile-bottom-bar' ),
 			esc_attr( $mode ),
 			'fixed' === $mode ? ' ' . self::fixed_attributes( $settings ) : '',
 			$markup
@@ -160,13 +160,13 @@ class FBar_Render {
 	 */
 	private static function fixed_attributes( array $settings ) {
 		$attributes = array(
-			'data-fbar-users'     => $settings['display']['users'],
-			'data-fbar-appear'    => $settings['behaviour']['appear'],
-			'data-fbar-clearance' => (string) $settings['behaviour']['clearance'],
+			'data-mbbar-users'     => $settings['display']['users'],
+			'data-mbbar-appear'    => $settings['behaviour']['appear'],
+			'data-mbbar-clearance' => (string) $settings['behaviour']['clearance'],
 		);
 
 		if ( '' !== $settings['behaviour']['hide_selector'] ) {
-			$attributes['data-fbar-hide-near'] = $settings['behaviour']['hide_selector'];
+			$attributes['data-mbbar-hide-near'] = $settings['behaviour']['hide_selector'];
 		}
 
 		$out = array();
@@ -197,7 +197,7 @@ class FBar_Render {
 				continue;
 			}
 
-			$href = FBar_Item_Types::href( $item );
+			$href = MBBar_Item_Types::href( $item );
 
 			// A link type with nothing to link to is a gap in the row rather
 			// than a button, so it is dropped instead of rendered dead.
@@ -224,30 +224,47 @@ class FBar_Render {
 		$mode       = $settings['style']['label']['mode'];
 		$show_label = 'icon' !== $mode;
 		$show_icon  = 'label' !== $mode;
-		$icon       = $show_icon ? FBar_Icons::render( $item['icon'] ) : '';
+		$icon       = $show_icon ? MBBar_Icons::render( $item['icon'] ) : '';
 
-		$classes = array( 'fbar__item' );
+		$classes = array( 'mbbar__item' );
 
 		if ( ! empty( $item['primary'] ) ) {
-			$classes[] = 'fbar__item--primary';
+			$classes[] = 'mbbar__item--primary';
 		}
 
 		if ( 'inherit' !== $item['show']['devices'] ) {
-			$classes[] = 'fbar__item--device-' . $item['show']['devices'];
+			$classes[] = 'mbbar__item--device-' . $item['show']['devices'];
+		}
+
+		// A network's own colour, when the owner asked for it. Set as a
+		// property rather than on the glyph so the hover state can still
+		// take the colour back.
+		$brand = '';
+
+		if ( ! empty( $settings['style']['brand_icons'] ) ) {
+			$brand = MBBar_Icons::brand_color( $item['icon'] );
+		}
+
+		if ( '' !== $brand ) {
+			$classes[] = 'mbbar__item--brand';
 		}
 
 		$inner = $icon;
 
 		if ( $show_label ) {
-			$inner .= '<span class="fbar__label">' . esc_html( $label ) . '</span>';
+			$inner .= '<span class="mbbar__label">' . esc_html( $label ) . '</span>';
 		}
 
 		$attributes = sprintf(
-			'class="%s" data-fbar-item="%s" data-fbar-type="%s"',
+			'class="%s" data-mbbar-item="%s" data-mbbar-type="%s"',
 			esc_attr( implode( ' ', $classes ) ),
 			esc_attr( $item['id'] ),
 			esc_attr( $item['type'] )
 		);
+
+		if ( '' !== $brand ) {
+			$attributes .= sprintf( ' style="--mbbar-brand:%s"', esc_attr( $brand ) );
+		}
 
 		// An icon-only item has no visible text, so it needs an accessible
 		// name. A labelled one already has one and must not have both, or a
@@ -257,11 +274,11 @@ class FBar_Render {
 		}
 
 		if ( 'inherit' !== $item['show']['users'] ) {
-			$attributes .= sprintf( ' data-fbar-users="%s"', esc_attr( $item['show']['users'] ) );
+			$attributes .= sprintf( ' data-mbbar-users="%s"', esc_attr( $item['show']['users'] ) );
 		}
 
 		if ( in_array( $item['type'], array( 'top', 'share', 'anchor' ), true ) ) {
-			$attributes .= sprintf( ' data-fbar-action="%s"', esc_attr( $item['type'] ) );
+			$attributes .= sprintf( ' data-mbbar-action="%s"', esc_attr( $item['type'] ) );
 		}
 
 		if ( 'text' === $item['type'] ) {
@@ -292,7 +309,7 @@ class FBar_Render {
 
 		return sprintf(
 			'<a href="%s" %s>%s</a>',
-			esc_url( $item['href'], FBar_Sanitize::ALLOWED_SCHEMES ),
+			esc_url( $item['href'], MBBar_Sanitize::ALLOWED_SCHEMES ),
 			$attributes,
 			$inner
 		);
@@ -305,7 +322,7 @@ class FBar_Render {
 	 * @return string
 	 */
 	private static function default_label( array $item ) {
-		$type = FBar_Item_Types::get( $item['type'] );
+		$type = MBBar_Item_Types::get( $item['type'] );
 
 		return $type ? $type['label'] : '';
 	}

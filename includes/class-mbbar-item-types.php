@@ -5,7 +5,7 @@
  * A type declares what it is called, what icon it defaults to, what fields it
  * asks for, and how it becomes a hyperlink.
  *
- * @package FooterBar
+ * @package MobileBottomBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Registry of item types, their field shapes, and their link builders.
  */
-class FBar_Item_Types {
+class MBBar_Item_Types {
 
 	/**
 	 * The kinds of value a type can ask for.
@@ -35,11 +35,11 @@ class FBar_Item_Types {
 		 * Filters the registered item types.
 		 *
 		 * Each entry needs a label, an icon, an extra array, and a value array
-		 * carrying a kind from FBar_Item_Types::VALUE_KINDS.
+		 * carrying a kind from MBBar_Item_Types::VALUE_KINDS.
 		 *
 		 * @param array $types Registered types keyed by slug.
 		 */
-		$types = apply_filters( 'fbar_item_types', self::built_in() );
+		$types = apply_filters( 'mbbar_item_types', self::built_in() );
 
 		if ( ! is_array( $types ) ) {
 			return self::built_in();
@@ -188,122 +188,122 @@ class FBar_Item_Types {
 	private static function built_in() {
 		return array(
 			'call'       => array(
-				'label' => __( 'Call', 'footer-bar-mobile-action-bar' ),
+				'label' => __( 'Call', 'mobile-bottom-bar' ),
 				'icon'  => 'phone',
 				'value' => array(
 					'kind'  => 'phone',
-					'label' => __( 'Phone number', 'footer-bar-mobile-action-bar' ),
+					'label' => __( 'Phone number', 'mobile-bottom-bar' ),
 				),
 				'extra' => array(),
 			),
 			'whatsapp'   => array(
-				'label' => __( 'WhatsApp', 'footer-bar-mobile-action-bar' ),
+				'label' => __( 'WhatsApp', 'mobile-bottom-bar' ),
 				'icon'  => 'message',
 				'value' => array(
 					'kind'  => 'phone',
-					'label' => __( 'Number with country code', 'footer-bar-mobile-action-bar' ),
+					'label' => __( 'Number with country code', 'mobile-bottom-bar' ),
 				),
 				'extra' => array(
 					'text' => array(
 						'kind'  => 'text',
-						'label' => __( 'Message to prefill', 'footer-bar-mobile-action-bar' ),
+						'label' => __( 'Message to prefill', 'mobile-bottom-bar' ),
 					),
 				),
 			),
 			'sms'        => array(
-				'label' => __( 'Text message', 'footer-bar-mobile-action-bar' ),
+				'label' => __( 'Text message', 'mobile-bottom-bar' ),
 				'icon'  => 'message',
 				'value' => array(
 					'kind'  => 'phone',
-					'label' => __( 'Phone number', 'footer-bar-mobile-action-bar' ),
+					'label' => __( 'Phone number', 'mobile-bottom-bar' ),
 				),
 				'extra' => array(
 					'body' => array(
 						'kind'  => 'text',
-						'label' => __( 'Message to prefill', 'footer-bar-mobile-action-bar' ),
+						'label' => __( 'Message to prefill', 'mobile-bottom-bar' ),
 					),
 				),
 			),
 			'email'      => array(
-				'label' => __( 'Email', 'footer-bar-mobile-action-bar' ),
+				'label' => __( 'Email', 'mobile-bottom-bar' ),
 				'icon'  => 'mail',
 				'value' => array(
 					'kind'  => 'email',
-					'label' => __( 'Email address', 'footer-bar-mobile-action-bar' ),
+					'label' => __( 'Email address', 'mobile-bottom-bar' ),
 				),
 				'extra' => array(
 					'subject' => array(
 						'kind'  => 'text',
-						'label' => __( 'Subject', 'footer-bar-mobile-action-bar' ),
+						'label' => __( 'Subject', 'mobile-bottom-bar' ),
 					),
 				),
 			),
 			'link'       => array(
-				'label' => __( 'Link', 'footer-bar-mobile-action-bar' ),
+				'label' => __( 'Link', 'mobile-bottom-bar' ),
 				'icon'  => 'link',
 				'value' => array(
 					'kind'  => 'url',
-					'label' => __( 'Address', 'footer-bar-mobile-action-bar' ),
+					'label' => __( 'Address', 'mobile-bottom-bar' ),
 				),
 				'extra' => array(
 					'new_tab'  => array(
 						'kind'  => 'boolean',
-						'label' => __( 'Open in a new tab', 'footer-bar-mobile-action-bar' ),
+						'label' => __( 'Open in a new tab', 'mobile-bottom-bar' ),
 					),
 					'nofollow' => array(
 						'kind'  => 'boolean',
-						'label' => __( 'Add nofollow', 'footer-bar-mobile-action-bar' ),
+						'label' => __( 'Add nofollow', 'mobile-bottom-bar' ),
 					),
 				),
 			),
 			'social'     => array(
-				'label' => __( 'Social profile', 'footer-bar-mobile-action-bar' ),
+				'label' => __( 'Social profile', 'mobile-bottom-bar' ),
 				'icon'  => 'share',
 				'value' => array(
 					'kind'  => 'url',
-					'label' => __( 'Profile address', 'footer-bar-mobile-action-bar' ),
+					'label' => __( 'Profile address', 'mobile-bottom-bar' ),
 				),
 				'extra' => array(
 					'network' => array(
 						'kind'    => 'choice',
-						'label'   => __( 'Network', 'footer-bar-mobile-action-bar' ),
-						'choices' => FBar_Icons::brand_names(),
+						'label'   => __( 'Network', 'mobile-bottom-bar' ),
+						'choices' => MBBar_Icons::brand_names(),
 					),
 					'new_tab' => array(
 						'kind'  => 'boolean',
-						'label' => __( 'Open in a new tab', 'footer-bar-mobile-action-bar' ),
+						'label' => __( 'Open in a new tab', 'mobile-bottom-bar' ),
 					),
 				),
 			),
 			'anchor'     => array(
-				'label' => __( 'Scroll to a section', 'footer-bar-mobile-action-bar' ),
+				'label' => __( 'Scroll to a section', 'mobile-bottom-bar' ),
 				'icon'  => 'arrow-down',
 				'value' => array(
 					'kind'  => 'selector',
-					'label' => __( 'Section id, such as #contact', 'footer-bar-mobile-action-bar' ),
+					'label' => __( 'Section id, such as #contact', 'mobile-bottom-bar' ),
 				),
 				'extra' => array(),
 			),
 			'page'       => array(
-				'label' => __( 'Page', 'footer-bar-mobile-action-bar' ),
+				'label' => __( 'Page', 'mobile-bottom-bar' ),
 				'icon'  => 'file',
 				'value' => array(
 					'kind'  => 'post',
-					'label' => __( 'Choose a page', 'footer-bar-mobile-action-bar' ),
+					'label' => __( 'Choose a page', 'mobile-bottom-bar' ),
 				),
 				'extra' => array(),
 			),
 			'directions' => array(
-				'label' => __( 'Directions', 'footer-bar-mobile-action-bar' ),
+				'label' => __( 'Directions', 'mobile-bottom-bar' ),
 				'icon'  => 'map-pin',
 				'value' => array(
 					'kind'  => 'text',
-					'label' => __( 'Address or map link', 'footer-bar-mobile-action-bar' ),
+					'label' => __( 'Address or map link', 'mobile-bottom-bar' ),
 				),
 				'extra' => array(),
 			),
 			'share'      => array(
-				'label' => __( 'Share', 'footer-bar-mobile-action-bar' ),
+				'label' => __( 'Share', 'mobile-bottom-bar' ),
 				'icon'  => 'share',
 				'value' => array(
 					'kind'  => 'none',
@@ -312,7 +312,7 @@ class FBar_Item_Types {
 				'extra' => array(),
 			),
 			'top'        => array(
-				'label' => __( 'Back to top', 'footer-bar-mobile-action-bar' ),
+				'label' => __( 'Back to top', 'mobile-bottom-bar' ),
 				'icon'  => 'arrow-up',
 				'value' => array(
 					'kind'  => 'none',
@@ -321,11 +321,11 @@ class FBar_Item_Types {
 				'extra' => array(),
 			),
 			'custom'     => array(
-				'label' => __( 'Anything else', 'footer-bar-mobile-action-bar' ),
+				'label' => __( 'Anything else', 'mobile-bottom-bar' ),
 				'icon'  => 'star',
 				'value' => array(
 					'kind'  => 'url',
-					'label' => __( 'Address', 'footer-bar-mobile-action-bar' ),
+					'label' => __( 'Address', 'mobile-bottom-bar' ),
 				),
 				'extra' => array(),
 			),

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="Footer Bar">
-	<description>Coding standards for Footer Bar.</description>
+<ruleset name="Mobile Bottom Bar">
+	<description>Coding standards for Mobile Bottom Bar.</description>
 
 	<file>.</file>
 	<exclude-pattern>/vendor/*</exclude-pattern>
@@ -34,13 +34,13 @@
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="footer-bar-mobile-action-bar"/>
+			<property name="text_domain" type="array" value="mobile-bottom-bar"/>
 		</properties>
 	</rule>
 
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
-			<property name="prefixes" type="array" value="fbar,TBar,TBAR"/>
+			<property name="prefixes" type="array" value="mbbar,TBar,TBAR"/>
 		</properties>
 	</rule>
 </ruleset>

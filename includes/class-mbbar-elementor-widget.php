@@ -2,11 +2,11 @@
 /**
  * The Elementor widget.
  *
- * Loaded only from FBar_Shortcode::register_elementor_widget(), which itself
+ * Loaded only from MBBar_Shortcode::register_elementor_widget(), which itself
  * only runs when Elementor has booted. Nothing here is reachable otherwise, so
  * the parent class always exists by the time this file is read.
  *
- * @package FooterBar
+ * @package MobileBottomBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Puts the action bar in Elementor's widget panel.
  */
-class FBar_Elementor_Widget extends \Elementor\Widget_Base {
+class MBBar_Elementor_Widget extends \Elementor\Widget_Base {
 
 	/**
 	 * Widget slug.
@@ -24,7 +24,7 @@ class FBar_Elementor_Widget extends \Elementor\Widget_Base {
 	 * @return string
 	 */
 	public function get_name() {
-		return 'footerbar';
+		return 'mobile-bottom-bar';
 	}
 
 	/**
@@ -33,7 +33,7 @@ class FBar_Elementor_Widget extends \Elementor\Widget_Base {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Footer Bar action bar', 'footer-bar-mobile-action-bar' );
+		return __( 'Mobile Bottom Bar action bar', 'mobile-bottom-bar' );
 	}
 
 	/**
@@ -60,7 +60,7 @@ class FBar_Elementor_Widget extends \Elementor\Widget_Base {
 	 * @return string[]
 	 */
 	public function get_keywords() {
-		return array( 'footerbar', 'action bar', 'call', 'sticky', 'mobile' );
+		return array( 'mobile-bottom-bar', 'action bar', 'call', 'sticky', 'mobile' );
 	}
 
 	/**
@@ -73,19 +73,19 @@ class FBar_Elementor_Widget extends \Elementor\Widget_Base {
 	 */
 	protected function register_controls() {
 		$this->start_controls_section(
-			'fbar_content',
+			'mbbar_content',
 			array(
-				'label' => __( 'Action bar', 'footer-bar-mobile-action-bar' ),
+				'label' => __( 'Action bar', 'mobile-bottom-bar' ),
 			)
 		);
 
 		$this->add_control(
-			'fbar_notice',
+			'mbbar_notice',
 			array(
 				'type'            => \Elementor\Controls_Manager::RAW_HTML,
 				'raw'             => esc_html__(
-					'Items and styling come from Settings, then Footer Bar. Leave the list below empty to show every item.',
-					'footer-bar-mobile-action-bar'
+					'Items and styling come from Settings, then Mobile Bottom Bar. Leave the list below empty to show every item.',
+					'mobile-bottom-bar'
 				),
 				'content_classes' => 'elementor-descriptor',
 			)
@@ -94,10 +94,10 @@ class FBar_Elementor_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'items',
 			array(
-				'label'       => __( 'Item ids to show', 'footer-bar-mobile-action-bar' ),
+				'label'       => __( 'Item ids to show', 'mobile-bottom-bar' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
 				'placeholder' => 'itm_a1b2c3d4, itm_e5f6a7b8',
-				'description' => __( 'Comma separated. Ids are shown beside each item on the settings screen.', 'footer-bar-mobile-action-bar' ),
+				'description' => __( 'Comma separated. Ids are shown beside each item on the settings screen.', 'mobile-bottom-bar' ),
 			)
 		);
 
@@ -116,6 +116,6 @@ class FBar_Elementor_Widget extends \Elementor\Widget_Base {
 		$settings = $this->get_settings_for_display();
 		$items    = isset( $settings['items'] ) ? $settings['items'] : '';
 
-		echo FBar_Shortcode::render( array( 'items' => $items ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo MBBar_Shortcode::render( array( 'items' => $items ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }

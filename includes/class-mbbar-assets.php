@@ -2,7 +2,7 @@
 /**
  * Conditional asset loading.
  *
- * @package FooterBar
+ * @package MobileBottomBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Enqueues the front-end stylesheet and script, and only when they are needed.
  */
-class FBar_Assets {
+class MBBar_Assets {
 
 	/**
 	 * Whether an inline copy of the bar has been rendered this request.
@@ -47,26 +47,30 @@ class FBar_Assets {
 	 * @return void
 	 */
 	public static function enqueue() {
-		if ( ! self::$inline_used && ! FBar_Render::will_render() ) {
+		if ( ! self::$inline_used && ! MBBar_Render::will_render() ) {
 			return;
 		}
 
-		if ( wp_style_is( 'fbar', 'enqueued' ) ) {
+		if ( wp_style_is( 'mbbar', 'enqueued' ) ) {
 			return;
 		}
 
 		wp_enqueue_style(
-			'fbar',
-			FBAR_URL . 'assets/css/fbar.css',
+			'mbbar',
+			MBBAR_URL . 'assets/css/mbbar.css',
 			array(),
-			FBAR_VERSION
+			MBBAR_VERSION
 		);
 
+		// The settings-driven CSS rides along with the stylesheet rather
+		// than being printed as its own style element.
+		wp_add_inline_style( 'mbbar', MBBar_Styles::css() );
+
 		wp_enqueue_script(
-			'fbar',
-			FBAR_URL . 'assets/js/fbar.js',
+			'mbbar',
+			MBBAR_URL . 'assets/js/mbbar.js',
 			array(),
-			FBAR_VERSION,
+			MBBAR_VERSION,
 			true
 		);
 	}
@@ -84,7 +88,7 @@ class FBar_Assets {
 	 * @return string
 	 */
 	public static function protect_script( $tag, $handle ) {
-		if ( 'fbar' !== $handle ) {
+		if ( 'mbbar' !== $handle ) {
 			return $tag;
 		}
 

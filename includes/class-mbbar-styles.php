@@ -10,7 +10,7 @@
  * properties, and the breakpoints are configurable, so those two queries are
  * written out here with the saved pixel values baked in.
  *
- * @package FooterBar
+ * @package MobileBottomBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,27 +20,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Builds the inline style block that accompanies the bar.
  */
-class FBar_Styles {
+class MBBar_Styles {
 
 	/**
-	 * The complete inline style element, escaped and ready to echo.
+	 * The settings-driven CSS, as a plain stylesheet with no tags.
+	 *
+	 * Handed to wp_add_inline_style() rather than printed inside a style
+	 * element. Printing raw tags is a documented review finding, and going
+	 * through the enqueue system also means a caching or optimising plugin
+	 * sees this CSS the way it sees every other stylesheet.
 	 *
 	 * @return string
 	 */
-	public static function inline_block() {
-		$settings = FBar_Settings::get();
+	public static function css() {
+		$settings = MBBar_Settings::get();
 
 		$css = self::variables( $settings )
 			. self::device_queries( $settings )
 			. self::custom( $settings );
 
-		if ( '' === trim( $css ) ) {
-			return '';
-		}
-
-		// wp_strip_all_tags on the whole block is the last line of defence: no
-		// value reaching here can close the style element and start a script.
-		return '<style id="fbar-inline">' . wp_strip_all_tags( $css ) . '</style>';
+		// Stripping tags across the whole sheet is the last line of defence:
+		// no value reaching here can close a style element and open a script.
+		return wp_strip_all_tags( $css );
 	}
 
 	/**
@@ -58,27 +59,27 @@ class FBar_Styles {
 		$style = $settings['style'];
 
 		$base = array(
-			'--fbar-radius'      => (int) $style['radius'] . 'px',
-			'--fbar-item-radius' => (int) $style['item']['radius'] . 'px',
-			'--fbar-min-height'  => (int) $style['item']['min_height'] . 'px',
-			'--fbar-icon-size'   => (int) $style['item']['icon_size'] . 'px',
-			'--fbar-icon-gap'    => (int) $style['item']['icon_gap'] . 'px',
-			'--fbar-gap'         => (int) $style['gap'] . 'px',
-			'--fbar-label-size'  => (int) $style['label']['size'] . 'px',
-			'--fbar-max-width'   => $style['max_width'] ? (int) $style['max_width'] . 'px' : 'none',
-			'--fbar-z'           => (int) $settings['behaviour']['z_index'],
-			'--fbar-clearance'   => (int) $settings['behaviour']['clearance'] . 'px',
-			'--fbar-glass'       => (int) $style['glass'] . 'px',
-			'--fbar-opacity'     => (int) $style['opacity'] . '%',
+			'--mbbar-radius'      => (int) $style['radius'] . 'px',
+			'--mbbar-item-radius' => (int) $style['item']['radius'] . 'px',
+			'--mbbar-min-height'  => (int) $style['item']['min_height'] . 'px',
+			'--mbbar-icon-size'   => (int) $style['item']['icon_size'] . 'px',
+			'--mbbar-icon-gap'    => (int) $style['item']['icon_gap'] . 'px',
+			'--mbbar-gap'         => (int) $style['gap'] . 'px',
+			'--mbbar-label-size'  => (int) $style['label']['size'] . 'px',
+			'--mbbar-max-width'   => $style['max_width'] ? (int) $style['max_width'] . 'px' : 'none',
+			'--mbbar-z'           => (int) $settings['behaviour']['z_index'],
+			'--mbbar-clearance'   => (int) $settings['behaviour']['clearance'] . 'px',
+			'--mbbar-glass'       => (int) $style['glass'] . 'px',
+			'--mbbar-opacity'     => (int) $style['opacity'] . '%',
 		);
 
-		$css = '.fbar{' . self::declarations( $base ) . self::declarations( self::palette( $style['light'] ) ) . '}';
+		$css = '.mbbar{' . self::declarations( $base ) . self::declarations( self::palette( $style['light'] ) ) . '}';
 
 		$dark = self::declarations( self::palette( $style['dark'] ) );
 
 		if ( 'off' !== $style['scheme'] ) {
-			$css .= '@media (prefers-color-scheme: dark){.fbar:not(.fbar--scheme-light){' . $dark . '}}';
-			$css .= '.fbar--scheme-dark{' . $dark . '}';
+			$css .= '@media (prefers-color-scheme: dark){.mbbar:not(.mbbar--scheme-light){' . $dark . '}}';
+			$css .= '.mbbar--scheme-dark{' . $dark . '}';
 		}
 
 		return $css;
@@ -94,7 +95,7 @@ class FBar_Styles {
 		$properties = array();
 
 		foreach ( $palette as $token => $value ) {
-			$properties[ '--fbar-' . str_replace( '_', '-', $token ) ] = $value;
+			$properties[ '--mbbar-' . str_replace( '_', '-', $token ) ] = $value;
 		}
 
 		return $properties;
@@ -133,16 +134,16 @@ class FBar_Styles {
 
 		// The bar itself, by its device setting.
 		$css .= '@media (min-width:' . ( $breakpoint + 1 ) . 'px){'
-			. '.fbar--fixed.fbar--device-phone_tablet{display:none}'
+			. '.mbbar--fixed.mbbar--device-phone_tablet{display:none}'
 			. '}';
 
 		$css .= '@media (min-width:' . ( $phone_max + 1 ) . 'px){'
-			. '.fbar--fixed.fbar--device-phone{display:none}'
-			. '.fbar__item--device-phone{display:none}'
+			. '.mbbar--fixed.mbbar--device-phone{display:none}'
+			. '.mbbar__item--device-phone{display:none}'
 			. '}';
 
 		$css .= '@media (min-width:' . ( $breakpoint + 1 ) . 'px){'
-			. '.fbar__item--device-phone_tablet{display:none}'
+			. '.mbbar__item--device-phone_tablet{display:none}'
 			. '}';
 
 		return $css;

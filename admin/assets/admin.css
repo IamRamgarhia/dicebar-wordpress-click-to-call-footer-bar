@@ -1,24 +1,24 @@
 /**
- * Footer Bar settings screen.
+ * Mobile Bottom Bar settings screen.
  *
- * Scoped entirely under .fbar so nothing here can leak into the rest of the
+ * Scoped entirely under .mbbar so nothing here can leak into the rest of the
  * dashboard. Colours are taken from WordPress's own admin palette rather than
  * invented, so the screen still looks native next to core pages, and it
  * follows the dashboard's dark scheme where the browser reports one.
  */
 
-.fbarui {
-	--fbarui-ink: #1d2327;
-	--fbarui-muted: #646970;
-	--fbarui-line: #dcdcde;
-	--fbarui-surface: #fff;
-	--fbarui-sunken: #f6f7f7;
-	--fbarui-brand: #2271b1;
-	--fbarui-brand-soft: #f0f6fc;
-	--fbarui-ok: #00a32a;
-	--fbarui-danger: #b32d2e;
-	--fbarui-shadow: 0 1px 2px rgba( 0, 0, 0, 0.06 );
-	--fbarui-round: 8px;
+.mbbarui {
+	--mbbarui-ink: #1d2327;
+	--mbbarui-muted: #646970;
+	--mbbarui-line: #dcdcde;
+	--mbbarui-surface: #fff;
+	--mbbarui-sunken: #f6f7f7;
+	--mbbarui-brand: #2271b1;
+	--mbbarui-brand-soft: #f0f6fc;
+	--mbbarui-ok: #00a32a;
+	--mbbarui-danger: #b32d2e;
+	--mbbarui-shadow: 0 1px 2px rgba( 0, 0, 0, 0.06 );
+	--mbbarui-round: 8px;
 
 	/* No width cap. A settings screen that leaves half a wide monitor empty is
 	   wasting the space it was given; long text is held to a comfortable
@@ -26,13 +26,13 @@
 	margin-inline-end: 20px;
 }
 
-.fbarui * {
+.mbbarui * {
 	box-sizing: border-box;
 }
 
 /* ---- Masthead --------------------------------------------------------- */
 
-.fbarui__masthead {
+.mbbarui__masthead {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -40,59 +40,59 @@
 	flex-wrap: wrap;
 	padding: 22px 24px;
 	margin: 20px 0 0;
-	background: var( --fbarui-surface );
-	border: 1px solid var( --fbarui-line );
-	border-radius: var( --fbarui-round ) var( --fbarui-round ) 0 0;
+	background: var( --mbbarui-surface );
+	border: 1px solid var( --mbbarui-line );
+	border-radius: var( --mbbarui-round ) var( --mbbarui-round ) 0 0;
 	border-bottom: 0;
 }
 
-.fbarui__brand {
+.mbbarui__brand {
 	display: flex;
 	align-items: center;
 	gap: 14px;
 }
 
-.fbarui__brand .dashicons {
+.mbbarui__brand .dashicons {
 	width: 40px;
 	height: 40px;
 	font-size: 40px;
-	color: var( --fbarui-brand );
+	color: var( --mbbarui-brand );
 	flex: none;
 }
 
-.fbarui__brand h1 {
+.mbbarui__brand h1 {
 	margin: 0;
 	padding: 0;
 	font-size: 22px;
 	line-height: 1.2;
-	color: var( --fbarui-ink );
+	color: var( --mbbarui-ink );
 }
 
-.fbarui__brand p {
+.mbbarui__brand p {
 	margin: 4px 0 0;
-	color: var( --fbarui-muted );
+	color: var( --mbbarui-muted );
 	font-size: 13px;
 	max-width: 52ch;
 }
 
-.fbarui__pill {
+.mbbarui__pill {
 	display: inline-block;
 	padding: 5px 12px;
 	border-radius: 999px;
-	background: var( --fbarui-sunken );
-	border: 1px solid var( --fbarui-line );
-	color: var( --fbarui-muted );
+	background: var( --mbbarui-sunken );
+	border: 1px solid var( --mbbarui-line );
+	color: var( --mbbarui-muted );
 	font-size: 12px;
 	font-weight: 600;
 }
 
-.fbarui__pill--on {
+.mbbarui__pill--on {
 	background: #edfaef;
 	border-color: #b8e6c1;
 	color: #14622a;
 }
 
-.fbarui__notice {
+.mbbarui__notice {
 	margin: 12px 0 0;
 }
 
@@ -100,74 +100,74 @@
 
 /* Numbered, because the sections read as an order the first time through:
    put something in the bar, decide where it shows, then make it look right. */
-.fbarui__tabs {
+.mbbarui__tabs {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0;
-	background: var( --fbarui-sunken );
-	border: 1px solid var( --fbarui-line );
+	background: var( --mbbarui-sunken );
+	border: 1px solid var( --mbbarui-line );
 	border-bottom: 0;
 	padding: 0 12px;
 }
 
-.fbarui__tab {
+.mbbarui__tab {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	padding: 14px 16px;
 	text-decoration: none;
-	color: var( --fbarui-muted );
+	color: var( --mbbarui-muted );
 	border-bottom: 3px solid transparent;
 	transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.fbarui__tab:hover,
-.fbarui__tab:focus {
-	color: var( --fbarui-ink );
+.mbbarui__tab:hover,
+.mbbarui__tab:focus {
+	color: var( --mbbarui-ink );
 	box-shadow: none;
 }
 
-.fbarui__tab.is-current {
-	color: var( --fbarui-ink );
-	border-bottom-color: var( --fbarui-brand );
-	background: var( --fbarui-surface );
+.mbbarui__tab.is-current {
+	color: var( --mbbarui-ink );
+	border-bottom-color: var( --mbbarui-brand );
+	background: var( --mbbarui-surface );
 }
 
-.fbarui__tab:focus-visible {
-	outline: 2px solid var( --fbarui-brand );
+.mbbarui__tab:focus-visible {
+	outline: 2px solid var( --mbbarui-brand );
 	outline-offset: -2px;
 }
 
-.fbarui__tab-step {
+.mbbarui__tab-step {
 	display: grid;
 	place-items: center;
 	width: 24px;
 	height: 24px;
 	flex: none;
 	border-radius: 50%;
-	background: var( --fbarui-line );
-	color: var( --fbarui-surface );
+	background: var( --mbbarui-line );
+	color: var( --mbbarui-surface );
 	font-size: 12px;
 	font-weight: 700;
 }
 
-.fbarui__tab.is-current .fbarui__tab-step {
-	background: var( --fbarui-brand );
+.mbbarui__tab.is-current .mbbarui__tab-step {
+	background: var( --mbbarui-brand );
 }
 
-.fbarui__tab-text {
+.mbbarui__tab-text {
 	display: flex;
 	flex-direction: column;
 	line-height: 1.3;
 }
 
-.fbarui__tab-text strong {
+.mbbarui__tab-text strong {
 	font-size: 14px;
 }
 
-.fbarui__tab-text small {
+.mbbarui__tab-text small {
 	font-size: 11px;
-	color: var( --fbarui-muted );
+	color: var( --mbbarui-muted );
 	font-weight: 400;
 }
 
@@ -175,53 +175,53 @@
 
 /* Without JavaScript every panel stays visible, so the screen still works;
    the script hides the inactive ones once it runs. */
-.fbarui__panel + .fbarui__panel {
+.mbbarui__panel + .mbbarui__panel {
 	margin-top: 20px;
 }
 
-.fbarui__card {
-	background: var( --fbarui-surface );
-	border: 1px solid var( --fbarui-line );
-	box-shadow: var( --fbarui-shadow );
+.mbbarui__card {
+	background: var( --mbbarui-surface );
+	border: 1px solid var( --mbbarui-line );
+	box-shadow: var( --mbbarui-shadow );
 }
 
-.fbarui__panel:first-of-type .fbarui__card {
-	border-radius: 0 0 var( --fbarui-round ) var( --fbarui-round );
+.mbbarui__panel:first-of-type .mbbarui__card {
+	border-radius: 0 0 var( --mbbarui-round ) var( --mbbarui-round );
 }
 
-.fbarui__card-head {
+.mbbarui__card-head {
 	padding: 22px 24px 0;
 }
 
-.fbarui__card-head h2 {
+.mbbarui__card-head h2 {
 	margin: 0;
 	font-size: 16px;
-	color: var( --fbarui-ink );
+	color: var( --mbbarui-ink );
 }
 
-.fbarui__card-head p {
+.mbbarui__card-head p {
 	margin: 6px 0 0;
-	color: var( --fbarui-muted );
+	color: var( --mbbarui-muted );
 	font-size: 13px;
 	max-width: 70ch;
 }
 
-.fbarui__card-foot {
+.mbbarui__card-foot {
 	display: flex;
 	align-items: center;
 	gap: 12px;
 	padding: 18px 24px 22px;
-	border-top: 1px solid var( --fbarui-line );
+	border-top: 1px solid var( --mbbarui-line );
 	margin-top: 20px;
 }
 
 /* ---- Setting rows ----------------------------------------------------- */
 
-.fbarui__rows {
+.mbbarui__rows {
 	padding: 8px 24px 24px;
 }
 
-.fbarui__row {
+.mbbarui__row {
 	display: grid;
 	grid-template-columns: 200px minmax( 0, 1fr );
 	gap: 24px;
@@ -229,29 +229,29 @@
 	border-bottom: 1px solid #f0f0f1;
 }
 
-.fbarui__row:last-child {
+.mbbarui__row:last-child {
 	border-bottom: 0;
 	padding-bottom: 0;
 }
 
-.fbarui__row-label {
+.mbbarui__row-label {
 	font-weight: 600;
-	color: var( --fbarui-ink );
+	color: var( --mbbarui-ink );
 	padding-top: 6px;
 }
 
-.fbarui__row-field > * + * {
+.mbbarui__row-field > * + * {
 	margin-top: 10px;
 }
 
-.fbarui__help {
+.mbbarui__help {
 	margin: 8px 0 0;
-	color: var( --fbarui-muted );
+	color: var( --mbbarui-muted );
 	font-size: 13px;
 	max-width: 68ch;
 }
 
-.fbarui__inline {
+.mbbarui__inline {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 16px;
@@ -260,7 +260,7 @@
 
 /* ---- Fields ----------------------------------------------------------- */
 
-.fbarui__field {
+.mbbarui__field {
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
@@ -268,38 +268,38 @@
 	min-width: 0;
 }
 
-.fbarui__field > span {
+.mbbarui__field > span {
 	font-weight: 600;
-	color: var( --fbarui-ink );
+	color: var( --mbbarui-ink );
 }
 
-.fbarui__field input[type="text"],
-.fbarui__field input[type="number"],
-.fbarui__field select {
+.mbbarui__field input[type="text"],
+.mbbarui__field input[type="number"],
+.mbbarui__field select {
 	width: 100%;
 	max-width: 320px;
 }
 
-.fbarui__field--narrow input {
+.mbbarui__field--narrow input {
 	max-width: 110px;
 }
 
-.fbarui__field--check {
+.mbbarui__field--check {
 	flex-direction: row;
 	align-items: center;
 	gap: 8px;
 }
 
-.fbarui__field--check span {
+.mbbarui__field--check span {
 	font-weight: 400;
 }
 
-.fbarui__wide {
+.mbbarui__wide {
 	width: 100%;
 	max-width: 460px;
 }
 
-.fbarui__code {
+.mbbarui__code {
 	width: 100%;
 	max-width: 640px;
 	font-family: Consolas, Monaco, monospace;
@@ -307,17 +307,17 @@
 	line-height: 1.6;
 }
 
-.fbarui__switch {
+.mbbarui__switch {
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
 	font-size: 13px;
 }
 
-.fbarui__snippet {
+.mbbarui__snippet {
 	display: inline-block;
 	padding: 8px 14px;
-	background: var( --fbarui-brand-soft );
+	background: var( --mbbarui-brand-soft );
 	border: 1px solid #c5d9ed;
 	border-radius: 5px;
 	font-size: 13px;
@@ -325,22 +325,22 @@
 	user-select: all;
 }
 
-.fbarui__swatches {
+.mbbarui__swatches {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 14px;
 }
 
-.fbarui__swatch {
+.mbbarui__swatch {
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
 	font-size: 12px;
 	font-weight: 600;
-	color: var( --fbarui-ink );
+	color: var( --mbbarui-ink );
 }
 
-.fbarui__swatch input {
+.mbbarui__swatch input {
 	width: 120px;
 	font-family: Consolas, Monaco, monospace;
 	font-size: 12px;
@@ -348,37 +348,37 @@
 
 /* ---- Items ------------------------------------------------------------ */
 
-.fbarui__items {
+.mbbarui__items {
 	padding: 20px 24px 0;
 }
 
-.fbarui__items:empty {
+.mbbarui__items:empty {
 	padding: 0;
 }
 
-.fbarui__item {
-	border: 1px solid var( --fbarui-line );
-	border-radius: var( --fbarui-round );
-	background: var( --fbarui-surface );
+.mbbarui__item {
+	border: 1px solid var( --mbbarui-line );
+	border-radius: var( --mbbarui-round );
+	background: var( --mbbarui-surface );
 	margin-bottom: 14px;
 	overflow: hidden;
 }
 
-.fbarui__item.is-dragging {
+.mbbarui__item.is-dragging {
 	opacity: 0.4;
 }
 
-.fbarui__item-head {
+.mbbarui__item-head {
 	display: flex;
 	align-items: center;
 	gap: 12px;
 	padding: 12px 16px;
-	background: var( --fbarui-sunken );
-	border-bottom: 1px solid var( --fbarui-line );
+	background: var( --mbbarui-sunken );
+	border-bottom: 1px solid var( --mbbarui-line );
 }
 
 /* A six-dot grip reads as draggable without needing a label. */
-.fbarui__grip {
+.mbbarui__grip {
 	width: 12px;
 	height: 18px;
 	flex: none;
@@ -388,73 +388,73 @@
 	color: #a7aaad;
 }
 
-.fbarui__item-title {
+.mbbarui__item-title {
 	flex: 1 1 auto;
 	font-size: 14px;
-	color: var( --fbarui-ink );
+	color: var( --mbbarui-ink );
 }
 
-.fbarui__item-id {
+.mbbarui__item-id {
 	font-size: 11px;
-	color: var( --fbarui-muted );
-	background: var( --fbarui-surface );
-	border: 1px solid var( --fbarui-line );
+	color: var( --mbbarui-muted );
+	background: var( --mbbarui-surface );
+	border: 1px solid var( --mbbarui-line );
 	padding: 3px 8px;
 	border-radius: 4px;
 }
 
-.fbarui__remove {
+.mbbarui__remove {
 	background: none;
 	border: 0;
-	color: var( --fbarui-danger );
+	color: var( --mbbarui-danger );
 	cursor: pointer;
 	font-size: 13px;
 	padding: 4px 6px;
 	border-radius: 4px;
 }
 
-.fbarui__remove:hover {
+.mbbarui__remove:hover {
 	background: #fcf0f1;
 }
 
-.fbarui__fields {
+.mbbarui__fields {
 	display: grid;
 	grid-template-columns: repeat( auto-fit, minmax( 230px, 1fr ) );
 	gap: 16px;
 	padding: 18px 16px;
 }
 
-.fbarui__extra {
+.mbbarui__extra {
 	display: contents;
 }
 
-.fbarui__empty {
+.mbbarui__empty {
 	margin: 20px 24px 0;
 	padding: 32px 24px;
 	text-align: center;
-	border: 1px dashed var( --fbarui-line );
-	border-radius: var( --fbarui-round );
-	background: var( --fbarui-sunken );
+	border: 1px dashed var( --mbbarui-line );
+	border-radius: var( --mbbarui-round );
+	background: var( --mbbarui-sunken );
 }
 
-.fbarui__empty p {
+.mbbarui__empty p {
 	margin: 0;
-	color: var( --fbarui-muted );
+	color: var( --mbbarui-muted );
 	font-size: 13px;
 }
 
-.fbarui__empty p + p {
+.mbbarui__empty p + p {
 	margin-top: 6px;
 }
 
-.fbarui__empty strong {
-	color: var( --fbarui-ink );
+.mbbarui__empty strong {
+	color: var( --mbbarui-ink );
 	font-size: 14px;
 }
 
 /* ---- Actions ---------------------------------------------------------- */
 
-.fbarui__actions {
+.mbbarui__actions {
 	position: sticky;
 	bottom: 0;
 	display: flex;
@@ -462,30 +462,30 @@
 	gap: 14px;
 	margin-top: 20px;
 	padding: 16px 24px;
-	background: var( --fbarui-surface );
-	border: 1px solid var( --fbarui-line );
-	border-radius: var( --fbarui-round );
+	background: var( --mbbarui-surface );
+	border: 1px solid var( --mbbarui-line );
+	border-radius: var( --mbbarui-round );
 	box-shadow: 0 -2px 8px rgba( 0, 0, 0, 0.05 );
 }
 
-.fbarui__hint {
-	color: var( --fbarui-muted );
+.mbbarui__hint {
+	color: var( --mbbarui-muted );
 	font-size: 13px;
 }
 
 /* ---- Narrow screens --------------------------------------------------- */
 
 @media screen and ( max-width: 782px ) {
-	.fbarui__row {
+	.mbbarui__row {
 		grid-template-columns: 1fr;
 		gap: 8px;
 	}
 
-	.fbarui__row-label {
+	.mbbarui__row-label {
 		padding-top: 0;
 	}
 
-	.fbarui__tab-text small {
+	.mbbarui__tab-text small {
 		display: none;
 	}
 }
@@ -498,155 +498,155 @@
  * the row scrolls sideways rather than wrapping.
  */
 
-.fbarui__tabs {
+.mbbarui__tabs {
 	flex-wrap: nowrap;
 	overflow-x: auto;
 	scrollbar-width: thin;
 }
 
-.fbarui__tab {
+.mbbarui__tab {
 	white-space: nowrap;
 	flex: none;
 	padding: 13px 18px;
 }
 
-.fbarui__tab-text small {
+.mbbarui__tab-text small {
 	display: none;
 }
 
-.fbarui__tab-text strong {
+.mbbarui__tab-text strong {
 	font-size: 14px;
 	font-weight: 600;
 }
 
-.fbarui__panel-note {
+.mbbarui__panel-note {
 	margin: 6px 0 0;
-	color: var( --fbarui-muted );
+	color: var( --mbbarui-muted );
 	font-size: 13px;
 }
 
 /* ---- Starter kits ------------------------------------------------------ */
 
-.fbarui__kits {
+.mbbarui__kits {
 	padding: 20px 24px 0;
 }
 
-.fbarui__kits h3 {
+.mbbarui__kits h3 {
 	margin: 0;
 	font-size: 14px;
-	color: var( --fbarui-ink );
+	color: var( --mbbarui-ink );
 }
 
-.fbarui__kit-grid {
+.mbbarui__kit-grid {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 250px, 1fr ) );
 	gap: 10px;
 	margin-top: 12px;
 }
 
-.fbarui__kit {
+.mbbarui__kit {
 	display: flex;
 	align-items: flex-start;
 	gap: 12px;
 	padding: 12px 14px;
 	text-align: start;
-	background: var( --fbarui-surface );
-	border: 1px solid var( --fbarui-line );
-	border-radius: var( --fbarui-round );
+	background: var( --mbbarui-surface );
+	border: 1px solid var( --mbbarui-line );
+	border-radius: var( --mbbarui-round );
 	cursor: pointer;
 	transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.fbarui__kit:hover {
-	border-color: var( --fbarui-brand );
-	box-shadow: 0 0 0 1px var( --fbarui-brand );
+.mbbarui__kit:hover {
+	border-color: var( --mbbarui-brand );
+	box-shadow: 0 0 0 1px var( --mbbarui-brand );
 }
 
-.fbarui__kit-count {
+.mbbarui__kit-count {
 	display: grid;
 	place-items: center;
 	width: 26px;
 	height: 26px;
 	flex: none;
 	border-radius: 7px;
-	background: var( --fbarui-brand-soft );
-	color: var( --fbarui-brand );
+	background: var( --mbbarui-brand-soft );
+	color: var( --mbbarui-brand );
 	font-size: 12px;
 	font-weight: 700;
 }
 
-.fbarui__kit-text {
+.mbbarui__kit-text {
 	display: flex;
 	flex-direction: column;
 	gap: 2px;
 	min-width: 0;
 }
 
-.fbarui__kit-text strong {
+.mbbarui__kit-text strong {
 	font-size: 13px;
-	color: var( --fbarui-ink );
+	color: var( --mbbarui-ink );
 }
 
-.fbarui__kit-text small {
+.mbbarui__kit-text small {
 	font-size: 12px;
-	color: var( --fbarui-muted );
+	color: var( --mbbarui-muted );
 	line-height: 1.4;
 }
 
 /* ---- Look presets ------------------------------------------------------ */
 
-.fbarui__presets {
+.mbbarui__presets {
 	display: grid;
 	grid-template-columns: repeat( auto-fit, minmax( 180px, 1fr ) );
 	gap: 12px;
 	max-width: 800px;
 }
 
-.fbarui__preset {
+.mbbarui__preset {
 	position: relative;
 	display: grid;
 	grid-template-columns: auto 1fr;
 	grid-template-areas: "swatch name" "swatch note";
 	gap: 2px 12px;
 	padding: 14px;
-	border: 1px solid var( --fbarui-line );
-	border-radius: var( --fbarui-round );
+	border: 1px solid var( --mbbarui-line );
+	border-radius: var( --mbbarui-round );
 	cursor: pointer;
-	background: var( --fbarui-surface );
+	background: var( --mbbarui-surface );
 }
 
-.fbarui__preset input {
+.mbbarui__preset input {
 	position: absolute;
 	opacity: 0;
 	pointer-events: none;
 }
 
-.fbarui__preset:has( input:checked ) {
-	border-color: var( --fbarui-brand );
-	box-shadow: 0 0 0 1px var( --fbarui-brand );
+.mbbarui__preset:has( input:checked ) {
+	border-color: var( --mbbarui-brand );
+	box-shadow: 0 0 0 1px var( --mbbarui-brand );
 }
 
-.fbarui__preset:has( input:focus-visible ) {
-	outline: 2px solid var( --fbarui-brand );
+.mbbarui__preset:has( input:focus-visible ) {
+	outline: 2px solid var( --mbbarui-brand );
 	outline-offset: 2px;
 }
 
-.fbarui__preset-name {
+.mbbarui__preset-name {
 	grid-area: name;
 	font-weight: 600;
 	font-size: 13px;
-	color: var( --fbarui-ink );
+	color: var( --mbbarui-ink );
 }
 
-.fbarui__preset-note {
+.mbbarui__preset-note {
 	grid-area: note;
 	font-size: 12px;
-	color: var( --fbarui-muted );
+	color: var( --mbbarui-muted );
 	line-height: 1.4;
 }
 
 /* A miniature of the bar itself, so the choice is shown rather than described. */
-.fbarui__preset-swatch {
+.mbbarui__preset-swatch {
 	grid-area: swatch;
 	display: flex;
 	align-items: center;
@@ -660,76 +660,76 @@
 	align-self: center;
 }
 
-.fbarui__preset-swatch span {
+.mbbarui__preset-swatch span {
 	width: 8px;
 	height: 100%;
 	border-radius: 3px;
 	background: rgba( 255, 255, 255, 0.9 );
 }
 
-.fbarui__preset--glass .fbarui__preset-swatch span {
+.mbbarui__preset--glass .mbbarui__preset-swatch span {
 	background: rgba( 255, 255, 255, 0.55 );
 	box-shadow: inset 0 1px 0 rgba( 255, 255, 255, 0.9 );
 }
 
-.fbarui__preset--solid .fbarui__preset-swatch span {
+.mbbarui__preset--solid .mbbarui__preset-swatch span {
 	background: #fff;
 }
 
-.fbarui__preset--minimal .fbarui__preset-swatch span {
+.mbbarui__preset--minimal .mbbarui__preset-swatch span {
 	background: rgba( 255, 255, 255, 0.95 );
 	width: 7px;
 	height: 14px;
 	border-radius: 4px;
 }
 
-.fbarui__preset--bold .fbarui__preset-swatch span {
+.mbbarui__preset--bold .mbbarui__preset-swatch span {
 	background: #0a84ff;
 }
 
 /* ---- Segmented control ------------------------------------------------- */
 
-.fbarui__segmented {
+.mbbarui__segmented {
 	display: inline-flex;
-	border: 1px solid var( --fbarui-line );
+	border: 1px solid var( --mbbarui-line );
 	border-radius: 7px;
 	overflow: hidden;
-	background: var( --fbarui-sunken );
+	background: var( --mbbarui-sunken );
 }
 
-.fbarui__segmented label {
+.mbbarui__segmented label {
 	position: relative;
 	margin: 0;
 }
 
-.fbarui__segmented input {
+.mbbarui__segmented input {
 	position: absolute;
 	opacity: 0;
 	pointer-events: none;
 }
 
-.fbarui__segmented span {
+.mbbarui__segmented span {
 	display: block;
 	padding: 8px 16px;
 	font-size: 13px;
-	color: var( --fbarui-muted );
+	color: var( --mbbarui-muted );
 	cursor: pointer;
-	border-inline-end: 1px solid var( --fbarui-line );
+	border-inline-end: 1px solid var( --mbbarui-line );
 }
 
-.fbarui__segmented label:last-child span {
+.mbbarui__segmented label:last-child span {
 	border-inline-end: 0;
 }
 
-.fbarui__segmented input:checked + span {
-	background: var( --fbarui-surface );
-	color: var( --fbarui-ink );
+.mbbarui__segmented input:checked + span {
+	background: var( --mbbarui-surface );
+	color: var( --mbbarui-ink );
 	font-weight: 600;
-	box-shadow: inset 0 -2px 0 var( --fbarui-brand );
+	box-shadow: inset 0 -2px 0 var( --mbbarui-brand );
 }
 
-.fbarui__segmented input:focus-visible + span {
-	outline: 2px solid var( --fbarui-brand );
+.mbbarui__segmented input:focus-visible + span {
+	outline: 2px solid var( --mbbarui-brand );
 	outline-offset: -2px;
 }
 
@@ -737,7 +737,7 @@
 
 /* Most people set four things and leave. The rest is here for the ones who
    need it, and out of the way for everyone else. */
-.fbarui__advanced-toggle {
+.mbbarui__advanced-toggle {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
@@ -745,12 +745,12 @@
 	padding: 8px 0;
 	background: none;
 	border: 0;
-	color: var( --fbarui-brand );
+	color: var( --mbbarui-brand );
 	font-size: 13px;
 	cursor: pointer;
 }
 
-.fbarui__advanced-toggle::before {
+.mbbarui__advanced-toggle::before {
 	content: "";
 	width: 0;
 	height: 0;
@@ -760,12 +760,12 @@
 	transition: transform 0.15s ease;
 }
 
-.fbarui__advanced-toggle[aria-expanded="true"]::before {
+.mbbarui__advanced-toggle[aria-expanded="true"]::before {
 	transform: rotate( 90deg );
 }
 
-.fbarui__advanced {
-	border-top: 1px dashed var( --fbarui-line );
+.mbbarui__advanced {
+	border-top: 1px dashed var( --mbbarui-line );
 	margin-top: 4px;
 	padding-top: 4px;
 }
@@ -776,7 +776,7 @@
  * 1400 pixels the preview drops under the settings rather than squeezing both.
  */
 
-.fbarui__body {
+.mbbarui__body {
 	display: grid;
 	grid-template-columns: minmax( 0, 1fr );
 	gap: 20px;
@@ -784,49 +784,49 @@
 }
 
 @media screen and ( min-width: 1400px ) {
-	.fbarui__body {
+	.mbbarui__body {
 		grid-template-columns: minmax( 0, 1fr ) 380px;
 	}
 }
 
-.fbarui__main {
+.mbbarui__main {
 	min-width: 0;
 }
 
-.fbarui__side {
+.mbbarui__side {
 	min-width: 0;
 }
 
 @media screen and ( min-width: 1400px ) {
-	.fbarui__side {
+	.mbbarui__side {
 		position: sticky;
 		top: 52px;
 	}
 }
 
-.fbarui__preview-card {
-	background: var( --fbarui-surface );
-	border: 1px solid var( --fbarui-line );
-	border-radius: var( --fbarui-round );
-	box-shadow: var( --fbarui-shadow );
+.mbbarui__preview-card {
+	background: var( --mbbarui-surface );
+	border: 1px solid var( --mbbarui-line );
+	border-radius: var( --mbbarui-round );
+	box-shadow: var( --mbbarui-shadow );
 	padding: 20px;
 }
 
-.fbarui__preview-card h2 {
+.mbbarui__preview-card h2 {
 	margin: 0;
 	font-size: 15px;
-	color: var( --fbarui-ink );
+	color: var( --mbbarui-ink );
 }
 
 /* ---- The phone --------------------------------------------------------- */
 
-.fbarui__phone {
+.mbbarui__phone {
 	display: flex;
 	justify-content: center;
 	margin: 16px 0 12px;
 }
 
-.fbarui__phone-screen {
+.mbbarui__phone-screen {
 	position: relative;
 	width: 320px;
 	max-width: 100%;
@@ -841,10 +841,10 @@
 	transition: width 0.2s ease;
 	/* A photograph is where a translucent bar is hardest to read, so the
 	   preview stands the bar on one rather than on flat white. */
-	background: var( --fbarui-stage );
+	background: var( --mbbarui-stage );
 }
 
-.fbarui__phone-lines {
+.mbbarui__phone-lines {
 	position: absolute;
 	inset: 26px 22px auto;
 	display: flex;
@@ -852,53 +852,53 @@
 	gap: 9px;
 }
 
-.fbarui__phone-lines span {
+.mbbarui__phone-lines span {
 	height: 8px;
 	border-radius: 4px;
 	background: rgba( 255, 255, 255, 0.5 );
 }
 
-.fbarui__phone-lines span:nth-child(1) { width: 70%; height: 14px; }
-.fbarui__phone-lines span:nth-child(2) { width: 100%; }
-.fbarui__phone-lines span:nth-child(3) { width: 92%; }
-.fbarui__phone-lines span:nth-child(4) { width: 96%; }
-.fbarui__phone-lines span:nth-child(5) { width: 60%; }
-.fbarui__phone-lines span:nth-child(6) { width: 84%; }
+.mbbarui__phone-lines span:nth-child(1) { width: 70%; height: 14px; }
+.mbbarui__phone-lines span:nth-child(2) { width: 100%; }
+.mbbarui__phone-lines span:nth-child(3) { width: 92%; }
+.mbbarui__phone-lines span:nth-child(4) { width: 96%; }
+.mbbarui__phone-lines span:nth-child(5) { width: 60%; }
+.mbbarui__phone-lines span:nth-child(6) { width: 84%; }
 
-#fbar-preview {
+#mbbar-preview {
 	position: relative;
 	z-index: 1;
 }
 
-.fbarui__preview-widths {
+.mbbarui__preview-widths {
 	display: flex;
 	justify-content: center;
 	gap: 6px;
 }
 
-.fbarui__preview-widths button {
+.mbbarui__preview-widths button {
 	padding: 5px 12px;
 	font-size: 12px;
-	border: 1px solid var( --fbarui-line );
-	background: var( --fbarui-surface );
-	color: var( --fbarui-muted );
+	border: 1px solid var( --mbbarui-line );
+	background: var( --mbbarui-surface );
+	color: var( --mbbarui-muted );
 	border-radius: 6px;
 	cursor: pointer;
 }
 
-.fbarui__preview-widths button.is-current {
-	border-color: var( --fbarui-brand );
-	color: var( --fbarui-brand );
+.mbbarui__preview-widths button.is-current {
+	border-color: var( --mbbarui-brand );
+	color: var( --mbbarui-brand );
 	font-weight: 600;
 }
 
-#fbar-preview-note {
+#mbbar-preview-note {
 	text-align: center;
 	min-height: 2.6em;
 }
 
-.fbarui__preview-empty {
-	color: var( --fbarui-muted );
+.mbbarui__preview-empty {
+	color: var( --mbbarui-muted );
 	font-size: 12px;
 	text-align: center;
 	padding: 14px;
@@ -906,30 +906,30 @@
 
 /* ---- Sliders ----------------------------------------------------------- */
 
-.fbarui__slider {
+.mbbarui__slider {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	max-width: 340px;
 }
 
-.fbarui__slider input[type="range"] {
+.mbbarui__slider input[type="range"] {
 	flex: 1 1 auto;
 	min-width: 0;
-	accent-color: var( --fbarui-brand );
+	accent-color: var( --mbbarui-brand );
 }
 
-.fbarui__slider output {
+.mbbarui__slider output {
 	min-width: 2.5em;
 	text-align: end;
 	font-variant-numeric: tabular-nums;
 	font-weight: 600;
 	font-size: 13px;
-	color: var( --fbarui-ink );
+	color: var( --mbbarui-ink );
 }
 
-.fbarui__slider-unit {
-	color: var( --fbarui-muted );
+.mbbarui__slider-unit {
+	color: var( --mbbarui-muted );
 	font-size: 12px;
 	width: 1.6em;
 }
@@ -941,46 +941,46 @@
  * flattering the design.
  */
 
-.fbarui__phone-screen {
-	--fbarui-stage: linear-gradient( 160deg, #6f9ceb 0%, #a5c4f2 38%, #f2c9a8 68%, #e8927c 100% );
+.mbbarui__phone-screen {
+	--mbbarui-stage: linear-gradient( 160deg, #6f9ceb 0%, #a5c4f2 38%, #f2c9a8 68%, #e8927c 100% );
 }
 
-.fbarui__phone-screen[data-stage="light"] {
-	--fbarui-stage: #f4f4f5;
+.mbbarui__phone-screen[data-stage="light"] {
+	--mbbarui-stage: #f4f4f5;
 }
 
-.fbarui__phone-screen[data-stage="dark"] {
-	--fbarui-stage: #101114;
+.mbbarui__phone-screen[data-stage="dark"] {
+	--mbbarui-stage: #101114;
 }
 
-.fbarui__phone-screen[data-stage="light"] .fbarui__phone-lines span {
+.mbbarui__phone-screen[data-stage="light"] .mbbarui__phone-lines span {
 	background: rgba( 0, 0, 0, 0.1 );
 }
 
-.fbarui__phone-screen[data-stage="dark"] .fbarui__phone-lines span {
+.mbbarui__phone-screen[data-stage="dark"] .mbbarui__phone-lines span {
 	background: rgba( 255, 255, 255, 0.14 );
 }
 
-.fbarui__preview-stages {
+.mbbarui__preview-stages {
 	display: flex;
 	justify-content: center;
 	gap: 6px;
 	margin-bottom: 8px;
 }
 
-.fbarui__preview-stages button {
+.mbbarui__preview-stages button {
 	padding: 5px 14px;
 	font-size: 12px;
-	border: 1px solid var( --fbarui-line );
-	background: var( --fbarui-surface );
-	color: var( --fbarui-muted );
+	border: 1px solid var( --mbbarui-line );
+	background: var( --mbbarui-surface );
+	color: var( --mbbarui-muted );
 	border-radius: 6px;
 	cursor: pointer;
 }
 
-.fbarui__preview-stages button.is-current {
-	border-color: var( --fbarui-brand );
-	color: var( --fbarui-brand );
+.mbbarui__preview-stages button.is-current {
+	border-color: var( --mbbarui-brand );
+	color: var( --mbbarui-brand );
 	font-weight: 600;
 }
 
@@ -988,7 +988,7 @@
 
 /* It was a bare text link that looked like nothing and sat with no separation
    from the settings above it. */
-.fbarui__advanced-toggle {
+.mbbarui__advanced-toggle {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -996,28 +996,28 @@
 	width: 100%;
 	margin: 16px 0 0;
 	padding: 12px 16px;
-	background: var( --fbarui-sunken );
-	border: 1px solid var( --fbarui-line );
-	border-radius: var( --fbarui-round );
-	color: var( --fbarui-ink );
+	background: var( --mbbarui-sunken );
+	border: 1px solid var( --mbbarui-line );
+	border-radius: var( --mbbarui-round );
+	color: var( --mbbarui-ink );
 	font-size: 13px;
 	font-weight: 600;
 	cursor: pointer;
 	transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.fbarui__advanced-toggle:hover {
-	background: var( --fbarui-brand-soft );
-	border-color: var( --fbarui-brand );
-	color: var( --fbarui-brand );
+.mbbarui__advanced-toggle:hover {
+	background: var( --mbbarui-brand-soft );
+	border-color: var( --mbbarui-brand );
+	color: var( --mbbarui-brand );
 }
 
-.fbarui__advanced-toggle:focus-visible {
-	outline: 2px solid var( --fbarui-brand );
+.mbbarui__advanced-toggle:focus-visible {
+	outline: 2px solid var( --mbbarui-brand );
 	outline-offset: 2px;
 }
 
-.fbarui__advanced {
+.mbbarui__advanced {
 	border-top: 0;
 	margin-top: 0;
 	padding-top: 0;
@@ -1029,74 +1029,74 @@
  * same sprite the preview uses, so what is chosen here is what appears there.
  */
 
-.fbarui__field--icons {
+.mbbarui__field--icons {
 	grid-column: 1 / -1;
 }
 
-.fbarui__iconpicker {
+.mbbarui__iconpicker {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 38px, 1fr ) );
 	gap: 4px;
 	max-height: 132px;
 	overflow-y: auto;
 	padding: 8px;
-	border: 1px solid var( --fbarui-line );
+	border: 1px solid var( --mbbarui-line );
 	border-radius: 6px;
-	background: var( --fbarui-sunken );
+	background: var( --mbbarui-sunken );
 }
 
-.fbarui__iconopt {
+.mbbarui__iconopt {
 	position: relative;
 	display: grid;
 	place-items: center;
 	aspect-ratio: 1;
 	border-radius: 6px;
 	cursor: pointer;
-	color: var( --fbarui-muted );
-	background: var( --fbarui-surface );
+	color: var( --mbbarui-muted );
+	background: var( --mbbarui-surface );
 	border: 1px solid transparent;
 }
 
-.fbarui__iconopt:hover {
-	color: var( --fbarui-ink );
-	border-color: var( --fbarui-line );
+.mbbarui__iconopt:hover {
+	color: var( --mbbarui-ink );
+	border-color: var( --mbbarui-line );
 }
 
-.fbarui__iconopt input {
+.mbbarui__iconopt input {
 	position: absolute;
 	opacity: 0;
 	pointer-events: none;
 }
 
-.fbarui__iconopt:has( input:checked ) {
-	color: var( --fbarui-brand );
-	border-color: var( --fbarui-brand );
-	background: var( --fbarui-brand-soft );
+.mbbarui__iconopt:has( input:checked ) {
+	color: var( --mbbarui-brand );
+	border-color: var( --mbbarui-brand );
+	background: var( --mbbarui-brand-soft );
 }
 
-.fbarui__iconopt:has( input:focus-visible ) {
-	outline: 2px solid var( --fbarui-brand );
+.mbbarui__iconopt:has( input:focus-visible ) {
+	outline: 2px solid var( --mbbarui-brand );
 	outline-offset: 1px;
 }
 
-.fbarui__iconglyph {
+.mbbarui__iconglyph {
 	width: 20px;
 	height: 20px;
 }
 
 /* ---- Palettes ---------------------------------------------------------- */
 
-.fbarui__palette + .fbarui__palette {
+.mbbarui__palette + .mbbarui__palette {
 	margin-top: 16px;
 	padding-top: 16px;
-	border-top: 1px solid var( --fbarui-line );
+	border-top: 1px solid var( --mbbarui-line );
 }
 
-.fbarui__palette h4 {
+.mbbarui__palette h4 {
 	margin: 0 0 10px;
 	font-size: 12px;
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
-	color: var( --fbarui-muted );
+	color: var( --mbbarui-muted );
 }

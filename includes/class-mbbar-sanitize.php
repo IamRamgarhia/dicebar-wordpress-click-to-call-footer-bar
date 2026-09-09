@@ -6,7 +6,7 @@
  * type. None throw and none return null: a bad value becomes the fallback,
  * because a settings save must never store half a configuration.
  *
- * @package FooterBar
+ * @package MobileBottomBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Primitive and structural sanitisers for the configuration.
  */
-class FBar_Sanitize {
+class MBBar_Sanitize {
 
 	/**
 	 * The only URL schemes this plugin will ever put in an href.
@@ -265,11 +265,11 @@ class FBar_Sanitize {
 
 		$type_slug = isset( $value['type'] ) ? $value['type'] : '';
 
-		if ( ! FBar_Item_Types::exists( $type_slug ) ) {
+		if ( ! MBBar_Item_Types::exists( $type_slug ) ) {
 			return null;
 		}
 
-		$type = FBar_Item_Types::get( $type_slug );
+		$type = MBBar_Item_Types::get( $type_slug );
 		$show = isset( $value['show'] ) && is_array( $value['show'] ) ? $value['show'] : array();
 
 		$id = isset( $value['id'] ) && is_string( $value['id'] )
@@ -434,13 +434,13 @@ class FBar_Sanitize {
 	 * @return array
 	 */
 	public static function settings( $value ) {
-		$defaults = FBar_Settings::defaults();
+		$defaults = MBBar_Settings::defaults();
 
 		if ( ! is_array( $value ) ) {
 			return $defaults;
 		}
 
-		FBar_Settings::flush();
+		MBBar_Settings::flush();
 
 		$display   = self::group( $value, 'display' );
 		$content   = self::group( $display, 'content' );
@@ -485,32 +485,33 @@ class FBar_Sanitize {
 			),
 
 			'style'                   => array(
-				'preset'     => self::choice( self::pick( $style, 'preset', 'glass' ), FBar_Settings::PRESETS, 'glass' ),
-				'glass'      => self::int_in_range( self::pick( $style, 'glass', 22 ), 0, 60, 22 ),
-				'opacity'    => self::int_in_range( self::pick( $style, 'opacity', 78 ), 20, 100, 78 ),
-				'layout'     => self::choice( self::pick( $style, 'layout', 'island' ), array( 'island', 'full' ), 'island' ),
-				'max_width'  => self::int_in_range( self::pick( $style, 'max_width', 640 ), 0, 2560, 640 ),
-				'radius'     => self::int_in_range( self::pick( $style, 'radius', 18 ), 0, 60, 18 ),
-				'shadow'     => self::choice( self::pick( $style, 'shadow', 'soft' ), array( 'none', 'soft', 'strong' ), 'soft' ),
-				'blur'       => self::boolean( self::pick( $style, 'blur', true ) ),
-				'divider'    => self::choice( self::pick( $style, 'divider', 'hairline' ), array( 'none', 'hairline' ), 'hairline' ),
-				'gap'        => self::int_in_range( self::pick( $style, 'gap', 11 ), 0, 40, 11 ),
-				'item'       => array(
+				'preset'      => self::choice( self::pick( $style, 'preset', 'glass' ), MBBar_Settings::PRESETS, 'glass' ),
+				'brand_icons' => self::boolean( self::pick( $style, 'brand_icons', true ) ),
+				'glass'       => self::int_in_range( self::pick( $style, 'glass', 22 ), 0, 60, 22 ),
+				'opacity'     => self::int_in_range( self::pick( $style, 'opacity', 78 ), 20, 100, 78 ),
+				'layout'      => self::choice( self::pick( $style, 'layout', 'island' ), array( 'island', 'full' ), 'island' ),
+				'max_width'   => self::int_in_range( self::pick( $style, 'max_width', 640 ), 0, 2560, 640 ),
+				'radius'      => self::int_in_range( self::pick( $style, 'radius', 18 ), 0, 60, 18 ),
+				'shadow'      => self::choice( self::pick( $style, 'shadow', 'soft' ), array( 'none', 'soft', 'strong' ), 'soft' ),
+				'blur'        => self::boolean( self::pick( $style, 'blur', true ) ),
+				'divider'     => self::choice( self::pick( $style, 'divider', 'hairline' ), array( 'none', 'hairline' ), 'hairline' ),
+				'gap'         => self::int_in_range( self::pick( $style, 'gap', 11 ), 0, 40, 11 ),
+				'item'        => array(
 					'shape'      => self::choice( self::pick( $item, 'shape', 'plain' ), array( 'plain', 'filled', 'outline', 'soft' ), 'plain' ),
 					'radius'     => self::int_in_range( self::pick( $item, 'radius', 13 ), 0, 60, 13 ),
 					'min_height' => self::int_in_range( self::pick( $item, 'min_height', 52 ), 28, 120, 52 ),
 					'icon_size'  => self::int_in_range( self::pick( $item, 'icon_size', 18 ), 10, 48, 18 ),
 					'icon_gap'   => self::int_in_range( self::pick( $item, 'icon_gap', 3 ), 0, 20, 3 ),
 				),
-				'label'      => array(
-					'mode' => self::choice( self::pick( $label, 'mode', 'icon_label' ), FBar_Settings::LABEL_MODES, 'icon_label' ),
+				'label'       => array(
+					'mode' => self::choice( self::pick( $label, 'mode', 'icon_label' ), MBBar_Settings::LABEL_MODES, 'icon_label' ),
 					'size' => self::int_in_range( self::pick( $label, 'size', 10 ), 7, 20, 10 ),
 					'case' => self::choice( self::pick( $label, 'case', 'upper' ), array( 'upper', 'normal' ), 'upper' ),
 				),
-				'scheme'     => self::choice( self::pick( $style, 'scheme', 'system' ), array( 'system', 'light', 'dark', 'off' ), 'system' ),
-				'light'      => self::palette( self::group( $style, 'light' ), $defaults['style']['light'] ),
-				'dark'       => self::palette( self::group( $style, 'dark' ), $defaults['style']['dark'] ),
-				'custom_css' => self::css( self::pick( $style, 'custom_css', '' ) ),
+				'scheme'      => self::choice( self::pick( $style, 'scheme', 'system' ), array( 'system', 'light', 'dark', 'off' ), 'system' ),
+				'light'       => self::palette( self::group( $style, 'light' ), $defaults['style']['light'] ),
+				'dark'        => self::palette( self::group( $style, 'dark' ), $defaults['style']['dark'] ),
+				'custom_css'  => self::css( self::pick( $style, 'custom_css', '' ) ),
 			),
 
 			'items'                   => self::items( self::pick( $value, 'items', array() ) ),

@@ -1,123 +1,123 @@
 /**
- * Footer Bar front-end styles.
+ * Mobile Bottom Bar front-end styles.
  *
  * Every number here has a default supplied as a custom property by
- * FBar_Styles, so the administrator's settings drive the layout without this
+ * MBBar_Styles, so the administrator's settings drive the layout without this
  * file changing. The fallbacks are the measured values from the design spec.
  */
 
-.fbar {
-	--fbar-bar-bg: #fff;
-	--fbar-text: #1c1c1e;
-	--fbar-accent: #0a84ff;
-	--fbar-icon: #1c1c1e;
-	--fbar-hover-bg: #0a84ff;
-	--fbar-hover-text: #fff;
-	--fbar-divider: rgba( 0, 0, 0, 0.12 );
-	--fbar-bold-bg: #0a84ff;
-	--fbar-radius: 18px;
-	--fbar-item-radius: 13px;
-	--fbar-min-height: 52px;
-	--fbar-icon-size: 18px;
-	--fbar-icon-gap: 3px;
-	--fbar-gap: 11px;
-	--fbar-label-size: 10px;
-	--fbar-max-width: 640px;
-	--fbar-z: 9990;
-	--fbar-clearance: 0px;
-	--fbar-glass: 22px;
-	--fbar-opacity: 78%;
+.mbbar {
+	--mbbar-bar-bg: #fff;
+	--mbbar-text: #1c1c1e;
+	--mbbar-accent: #0a84ff;
+	--mbbar-icon: #1c1c1e;
+	--mbbar-hover-bg: #0a84ff;
+	--mbbar-hover-text: #fff;
+	--mbbar-divider: rgba( 0, 0, 0, 0.12 );
+	--mbbar-bold-bg: #0a84ff;
+	--mbbar-radius: 18px;
+	--mbbar-item-radius: 13px;
+	--mbbar-min-height: 52px;
+	--mbbar-icon-size: 18px;
+	--mbbar-icon-gap: 3px;
+	--mbbar-gap: 11px;
+	--mbbar-label-size: 10px;
+	--mbbar-max-width: 640px;
+	--mbbar-z: 9990;
+	--mbbar-clearance: 0px;
+	--mbbar-glass: 22px;
+	--mbbar-opacity: 78%;
 
 	box-sizing: border-box;
 }
 
-.fbar *,
-.fbar *::before,
-.fbar *::after {
+.mbbar *,
+.mbbar *::before,
+.mbbar *::after {
 	box-sizing: inherit;
 }
 
 /* ---- Fixed mode ------------------------------------------------------- */
 
-.fbar--fixed {
+.mbbar--fixed {
 	position: fixed;
 	inset-inline: 0;
-	z-index: var( --fbar-z );
+	z-index: var( --mbbar-z );
 	padding: 10px;
 	pointer-events: none;
 	transition: transform 0.28s ease, opacity 0.28s ease;
 }
 
-.fbar--fixed.fbar--bottom {
+.mbbar--fixed.mbbar--bottom {
 	bottom: 0;
 	/* Without the safe-area inset the bar sits under the home indicator and
 	   the bottom row of targets cannot be hit. */
-	padding-bottom: calc( 10px + var( --fbar-clearance ) + env( safe-area-inset-bottom, 0px ) );
+	padding-bottom: calc( 10px + var( --mbbar-clearance ) + env( safe-area-inset-bottom, 0px ) );
 }
 
-.fbar--fixed.fbar--top {
+.mbbar--fixed.mbbar--top {
 	top: 0;
 	padding-top: calc( 10px + env( safe-area-inset-top, 0px ) );
 }
 
-.fbar--fixed.fbar--top.fbar--admin-bar {
+.mbbar--fixed.mbbar--top.mbbar--admin-bar {
 	top: 46px;
 }
 
 @media screen and ( min-width: 783px ) {
-	.fbar--fixed.fbar--top.fbar--admin-bar {
+	.mbbar--fixed.mbbar--top.mbbar--admin-bar {
 		top: 32px;
 	}
 }
 
-.fbar--fixed .fbar__inner {
+.mbbar--fixed .mbbar__inner {
 	pointer-events: auto;
 	margin-inline: auto;
-	max-width: var( --fbar-max-width );
+	max-width: var( --mbbar-max-width );
 }
 
-.fbar--fixed.fbar--full {
+.mbbar--fixed.mbbar--full {
 	padding-inline: 0;
 }
 
-.fbar--fixed.fbar--full .fbar__inner {
+.mbbar--fixed.mbbar--full .mbbar__inner {
 	border-radius: 0;
 	max-width: none;
 }
 
 /* 140% rather than 100%: the shadow extends past the box, and 100% leaves a
    smudge of it visible along the edge. */
-.fbar--fixed.is-away {
+.mbbar--fixed.is-away {
 	transform: translateY( 140% );
 	opacity: 0;
 	pointer-events: none;
 }
 
-.fbar--fixed.fbar--top.is-away {
+.mbbar--fixed.mbbar--top.is-away {
 	transform: translateY( -140% );
 }
 
-.fbar--entrance-none {
+.mbbar--entrance-none {
 	transition: none;
 }
 
 /* ---- The panel -------------------------------------------------------- */
 
-.fbar__inner {
+.mbbar__inner {
 	display: flex;
 	align-items: stretch;
-	gap: var( --fbar-gap );
+	gap: var( --mbbar-gap );
 	padding: 6px;
-	border-radius: var( --fbar-radius );
-	background: var( --fbar-bar-bg );
-	color: var( --fbar-text );
+	border-radius: var( --mbbar-radius );
+	background: var( --mbbar-bar-bg );
+	color: var( --mbbar-text );
 }
 
-.fbar--shadow-soft .fbar__inner {
+.mbbar--shadow-soft .mbbar__inner {
 	box-shadow: 0 4px 14px -8px rgba( 0, 0, 0, 0.22 ), 0 22px 44px -28px rgba( 0, 0, 0, 0.34 );
 }
 
-.fbar--shadow-strong .fbar__inner {
+.mbbar--shadow-strong .mbbar__inner {
 	box-shadow: 0 6px 18px -6px rgba( 0, 0, 0, 0.3 ), 0 28px 56px -24px rgba( 0, 0, 0, 0.45 );
 }
 
@@ -134,7 +134,7 @@
  * without a blur behind it, a see-through bar over a photograph is the one
  * case where it is genuinely unreadable. 90% opacity is where labels stop
  * swimming, and the inset highlight is what gives the top edge its lift. */
-.fbar--preset-glass .fbar__inner {
+.mbbar--preset-glass .mbbar__inner {
 	border: 1px solid rgba( 255, 255, 255, 0.35 );
 	box-shadow:
 		0 4px 14px -8px rgba( 0, 0, 0, 0.24 ),
@@ -143,29 +143,29 @@
 }
 
 @supports ( ( backdrop-filter: blur( 1px ) ) or ( -webkit-backdrop-filter: blur( 1px ) ) ) {
-	.fbar--blur .fbar__inner {
-		background: color-mix( in srgb, var( --fbar-bar-bg ) var( --fbar-opacity ), transparent );
-		-webkit-backdrop-filter: blur( var( --fbar-glass ) ) saturate( 180% );
-		backdrop-filter: blur( var( --fbar-glass ) ) saturate( 180% );
+	.mbbar--blur .mbbar__inner {
+		background: color-mix( in srgb, var( --mbbar-bar-bg ) var( --mbbar-opacity ), transparent );
+		-webkit-backdrop-filter: blur( var( --mbbar-glass ) ) saturate( 180% );
+		backdrop-filter: blur( var( --mbbar-glass ) ) saturate( 180% );
 	}
 
-	.fbar--preset-glass.fbar--blur .fbar__inner {
-		background: color-mix( in srgb, var( --fbar-bar-bg ) var( --fbar-opacity ), transparent );
-		-webkit-backdrop-filter: blur( var( --fbar-glass ) ) saturate( 200% );
-		backdrop-filter: blur( var( --fbar-glass ) ) saturate( 200% );
+	.mbbar--preset-glass.mbbar--blur .mbbar__inner {
+		background: color-mix( in srgb, var( --mbbar-bar-bg ) var( --mbbar-opacity ), transparent );
+		-webkit-backdrop-filter: blur( var( --mbbar-glass ) ) saturate( 200% );
+		backdrop-filter: blur( var( --mbbar-glass ) ) saturate( 200% );
 	}
 }
 
 /* Solid. No translucency at all, for a bar sitting over busy photography or a
  * theme that already blurs its own header. */
-.fbar--preset-solid .fbar__inner {
-	background: var( --fbar-bar-bg );
+.mbbar--preset-solid .mbbar__inner {
+	background: var( --mbbar-bar-bg );
 	-webkit-backdrop-filter: none;
 	backdrop-filter: none;
 }
 
 /* Minimal. No panel: the buttons sit directly on the page. */
-.fbar--preset-minimal .fbar__inner {
+.mbbar--preset-minimal .mbbar__inner {
 	background: transparent;
 	box-shadow: none;
 	border: 0;
@@ -173,8 +173,8 @@
 	backdrop-filter: none;
 }
 
-.fbar--preset-minimal .fbar__item {
-	background: color-mix( in srgb, var( --fbar-bar-bg ) 92%, transparent );
+.mbbar--preset-minimal .mbbar__item {
+	background: color-mix( in srgb, var( --mbbar-bar-bg ) 92%, transparent );
 	box-shadow: 0 2px 10px -6px rgba( 0, 0, 0, 0.4 );
 }
 
@@ -182,31 +182,31 @@
  * rather than a quiet utility. It has its own colour rather than reusing
  * the accent, because the accent also paints the standout item and a bar
  * whose fill matches its own highlight hides that highlight. */
-.fbar--preset-bold .fbar__inner {
-	background: var( --fbar-bold-bg );
-	color: var( --fbar-hover-text );
+.mbbar--preset-bold .mbbar__inner {
+	background: var( --mbbar-bold-bg );
+	color: var( --mbbar-hover-text );
 	border: 0;
 	-webkit-backdrop-filter: none;
 	backdrop-filter: none;
 }
 
-.fbar--preset-bold .fbar__icon {
-	color: var( --fbar-hover-text );
+.mbbar--preset-bold .mbbar__icon {
+	color: var( --mbbar-hover-text );
 }
 
-.fbar--preset-bold .fbar__item,
-.fbar--preset-bold .fbar__label {
-	color: var( --fbar-hover-text );
+.mbbar--preset-bold .mbbar__item,
+.mbbar--preset-bold .mbbar__label {
+	color: var( --mbbar-hover-text );
 }
 
-.fbar--preset-bold .fbar__item:hover,
-.fbar--preset-bold .fbar__item:focus-visible {
+.mbbar--preset-bold .mbbar__item:hover,
+.mbbar--preset-bold .mbbar__item:focus-visible {
 	background: rgba( 255, 255, 255, 0.18 );
-	color: var( --fbar-hover-text );
+	color: var( --mbbar-hover-text );
 }
 
-.fbar--preset-bold .fbar__item:hover .fbar__icon {
-	color: var( --fbar-hover-text );
+.mbbar--preset-bold .mbbar__item:hover .mbbar__icon {
+	color: var( --mbbar-hover-text );
 }
 
 /* ---- Items ------------------------------------------------------------ */
@@ -215,18 +215,18 @@
    the dividers landed wrongly and the last item read as stranded rather than
    as the third of three. min-width:0 is what lets a flex child shrink below
    its content and is why the row never scrolls sideways. */
-.fbar__item {
+.mbbar__item {
 	flex: 1 1 0;
 	min-width: 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: var( --fbar-icon-gap );
-	min-height: var( --fbar-min-height );
+	gap: var( --mbbar-icon-gap );
+	min-height: var( --mbbar-min-height );
 	padding: 4px 2px;
 	border: 0;
-	border-radius: var( --fbar-item-radius );
+	border-radius: var( --mbbar-item-radius );
 	background: transparent;
 	color: inherit;
 	font: inherit;
@@ -235,15 +235,15 @@
 	transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-.fbar__icon {
-	width: var( --fbar-icon-size );
-	height: var( --fbar-icon-size );
+.mbbar__icon {
+	width: var( --mbbar-icon-size );
+	height: var( --mbbar-icon-size );
 	flex: none;
-	color: var( --fbar-icon );
+	color: var( --mbbar-icon );
 }
 
-.fbar__label {
-	font-size: var( --fbar-label-size );
+.mbbar__label {
+	font-size: var( --mbbar-label-size );
 	font-weight: 600;
 	letter-spacing: 0.1em;
 	line-height: 1;
@@ -253,94 +253,106 @@
 	white-space: nowrap;
 }
 
-.fbar--case-upper .fbar__label {
+.mbbar--case-upper .mbbar__label {
 	text-transform: uppercase;
 }
 
 /* Label-only items sit on a single line, so the column gap would push the
    text off centre. */
-.fbar--show-label .fbar__item {
+.mbbar--show-label .mbbar__item {
 	gap: 0;
 }
 
-.fbar--show-label .fbar__label {
-	font-size: calc( var( --fbar-label-size ) * 1.25 );
+.mbbar--show-label .mbbar__label {
+	font-size: calc( var( --mbbar-label-size ) * 1.25 );
 	letter-spacing: 0.04em;
 }
 
-.fbar--divider-hairline .fbar__item + .fbar__item {
+.mbbar--divider-hairline .mbbar__item + .mbbar__item {
 	position: relative;
 }
 
-.fbar--divider-hairline .fbar__item + .fbar__item::before {
+.mbbar--divider-hairline .mbbar__item + .mbbar__item::before {
 	content: "";
 	position: absolute;
-	inset-inline-start: calc( var( --fbar-gap ) / -2 - 0.5px );
+	inset-inline-start: calc( var( --mbbar-gap ) / -2 - 0.5px );
 	top: 50%;
 	transform: translateY( -50% );
 	width: 1px;
 	height: 26px;
-	background: var( --fbar-divider );
+	background: var( --mbbar-divider );
 }
 
 /* ---- Item shapes ------------------------------------------------------ */
 
-.fbar--item-filled .fbar__item {
-	background: color-mix( in srgb, var( --fbar-text ) 6%, transparent );
+.mbbar--item-filled .mbbar__item {
+	background: color-mix( in srgb, var( --mbbar-text ) 6%, transparent );
 }
 
-.fbar--item-outline .fbar__item {
-	box-shadow: inset 0 0 0 1px var( --fbar-divider );
+.mbbar--item-outline .mbbar__item {
+	box-shadow: inset 0 0 0 1px var( --mbbar-divider );
 }
 
-.fbar--item-soft .fbar__item {
-	background: color-mix( in srgb, var( --fbar-accent ) 10%, transparent );
+.mbbar--item-soft .mbbar__item {
+	background: color-mix( in srgb, var( --mbbar-accent ) 10%, transparent );
 }
 
 /* ---- States ----------------------------------------------------------- */
 
-.fbar__item:hover,
-.fbar__item:focus-visible {
-	background: var( --fbar-hover-bg );
-	color: var( --fbar-hover-text );
+.mbbar__item:hover,
+.mbbar__item:focus-visible {
+	background: var( --mbbar-hover-bg );
+	color: var( --mbbar-hover-text );
 	transform: translateY( -1px );
 }
 
-.fbar__item:hover .fbar__icon,
-.fbar__item:focus-visible .fbar__icon {
-	color: var( --fbar-hover-text );
+.mbbar__item:hover .mbbar__icon,
+.mbbar__item:focus-visible .mbbar__icon {
+	color: var( --mbbar-hover-text );
 }
 
 /* The press-down is what makes it feel like a control rather than a picture
    of one. */
-.fbar__item:active {
+.mbbar__item:active {
 	transform: none;
 }
 
-.fbar__item:focus-visible {
-	outline: 2px solid var( --fbar-accent );
+.mbbar__item:focus-visible {
+	outline: 2px solid var( --mbbar-accent );
 	outline-offset: 2px;
 }
 
-.fbar__item--primary {
-	color: var( --fbar-accent );
+/* A network's own colour, so a row of social marks reads at a glance.
+   The hover state still takes the colour back, because a pressed button
+   should look pressed whatever its resting colour is. */
+.mbbar__item--brand .mbbar__icon {
+	color: var( --mbbar-brand );
 }
 
-.fbar__item--primary .fbar__icon {
-	color: var( --fbar-accent );
+.mbbar__item--brand:hover .mbbar__icon,
+.mbbar__item--brand:focus-visible .mbbar__icon {
+	color: var( --mbbar-hover-text );
 }
 
-.fbar__item--primary:hover,
-.fbar__item--primary:focus-visible {
-	background: var( --fbar-accent );
-	color: var( --fbar-hover-text );
+.mbbar__item--primary {
+	color: var( --mbbar-accent );
 }
 
-span.fbar__item {
+.mbbar__item--primary .mbbar__icon {
+	color: var( --mbbar-accent );
+}
+
+.mbbar__item--primary:hover,
+.mbbar__item--primary:focus-visible {
+	background: var( --mbbar-accent );
+	color: var( --mbbar-hover-text );
+}
+
+span.mbbar__item {
 	cursor: default;
 }
 
-span.fbar__item:hover {
+span.mbbar__item:hover {
 	background: transparent;
 	color: inherit;
 	transform: none;
@@ -354,7 +366,7 @@ span.fbar__item:hover {
  * and every preset rule, and only takes the bar out of the viewport.
  */
 
-.fbar--preview {
+.mbbar--preview {
 	position: static;
 	padding: 0;
 	pointer-events: none;
@@ -364,12 +376,12 @@ span.fbar__item:hover {
 
 /* A shadow pooling against a panel edge is the tell that something is nested
    wrongly, so inline mode drops the bar's own chrome entirely. */
-.fbar--inline {
+.mbbar--inline {
 	position: static;
 	padding: 0;
 }
 
-.fbar--inline .fbar__inner {
+.mbbar--inline .mbbar__inner {
 	background: transparent;
 	box-shadow: none;
 	backdrop-filter: none;
@@ -383,8 +395,8 @@ span.fbar__item:hover {
 /* The states still apply; they just arrive at once, which is what someone who
    asked for less motion wants. */
 @media ( prefers-reduced-motion: reduce ) {
-	.fbar,
-	.fbar__item {
+	.mbbar,
+	.mbbar__item {
 		transition-duration: 0.01ms !important;
 	}
 }
@@ -392,7 +404,7 @@ span.fbar__item:hover {
 /* ---- Print ------------------------------------------------------------ */
 
 @media print {
-	.fbar--fixed {
+	.mbbar--fixed {
 		display: none !important;
 	}
 }

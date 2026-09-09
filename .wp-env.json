@@ -2,12 +2,12 @@
 	"core": "https://wordpress.org/wordpress-6.5.zip",
 	"phpVersion": "8.1",
 	"mappings": {
-		"wp-content/plugins/footer-bar-mobile-action-bar": "."
+		"wp-content/plugins/mobile-bottom-bar": "."
 	},
 	"env": {
 		"tests": {
 			"mappings": {
-				"wp-content/plugins/footer-bar-mobile-action-bar": "."
+				"wp-content/plugins/mobile-bottom-bar": "."
 			}
 		}
 	}

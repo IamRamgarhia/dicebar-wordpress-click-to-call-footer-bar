@@ -19,7 +19,7 @@
  * extracts on Linux as one flat file called "plugin\\file.php". WordPress then
  * reports that the plugin file does not exist, which is true and useless.
  *
- * @package FooterBar
+ * @package MobileBottomBar
  */
 
 'use strict';
@@ -28,7 +28,7 @@ const fs = require( 'fs' );
 const path = require( 'path' );
 const zip = require( './lib/zip' );
 
-const SLUG = 'footer-bar-mobile-action-bar';
+const SLUG = 'mobile-bottom-bar';
 const root = path.resolve( __dirname, '..' );
 const dist = path.join( root, 'dist' );
 

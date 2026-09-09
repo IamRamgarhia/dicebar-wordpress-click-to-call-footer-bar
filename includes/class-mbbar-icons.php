@@ -15,7 +15,7 @@
  * nominative use, and nothing here is redistributed under anyone's brand
  * licence.
  *
- * @package FooterBar
+ * @package MobileBottomBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Supplies icon markup by name.
  */
-class FBar_Icons {
+class MBBar_Icons {
 
 	/**
 	 * Interface icons: stroked, on a 24 unit grid.
@@ -102,6 +102,62 @@ class FBar_Icons {
 	}
 
 	/**
+	 * Each network's own colour.
+	 *
+	 * Used only when the owner asks for brand colours. These identify a
+	 * destination rather than reproduce a logo, which is why the marks are
+	 * drawn here rather than shipped from anyone's brand kit.
+	 *
+	 * @return array
+	 */
+	public static function brand_colors() {
+		return array(
+			'facebook'    => '#1877f2',
+			'instagram'   => '#e4405f',
+			'x'           => '#000000',
+			'linkedin'    => '#0a66c2',
+			'youtube'     => '#ff0000',
+			'tiktok'      => '#000000',
+			'pinterest'   => '#bd081c',
+			'telegram'    => '#26a5e4',
+			'whatsapp'    => '#25d366',
+			'snapchat'    => '#f7cb00',
+			'reddit'      => '#ff4500',
+			'threads'     => '#000000',
+			'discord'     => '#5865f2',
+			'twitch'      => '#9146ff',
+			'github'      => '#181717',
+			'dribbble'    => '#ea4c89',
+			'behance'     => '#1769ff',
+			'vimeo'       => '#1ab7ea',
+			'spotify'     => '#1db954',
+			'tripadvisor' => '#00a680',
+			'yelp'        => '#d32323',
+			'google'      => '#4285f4',
+			'messenger'   => '#0084ff',
+			'viber'       => '#7360f2',
+			'line'        => '#06c755',
+			'tumblr'      => '#36465d',
+			'flickr'      => '#0063dc',
+			'medium'      => '#000000',
+			'soundcloud'  => '#ff5500',
+			'quora'       => '#b92b27',
+		);
+	}
+
+	/**
+	 * One network's colour, or an empty string.
+	 *
+	 * @param string $name Icon name.
+	 * @return string
+	 */
+	public static function brand_color( $name ) {
+		$colors = self::brand_colors();
+
+		return isset( $colors[ $name ] ) ? $colors[ $name ] : '';
+	}
+
+	/**
 	 * Every icon name available, in both families.
 	 *
 	 * @return string[]
@@ -134,7 +190,7 @@ class FBar_Icons {
 		 *
 		 * @param array $icons Icon markup keyed by name.
 		 */
-		return apply_filters( 'fbar_icons', array_merge( self::outline(), self::brands() ) );
+		return apply_filters( 'mbbar_icons', array_merge( self::outline(), self::brands() ) );
 	}
 
 	/**
@@ -168,7 +224,7 @@ class FBar_Icons {
 			? 'fill="currentColor"'
 			: 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
 
-		return '<svg class="fbar__icon" viewBox="0 0 24 24" ' . $paint . ' aria-hidden="true" focusable="false">'
+		return '<svg class="mbbar__icon" viewBox="0 0 24 24" ' . $paint . ' aria-hidden="true" focusable="false">'
 			. wp_kses( $icons[ $name ], self::allowed_svg() )
 			. '</svg>';
 	}
@@ -184,14 +240,14 @@ class FBar_Icons {
 	 * @return string
 	 */
 	public static function sprite() {
-		$out = '<svg class="fbar-sprite" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">';
+		$out = '<svg class="mbbar-sprite" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">';
 
 		foreach ( self::all() as $name => $markup ) {
 			$paint = self::is_brand( $name )
 				? 'fill="currentColor"'
 				: 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
 
-			$out .= '<symbol id="fbar-i-' . esc_attr( $name ) . '" viewBox="0 0 24 24" ' . $paint . '>'
+			$out .= '<symbol id="mbbar-i-' . esc_attr( $name ) . '" viewBox="0 0 24 24" ' . $paint . '>'
 				. wp_kses( $markup, self::allowed_svg() )
 				. '</symbol>';
 		}

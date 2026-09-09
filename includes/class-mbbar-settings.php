@@ -2,7 +2,7 @@
 /**
  * Settings defaults, accessor and registration.
  *
- * @package FooterBar
+ * @package MobileBottomBar
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,17 +12,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Holds the configuration shape, its defaults, and the accessor.
  */
-class FBar_Settings {
+class MBBar_Settings {
 
 	/**
 	 * Option holding the whole configuration. Autoloaded.
 	 */
-	const OPTION = 'fbar_settings';
+	const OPTION = 'mbbar_settings';
 
 	/**
 	 * Option holding the schema version. Not autoloaded.
 	 */
-	const VERSION_OPTION = 'fbar_version';
+	const VERSION_OPTION = 'mbbar_version';
 
 	/**
 	 * How the page rule is applied, in the order the settings screen shows them.
@@ -87,30 +87,31 @@ class FBar_Settings {
 			),
 
 			'style'                   => array(
-				'preset'     => 'glass',
-				'glass'      => 22,
-				'opacity'    => 78,
-				'layout'     => 'island',
-				'max_width'  => 640,
-				'radius'     => 18,
-				'shadow'     => 'soft',
-				'blur'       => true,
-				'divider'    => 'hairline',
-				'gap'        => 11,
-				'item'       => array(
+				'preset'      => 'glass',
+				'brand_icons' => true,
+				'glass'       => 22,
+				'opacity'     => 78,
+				'layout'      => 'island',
+				'max_width'   => 640,
+				'radius'      => 18,
+				'shadow'      => 'soft',
+				'blur'        => true,
+				'divider'     => 'hairline',
+				'gap'         => 11,
+				'item'        => array(
 					'shape'      => 'plain',
 					'radius'     => 13,
 					'min_height' => 52,
 					'icon_size'  => 18,
 					'icon_gap'   => 3,
 				),
-				'label'      => array(
+				'label'       => array(
 					'mode' => 'icon_label',
 					'size' => 10,
 					'case' => 'upper',
 				),
-				'scheme'     => 'system',
-				'light'      => array(
+				'scheme'      => 'system',
+				'light'       => array(
 					'bar_bg'     => '#ffffff',
 					'text'       => '#1c1c1e',
 					'accent'     => '#0a84ff',
@@ -120,7 +121,7 @@ class FBar_Settings {
 					'bold_bg'    => '#0a84ff',
 					'divider'    => 'rgba(0,0,0,0.12)',
 				),
-				'dark'       => array(
+				'dark'        => array(
 					'bar_bg'     => '#1c1c1e',
 					'text'       => '#f2f2f7',
 					'accent'     => '#0a84ff',
@@ -130,7 +131,7 @@ class FBar_Settings {
 					'bold_bg'    => '#0a84ff',
 					'divider'    => 'rgba(255,255,255,0.16)',
 				),
-				'custom_css' => '',
+				'custom_css'  => '',
 			),
 
 			'items'                   => array(),
@@ -242,12 +243,12 @@ class FBar_Settings {
 	 */
 	public static function register() {
 		register_setting(
-			'fbar',
+			'mbbar',
 			self::OPTION,
 			array(
 				'type'              => 'object',
 				'default'           => self::defaults(),
-				'sanitize_callback' => array( 'FBar_Sanitize', 'settings' ),
+				'sanitize_callback' => array( 'MBBar_Sanitize', 'settings' ),
 				'show_in_rest'      => false,
 			)
 		);

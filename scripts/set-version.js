@@ -16,7 +16,7 @@ const fs = require( 'fs' );
 const path = require( 'path' );
 
 const root = path.resolve( __dirname, '..' );
-const SLUG = 'footer-bar-mobile-action-bar';
+const SLUG = 'mobile-bottom-bar';
 const version = process.argv[ 2 ];
 
 if ( ! version || ! /^\d+\.\d+\.\d+$/.test( version ) ) {
@@ -36,9 +36,9 @@ const edits = [
 	},
 	{
 		file: SLUG + '.php',
-		find: /^(define\( 'FBAR_VERSION', ')([^']+)(' \);)$/m,
+		find: /^(define\( 'MBBAR_VERSION', ')([^']+)(' \);)$/m,
 		replace: '$1' + '__VERSION__' + '$3',
-		label: 'FBAR_VERSION constant',
+		label: 'MBBAR_VERSION constant',
 	},
 	{
 		file: 'readme.txt',
