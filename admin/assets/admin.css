@@ -7,7 +7,7 @@
  * follows the dashboard's dark scheme where the browser reports one.
  */
 
-.fbar {
+.fbarui {
 	--fbar-ink: #1d2327;
 	--fbar-muted: #646970;
 	--fbar-line: #dcdcde;
@@ -26,13 +26,13 @@
 	margin-inline-end: 20px;
 }
 
-.fbar * {
+.fbarui * {
 	box-sizing: border-box;
 }
 
 /* ---- Masthead --------------------------------------------------------- */
 
-.fbar__masthead {
+.fbarui__masthead {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -46,13 +46,13 @@
 	border-bottom: 0;
 }
 
-.fbar__brand {
+.fbarui__brand {
 	display: flex;
 	align-items: center;
 	gap: 14px;
 }
 
-.fbar__brand .dashicons {
+.fbarui__brand .dashicons {
 	width: 40px;
 	height: 40px;
 	font-size: 40px;
@@ -60,7 +60,7 @@
 	flex: none;
 }
 
-.fbar__brand h1 {
+.fbarui__brand h1 {
 	margin: 0;
 	padding: 0;
 	font-size: 22px;
@@ -68,14 +68,14 @@
 	color: var( --fbar-ink );
 }
 
-.fbar__brand p {
+.fbarui__brand p {
 	margin: 4px 0 0;
 	color: var( --fbar-muted );
 	font-size: 13px;
 	max-width: 52ch;
 }
 
-.fbar__pill {
+.fbarui__pill {
 	display: inline-block;
 	padding: 5px 12px;
 	border-radius: 999px;
@@ -86,13 +86,13 @@
 	font-weight: 600;
 }
 
-.fbar__pill--on {
+.fbarui__pill--on {
 	background: #edfaef;
 	border-color: #b8e6c1;
 	color: #14622a;
 }
 
-.fbar__notice {
+.fbarui__notice {
 	margin: 12px 0 0;
 }
 
@@ -100,7 +100,7 @@
 
 /* Numbered, because the sections read as an order the first time through:
    put something in the bar, decide where it shows, then make it look right. */
-.fbar__tabs {
+.fbarui__tabs {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0;
@@ -110,7 +110,7 @@
 	padding: 0 12px;
 }
 
-.fbar__tab {
+.fbarui__tab {
 	display: flex;
 	align-items: center;
 	gap: 10px;
@@ -121,24 +121,24 @@
 	transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.fbar__tab:hover,
-.fbar__tab:focus {
+.fbarui__tab:hover,
+.fbarui__tab:focus {
 	color: var( --fbar-ink );
 	box-shadow: none;
 }
 
-.fbar__tab.is-current {
+.fbarui__tab.is-current {
 	color: var( --fbar-ink );
 	border-bottom-color: var( --fbar-brand );
 	background: var( --fbar-surface );
 }
 
-.fbar__tab:focus-visible {
+.fbarui__tab:focus-visible {
 	outline: 2px solid var( --fbar-brand );
 	outline-offset: -2px;
 }
 
-.fbar__tab-step {
+.fbarui__tab-step {
 	display: grid;
 	place-items: center;
 	width: 24px;
@@ -151,21 +151,21 @@
 	font-weight: 700;
 }
 
-.fbar__tab.is-current .fbar__tab-step {
+.fbarui__tab.is-current .fbarui__tab-step {
 	background: var( --fbar-brand );
 }
 
-.fbar__tab-text {
+.fbarui__tab-text {
 	display: flex;
 	flex-direction: column;
 	line-height: 1.3;
 }
 
-.fbar__tab-text strong {
+.fbarui__tab-text strong {
 	font-size: 14px;
 }
 
-.fbar__tab-text small {
+.fbarui__tab-text small {
 	font-size: 11px;
 	color: var( --fbar-muted );
 	font-weight: 400;
@@ -175,38 +175,38 @@
 
 /* Without JavaScript every panel stays visible, so the screen still works;
    the script hides the inactive ones once it runs. */
-.fbar__panel + .fbar__panel {
+.fbarui__panel + .fbarui__panel {
 	margin-top: 20px;
 }
 
-.fbar__card {
+.fbarui__card {
 	background: var( --fbar-surface );
 	border: 1px solid var( --fbar-line );
 	box-shadow: var( --fbar-shadow );
 }
 
-.fbar__panel:first-of-type .fbar__card {
+.fbarui__panel:first-of-type .fbarui__card {
 	border-radius: 0 0 var( --fbar-round ) var( --fbar-round );
 }
 
-.fbar__card-head {
+.fbarui__card-head {
 	padding: 22px 24px 0;
 }
 
-.fbar__card-head h2 {
+.fbarui__card-head h2 {
 	margin: 0;
 	font-size: 16px;
 	color: var( --fbar-ink );
 }
 
-.fbar__card-head p {
+.fbarui__card-head p {
 	margin: 6px 0 0;
 	color: var( --fbar-muted );
 	font-size: 13px;
 	max-width: 70ch;
 }
 
-.fbar__card-foot {
+.fbarui__card-foot {
 	display: flex;
 	align-items: center;
 	gap: 12px;
@@ -217,11 +217,11 @@
 
 /* ---- Setting rows ----------------------------------------------------- */
 
-.fbar__rows {
+.fbarui__rows {
 	padding: 8px 24px 24px;
 }
 
-.fbar__row {
+.fbarui__row {
 	display: grid;
 	grid-template-columns: 200px minmax( 0, 1fr );
 	gap: 24px;
@@ -229,29 +229,29 @@
 	border-bottom: 1px solid #f0f0f1;
 }
 
-.fbar__row:last-child {
+.fbarui__row:last-child {
 	border-bottom: 0;
 	padding-bottom: 0;
 }
 
-.fbar__row-label {
+.fbarui__row-label {
 	font-weight: 600;
 	color: var( --fbar-ink );
 	padding-top: 6px;
 }
 
-.fbar__row-field > * + * {
+.fbarui__row-field > * + * {
 	margin-top: 10px;
 }
 
-.fbar__help {
+.fbarui__help {
 	margin: 8px 0 0;
 	color: var( --fbar-muted );
 	font-size: 13px;
 	max-width: 68ch;
 }
 
-.fbar__inline {
+.fbarui__inline {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 16px;
@@ -260,7 +260,7 @@
 
 /* ---- Fields ----------------------------------------------------------- */
 
-.fbar__field {
+.fbarui__field {
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
@@ -268,38 +268,38 @@
 	min-width: 0;
 }
 
-.fbar__field > span {
+.fbarui__field > span {
 	font-weight: 600;
 	color: var( --fbar-ink );
 }
 
-.fbar__field input[type="text"],
-.fbar__field input[type="number"],
-.fbar__field select {
+.fbarui__field input[type="text"],
+.fbarui__field input[type="number"],
+.fbarui__field select {
 	width: 100%;
 	max-width: 320px;
 }
 
-.fbar__field--narrow input {
+.fbarui__field--narrow input {
 	max-width: 110px;
 }
 
-.fbar__field--check {
+.fbarui__field--check {
 	flex-direction: row;
 	align-items: center;
 	gap: 8px;
 }
 
-.fbar__field--check span {
+.fbarui__field--check span {
 	font-weight: 400;
 }
 
-.fbar__wide {
+.fbarui__wide {
 	width: 100%;
 	max-width: 460px;
 }
 
-.fbar__code {
+.fbarui__code {
 	width: 100%;
 	max-width: 640px;
 	font-family: Consolas, Monaco, monospace;
@@ -307,14 +307,14 @@
 	line-height: 1.6;
 }
 
-.fbar__switch {
+.fbarui__switch {
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
 	font-size: 13px;
 }
 
-.fbar__snippet {
+.fbarui__snippet {
 	display: inline-block;
 	padding: 8px 14px;
 	background: var( --fbar-brand-soft );
@@ -325,13 +325,13 @@
 	user-select: all;
 }
 
-.fbar__swatches {
+.fbarui__swatches {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 14px;
 }
 
-.fbar__swatch {
+.fbarui__swatch {
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
@@ -340,7 +340,7 @@
 	color: var( --fbar-ink );
 }
 
-.fbar__swatch input {
+.fbarui__swatch input {
 	width: 120px;
 	font-family: Consolas, Monaco, monospace;
 	font-size: 12px;
@@ -348,15 +348,15 @@
 
 /* ---- Items ------------------------------------------------------------ */
 
-.fbar__items {
+.fbarui__items {
 	padding: 20px 24px 0;
 }
 
-.fbar__items:empty {
+.fbarui__items:empty {
 	padding: 0;
 }
 
-.fbar__item {
+.fbarui__item {
 	border: 1px solid var( --fbar-line );
 	border-radius: var( --fbar-round );
 	background: var( --fbar-surface );
@@ -364,11 +364,11 @@
 	overflow: hidden;
 }
 
-.fbar__item.is-dragging {
+.fbarui__item.is-dragging {
 	opacity: 0.4;
 }
 
-.fbar__item-head {
+.fbarui__item-head {
 	display: flex;
 	align-items: center;
 	gap: 12px;
@@ -378,7 +378,7 @@
 }
 
 /* A six-dot grip reads as draggable without needing a label. */
-.fbar__grip {
+.fbarui__grip {
 	width: 12px;
 	height: 18px;
 	flex: none;
@@ -388,13 +388,13 @@
 	color: #a7aaad;
 }
 
-.fbar__item-title {
+.fbarui__item-title {
 	flex: 1 1 auto;
 	font-size: 14px;
 	color: var( --fbar-ink );
 }
 
-.fbar__item-id {
+.fbarui__item-id {
 	font-size: 11px;
 	color: var( --fbar-muted );
 	background: var( --fbar-surface );
@@ -403,7 +403,7 @@
 	border-radius: 4px;
 }
 
-.fbar__remove {
+.fbarui__remove {
 	background: none;
 	border: 0;
 	color: var( --fbar-danger );
@@ -413,22 +413,22 @@
 	border-radius: 4px;
 }
 
-.fbar__remove:hover {
+.fbarui__remove:hover {
 	background: #fcf0f1;
 }
 
-.fbar__fields {
+.fbarui__fields {
 	display: grid;
 	grid-template-columns: repeat( auto-fit, minmax( 230px, 1fr ) );
 	gap: 16px;
 	padding: 18px 16px;
 }
 
-.fbar__extra {
+.fbarui__extra {
 	display: contents;
 }
 
-.fbar__empty {
+.fbarui__empty {
 	margin: 20px 24px 0;
 	padding: 32px 24px;
 	text-align: center;
@@ -437,24 +437,24 @@
 	background: var( --fbar-sunken );
 }
 
-.fbar__empty p {
+.fbarui__empty p {
 	margin: 0;
 	color: var( --fbar-muted );
 	font-size: 13px;
 }
 
-.fbar__empty p + p {
+.fbarui__empty p + p {
 	margin-top: 6px;
 }
 
-.fbar__empty strong {
+.fbarui__empty strong {
 	color: var( --fbar-ink );
 	font-size: 14px;
 }
 
 /* ---- Actions ---------------------------------------------------------- */
 
-.fbar__actions {
+.fbarui__actions {
 	position: sticky;
 	bottom: 0;
 	display: flex;
@@ -468,7 +468,7 @@
 	box-shadow: 0 -2px 8px rgba( 0, 0, 0, 0.05 );
 }
 
-.fbar__hint {
+.fbarui__hint {
 	color: var( --fbar-muted );
 	font-size: 13px;
 }
@@ -476,16 +476,16 @@
 /* ---- Narrow screens --------------------------------------------------- */
 
 @media screen and ( max-width: 782px ) {
-	.fbar__row {
+	.fbarui__row {
 		grid-template-columns: 1fr;
 		gap: 8px;
 	}
 
-	.fbar__row-label {
+	.fbarui__row-label {
 		padding-top: 0;
 	}
 
-	.fbar__tab-text small {
+	.fbarui__tab-text small {
 		display: none;
 	}
 }
@@ -498,28 +498,28 @@
  * the row scrolls sideways rather than wrapping.
  */
 
-.fbar__tabs {
+.fbarui__tabs {
 	flex-wrap: nowrap;
 	overflow-x: auto;
 	scrollbar-width: thin;
 }
 
-.fbar__tab {
+.fbarui__tab {
 	white-space: nowrap;
 	flex: none;
 	padding: 13px 18px;
 }
 
-.fbar__tab-text small {
+.fbarui__tab-text small {
 	display: none;
 }
 
-.fbar__tab-text strong {
+.fbarui__tab-text strong {
 	font-size: 14px;
 	font-weight: 600;
 }
 
-.fbar__panel-note {
+.fbarui__panel-note {
 	margin: 6px 0 0;
 	color: var( --fbar-muted );
 	font-size: 13px;
@@ -527,24 +527,24 @@
 
 /* ---- Starter kits ------------------------------------------------------ */
 
-.fbar__kits {
+.fbarui__kits {
 	padding: 20px 24px 0;
 }
 
-.fbar__kits h3 {
+.fbarui__kits h3 {
 	margin: 0;
 	font-size: 14px;
 	color: var( --fbar-ink );
 }
 
-.fbar__kit-grid {
+.fbarui__kit-grid {
 	display: grid;
 	grid-template-columns: repeat( auto-fill, minmax( 250px, 1fr ) );
 	gap: 10px;
 	margin-top: 12px;
 }
 
-.fbar__kit {
+.fbarui__kit {
 	display: flex;
 	align-items: flex-start;
 	gap: 12px;
@@ -557,12 +557,12 @@
 	transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.fbar__kit:hover {
+.fbarui__kit:hover {
 	border-color: var( --fbar-brand );
 	box-shadow: 0 0 0 1px var( --fbar-brand );
 }
 
-.fbar__kit-count {
+.fbarui__kit-count {
 	display: grid;
 	place-items: center;
 	width: 26px;
@@ -575,19 +575,19 @@
 	font-weight: 700;
 }
 
-.fbar__kit-text {
+.fbarui__kit-text {
 	display: flex;
 	flex-direction: column;
 	gap: 2px;
 	min-width: 0;
 }
 
-.fbar__kit-text strong {
+.fbarui__kit-text strong {
 	font-size: 13px;
 	color: var( --fbar-ink );
 }
 
-.fbar__kit-text small {
+.fbarui__kit-text small {
 	font-size: 12px;
 	color: var( --fbar-muted );
 	line-height: 1.4;
@@ -595,14 +595,14 @@
 
 /* ---- Look presets ------------------------------------------------------ */
 
-.fbar__presets {
+.fbarui__presets {
 	display: grid;
 	grid-template-columns: repeat( auto-fit, minmax( 180px, 1fr ) );
 	gap: 12px;
 	max-width: 800px;
 }
 
-.fbar__preset {
+.fbarui__preset {
 	position: relative;
 	display: grid;
 	grid-template-columns: auto 1fr;
@@ -615,30 +615,30 @@
 	background: var( --fbar-surface );
 }
 
-.fbar__preset input {
+.fbarui__preset input {
 	position: absolute;
 	opacity: 0;
 	pointer-events: none;
 }
 
-.fbar__preset:has( input:checked ) {
+.fbarui__preset:has( input:checked ) {
 	border-color: var( --fbar-brand );
 	box-shadow: 0 0 0 1px var( --fbar-brand );
 }
 
-.fbar__preset:has( input:focus-visible ) {
+.fbarui__preset:has( input:focus-visible ) {
 	outline: 2px solid var( --fbar-brand );
 	outline-offset: 2px;
 }
 
-.fbar__preset-name {
+.fbarui__preset-name {
 	grid-area: name;
 	font-weight: 600;
 	font-size: 13px;
 	color: var( --fbar-ink );
 }
 
-.fbar__preset-note {
+.fbarui__preset-note {
 	grid-area: note;
 	font-size: 12px;
 	color: var( --fbar-muted );
@@ -646,7 +646,7 @@
 }
 
 /* A miniature of the bar itself, so the choice is shown rather than described. */
-.fbar__preset-swatch {
+.fbarui__preset-swatch {
 	grid-area: swatch;
 	display: flex;
 	align-items: center;
@@ -660,36 +660,36 @@
 	align-self: center;
 }
 
-.fbar__preset-swatch span {
+.fbarui__preset-swatch span {
 	width: 8px;
 	height: 100%;
 	border-radius: 3px;
 	background: rgba( 255, 255, 255, 0.9 );
 }
 
-.fbar__preset--glass .fbar__preset-swatch span {
+.fbarui__preset--glass .fbarui__preset-swatch span {
 	background: rgba( 255, 255, 255, 0.55 );
 	box-shadow: inset 0 1px 0 rgba( 255, 255, 255, 0.9 );
 }
 
-.fbar__preset--solid .fbar__preset-swatch span {
+.fbarui__preset--solid .fbarui__preset-swatch span {
 	background: #fff;
 }
 
-.fbar__preset--minimal .fbar__preset-swatch span {
+.fbarui__preset--minimal .fbarui__preset-swatch span {
 	background: rgba( 255, 255, 255, 0.95 );
 	width: 7px;
 	height: 14px;
 	border-radius: 4px;
 }
 
-.fbar__preset--bold .fbar__preset-swatch span {
+.fbarui__preset--bold .fbarui__preset-swatch span {
 	background: #0a84ff;
 }
 
 /* ---- Segmented control ------------------------------------------------- */
 
-.fbar__segmented {
+.fbarui__segmented {
 	display: inline-flex;
 	border: 1px solid var( --fbar-line );
 	border-radius: 7px;
@@ -697,18 +697,18 @@
 	background: var( --fbar-sunken );
 }
 
-.fbar__segmented label {
+.fbarui__segmented label {
 	position: relative;
 	margin: 0;
 }
 
-.fbar__segmented input {
+.fbarui__segmented input {
 	position: absolute;
 	opacity: 0;
 	pointer-events: none;
 }
 
-.fbar__segmented span {
+.fbarui__segmented span {
 	display: block;
 	padding: 8px 16px;
 	font-size: 13px;
@@ -717,18 +717,18 @@
 	border-inline-end: 1px solid var( --fbar-line );
 }
 
-.fbar__segmented label:last-child span {
+.fbarui__segmented label:last-child span {
 	border-inline-end: 0;
 }
 
-.fbar__segmented input:checked + span {
+.fbarui__segmented input:checked + span {
 	background: var( --fbar-surface );
 	color: var( --fbar-ink );
 	font-weight: 600;
 	box-shadow: inset 0 -2px 0 var( --fbar-brand );
 }
 
-.fbar__segmented input:focus-visible + span {
+.fbarui__segmented input:focus-visible + span {
 	outline: 2px solid var( --fbar-brand );
 	outline-offset: -2px;
 }
@@ -737,7 +737,7 @@
 
 /* Most people set four things and leave. The rest is here for the ones who
    need it, and out of the way for everyone else. */
-.fbar__advanced-toggle {
+.fbarui__advanced-toggle {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
@@ -750,7 +750,7 @@
 	cursor: pointer;
 }
 
-.fbar__advanced-toggle::before {
+.fbarui__advanced-toggle::before {
 	content: "";
 	width: 0;
 	height: 0;
@@ -760,11 +760,11 @@
 	transition: transform 0.15s ease;
 }
 
-.fbar__advanced-toggle[aria-expanded="true"]::before {
+.fbarui__advanced-toggle[aria-expanded="true"]::before {
 	transform: rotate( 90deg );
 }
 
-.fbar__advanced {
+.fbarui__advanced {
 	border-top: 1px dashed var( --fbar-line );
 	margin-top: 4px;
 	padding-top: 4px;
@@ -776,7 +776,7 @@
  * 1400 pixels the preview drops under the settings rather than squeezing both.
  */
 
-.fbar__body {
+.fbarui__body {
 	display: grid;
 	grid-template-columns: minmax( 0, 1fr );
 	gap: 20px;
@@ -784,27 +784,27 @@
 }
 
 @media screen and ( min-width: 1400px ) {
-	.fbar__body {
+	.fbarui__body {
 		grid-template-columns: minmax( 0, 1fr ) 380px;
 	}
 }
 
-.fbar__main {
+.fbarui__main {
 	min-width: 0;
 }
 
-.fbar__side {
+.fbarui__side {
 	min-width: 0;
 }
 
 @media screen and ( min-width: 1400px ) {
-	.fbar__side {
+	.fbarui__side {
 		position: sticky;
 		top: 52px;
 	}
 }
 
-.fbar__preview-card {
+.fbarui__preview-card {
 	background: var( --fbar-surface );
 	border: 1px solid var( --fbar-line );
 	border-radius: var( --fbar-round );
@@ -812,7 +812,7 @@
 	padding: 20px;
 }
 
-.fbar__preview-card h2 {
+.fbarui__preview-card h2 {
 	margin: 0;
 	font-size: 15px;
 	color: var( --fbar-ink );
@@ -820,13 +820,13 @@
 
 /* ---- The phone --------------------------------------------------------- */
 
-.fbar__phone {
+.fbarui__phone {
 	display: flex;
 	justify-content: center;
 	margin: 16px 0 12px;
 }
 
-.fbar__phone-screen {
+.fbarui__phone-screen {
 	position: relative;
 	width: 320px;
 	max-width: 100%;
@@ -841,11 +841,10 @@
 	transition: width 0.2s ease;
 	/* A photograph is where a translucent bar is hardest to read, so the
 	   preview stands the bar on one rather than on flat white. */
-	background:
-		linear-gradient( 160deg, #6f9ceb 0%, #a5c4f2 38%, #f2c9a8 68%, #e8927c 100% );
+	background: var( --fbarui-stage );
 }
 
-.fbar__phone-lines {
+.fbarui__phone-lines {
 	position: absolute;
 	inset: 26px 22px auto;
 	display: flex;
@@ -853,39 +852,31 @@
 	gap: 9px;
 }
 
-.fbar__phone-lines span {
+.fbarui__phone-lines span {
 	height: 8px;
 	border-radius: 4px;
 	background: rgba( 255, 255, 255, 0.5 );
 }
 
-.fbar__phone-lines span:nth-child(1) { width: 70%; height: 14px; }
-.fbar__phone-lines span:nth-child(2) { width: 100%; }
-.fbar__phone-lines span:nth-child(3) { width: 92%; }
-.fbar__phone-lines span:nth-child(4) { width: 96%; }
-.fbar__phone-lines span:nth-child(5) { width: 60%; }
-.fbar__phone-lines span:nth-child(6) { width: 84%; }
-
-/* The preview is the real bar in inline mode, so it needs its panel back. */
-#fbar-preview.fbar--inline .fbar__inner {
-	background: var( --fbar-bar-bg );
-	padding: 6px;
-	border-radius: var( --fbar-radius );
-	max-width: none;
-}
+.fbarui__phone-lines span:nth-child(1) { width: 70%; height: 14px; }
+.fbarui__phone-lines span:nth-child(2) { width: 100%; }
+.fbarui__phone-lines span:nth-child(3) { width: 92%; }
+.fbarui__phone-lines span:nth-child(4) { width: 96%; }
+.fbarui__phone-lines span:nth-child(5) { width: 60%; }
+.fbarui__phone-lines span:nth-child(6) { width: 84%; }
 
 #fbar-preview {
 	position: relative;
 	z-index: 1;
 }
 
-.fbar__preview-widths {
+.fbarui__preview-widths {
 	display: flex;
 	justify-content: center;
 	gap: 6px;
 }
 
-.fbar__preview-widths button {
+.fbarui__preview-widths button {
 	padding: 5px 12px;
 	font-size: 12px;
 	border: 1px solid var( --fbar-line );
@@ -895,7 +886,7 @@
 	cursor: pointer;
 }
 
-.fbar__preview-widths button.is-current {
+.fbarui__preview-widths button.is-current {
 	border-color: var( --fbar-brand );
 	color: var( --fbar-brand );
 	font-weight: 600;
@@ -906,7 +897,7 @@
 	min-height: 2.6em;
 }
 
-.fbar__preview-empty {
+.fbarui__preview-empty {
 	color: var( --fbar-muted );
 	font-size: 12px;
 	text-align: center;
@@ -915,20 +906,20 @@
 
 /* ---- Sliders ----------------------------------------------------------- */
 
-.fbar__slider {
+.fbarui__slider {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	max-width: 340px;
 }
 
-.fbar__slider input[type="range"] {
+.fbarui__slider input[type="range"] {
 	flex: 1 1 auto;
 	min-width: 0;
 	accent-color: var( --fbar-brand );
 }
 
-.fbar__slider output {
+.fbarui__slider output {
 	min-width: 2.5em;
 	text-align: end;
 	font-variant-numeric: tabular-nums;
@@ -937,8 +928,158 @@
 	color: var( --fbar-ink );
 }
 
-.fbar__slider-unit {
+.fbarui__slider-unit {
 	color: var( --fbar-muted );
 	font-size: 12px;
 	width: 1.6em;
+}
+
+/* ---- Preview stages ----------------------------------------------------
+ *
+ * A translucent bar is hardest to read over a photograph and easiest over
+ * flat colour, so the preview offers all three rather than picking one and
+ * flattering the design.
+ */
+
+.fbarui__phone-screen {
+	--fbarui-stage: linear-gradient( 160deg, #6f9ceb 0%, #a5c4f2 38%, #f2c9a8 68%, #e8927c 100% );
+}
+
+.fbarui__phone-screen[data-stage="light"] {
+	--fbarui-stage: #f4f4f5;
+}
+
+.fbarui__phone-screen[data-stage="dark"] {
+	--fbarui-stage: #101114;
+}
+
+.fbarui__phone-screen[data-stage="light"] .fbarui__phone-lines span {
+	background: rgba( 0, 0, 0, 0.1 );
+}
+
+.fbarui__phone-screen[data-stage="dark"] .fbarui__phone-lines span {
+	background: rgba( 255, 255, 255, 0.14 );
+}
+
+.fbarui__preview-stages {
+	display: flex;
+	justify-content: center;
+	gap: 6px;
+	margin-bottom: 8px;
+}
+
+.fbarui__preview-stages button {
+	padding: 5px 14px;
+	font-size: 12px;
+	border: 1px solid var( --fbarui-line );
+	background: var( --fbarui-surface );
+	color: var( --fbarui-muted );
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.fbarui__preview-stages button.is-current {
+	border-color: var( --fbarui-brand );
+	color: var( --fbarui-brand );
+	font-weight: 600;
+}
+
+/* ---- Advanced disclosure, as a real control ---------------------------- */
+
+/* It was a bare text link that looked like nothing and sat with no separation
+   from the settings above it. */
+.fbarui__advanced-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	width: 100%;
+	margin: 16px 0 0;
+	padding: 12px 16px;
+	background: var( --fbarui-sunken );
+	border: 1px solid var( --fbarui-line );
+	border-radius: var( --fbarui-round );
+	color: var( --fbarui-ink );
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.fbarui__advanced-toggle:hover {
+	background: var( --fbarui-brand-soft );
+	border-color: var( --fbarui-brand );
+	color: var( --fbarui-brand );
+}
+
+.fbarui__advanced-toggle:focus-visible {
+	outline: 2px solid var( --fbarui-brand );
+	outline-offset: 2px;
+}
+
+.fbarui__advanced {
+	border-top: 0;
+	margin-top: 0;
+	padding-top: 0;
+}
+
+/* ---- Icon picker -------------------------------------------------------
+ *
+ * A list of icon names is not an icon picker. Every glyph is drawn from the
+ * same sprite the preview uses, so what is chosen here is what appears there.
+ */
+
+.fbarui__field--icons {
+	grid-column: 1 / -1;
+}
+
+.fbarui__iconpicker {
+	display: grid;
+	grid-template-columns: repeat( auto-fill, minmax( 38px, 1fr ) );
+	gap: 4px;
+	max-height: 132px;
+	overflow-y: auto;
+	padding: 8px;
+	border: 1px solid var( --fbarui-line );
+	border-radius: 6px;
+	background: var( --fbarui-sunken );
+}
+
+.fbarui__iconopt {
+	position: relative;
+	display: grid;
+	place-items: center;
+	aspect-ratio: 1;
+	border-radius: 6px;
+	cursor: pointer;
+	color: var( --fbarui-muted );
+	background: var( --fbarui-surface );
+	border: 1px solid transparent;
+}
+
+.fbarui__iconopt:hover {
+	color: var( --fbarui-ink );
+	border-color: var( --fbarui-line );
+}
+
+.fbarui__iconopt input {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.fbarui__iconopt:has( input:checked ) {
+	color: var( --fbarui-brand );
+	border-color: var( --fbarui-brand );
+	background: var( --fbarui-brand-soft );
+}
+
+.fbarui__iconopt:has( input:focus-visible ) {
+	outline: 2px solid var( --fbarui-brand );
+	outline-offset: 1px;
+}
+
+.fbarui__iconglyph {
+	width: 20px;
+	height: 20px;
 }

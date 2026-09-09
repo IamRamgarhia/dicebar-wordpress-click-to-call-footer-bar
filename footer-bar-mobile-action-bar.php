@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Footer Bar — Mobile Action Bar
  * Description:       A bottom bar on phones and tablets holding whatever you put in it: call, message, links, an announcement.
- * Version:           1.3.0
+ * Version:           1.4.0
  * Requires at least: 6.5
  * Requires PHP:      7.4
  * Author:            Prince
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'FBAR_VERSION', '1.3.0' );
+define( 'FBAR_VERSION', '1.4.0' );
 define( 'FBAR_MIN_PHP', '7.4' );
 define( 'FBAR_FILE', __FILE__ );
 define( 'FBAR_PATH', plugin_dir_path( __FILE__ ) );

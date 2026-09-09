@@ -22,7 +22,7 @@
 	var list = document.getElementById( 'fbar-items' );
 	var addButton = document.getElementById( 'fbar-add-item' );
 	var hint = document.getElementById( 'fbar-add-hint' );
-	var empty = document.querySelector( '.fbar__empty' );
+	var empty = document.querySelector( '.fbarui__empty' );
 	var activeTab = document.getElementById( 'fbar-active-tab' );
 
 	/**
@@ -78,7 +78,7 @@
 	 * @return {Element} The field.
 	 */
 	function field( label, control, role ) {
-		return make( 'label', { class: 'fbar__field', 'data-role': role || null }, [
+		return make( 'label', { class: 'fbarui__field', 'data-role': role || null }, [
 			make( 'span', { text: label } ),
 			control,
 		] );
@@ -124,18 +124,75 @@
 	}
 
 	/**
-	 * Icon names mapped to themselves, with a default entry first.
+	 * A grid of icons to choose from, drawn from the page's own sprite.
 	 *
-	 * @return {Object} Choices for an icon select.
+	 * A list of icon names is not an icon picker. Using the same sprite the
+	 * preview uses means what is chosen here is exactly what appears there.
+	 *
+	 * @param {string} name    Field name.
+	 * @param {string} current Selected icon.
+	 * @return {Element} The picker.
 	 */
-	function iconChoices() {
-		var choices = { '': strings.defaultIcon };
+	function iconPicker( name, current ) {
+		var grid = make( 'div', { class: 'fbarui__iconpicker', role: 'radiogroup' } );
 
-		config.icons.forEach( function ( name ) {
-			choices[ name ] = name;
+		config.icons.forEach( function ( icon ) {
+			var input = make( 'input', { type: 'radio', name: name, value: icon } );
+
+			if ( icon === current ) {
+				input.checked = true;
+			}
+
+			var svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
+			var use = document.createElementNS( 'http://www.w3.org/2000/svg', 'use' );
+
+			svg.setAttribute( 'class', 'fbarui__iconglyph' );
+			svg.setAttribute( 'viewBox', '0 0 24 24' );
+			svg.setAttribute( 'aria-hidden', 'true' );
+			use.setAttribute( 'href', '#fbar-i-' + icon );
+			svg.appendChild( use );
+
+			grid.appendChild(
+				make( 'label', { class: 'fbarui__iconopt', title: icon }, [
+					input,
+					svg,
+					make( 'span', { class: 'screen-reader-text', text: icon } ),
+				] )
+			);
 		} );
 
-		return choices;
+		return grid;
+	}
+
+	/**
+	 * Choose an icon in a row's picker.
+	 *
+	 * @param {Element} row  The item row.
+	 * @param {string}  icon Icon name.
+	 */
+	function selectIcon( row, icon ) {
+		var option = row.querySelector( '[name$="[icon]"][value="' + icon + '"]' );
+
+		if ( option ) {
+			option.checked = true;
+		}
+	}
+
+	/**
+	 * Hide the icon picker for a type that decides its own glyph.
+	 *
+	 * A social item takes its icon from its network, so offering a second
+	 * control that can disagree with the first is worse than offering none.
+	 *
+	 * @param {Element} row  The item row.
+	 * @param {Object}  type The item type.
+	 */
+	function syncIconField( row, type ) {
+		var picker = row.querySelector( '[data-role="iconfield"]' );
+
+		if ( picker ) {
+			picker.hidden = type.slug === 'social';
+		}
 	}
 
 	/**
@@ -148,24 +205,27 @@
 		var type = config.types[ 0 ];
 		var base = 'fbar[items][' + index + ']';
 
-		var head = make( 'div', { class: 'fbar__item-head' }, [
-			make( 'span', { class: 'fbar__grip', 'aria-hidden': 'true' } ),
-			make( 'strong', { class: 'fbar__item-title', text: strings.untitled } ),
-			make( 'code', { class: 'fbar__item-id', text: strings.newId } ),
+		var head = make( 'div', { class: 'fbarui__item-head' }, [
+			make( 'span', { class: 'fbarui__grip', 'aria-hidden': 'true' } ),
+			make( 'strong', { class: 'fbarui__item-title', text: strings.untitled } ),
+			make( 'code', { class: 'fbarui__item-id', text: strings.newId } ),
 			make( 'button', {
 				type: 'button',
-				class: 'fbar__remove',
+				class: 'fbarui__remove',
 				text: strings.remove,
 			} ),
 		] );
 
-		var fields = make( 'div', { class: 'fbar__fields' }, [
+		var fields = make( 'div', { class: 'fbarui__fields' }, [
 			field( strings.type, select( base + '[type]', typeChoices(), type.slug ) ),
 			field( strings.label, make( 'input', { type: 'text', name: base + '[label]', placeholder: type.label } ) ),
 			field( type.valueLabel, make( 'input', { type: 'text', name: base + '[value]' } ), 'value' ),
-			field( strings.icon, select( base + '[icon]', iconChoices(), '' ) ),
-			make( 'div', { class: 'fbar__extra', 'data-role': 'extra' } ),
-			make( 'label', { class: 'fbar__field fbar__field--check' }, [
+			make( 'div', { class: 'fbarui__field fbarui__field--icons', 'data-role': 'iconfield' }, [
+				make( 'span', { text: strings.icon } ),
+				iconPicker( base + '[icon]', type.icon ),
+			] ),
+			make( 'div', { class: 'fbarui__extra', 'data-role': 'extra' } ),
+			make( 'label', { class: 'fbarui__field fbarui__field--check' }, [
 				make( 'input', { type: 'checkbox', name: base + '[primary]', value: '1' } ),
 				make( 'span', { text: strings.primary } ),
 			] ),
@@ -173,7 +233,7 @@
 			field( strings.users, select( base + '[show][users]', config.choices.users, 'inherit' ) ),
 		] );
 
-		var row = make( 'div', { class: 'fbar__item', draggable: 'true' }, [
+		var row = make( 'div', { class: 'fbarui__item', draggable: 'true' }, [
 			head,
 			make( 'input', { type: 'hidden', name: base + '[id]', value: '' } ),
 			fields,
@@ -210,7 +270,7 @@
 
 			if ( extra.kind === 'boolean' ) {
 				holder.appendChild(
-					make( 'label', { class: 'fbar__field fbar__field--check' }, [
+					make( 'label', { class: 'fbarui__field fbarui__field--check' }, [
 						make( 'input', { type: 'checkbox', name: name, value: '1' } ),
 						make( 'span', { text: extra.label } ),
 					] )
@@ -229,7 +289,7 @@
 	 * removal actually stick.
 	 */
 	function reindex() {
-		var rows = list.querySelectorAll( '.fbar__item' );
+		var rows = list.querySelectorAll( '.fbarui__item' );
 
 		Array.prototype.forEach.call( rows, function ( row, index ) {
 			row.setAttribute( 'data-index', index );
@@ -250,7 +310,7 @@
 	 * Reflect the item count in the button, the hint and the empty state.
 	 */
 	function updateState() {
-		var count = list.querySelectorAll( '.fbar__item' ).length;
+		var count = list.querySelectorAll( '.fbarui__item' ).length;
 		var full = count >= config.maxItems;
 
 		addButton.disabled = full;
@@ -267,7 +327,7 @@
 	 * @param {Element} row The item row.
 	 */
 	function refreshTitle( row ) {
-		var title = row.querySelector( '.fbar__item-title' );
+		var title = row.querySelector( '.fbarui__item-title' );
 		var label = row.querySelector( '[name$="[label]"]' );
 		var type = row.querySelector( '[name$="[type]"]' );
 
@@ -288,7 +348,7 @@
 	/* ---- Adding, removing, editing ------------------------------------- */
 
 	addButton.addEventListener( 'click', function () {
-		var count = list.querySelectorAll( '.fbar__item' ).length;
+		var count = list.querySelectorAll( '.fbarui__item' ).length;
 
 		if ( count >= config.maxItems ) {
 			return;
@@ -307,7 +367,7 @@
 	} );
 
 	list.addEventListener( 'click', function ( event ) {
-		if ( ! event.target.classList.contains( 'fbar__remove' ) ) {
+		if ( ! event.target.classList.contains( 'fbarui__remove' ) ) {
 			return;
 		}
 
@@ -315,12 +375,12 @@
 			return;
 		}
 
-		event.target.closest( '.fbar__item' ).remove();
+		event.target.closest( '.fbarui__item' ).remove();
 		reindex();
 	} );
 
 	list.addEventListener( 'change', function ( event ) {
-		var row = event.target.closest( '.fbar__item' );
+		var row = event.target.closest( '.fbarui__item' );
 
 		if ( ! row ) {
 			return;
@@ -343,7 +403,15 @@
 				}
 
 				buildExtra( row, type, index );
+				selectIcon( row, type.icon );
+				syncIconField( row, type );
 			}
+		}
+
+		// A social item's glyph is its network, so choosing a network has
+		// to move the icon with it or the two controls disagree.
+		if ( event.target.name && event.target.name.indexOf( '[extra][network]' ) !== -1 ) {
+			selectIcon( row, event.target.value );
 		}
 
 		refreshTitle( row );
@@ -351,7 +419,7 @@
 
 	list.addEventListener( 'input', function ( event ) {
 		if ( event.target.name && event.target.name.indexOf( '[label]' ) !== -1 ) {
-			refreshTitle( event.target.closest( '.fbar__item' ) );
+			refreshTitle( event.target.closest( '.fbarui__item' ) );
 		}
 	} );
 
@@ -390,7 +458,16 @@
 		} );
 	}
 
-	Array.prototype.forEach.call( list.querySelectorAll( '.fbar__item' ), makeDraggable );
+	Array.prototype.forEach.call( list.querySelectorAll( '.fbarui__item' ), function ( row ) {
+		makeDraggable( row );
+
+		var typeControl = row.querySelector( '[name$="[type]"]' );
+		var loaded = typeControl ? typeBySlug( typeControl.value ) : null;
+
+		if ( loaded ) {
+			syncIconField( row, loaded );
+		}
+	} );
 
 	/* ---- Starter kits ---------------------------------------------------- */
 
@@ -479,7 +556,7 @@
 		}
 	}
 
-	Array.prototype.forEach.call( document.querySelectorAll( '.fbar__kit' ), function ( button ) {
+	Array.prototype.forEach.call( document.querySelectorAll( '.fbarui__kit' ), function ( button ) {
 		button.addEventListener( 'click', function () {
 			var id = button.getAttribute( 'data-kit' );
 			var kit = null;
@@ -496,7 +573,7 @@
 			}
 
 			// Replacing what is already there is destructive, so it asks.
-			if ( list.querySelector( '.fbar__item' ) && ! window.confirm( strings.replace ) ) {
+			if ( list.querySelector( '.fbarui__item' ) && ! window.confirm( strings.replace ) ) {
 				return;
 			}
 
@@ -507,7 +584,7 @@
 	/* ---- Advanced options ------------------------------------------------ */
 
 	Array.prototype.forEach.call( document.querySelectorAll( '[data-advanced]' ), function ( group ) {
-		var rows = group.querySelectorAll( '.fbar__row' );
+		var rows = group.querySelectorAll( '.fbarui__row' );
 
 		if ( ! rows.length ) {
 			return;
@@ -516,7 +593,7 @@
 		var toggle = document.createElement( 'button' );
 
 		toggle.type = 'button';
-		toggle.className = 'fbar__advanced-toggle';
+		toggle.className = 'fbarui__advanced-toggle';
 		toggle.setAttribute( 'aria-expanded', 'false' );
 		toggle.textContent = strings.more;
 
@@ -536,8 +613,8 @@
 
 	// Switching in the page rather than following the link, so a change made on
 	// one tab is still there when the form is submitted from another.
-	var tabs = document.querySelectorAll( '.fbar__tab' );
-	var panels = document.querySelectorAll( '.fbar__panel' );
+	var tabs = document.querySelectorAll( '.fbarui__tab' );
+	var panels = document.querySelectorAll( '.fbarui__panel' );
 
 	function showTab( name ) {
 		Array.prototype.forEach.call( tabs, function ( tab ) {
@@ -578,7 +655,8 @@
 	var previewInner = document.getElementById( 'fbar-preview-inner' );
 	var previewScreen = document.getElementById( 'fbar-preview-screen' );
 	var previewNote = document.getElementById( 'fbar-preview-note' );
-	var form = document.querySelector( '.fbar__form' );
+	var previewStage = 'photo';
+	var form = document.querySelector( '.fbarui__form' );
 
 	/**
 	 * The value of a named control in the form.
@@ -631,7 +709,8 @@
 
 		preview.className = [
 			'fbar',
-			'fbar--inline',
+			'fbar--preview',
+			previewStage === 'dark' ? 'fbar--scheme-dark' : 'fbar--scheme-light',
 			'fbar--preset-' + look,
 			'fbar--item-' + value( 'fbar[style][item][shape]', 'plain' ),
 			'fbar--shadow-' + value( 'fbar[style][shadow]', 'soft' ),
@@ -641,14 +720,16 @@
 			value( 'fbar[style][blur]', '' ) ? 'fbar--blur' : 'fbar--no-blur',
 		].join( ' ' );
 
+		var palette = previewStage === 'dark' ? 'dark' : 'light';
+
 		var tokens = {
-			'--fbar-bar-bg': value( 'fbar[style][light][bar_bg]', '#ffffff' ),
-			'--fbar-text': value( 'fbar[style][light][text]', '#1c1c1e' ),
-			'--fbar-icon': value( 'fbar[style][light][icon]', '#1c1c1e' ),
-			'--fbar-accent': value( 'fbar[style][light][accent]', '#0a84ff' ),
-			'--fbar-hover-bg': value( 'fbar[style][light][hover_bg]', '#0a84ff' ),
-			'--fbar-hover-text': value( 'fbar[style][light][hover_text]', '#ffffff' ),
-			'--fbar-opacity': value( 'fbar[style][opacity]', '90' ) + '%',
+			'--fbar-bar-bg': value( 'fbar[style][' + palette + '][bar_bg]', previewStage === 'dark' ? '#1c1c1e' : '#ffffff' ),
+			'--fbar-text': value( 'fbar[style][' + palette + '][text]', '#1c1c1e' ),
+			'--fbar-icon': value( 'fbar[style][' + palette + '][icon]', '#1c1c1e' ),
+			'--fbar-accent': value( 'fbar[style][' + palette + '][accent]', '#0a84ff' ),
+			'--fbar-hover-bg': value( 'fbar[style][' + palette + '][hover_bg]', '#0a84ff' ),
+			'--fbar-hover-text': value( 'fbar[style][' + palette + '][hover_text]', '#ffffff' ),
+			'--fbar-opacity': value( 'fbar[style][opacity]', '78' ) + '%',
 			'--fbar-glass': value( 'fbar[style][glass]', '22' ) + 'px',
 			'--fbar-radius': value( 'fbar[style][radius]', '18' ) + 'px',
 		};
@@ -661,12 +742,12 @@
 			previewInner.removeChild( previewInner.firstChild );
 		}
 
-		var rows = list.querySelectorAll( '.fbar__item' );
+		var rows = list.querySelectorAll( '.fbarui__item' );
 
 		if ( ! rows.length ) {
 			var empty = document.createElement( 'p' );
 
-			empty.className = 'fbar__preview-empty';
+			empty.className = 'fbarui__preview-empty';
 			empty.textContent = strings.previewEmpty;
 			previewInner.appendChild( empty );
 			previewNote.textContent = '';
@@ -728,7 +809,19 @@
 		form.addEventListener( 'input', refreshPreview );
 		form.addEventListener( 'change', refreshPreview );
 
-		Array.prototype.forEach.call( document.querySelectorAll( '.fbar__preview-widths button' ), function ( button ) {
+		Array.prototype.forEach.call( document.querySelectorAll( '.fbarui__preview-stages button' ), function ( button ) {
+			button.addEventListener( 'click', function () {
+				Array.prototype.forEach.call( button.parentNode.children, function ( other ) {
+					other.classList.toggle( 'is-current', other === button );
+				} );
+
+				previewStage = button.getAttribute( 'data-stage' );
+				previewScreen.setAttribute( 'data-stage', previewStage );
+				refreshPreview();
+			} );
+		} );
+
+		Array.prototype.forEach.call( document.querySelectorAll( '.fbarui__preview-widths button' ), function ( button ) {
 			button.addEventListener( 'click', function () {
 				Array.prototype.forEach.call( button.parentNode.children, function ( other ) {
 					other.classList.toggle( 'is-current', other === button );

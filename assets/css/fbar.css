@@ -338,6 +338,20 @@ span.fbar__item:hover {
 	transform: none;
 }
 
+/* ---- Preview mode -----------------------------------------------------
+ *
+ * The settings screen needs the fixed bar exactly as it renders, minus the
+ * fixed positioning. Inline mode is the wrong tool for that: it strips the
+ * panel on purpose, so every look came out identical. This keeps the panel
+ * and every preset rule, and only takes the bar out of the viewport.
+ */
+
+.fbar--preview {
+	position: static;
+	padding: 0;
+	pointer-events: none;
+}
+
 /* ---- Inline mode ------------------------------------------------------ */
 
 /* A shadow pooling against a panel edge is the tell that something is nested
