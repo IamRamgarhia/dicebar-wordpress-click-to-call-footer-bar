@@ -2,31 +2,40 @@
 /**
  * Build the distributable plugin archive into dist/.
  *
- * The archive contains only what a user should receive: the plugin folder,
- * named exactly as the slug, holding everything not excluded by .distignore.
+ * The archive contains only what a user should receive: one folder, named
+ * exactly as the slug, holding everything .distignore does not exclude.
  * Tooling, tests, documentation and sources stay behind.
  *
- * The folder name inside the zip matters. WordPress installs a plugin into a
- * directory named after the archive's top-level folder, and that name has to
- * be the slug or the plugin's own paths and the update mechanism disagree
- * with where it actually lives.
+ * Two things here are load-bearing rather than tidiness.
+ *
+ * The folder name inside the archive must be the slug. WordPress installs a
+ * plugin into a directory named after the archive's top-level folder, and if
+ * that name is not the slug then the plugin's own paths, its text domain
+ * lookup and its update mechanism all disagree with where it actually lives.
+ *
+ * The archive is written by scripts/lib/zip.js rather than by a system tool.
+ * PowerShell's Compress-Archive writes Windows path separators into entry
+ * names, which the ZIP specification forbids, and an archive built that way
+ * extracts on Linux as one flat file called "plugin\\file.php". WordPress then
+ * reports that the plugin file does not exist, which is true and useless.
+ *
+ * @package TapBar
  */
 
 'use strict';
 
 const fs = require( 'fs' );
-const os = require( 'os' );
 const path = require( 'path' );
-const { execFileSync } = require( 'child_process' );
+const zip = require( './lib/zip' );
 
 const SLUG = 'tapbar-mobile-action-bar';
 const root = path.resolve( __dirname, '..' );
 const dist = path.join( root, 'dist' );
 
 /**
- * Patterns from .distignore, plus the ones that are never shippable.
+ * Patterns from .distignore, plus those that are never shippable.
  *
- * @return {string[]} Path fragments to exclude.
+ * @return {string[]} Exclusion patterns.
  */
 const exclusions = () => {
 	const file = path.join( root, '.distignore' );
@@ -44,100 +53,97 @@ const exclusions = () => {
 /**
  * Whether a path relative to the project root is excluded.
  *
- * @param {string}   relative  Path relative to the project root, slash separated.
- * @param {string[]} excluded  Exclusion fragments.
- * @return {boolean} True when the path should not ship.
+ * A pattern containing an asterisk matches by file name anywhere in the tree,
+ * which is how a .distignore entry such as *.md is meant to read.
+ *
+ * @param {string}   relative Path relative to the project root, slash separated.
+ * @param {string[]} excluded Exclusion patterns.
+ * @return {boolean} True when the path must not ship.
  */
 const isExcluded = ( relative, excluded ) =>
 	excluded.some( ( pattern ) => {
 		const clean = pattern.replace( /^\//, '' ).replace( /\/$/, '' );
 
-		// A pattern containing * matches by name anywhere in the tree, which is
-		// how .distignore entries such as *.md are meant to read.
 		if ( clean.includes( '*' ) ) {
 			const expression = new RegExp(
-				`^${ clean.replace( /[.+^${}()|[\]\\]/g, '\\$&' ).replace( /\*/g, '.*' ) }$`
+				'^' + clean.replace( /[.+^${}()|[\]\\]/g, '\\$&' ).replace( /\*/g, '.*' ) + '$'
 			);
 
 			return expression.test( path.basename( relative ) ) || expression.test( relative );
 		}
 
-		return relative === clean || relative.startsWith( `${ clean }/` );
+		return relative === clean || relative.startsWith( clean + '/' );
 	} );
 
 /**
- * Copy the shippable tree into a staging directory.
+ * Every shippable path, as archive entries.
  *
- * @param {string}   from      Source directory.
- * @param {string}   to        Destination directory.
- * @param {string[]} excluded  Exclusion fragments.
- * @param {string}   base      Path prefix relative to the project root.
+ * Names are built with forward slashes regardless of the host platform.
+ *
+ * @param {string}   from     Directory to read.
+ * @param {string[]} excluded Exclusion patterns.
+ * @param {string}   base     Path relative to the project root.
+ * @param {string}   prefix   Path inside the archive.
+ * @return {Array} Archive entries.
  */
-const stage = ( from, to, excluded, base = '' ) => {
-	fs.mkdirSync( to, { recursive: true } );
+const collect = ( from, excluded, base, prefix ) => {
+	const entries = [];
+	const items = fs
+		.readdirSync( from, { withFileTypes: true } )
+		.sort( ( a, b ) => a.name.localeCompare( b.name ) );
 
-	for ( const entry of fs.readdirSync( from, { withFileTypes: true } ) ) {
-		const relative = base ? `${ base }/${ entry.name }` : entry.name;
+	for ( const item of items ) {
+		const relative = base ? base + '/' + item.name : item.name;
 
 		if ( isExcluded( relative, excluded ) ) {
 			continue;
 		}
 
-		const source = path.join( from, entry.name );
-		const target = path.join( to, entry.name );
+		const source = path.join( from, item.name );
+		const inArchive = prefix + item.name;
 
-		if ( entry.isDirectory() ) {
-			stage( source, target, excluded, relative );
-		} else if ( entry.isFile() ) {
-			fs.copyFileSync( source, target );
+		if ( item.isDirectory() ) {
+			entries.push( { name: inArchive + '/', data: null } );
+			entries.push( ...collect( source, excluded, relative, inArchive + '/' ) );
+		} else if ( item.isFile() ) {
+			entries.push( { name: inArchive, data: fs.readFileSync( source ) } );
 		}
 	}
+
+	return entries;
 };
 
-const staging = fs.mkdtempSync( path.join( os.tmpdir(), 'tbar-build-' ) );
-const pluginDir = path.join( staging, SLUG );
+const entries = [ { name: SLUG + '/', data: null } ].concat(
+	collect( root, exclusions(), '', SLUG + '/' )
+);
 
-stage( root, pluginDir, exclusions() );
+const files = entries.filter( ( entry ) => ! entry.name.endsWith( '/' ) );
+const mainFile = SLUG + '/' + SLUG + '.php';
+
+// A missing main file produces an archive that installs and then fails with
+// "the plugin file does not exist". Failing here says which file is missing.
+if ( ! files.some( ( entry ) => entry.name === mainFile ) ) {
+	process.stderr.write(
+		'\nRefusing to build: the archive has no ' + mainFile + '.\n' +
+			'WordPress locates a plugin by that exact path.\n'
+	);
+	process.exit( 1 );
+}
 
 fs.mkdirSync( dist, { recursive: true } );
 
-const archive = path.join( dist, `${ SLUG }.zip` );
+const archive = path.join( dist, SLUG + '.zip' );
 
-if ( fs.existsSync( archive ) ) {
-	fs.unlinkSync( archive );
+fs.writeFileSync( archive, zip.build( entries ) );
+
+for ( const entry of files ) {
+	process.stdout.write( '  ' + entry.name + '\n' );
 }
 
-// PowerShell's Compress-Archive is present on every supported Windows and
-// avoids adding a packaging dependency. zip(1) covers macOS and Linux.
-if ( process.platform === 'win32' ) {
-	execFileSync(
-		'powershell',
-		[
-			'-NoProfile',
-			'-Command',
-			`Compress-Archive -Path '${ pluginDir }' -DestinationPath '${ archive }' -Force`,
-		],
-		{ stdio: 'inherit' }
-	);
-} else {
-	execFileSync( 'zip', [ '-r', '-q', archive, SLUG ], { cwd: staging, stdio: 'inherit' } );
-}
-
-fs.rmSync( staging, { recursive: true, force: true } );
-
-const shipped = [];
-
-const walk = ( dir, base = '' ) => {
-	for ( const entry of fs.readdirSync( dir, { withFileTypes: true } ) ) {
-		const relative = base ? `${ base }/${ entry.name }` : entry.name;
-
-		if ( entry.isDirectory() ) {
-			walk( path.join( dir, entry.name ), relative );
-		} else {
-			shipped.push( relative );
-		}
-	}
-};
-
-process.stdout.write( `\nBuilt ${ path.relative( root, archive ) }\n` );
-process.stdout.write( `${ ( fs.statSync( archive ).size / 1024 ).toFixed( 1 ) } KB\n` );
+process.stdout.write(
+	'\nBuilt ' +
+		path.relative( root, archive ) +
+		' (' +
+		( fs.statSync( archive ).size / 1024 ).toFixed( 1 ) +
+		' KB)\n'
+);
