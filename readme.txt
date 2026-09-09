@@ -4,7 +4,7 @@ Tags: mobile, sticky bar, click to call, floating bar, call button
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,14 @@ and whether the visitor is signed in, are worked out in the browser.
 2. The settings screen.
 
 == Changelog ==
+
+= 1.2.0 =
+* Social profile items, with thirty brand marks including Instagram, Facebook, X, YouTube, TikTok, LinkedIn, WhatsApp, Telegram, Pinterest and Threads.
+* Four ready-made looks. Glass is the frosted floating panel, and it is the new default.
+* Items can show an icon and a word, an icon only, or a word only.
+* Nine starter kits, from two buttons up to four, for restaurants, clinics, trades, shops, blogs, portfolios and social profiles.
+* Settings split into everyday options and advanced ones, so the common screen is short.
+* The section tabs sit on one row instead of two.
 
 = 1.1.0 =
 * Renamed to Footer Bar.

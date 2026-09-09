@@ -277,13 +277,24 @@ class FBar_Sanitize {
 			? $value['id']
 			: self::item_id();
 
+		$extra = self::item_extra( isset( $value['extra'] ) ? $value['extra'] : array(), $type['extra'] );
+
+		// A social item's icon follows its network, because picking "instagram"
+		// and then also picking an icon is two ways to say the same thing and
+		// they can disagree.
+		$icon = isset( $value['icon'] ) && '' !== $value['icon'] ? $value['icon'] : $type['icon'];
+
+		if ( 'social' === $type_slug && ! empty( $extra['network'] ) ) {
+			$icon = $extra['network'];
+		}
+
 		return array(
 			'id'      => $id,
 			'type'    => $type_slug,
 			'label'   => self::text( isset( $value['label'] ) ? $value['label'] : '' ),
 			'value'   => self::item_value( isset( $value['value'] ) ? $value['value'] : '', $type['value']['kind'] ),
-			'extra'   => self::item_extra( isset( $value['extra'] ) ? $value['extra'] : array(), $type['extra'] ),
-			'icon'    => sanitize_key( isset( $value['icon'] ) && '' !== $value['icon'] ? $value['icon'] : $type['icon'] ),
+			'extra'   => $extra,
+			'icon'    => sanitize_key( $icon ),
 			'primary' => self::boolean( isset( $value['primary'] ) ? $value['primary'] : false ),
 			'show'    => array(
 				'devices' => self::choice(
@@ -474,6 +485,8 @@ class FBar_Sanitize {
 			),
 
 			'style'                   => array(
+				'preset'     => self::choice( self::pick( $style, 'preset', 'glass' ), FBar_Settings::PRESETS, 'glass' ),
+				'glass'      => self::int_in_range( self::pick( $style, 'glass', 22 ), 0, 60, 22 ),
 				'layout'     => self::choice( self::pick( $style, 'layout', 'island' ), array( 'island', 'full' ), 'island' ),
 				'max_width'  => self::int_in_range( self::pick( $style, 'max_width', 640 ), 0, 2560, 640 ),
 				'radius'     => self::int_in_range( self::pick( $style, 'radius', 18 ), 0, 60, 18 ),
@@ -489,7 +502,7 @@ class FBar_Sanitize {
 					'icon_gap'   => self::int_in_range( self::pick( $item, 'icon_gap', 3 ), 0, 20, 3 ),
 				),
 				'label'      => array(
-					'show' => self::boolean( self::pick( $label, 'show', true ) ),
+					'mode' => self::choice( self::pick( $label, 'mode', 'icon_label' ), FBar_Settings::LABEL_MODES, 'icon_label' ),
 					'size' => self::int_in_range( self::pick( $label, 'size', 10 ), 7, 20, 10 ),
 					'case' => self::choice( self::pick( $label, 'case', 'upper' ), array( 'upper', 'normal' ), 'upper' ),
 				),

@@ -388,6 +388,146 @@
 
 	Array.prototype.forEach.call( list.querySelectorAll( '.fbar__item' ), makeDraggable );
 
+	/* ---- Starter kits ---------------------------------------------------- */
+
+	/**
+	 * Fill a row's controls from a saved item.
+	 *
+	 * @param {Element} row  The item row.
+	 * @param {Object}  item The item to write in.
+	 */
+	function fillRow( row, item ) {
+		var type = row.querySelector( '[name$="[type]"]' );
+
+		if ( type ) {
+			type.value = item.type;
+			type.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+		}
+
+		var label = row.querySelector( '[name$="[label]"]' );
+
+		if ( label ) {
+			label.value = item.label || '';
+		}
+
+		var value = row.querySelector( '[name$="[value]"]' );
+
+		if ( value ) {
+			value.value = item.value || '';
+		}
+
+		var icon = row.querySelector( '[name$="[icon]"]' );
+
+		if ( icon && item.icon ) {
+			icon.value = item.icon;
+		}
+
+		var primary = row.querySelector( '[name$="[primary]"]' );
+
+		if ( primary ) {
+			primary.checked = !! item.primary;
+		}
+
+		Object.keys( item.extra || {} ).forEach( function ( key ) {
+			var control = row.querySelector( '[name$="[extra][' + key + ']"]' );
+
+			if ( ! control ) {
+				return;
+			}
+
+			if ( control.type === 'checkbox' ) {
+				control.checked = !! item.extra[ key ];
+			} else {
+				control.value = item.extra[ key ];
+			}
+		} );
+
+		refreshTitle( row );
+	}
+
+	/**
+	 * Replace the item list with a starter kit.
+	 *
+	 * @param {Object} kit The kit.
+	 */
+	function applyKit( kit ) {
+		while ( list.firstChild ) {
+			list.removeChild( list.firstChild );
+		}
+
+		kit.items.forEach( function ( item, index ) {
+			var row = buildRow( index );
+
+			list.appendChild( row );
+			fillRow( row, item );
+		} );
+
+		reindex();
+
+		if ( hint ) {
+			hint.textContent = strings.applied;
+		}
+
+		var firstEmpty = list.querySelector( '[name$="[value]"]' );
+
+		if ( firstEmpty ) {
+			firstEmpty.focus();
+		}
+	}
+
+	Array.prototype.forEach.call( document.querySelectorAll( '.fbar__kit' ), function ( button ) {
+		button.addEventListener( 'click', function () {
+			var id = button.getAttribute( 'data-kit' );
+			var kit = null;
+
+			for ( var i = 0; i < config.presets.length; i++ ) {
+				if ( config.presets[ i ].id === id ) {
+					kit = config.presets[ i ];
+					break;
+				}
+			}
+
+			if ( ! kit ) {
+				return;
+			}
+
+			// Replacing what is already there is destructive, so it asks.
+			if ( list.querySelector( '.fbar__item' ) && ! window.confirm( strings.replace ) ) {
+				return;
+			}
+
+			applyKit( kit );
+		} );
+	} );
+
+	/* ---- Advanced options ------------------------------------------------ */
+
+	Array.prototype.forEach.call( document.querySelectorAll( '[data-advanced]' ), function ( group ) {
+		var rows = group.querySelectorAll( '.fbar__row' );
+
+		if ( ! rows.length ) {
+			return;
+		}
+
+		var toggle = document.createElement( 'button' );
+
+		toggle.type = 'button';
+		toggle.className = 'fbar__advanced-toggle';
+		toggle.setAttribute( 'aria-expanded', 'false' );
+		toggle.textContent = strings.more;
+
+		group.parentNode.insertBefore( toggle, group );
+		group.hidden = true;
+
+		toggle.addEventListener( 'click', function () {
+			var open = group.hidden;
+
+			group.hidden = ! open;
+			toggle.setAttribute( 'aria-expanded', open ? 'true' : 'false' );
+			toggle.textContent = open ? strings.less : strings.more;
+		} );
+	} );
+
 	/* ---- Tabs ----------------------------------------------------------- */
 
 	// Switching in the page rather than following the link, so a change made on

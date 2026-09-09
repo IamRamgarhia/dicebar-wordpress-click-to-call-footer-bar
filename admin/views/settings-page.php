@@ -128,7 +128,24 @@ $fbar_user_choices = array(
 			<div class="fbar__card">
 				<div class="fbar__card-head">
 					<h2><?php esc_html_e( 'What goes in the bar', 'footer-bar-mobile-action-bar' ); ?></h2>
+					<p class="fbar__panel-note"><?php echo esc_html( $tabs['items']['blurb'] ); ?></p>
 					<p><?php esc_html_e( 'Drag to reorder. Four is the most that fits: at 320 pixels wide a fifth item clips its label rather than shrinking.', 'footer-bar-mobile-action-bar' ); ?></p>
+				</div>
+
+				<div class="fbar__kits">
+					<h3><?php esc_html_e( 'Start from a kit', 'footer-bar-mobile-action-bar' ); ?></h3>
+					<p class="fbar__help"><?php esc_html_e( 'Fills the list in one click. Everything stays editable afterwards.', 'footer-bar-mobile-action-bar' ); ?></p>
+					<div class="fbar__kit-grid">
+						<?php foreach ( $presets as $fbar_kit ) : ?>
+							<button type="button" class="fbar__kit" data-kit="<?php echo esc_attr( $fbar_kit['id'] ); ?>">
+								<span class="fbar__kit-count"><?php echo esc_html( count( $fbar_kit['items'] ) ); ?></span>
+								<span class="fbar__kit-text">
+									<strong><?php echo esc_html( $fbar_kit['name'] ); ?></strong>
+									<small><?php echo esc_html( $fbar_kit['note'] ); ?></small>
+								</span>
+							</button>
+						<?php endforeach; ?>
+					</div>
 				</div>
 
 				<div id="fbar-items" class="fbar__items">
@@ -227,6 +244,7 @@ $fbar_user_choices = array(
 			<div class="fbar__card">
 				<div class="fbar__card-head">
 					<h2><?php esc_html_e( 'Where the bar shows', 'footer-bar-mobile-action-bar' ); ?></h2>
+					<p class="fbar__panel-note"><?php echo esc_html( $tabs['placement']['blurb'] ); ?></p>
 				</div>
 
 				<div class="fbar__rows">
@@ -290,6 +308,9 @@ $fbar_user_choices = array(
 						</div>
 					</div>
 
+				</div>
+
+				<div class="fbar__rows fbar__advanced" data-advanced="placement">
 					<div class="fbar__row">
 						<div class="fbar__row-label"><?php esc_html_e( 'Visitors', 'footer-bar-mobile-action-bar' ); ?></div>
 						<div class="fbar__row-field">
@@ -320,17 +341,69 @@ $fbar_user_choices = array(
 			<div class="fbar__card">
 				<div class="fbar__card-head">
 					<h2><?php esc_html_e( 'How it looks', 'footer-bar-mobile-action-bar' ); ?></h2>
+					<p class="fbar__panel-note"><?php echo esc_html( $tabs['design']['blurb'] ); ?></p>
 				</div>
 
 				<div class="fbar__rows">
 					<div class="fbar__row">
-						<div class="fbar__row-label"><?php esc_html_e( 'Labels', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-label"><?php esc_html_e( 'The look', 'footer-bar-mobile-action-bar' ); ?></div>
 						<div class="fbar__row-field">
-							<label class="fbar__switch">
-								<input type="checkbox" name="fbar[style][label][show]" value="1" <?php checked( ! empty( $settings['style']['label']['show'] ) ); ?>>
-								<span><?php esc_html_e( 'Show a word under each icon', 'footer-bar-mobile-action-bar' ); ?></span>
-							</label>
-							<p class="fbar__help"><?php esc_html_e( 'All of them or none. An unlabelled icon centres itself while a labelled one lifts to make room, so mixing them leaves one mark sitting low.', 'footer-bar-mobile-action-bar' ); ?></p>
+							<div class="fbar__presets">
+								<?php
+								$fbar_looks = array(
+									'glass'   => array(
+										__( 'Glass', 'footer-bar-mobile-action-bar' ),
+										__( 'Frosted and floating, the way a phone shows its own bars.', 'footer-bar-mobile-action-bar' ),
+									),
+									'solid'   => array(
+										__( 'Solid', 'footer-bar-mobile-action-bar' ),
+										__( 'No see-through. Safest over busy photography.', 'footer-bar-mobile-action-bar' ),
+									),
+									'minimal' => array(
+										__( 'Minimal', 'footer-bar-mobile-action-bar' ),
+										__( 'No panel. The buttons sit straight on the page.', 'footer-bar-mobile-action-bar' ),
+									),
+									'bold'    => array(
+										__( 'Bold', 'footer-bar-mobile-action-bar' ),
+										__( 'Filled in your accent colour. Hard to ignore.', 'footer-bar-mobile-action-bar' ),
+									),
+								);
+
+								foreach ( $fbar_looks as $fbar_key => $fbar_look ) :
+									?>
+									<label class="fbar__preset fbar__preset--<?php echo esc_attr( $fbar_key ); ?>">
+										<input type="radio" name="fbar[style][preset]" value="<?php echo esc_attr( $fbar_key ); ?>" <?php checked( $fbar_key, $settings['style']['preset'] ); ?>>
+										<span class="fbar__preset-swatch" aria-hidden="true">
+											<span></span><span></span><span></span>
+										</span>
+										<span class="fbar__preset-name"><?php echo esc_html( $fbar_look[0] ); ?></span>
+										<span class="fbar__preset-note"><?php echo esc_html( $fbar_look[1] ); ?></span>
+									</label>
+								<?php endforeach; ?>
+							</div>
+						</div>
+					</div>
+
+					<div class="fbar__row">
+						<div class="fbar__row-label"><?php esc_html_e( 'Each item shows', 'footer-bar-mobile-action-bar' ); ?></div>
+						<div class="fbar__row-field">
+							<div class="fbar__segmented">
+								<?php
+								$fbar_modes = array(
+									'icon_label' => __( 'Icon and word', 'footer-bar-mobile-action-bar' ),
+									'icon'       => __( 'Icon only', 'footer-bar-mobile-action-bar' ),
+									'label'      => __( 'Word only', 'footer-bar-mobile-action-bar' ),
+								);
+
+								foreach ( $fbar_modes as $fbar_key => $fbar_text ) :
+									?>
+									<label>
+										<input type="radio" name="fbar[style][label][mode]" value="<?php echo esc_attr( $fbar_key ); ?>" <?php checked( $fbar_key, $settings['style']['label']['mode'] ); ?>>
+										<span><?php echo esc_html( $fbar_text ); ?></span>
+									</label>
+								<?php endforeach; ?>
+							</div>
+							<p class="fbar__help"><?php esc_html_e( 'It applies to every item, not one. An unlabelled icon centres itself while a labelled one lifts to make room, so mixing them leaves one mark sitting low for no visible reason.', 'footer-bar-mobile-action-bar' ); ?></p>
 						</div>
 					</div>
 
@@ -394,6 +467,9 @@ $fbar_user_choices = array(
 						</div>
 					</div>
 
+				</div>
+
+				<div class="fbar__rows fbar__advanced" data-advanced="design">
 					<div class="fbar__row">
 						<div class="fbar__row-label"><?php esc_html_e( 'Colours', 'footer-bar-mobile-action-bar' ); ?></div>
 						<div class="fbar__row-field">
@@ -459,6 +535,7 @@ $fbar_user_choices = array(
 			<div class="fbar__card">
 				<div class="fbar__card-head">
 					<h2><?php esc_html_e( 'How it behaves', 'footer-bar-mobile-action-bar' ); ?></h2>
+					<p class="fbar__panel-note"><?php echo esc_html( $tabs['behaviour']['blurb'] ); ?></p>
 				</div>
 
 				<div class="fbar__rows">
@@ -495,6 +572,9 @@ $fbar_user_choices = array(
 						</div>
 					</div>
 
+				</div>
+
+				<div class="fbar__rows fbar__advanced" data-advanced="behaviour">
 					<div class="fbar__row">
 						<div class="fbar__row-label"><?php esc_html_e( 'Step aside for', 'footer-bar-mobile-action-bar' ); ?></div>
 						<div class="fbar__row-field">

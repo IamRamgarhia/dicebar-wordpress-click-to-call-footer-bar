@@ -24,6 +24,7 @@
 	--fbar-max-width: 640px;
 	--fbar-z: 9990;
 	--fbar-clearance: 0px;
+	--fbar-glass: 22px;
 
 	box-sizing: border-box;
 }
@@ -118,15 +119,85 @@
 	box-shadow: 0 6px 18px -6px rgba( 0, 0, 0, 0.3 ), 0 28px 56px -24px rgba( 0, 0, 0, 0.45 );
 }
 
-/* The translucency lives inside the support query on purpose. Without a blur
-   behind it, a see-through bar over a photograph is unreadable, and 90% is the
-   point where labels stop swimming. */
+/* ---- Presets ----------------------------------------------------------
+ *
+ * A preset is a look, not a lock: every value it sets is still a custom
+ * property the owner can override. They exist because "make it look like the
+ * bar on my phone" is a request nobody should have to translate into eight
+ * separate settings.
+ */
+
+/* Glass. The frosted, floating panel people mean when they ask for an
+ * Apple-like bar. The translucency lives inside the support query on purpose:
+ * without a blur behind it, a see-through bar over a photograph is the one
+ * case where it is genuinely unreadable. 90% opacity is where labels stop
+ * swimming, and the inset highlight is what gives the top edge its lift. */
+.fbar--preset-glass .fbar__inner {
+	border: 1px solid rgba( 255, 255, 255, 0.35 );
+	box-shadow:
+		0 4px 14px -8px rgba( 0, 0, 0, 0.24 ),
+		0 22px 44px -28px rgba( 0, 0, 0, 0.36 ),
+		inset 0 1px 0 rgba( 255, 255, 255, 0.55 );
+}
+
 @supports ( ( backdrop-filter: blur( 1px ) ) or ( -webkit-backdrop-filter: blur( 1px ) ) ) {
 	.fbar--blur .fbar__inner {
 		background: color-mix( in srgb, var( --fbar-bar-bg ) 90%, transparent );
-		-webkit-backdrop-filter: blur( 22px ) saturate( 180% );
-		backdrop-filter: blur( 22px ) saturate( 180% );
+		-webkit-backdrop-filter: blur( var( --fbar-glass ) ) saturate( 180% );
+		backdrop-filter: blur( var( --fbar-glass ) ) saturate( 180% );
 	}
+
+	.fbar--preset-glass.fbar--blur .fbar__inner {
+		background: color-mix( in srgb, var( --fbar-bar-bg ) 72%, transparent );
+		-webkit-backdrop-filter: blur( var( --fbar-glass ) ) saturate( 200% );
+		backdrop-filter: blur( var( --fbar-glass ) ) saturate( 200% );
+	}
+}
+
+/* Solid. No translucency at all, for a bar sitting over busy photography or a
+ * theme that already blurs its own header. */
+.fbar--preset-solid .fbar__inner {
+	background: var( --fbar-bar-bg );
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+}
+
+/* Minimal. No panel: the buttons sit directly on the page. */
+.fbar--preset-minimal .fbar__inner {
+	background: transparent;
+	box-shadow: none;
+	border: 0;
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+}
+
+.fbar--preset-minimal .fbar__item {
+	background: color-mix( in srgb, var( --fbar-bar-bg ) 92%, transparent );
+	box-shadow: 0 2px 10px -6px rgba( 0, 0, 0, 0.4 );
+}
+
+/* Bold. Filled in the accent, for a bar that is the page's main call to
+ * action rather than a quiet utility. */
+.fbar--preset-bold .fbar__inner {
+	background: var( --fbar-accent );
+	color: var( --fbar-hover-text );
+	border: 0;
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+}
+
+.fbar--preset-bold .fbar__icon {
+	color: var( --fbar-hover-text );
+}
+
+.fbar--preset-bold .fbar__item:hover,
+.fbar--preset-bold .fbar__item:focus-visible {
+	background: rgba( 255, 255, 255, 0.18 );
+	color: var( --fbar-hover-text );
+}
+
+.fbar--preset-bold .fbar__item:hover .fbar__icon {
+	color: var( --fbar-hover-text );
 }
 
 /* ---- Items ------------------------------------------------------------ */
@@ -175,6 +246,17 @@
 
 .fbar--case-upper .fbar__label {
 	text-transform: uppercase;
+}
+
+/* Label-only items sit on a single line, so the column gap would push the
+   text off centre. */
+.fbar--show-label .fbar__item {
+	gap: 0;
+}
+
+.fbar--show-label .fbar__label {
+	font-size: calc( var( --fbar-label-size ) * 1.25 );
+	letter-spacing: 0.04em;
 }
 
 .fbar--divider-hairline .fbar__item + .fbar__item {

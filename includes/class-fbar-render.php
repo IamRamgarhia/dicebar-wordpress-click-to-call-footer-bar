@@ -114,7 +114,8 @@ class FBar_Render {
 			'fbar--' . $settings['style']['layout'],
 			'fbar--item-' . $settings['style']['item']['shape'],
 			'fbar--shadow-' . $settings['style']['shadow'],
-			$settings['style']['label']['show'] ? 'fbar--labelled' : 'fbar--unlabelled',
+			'fbar--show-' . str_replace( '_', '-', $settings['style']['label']['mode'] ),
+			'fbar--preset-' . $settings['style']['preset'],
 			$settings['style']['blur'] ? 'fbar--blur' : 'fbar--no-blur',
 			'fbar--divider-' . $settings['style']['divider'],
 			'fbar--case-' . $settings['style']['label']['case'],
@@ -220,8 +221,10 @@ class FBar_Render {
 	 */
 	private static function item( array $item, array $settings ) {
 		$label      = '' !== $item['label'] ? $item['label'] : self::default_label( $item );
-		$show_label = ! empty( $settings['style']['label']['show'] );
-		$icon       = FBar_Icons::render( $item['icon'] );
+		$mode       = $settings['style']['label']['mode'];
+		$show_label = 'icon' !== $mode;
+		$show_icon  = 'label' !== $mode;
+		$icon       = $show_icon ? FBar_Icons::render( $item['icon'] ) : '';
 
 		$classes = array( 'fbar__item' );
 

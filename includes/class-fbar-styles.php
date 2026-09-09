@@ -68,6 +68,7 @@ class FBar_Styles {
 			'--fbar-max-width'   => $style['max_width'] ? (int) $style['max_width'] . 'px' : 'none',
 			'--fbar-z'           => (int) $settings['behaviour']['z_index'],
 			'--fbar-clearance'   => (int) $settings['behaviour']['clearance'] . 'px',
+			'--fbar-glass'       => (int) $style['glass'] . 'px',
 		);
 
 		$css = '.fbar{' . self::declarations( $base ) . self::declarations( self::palette( $style['light'] ) ) . '}';

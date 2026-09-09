@@ -34,6 +34,20 @@ class FBar_Settings {
 	const CONTENT_MODES = array( 'all', 'include', 'exclude' );
 
 	/**
+	 * Ready-made looks.
+	 *
+	 * A preset writes several values at once. "Glass" is the frosted, heavily
+	 * blurred panel people mean when they say an Apple-like bar: high blur, a
+	 * lifted white edge, and a generous corner radius.
+	 */
+	const PRESETS = array( 'glass', 'solid', 'minimal', 'bold', 'custom' );
+
+	/**
+	 * What each item shows.
+	 */
+	const LABEL_MODES = array( 'icon_label', 'icon', 'label' );
+
+	/**
 	 * Cached configuration for this request.
 	 *
 	 * @var array|null
@@ -73,6 +87,8 @@ class FBar_Settings {
 			),
 
 			'style'                   => array(
+				'preset'     => 'glass',
+				'glass'      => 22,
 				'layout'     => 'island',
 				'max_width'  => 640,
 				'radius'     => 18,
@@ -88,7 +104,7 @@ class FBar_Settings {
 					'icon_gap'   => 3,
 				),
 				'label'      => array(
-					'show' => true,
+					'mode' => 'icon_label',
 					'size' => 10,
 					'case' => 'upper',
 				),

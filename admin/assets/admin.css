@@ -487,3 +487,283 @@
 		display: none;
 	}
 }
+
+/* ---- Tabs on one row --------------------------------------------------
+ *
+ * Five tabs wrapping onto a second row read as two separate navigations. The
+ * blurb moves into each panel's heading, which is where it is actually useful,
+ * and the tab keeps only its number and name. Below the WordPress breakpoint
+ * the row scrolls sideways rather than wrapping.
+ */
+
+.fbar__tabs {
+	flex-wrap: nowrap;
+	overflow-x: auto;
+	scrollbar-width: thin;
+}
+
+.fbar__tab {
+	white-space: nowrap;
+	flex: none;
+	padding: 13px 18px;
+}
+
+.fbar__tab-text small {
+	display: none;
+}
+
+.fbar__tab-text strong {
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.fbar__panel-note {
+	margin: 6px 0 0;
+	color: var( --fbar-muted );
+	font-size: 13px;
+}
+
+/* ---- Starter kits ------------------------------------------------------ */
+
+.fbar__kits {
+	padding: 20px 24px 0;
+}
+
+.fbar__kits h3 {
+	margin: 0;
+	font-size: 14px;
+	color: var( --fbar-ink );
+}
+
+.fbar__kit-grid {
+	display: grid;
+	grid-template-columns: repeat( auto-fill, minmax( 250px, 1fr ) );
+	gap: 10px;
+	margin-top: 12px;
+}
+
+.fbar__kit {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	padding: 12px 14px;
+	text-align: start;
+	background: var( --fbar-surface );
+	border: 1px solid var( --fbar-line );
+	border-radius: var( --fbar-round );
+	cursor: pointer;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.fbar__kit:hover {
+	border-color: var( --fbar-brand );
+	box-shadow: 0 0 0 1px var( --fbar-brand );
+}
+
+.fbar__kit-count {
+	display: grid;
+	place-items: center;
+	width: 26px;
+	height: 26px;
+	flex: none;
+	border-radius: 7px;
+	background: var( --fbar-brand-soft );
+	color: var( --fbar-brand );
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.fbar__kit-text {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+
+.fbar__kit-text strong {
+	font-size: 13px;
+	color: var( --fbar-ink );
+}
+
+.fbar__kit-text small {
+	font-size: 12px;
+	color: var( --fbar-muted );
+	line-height: 1.4;
+}
+
+/* ---- Look presets ------------------------------------------------------ */
+
+.fbar__presets {
+	display: grid;
+	grid-template-columns: repeat( auto-fit, minmax( 180px, 1fr ) );
+	gap: 12px;
+	max-width: 800px;
+}
+
+.fbar__preset {
+	position: relative;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-areas: "swatch name" "swatch note";
+	gap: 2px 12px;
+	padding: 14px;
+	border: 1px solid var( --fbar-line );
+	border-radius: var( --fbar-round );
+	cursor: pointer;
+	background: var( --fbar-surface );
+}
+
+.fbar__preset input {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.fbar__preset:has( input:checked ) {
+	border-color: var( --fbar-brand );
+	box-shadow: 0 0 0 1px var( --fbar-brand );
+}
+
+.fbar__preset:has( input:focus-visible ) {
+	outline: 2px solid var( --fbar-brand );
+	outline-offset: 2px;
+}
+
+.fbar__preset-name {
+	grid-area: name;
+	font-weight: 600;
+	font-size: 13px;
+	color: var( --fbar-ink );
+}
+
+.fbar__preset-note {
+	grid-area: note;
+	font-size: 12px;
+	color: var( --fbar-muted );
+	line-height: 1.4;
+}
+
+/* A miniature of the bar itself, so the choice is shown rather than described. */
+.fbar__preset-swatch {
+	grid-area: swatch;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 3px;
+	width: 46px;
+	height: 30px;
+	padding: 5px;
+	border-radius: 9px;
+	background: linear-gradient( 135deg, #7aa7d9, #b6c9e0 );
+	align-self: center;
+}
+
+.fbar__preset-swatch span {
+	width: 8px;
+	height: 100%;
+	border-radius: 3px;
+	background: rgba( 255, 255, 255, 0.9 );
+}
+
+.fbar__preset--glass .fbar__preset-swatch span {
+	background: rgba( 255, 255, 255, 0.55 );
+	box-shadow: inset 0 1px 0 rgba( 255, 255, 255, 0.9 );
+}
+
+.fbar__preset--solid .fbar__preset-swatch span {
+	background: #fff;
+}
+
+.fbar__preset--minimal .fbar__preset-swatch span {
+	background: rgba( 255, 255, 255, 0.95 );
+	width: 7px;
+	height: 14px;
+	border-radius: 4px;
+}
+
+.fbar__preset--bold .fbar__preset-swatch span {
+	background: #0a84ff;
+}
+
+/* ---- Segmented control ------------------------------------------------- */
+
+.fbar__segmented {
+	display: inline-flex;
+	border: 1px solid var( --fbar-line );
+	border-radius: 7px;
+	overflow: hidden;
+	background: var( --fbar-sunken );
+}
+
+.fbar__segmented label {
+	position: relative;
+	margin: 0;
+}
+
+.fbar__segmented input {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.fbar__segmented span {
+	display: block;
+	padding: 8px 16px;
+	font-size: 13px;
+	color: var( --fbar-muted );
+	cursor: pointer;
+	border-inline-end: 1px solid var( --fbar-line );
+}
+
+.fbar__segmented label:last-child span {
+	border-inline-end: 0;
+}
+
+.fbar__segmented input:checked + span {
+	background: var( --fbar-surface );
+	color: var( --fbar-ink );
+	font-weight: 600;
+	box-shadow: inset 0 -2px 0 var( --fbar-brand );
+}
+
+.fbar__segmented input:focus-visible + span {
+	outline: 2px solid var( --fbar-brand );
+	outline-offset: -2px;
+}
+
+/* ---- Advanced disclosure ----------------------------------------------- */
+
+/* Most people set four things and leave. The rest is here for the ones who
+   need it, and out of the way for everyone else. */
+.fbar__advanced-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	margin: 4px 0 0;
+	padding: 8px 0;
+	background: none;
+	border: 0;
+	color: var( --fbar-brand );
+	font-size: 13px;
+	cursor: pointer;
+}
+
+.fbar__advanced-toggle::before {
+	content: "";
+	width: 0;
+	height: 0;
+	border-inline-start: 5px solid currentColor;
+	border-top: 4px solid transparent;
+	border-bottom: 4px solid transparent;
+	transition: transform 0.15s ease;
+}
+
+.fbar__advanced-toggle[aria-expanded="true"]::before {
+	transform: rotate( 90deg );
+}
+
+.fbar__advanced {
+	border-top: 1px dashed var( --fbar-line );
+	margin-top: 4px;
+	padding-top: 4px;
+}

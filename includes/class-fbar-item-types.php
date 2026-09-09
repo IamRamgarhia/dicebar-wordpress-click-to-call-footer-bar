@@ -256,6 +256,25 @@ class FBar_Item_Types {
 					),
 				),
 			),
+			'social'     => array(
+				'label' => __( 'Social profile', 'footer-bar-mobile-action-bar' ),
+				'icon'  => 'share',
+				'value' => array(
+					'kind'  => 'url',
+					'label' => __( 'Profile address', 'footer-bar-mobile-action-bar' ),
+				),
+				'extra' => array(
+					'network' => array(
+						'kind'    => 'choice',
+						'label'   => __( 'Network', 'footer-bar-mobile-action-bar' ),
+						'choices' => FBar_Icons::brand_names(),
+					),
+					'new_tab' => array(
+						'kind'  => 'boolean',
+						'label' => __( 'Open in a new tab', 'footer-bar-mobile-action-bar' ),
+					),
+				),
+			),
 			'anchor'     => array(
 				'label' => __( 'Scroll to a section', 'footer-bar-mobile-action-bar' ),
 				'icon'  => 'arrow-down',

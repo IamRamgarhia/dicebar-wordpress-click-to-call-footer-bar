@@ -71,21 +71,21 @@ class FBar_Admin {
 				'label' => __( 'Items', 'footer-bar-mobile-action-bar' ),
 				'blurb' => __( 'What sits in the bar. Four is the most that fits.', 'footer-bar-mobile-action-bar' ),
 			),
-			'placement' => array(
-				'label' => __( 'Where', 'footer-bar-mobile-action-bar' ),
-				'blurb' => __( 'Which screens, which pages, which visitors.', 'footer-bar-mobile-action-bar' ),
-			),
 			'design'    => array(
 				'label' => __( 'Design', 'footer-bar-mobile-action-bar' ),
-				'blurb' => __( 'Shape, colour and the words under the icons.', 'footer-bar-mobile-action-bar' ),
+				'blurb' => __( 'The look of the bar, and whether items show icons, words, or both.', 'footer-bar-mobile-action-bar' ),
+			),
+			'placement' => array(
+				'label' => __( 'Where', 'footer-bar-mobile-action-bar' ),
+				'blurb' => __( 'Which screens, which pages, and which visitors see it.', 'footer-bar-mobile-action-bar' ),
 			),
 			'behaviour' => array(
 				'label' => __( 'Behaviour', 'footer-bar-mobile-action-bar' ),
-				'blurb' => __( 'Where it sits, when it hides, and what it sits above.', 'footer-bar-mobile-action-bar' ),
+				'blurb' => __( 'Where it sits, when it gets out of the way, and what it sits above.', 'footer-bar-mobile-action-bar' ),
 			),
 			'place'     => array(
-				'label' => __( 'Put it in a page', 'footer-bar-mobile-action-bar' ),
-				'blurb' => __( 'The shortcode, the block editor, and page builders.', 'footer-bar-mobile-action-bar' ),
+				'label' => __( 'Shortcode', 'footer-bar-mobile-action-bar' ),
+				'blurb' => __( 'Showing the same row of buttons inside a page.', 'footer-bar-mobile-action-bar' ),
 			),
 		);
 	}
@@ -129,6 +129,8 @@ class FBar_Admin {
 				'maxItems' => 4,
 				'types'    => self::types_for_script(),
 				'icons'    => FBar_Icons::names(),
+				'brands'   => FBar_Icons::brand_names(),
+				'presets'  => FBar_Presets::for_script(),
 				'strings'  => array(
 					'full'        => __( 'Four items is the most that fits. At 320 pixels wide a fifth one clips its label.', 'footer-bar-mobile-action-bar' ),
 					'confirm'     => __( 'Remove this item?', 'footer-bar-mobile-action-bar' ),
@@ -142,6 +144,11 @@ class FBar_Admin {
 					'devices'     => __( 'Show on', 'footer-bar-mobile-action-bar' ),
 					'users'       => __( 'Show to', 'footer-bar-mobile-action-bar' ),
 					'remove'      => __( 'Remove', 'footer-bar-mobile-action-bar' ),
+					'replace'     => __( 'This replaces the items you have now. Continue?', 'footer-bar-mobile-action-bar' ),
+					'applied'     => __( 'Starter kit applied. Fill in the numbers and links, then save.', 'footer-bar-mobile-action-bar' ),
+					'buttons'     => __( 'buttons', 'footer-bar-mobile-action-bar' ),
+					'more'        => __( 'Advanced options', 'footer-bar-mobile-action-bar' ),
+					'less'        => __( 'Hide advanced options', 'footer-bar-mobile-action-bar' ),
 				),
 				'choices'  => array(
 					'devices' => array(
@@ -253,6 +260,7 @@ class FBar_Admin {
 		$types    = FBar_Item_Types::all();
 		$icons    = FBar_Icons::names();
 		$tabs     = self::tabs();
+		$presets  = FBar_Presets::all();
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Choosing a tab reads nothing and changes nothing.
 		$current = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'items';
