@@ -10,7 +10,10 @@
 		"env:destroy": "wp-env destroy",
 		"env:activate": "wp-env run cli wp plugin activate tapbar-mobile-action-bar",
 		"env:install-tests": "wp-env run tests-cli --env-cwd=wp-content/plugins/tapbar-mobile-action-bar composer install",
-		"test:php": "wp-env run tests-cli --env-cwd=wp-content/plugins/tapbar-mobile-action-bar vendor/bin/phpunit"
+		"test:php": "wp-env run tests-cli --env-cwd=wp-content/plugins/tapbar-mobile-action-bar vendor/bin/phpunit",
+		"env:restart": "wp-env stop && wp-env start",
+		"env:rebuild": "node scripts/env-rebuild.js",
+		"test:fresh": "npm run env:rebuild && npm run env:install-tests && npm run test:php"
 	},
 	"devDependencies": {
 		"@wordpress/env": "^10.0.0"
