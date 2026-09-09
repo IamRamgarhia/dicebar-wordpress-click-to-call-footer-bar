@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="DiceBar: a WordPress footer bar on a phone showing click to call, chat, directions and share buttons" width="720">
+<img src=".github/banner.svg" alt="DiceBar: a WordPress footer bar on a phone showing click to call, chat, directions and share buttons" width="720">
 
 # DiceBar — Mobile Bottom Bar &amp; Click to Call Button for WordPress
 
