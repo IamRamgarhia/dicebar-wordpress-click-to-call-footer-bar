@@ -186,38 +186,6 @@ class DiceBar_Sanitize {
 	}
 
 	/**
-	 * Custom CSS with the constructs that can execute script removed.
-	 *
-	 * Matches are removed rather than the whole value rejected: one mistyped
-	 * rule should not silently discard a page of working CSS.
-	 *
-	 * @param mixed $value Untrusted value.
-	 * @return string
-	 */
-	public static function css( $value ) {
-		if ( ! is_string( $value ) ) {
-			return '';
-		}
-
-		$value = wp_strip_all_tags( wp_unslash( $value ) );
-
-		$forbidden = array(
-			'#<\s*/?\s*style#i',
-			'#@\s*import#i',
-			'#javascript\s*:#i',
-			'#expression\s*\(#i',
-			'#behaviou?r\s*:#i',
-			'#-moz-binding#i',
-		);
-
-		foreach ( $forbidden as $pattern ) {
-			$value = preg_replace( $pattern, '', $value );
-		}
-
-		return trim( $value );
-	}
-
-	/**
 	 * A list of positive integer ids.
 	 *
 	 * @param mixed $value Untrusted list.
@@ -511,7 +479,6 @@ class DiceBar_Sanitize {
 				'scheme'      => self::choice( self::pick( $style, 'scheme', 'light' ), array( 'system', 'light', 'dark', 'off' ), 'light' ),
 				'light'       => self::palette( self::group( $style, 'light' ), $defaults['style']['light'] ),
 				'dark'        => self::palette( self::group( $style, 'dark' ), $defaults['style']['dark'] ),
-				'custom_css'  => self::css( self::pick( $style, 'custom_css', '' ) ),
 			),
 
 			'items'                   => self::items( self::pick( $value, 'items', array() ) ),

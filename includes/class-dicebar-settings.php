@@ -131,7 +131,6 @@ class DiceBar_Settings {
 					'bold_bg'    => '#0a84ff',
 					'divider'    => 'rgba(255,255,255,0.16)',
 				),
-				'custom_css'  => '',
 			),
 
 			'items'                   => array(),

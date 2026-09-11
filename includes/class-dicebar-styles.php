@@ -35,9 +35,7 @@ class DiceBar_Styles {
 	public static function css() {
 		$settings = DiceBar_Settings::get();
 
-		$css = self::variables( $settings )
-			. self::device_queries( $settings )
-			. self::custom( $settings );
+		$css = self::variables( $settings ) . self::device_queries( $settings );
 
 		// Stripping tags across the whole sheet is the last line of defence:
 		// no value reaching here can close a style element and open a script.
@@ -147,15 +145,5 @@ class DiceBar_Styles {
 			. '}';
 
 		return $css;
-	}
-
-	/**
-	 * The administrator's own CSS, already filtered by the sanitiser.
-	 *
-	 * @param array $settings The configuration.
-	 * @return string
-	 */
-	private static function custom( array $settings ) {
-		return $settings['style']['custom_css'];
 	}
 }

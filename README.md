@@ -14,7 +14,7 @@
 
 <br><br>
 
-[![Version](https://img.shields.io/badge/version-1.6.0-2563eb?style=flat-square)](https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/releases)
+[![Version](https://img.shields.io/badge/version-1.8.0-2563eb?style=flat-square)](https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/releases)
 [![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-21759b?style=flat-square)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-GPL--2.0--or--later-3fb950?style=flat-square)](LICENSE)
@@ -232,8 +232,8 @@ add_filter( 'dicebar_item_types', function ( $types ) {
 } );
 ```
 
-Every value is also a CSS custom property on the wrapper, so a theme can override
-anything without an `!important`:
+Every value is a CSS custom property on the wrapper, so your theme can override
+any of them without an `!important`. The plugin stores no CSS of its own:
 
 ```css
 .dicebar {

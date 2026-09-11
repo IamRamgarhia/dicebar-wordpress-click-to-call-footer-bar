@@ -558,14 +558,6 @@ $dicebar_user_choices = array(
 							<p class="dicebarui__help"><?php esc_html_e( 'Light is the default because most themes are light only. Following the visitor setting puts a dark bar on a light page for anyone whose phone is in dark mode, which looks like a mistake. Choose it if your theme has a dark mode of its own.', 'dicebar' ); ?></p>
 						</div>
 					</div>
-
-					<div class="dicebarui__row">
-						<div class="dicebarui__row-label"><?php esc_html_e( 'Your own CSS', 'dicebar' ); ?></div>
-						<div class="dicebarui__row-field">
-							<textarea name="dicebar[style][custom_css]" rows="6" class="dicebarui__code" spellcheck="false"><?php echo esc_textarea( $settings['style']['custom_css'] ); ?></textarea>
-							<p class="dicebarui__help"><?php esc_html_e( 'Everything is a custom property on the .dicebar element, so you can override anything without fighting the plugin.', 'dicebar' ); ?></p>
-						</div>
-					</div>
 				</div>
 			</div>
 		</section>

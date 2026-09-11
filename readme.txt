@@ -4,7 +4,7 @@ Tags: click to call, call now button, footer bar, floating button, mobile menu
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.7.0
+Stable tag: 1.8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,8 +17,8 @@ bar, holding the buttons your visitors actually need: a **click to call button**
 a **WhatsApp chat button**, directions, email, social media icons, or a link to
 anywhere on your site.
 
-It is the simplest way to add a **call now button** to WordPress without touching
-a theme file, and it works with every theme and every page builder.
+You can add a **call now button** without touching a theme file, and it works
+with every theme and every page builder.
 
 Most people arrive on a phone. On a phone, a phone number in the footer is four
 scrolls away, and a contact form is a wall. A bottom bar puts the action under
@@ -108,7 +108,7 @@ Built and maintained by [Dice Codes](https://dicecodes.com/).
 == Installation ==
 
 1. Install and activate the plugin.
-2. Open **Mobile Bottom Bar** in your dashboard menu.
+2. Open **DiceBar** in your dashboard menu.
 3. Pick a starter kit, or add items yourself.
 4. Fill in your phone number and links, then save.
 5. Look at your site on a phone.
@@ -172,6 +172,10 @@ entirely your own code's business.
 5. Choosing where the bar appears.
 
 == Changelog ==
+
+= 1.8.0 =
+* Removed the custom CSS field. Every value it reached is a named control on the Design tab, and a theme can still override any of them through the custom properties on the bar's wrapper.
+* Reworded the description and corrected the menu name in the install steps.
 
 = 1.7.0 =
 * The colour scheme now defaults to light rather than following the visitor's device. Most themes are light only, so a visitor with dark mode on was getting a dark bar on a light page. Following the device is still an option for themes that have their own dark mode.
