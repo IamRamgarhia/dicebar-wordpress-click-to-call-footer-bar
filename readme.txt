@@ -1,10 +1,10 @@
 === DiceBar — Mobile Bottom Bar, Click to Call & Chat ===
 Contributors: dicecodes
-Tags: click to call, call now button, footer bar, floating button, mobile menu
+Tags: click to call, footer bar, mobile menu, bottom navigation, sticky bar
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.8.0
+Stable tag: 1.9.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,12 +46,16 @@ one-click starting point for a restaurant, a clinic or salon, a trade call-out,
 an online shop, a blog, a portfolio, and a row of social profiles. Everything
 stays editable afterwards.
 
-= Four looks, including a frosted glass bar =
+= Four looks, including a frosted glass dock =
 
-Glass is the frosted, floating panel a phone uses for its own bars, with an
-adjustable blur and see-through. Solid drops the translucency for busy
-photography. Minimal removes the panel entirely. Bold fills the bar in a colour
-you choose.
+If you are after an app-style or Apple-style dock at the bottom of the screen,
+that is the Glass look: a frosted, floating panel with an adjustable blur and
+see-through, the way a phone draws its own bars. Solid drops the translucency
+for busy photography. Minimal removes the panel entirely. Bold fills the bar in
+a colour you choose.
+
+Glassmorphism, a bottom dock, a frosted mobile footer bar: they are all the
+same thing, and the sliders for transparency and blur let you dial it in.
 
 Light and dark colour sets are set separately, so dark mode is what you decided
 rather than an automatic inversion of your brand colour.
@@ -157,6 +161,14 @@ Yes. Icons and words, icons only, or words only, applied to the whole bar. It is
 a whole-bar choice on purpose: an unlabelled icon centres itself while a
 labelled one lifts to make room, so mixing them leaves one mark sitting low.
 
+= Can I make an Apple-style glass dock at the bottom? =
+
+Yes, that is the Glass look on the Design tab, and it is the default. It is a
+frosted translucent panel with a blur behind it, floating clear of the screen
+edges. Transparency and blur strength are both sliders, so you can go from
+barely-there glass to nearly solid. The live preview stands it on a photograph,
+which is where a translucent bar is hardest to read.
+
 = Does it track my visitors? =
 
 No. Nothing is collected and nothing is sent anywhere. A tap fires an event in
@@ -172,6 +184,11 @@ entirely your own code's business.
 5. Choosing where the bar appears.
 
 == Changelog ==
+
+= 1.9.0 =
+* Description now uses the words people search for: bottom dock, glassmorphism, app-style and Apple-style glass bar. All of it describes the Glass look, which already existed.
+* Two FAQ entries answering how to get a frosted glass dock at the bottom.
+* Tags adjusted.
 
 = 1.8.0 =
 * Removed the custom CSS field. Every value it reached is a named control on the Design tab, and a theme can still override any of them through the custom properties on the bar's wrapper.

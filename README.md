@@ -172,6 +172,14 @@ rather than one button, because an unlabelled icon centres itself while a
 labelled one lifts to make room. Mixing them leaves one mark sitting lower than
 its neighbours for no reason anybody can see.
 
+### How do I get an Apple-style glass dock at the bottom?
+
+That is the Glass look on the Design tab, and it is the default. A frosted
+translucent panel with a blur behind it, floating clear of the screen edges,
+the way a phone draws its own bars. Transparency and blur strength are both
+sliders. Glassmorphism, a bottom dock and a frosted mobile footer bar all
+describe the same thing.
+
 ### Does DiceBar track visitors?
 
 No. Nothing is collected, nothing is sent anywhere, and the plugin contacts no
