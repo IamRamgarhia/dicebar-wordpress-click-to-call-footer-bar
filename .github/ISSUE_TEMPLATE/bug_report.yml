@@ -24,7 +24,7 @@ body:
     attributes:
       label: Versions
       description: DiceBar, WordPress and PHP.
-      placeholder: DiceBar 1.6.0, WordPress 6.8, PHP 8.2
+      placeholder: DiceBar 1.9.1, WordPress 7.1, PHP 8.2
     validations:
       required: true
   - type: input
