@@ -92,7 +92,8 @@ if ( fs.existsSync( path.join( svnRoot, 'tags', version ) ) ) {
 //    truth, so trunk only ever holds what users actually receive.
 const scratch = fs.mkdtempSync( path.join( os.tmpdir(), 'dicebar-svn-' ) );
 
-execFileSync( 'tar', [ '-xf', path.join( root, 'dist', SLUG + '.zip' ), '-C', scratch ] );
+// unzip, not tar: GNU tar (Git Bash, most Linux) cannot read zip archives.
+execFileSync( 'unzip', [ '-q', '-o', path.join( root, 'dist', SLUG + '.zip' ), '-d', scratch ] );
 
 const built = path.join( scratch, SLUG );
 const builtFiles = new Set( listFiles( built ) );
