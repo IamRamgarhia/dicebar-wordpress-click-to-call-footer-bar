@@ -14,7 +14,7 @@
 
 <br><br>
 
-[![Version](https://img.shields.io/badge/version-1.8.0-2563eb?style=flat-square)](https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/releases)
+[![Version](https://img.shields.io/badge/version-1.9.0-2563eb?style=flat-square)](https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/releases)
 [![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-21759b?style=flat-square)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-GPL--2.0--or--later-3fb950?style=flat-square)](LICENSE)

@@ -22,3 +22,4 @@ phpunit.xml.dist
 playwright.config.js
 /scripts
 /docs-site
+/svn
