@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       DiceBar — Mobile Bottom Bar, Click to Call & Chat
  * Description:       A sticky bottom bar for phones with click to call, chat, directions and social buttons. Works with any theme.
- * Version:           1.9.0
+ * Version:           1.9.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Plugin URI:        https://dicecodes.com/mobile-bottom-bar-wordpress-plugin/
@@ -20,13 +20,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'DICEBAR_VERSION', '1.9.0' );
+define( 'DICEBAR_VERSION', '1.9.1' );
 define( 'DICEBAR_MIN_PHP', '7.4' );
 define( 'DICEBAR_FILE', __FILE__ );
 define( 'DICEBAR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'DICEBAR_URL', plugin_dir_url( __FILE__ ) );
 define( 'DICEBAR_SCHEMA_VERSION', 1 );
 define( 'DICEBAR_DOCS', 'https://dicecodes.com/mobile-bottom-bar-wordpress-plugin/' );
+define( 'DICEBAR_WPORG', 'https://wordpress.org/plugins/dicebar/' );
+define( 'DICEBAR_SUPPORT', 'https://wordpress.org/support/plugin/dicebar/' );
 
 /**
  * Whether the running PHP version meets the plugin's floor.

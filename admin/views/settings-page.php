@@ -702,6 +702,18 @@ $dicebar_user_choices = array(
 					</div>
 
 					<div class="dicebarui__row">
+						<div class="dicebarui__row-label"><?php esc_html_e( 'Help and reviews', 'dicebar' ); ?></div>
+						<div class="dicebarui__row-field">
+							<p>
+								<a href="<?php echo esc_url( DICEBAR_SUPPORT ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Support forum', 'dicebar' ); ?></a>
+								&nbsp;·&nbsp;
+								<a href="<?php echo esc_url( DICEBAR_SUPPORT . 'reviews/#new-post' ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Leave a review', 'dicebar' ); ?></a>
+							</p>
+							<p class="dicebarui__help"><?php esc_html_e( 'If DiceBar is useful to you, a review on WordPress.org helps other people find it.', 'dicebar' ); ?></p>
+						</div>
+					</div>
+
+					<div class="dicebarui__row">
 						<div class="dicebarui__row-label"><?php esc_html_e( 'Elementor', 'dicebar' ); ?></div>
 						<div class="dicebarui__row-field">
 							<?php if ( did_action( 'elementor/loaded' ) ) : ?>

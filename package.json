@@ -1,6 +1,6 @@
 {
 	"name": "dicebar",
-	"version": "1.9.0",
+	"version": "1.9.1",
 	"description": "A bottom bar on phones and tablets holding whatever you put in it.",
 	"license": "GPL-2.0-or-later",
 	"private": true,
@@ -17,7 +17,7 @@
 		"build:zip": "node scripts/build-zip.js",
 		"verify:zip": "wp-env run cli --env-cwd=wp-content/plugins/dicebar wp eval-file scripts/verify-package.php",
 		"version:set": "node scripts/set-version.js",
-		"check": "wp-env run cli wp plugin check dicebar --exclude-directories=dist,scripts,tests,docs,node_modules,vendor,.superpowers,.github --exclude-files=phpcs.xml.dist,phpunit.xml.dist,.wp-env.json,jest.config.js,playwright.config.js,package.json,package-lock.json,composer.json,composer.lock,.distignore,.gitignore,.phpunit.result.cache",
+		"check": "wp-env run cli wp plugin check dicebar --exclude-directories=dist,scripts,tests,docs,docs-site,svn,node_modules,vendor,.superpowers,.github,.wordpress-org --exclude-files=phpcs.xml.dist,phpunit.xml.dist,.wp-env.json,jest.config.js,playwright.config.js,package.json,package-lock.json,composer.json,composer.lock,.distignore,.gitignore,.phpunit.result.cache",
 		"svn:release": "node scripts/svn-release.js"
 	},
 	"devDependencies": {

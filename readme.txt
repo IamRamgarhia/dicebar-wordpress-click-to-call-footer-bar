@@ -4,7 +4,7 @@ Tags: click to call, footer bar, mobile menu, bottom navigation, sticky bar
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,14 +48,11 @@ stays editable afterwards.
 
 = Four looks, including a frosted glass dock =
 
-If you are after an app-style or Apple-style dock at the bottom of the screen,
-that is the Glass look: a frosted, floating panel with an adjustable blur and
-see-through, the way a phone draws its own bars. Solid drops the translucency
-for busy photography. Minimal removes the panel entirely. Bold fills the bar in
-a colour you choose.
-
-Glassmorphism, a bottom dock, a frosted mobile footer bar: they are all the
-same thing, and the sliders for transparency and blur let you dial it in.
+Glass, the default, is a frosted panel floating clear of the screen edges, much
+like the dock at the bottom of a phone. Sliders set how see-through it is and
+how strongly it blurs what sits behind it. Solid drops the translucency for busy
+photography. Minimal removes the panel entirely. Bold fills the bar in a colour
+you choose.
 
 Light and dark colour sets are set separately, so dark mode is what you decided
 rather than an automatic inversion of your brand colour.
@@ -185,8 +182,12 @@ entirely your own code's business.
 
 == Changelog ==
 
+= 1.9.1 =
+* The plugins screen now links to the plugin's directory page, support forum and reviews.
+* Description tidied.
+
 = 1.9.0 =
-* Description now uses the words people search for: bottom dock, glassmorphism, app-style and Apple-style glass bar. All of it describes the Glass look, which already existed.
+* The description explains the Glass look in more detail.
 * Two FAQ entries answering how to get a frosted glass dock at the bottom.
 * Tags adjusted.
 

@@ -38,6 +38,7 @@ class DiceBar_Admin {
 		add_action( 'admin_post_dicebar_save', array( __CLASS__, 'handle_save' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( DICEBAR_FILE ), array( __CLASS__, 'action_links' ) );
+		add_filter( 'plugin_row_meta', array( __CLASS__, 'row_meta' ), 10, 2 );
 	}
 
 	/**
@@ -112,6 +113,37 @@ class DiceBar_Admin {
 		array_unshift( $links, $settings, $docs );
 
 		return $links;
+	}
+
+	/**
+	 * Directory, support and review links under the plugin's description.
+	 *
+	 * @param array  $links Existing meta links.
+	 * @param string $file  Plugin file the row belongs to.
+	 * @return array
+	 */
+	public static function row_meta( $links, $file ) {
+		if ( plugin_basename( DICEBAR_FILE ) !== $file ) {
+			return $links;
+		}
+
+		$targets = array(
+			DICEBAR_WPORG                         => __( 'WordPress.org page', 'dicebar' ),
+			DICEBAR_SUPPORT                       => __( 'Support', 'dicebar' ),
+			DICEBAR_SUPPORT . 'reviews/#new-post' => __( 'Leave a review', 'dicebar' ),
+		);
+
+		$extra = array();
+
+		foreach ( $targets as $url => $label ) {
+			$extra[] = sprintf(
+				'<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>',
+				esc_url( $url ),
+				esc_html( $label )
+			);
+		}
+
+		return array_merge( $links, $extra );
 	}
 
 	/**

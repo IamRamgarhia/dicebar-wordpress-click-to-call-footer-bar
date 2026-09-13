@@ -8,21 +8,24 @@
 
 <br>
 
-<a href="https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/releases/latest/download/dicebar.zip"><img src=".github/download.svg" alt="Download DiceBar, the latest release" width="300"></a>
+<a href="https://downloads.wordpress.org/plugin/dicebar.latest-stable.zip"><img src=".github/download.svg" alt="Download DiceBar, the latest version from WordPress.org" width="300"></a>
 &nbsp;
 <a href="https://dicecodes.com/mobile-bottom-bar-wordpress-plugin/"><img src=".github/docs.svg" alt="Read the DiceBar documentation" width="220"></a>
 
 <br><br>
 
-[![Version](https://img.shields.io/badge/version-1.9.0-2563eb?style=flat-square)](https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/releases)
+[![WordPress.org](https://img.shields.io/wordpress/plugin/v/dicebar?style=flat-square&label=WordPress.org&color=2563eb)](https://wordpress.org/plugins/dicebar/)
+[![Active installs](https://img.shields.io/wordpress/plugin/installs/dicebar?style=flat-square)](https://wordpress.org/plugins/dicebar/)
+[![Rating](https://img.shields.io/wordpress/plugin/stars/dicebar?style=flat-square)](https://wordpress.org/support/plugin/dicebar/reviews/)
 [![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-21759b?style=flat-square)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-GPL--2.0--or--later-3fb950?style=flat-square)](LICENSE)
 [![Plugin Check](https://img.shields.io/badge/Plugin%20Check-passing-3fb950?style=flat-square)](https://wordpress.org/plugins/plugin-check/)
 
+**[DiceBar on WordPress.org](https://wordpress.org/plugins/dicebar/)** ·
 **[Documentation](https://dicecodes.com/mobile-bottom-bar-wordpress-plugin/)** ·
-[Report a bug](https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/issues) ·
-[Releases](https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/releases)
+[Support forum](https://wordpress.org/support/plugin/dicebar/) ·
+[Report a bug](https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/issues)
 
 </div>
 
@@ -62,9 +65,8 @@ advert in your dashboard, and no tracking of any kind.
 ## Installing
 
 From your dashboard, go to **Plugins**, then **Add New**, and search for
-**DiceBar**. Or download the archive from
-[the latest release](https://github.com/IamRamgarhia/dicebar-wordpress-click-to-call-footer-bar/releases/latest) and
-upload it.
+**DiceBar**. Or download it from
+[DiceBar on WordPress.org](https://wordpress.org/plugins/dicebar/) and upload it.
 
 With WP-CLI:
 
@@ -177,8 +179,7 @@ its neighbours for no reason anybody can see.
 That is the Glass look on the Design tab, and it is the default. A frosted
 translucent panel with a blur behind it, floating clear of the screen edges,
 the way a phone draws its own bars. Transparency and blur strength are both
-sliders. Glassmorphism, a bottom dock and a frosted mobile footer bar all
-describe the same thing.
+sliders.
 
 ### Does DiceBar track visitors?
 
