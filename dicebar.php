@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       DiceBar — Mobile Bottom Bar, Click to Call & Chat
  * Description:       A sticky bottom bar for phones with click to call, chat, directions and social buttons. Works with any theme.
- * Version:           1.9.1
+ * Version:           1.11.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Plugin URI:        https://dicecodes.com/mobile-bottom-bar-wordpress-plugin/
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'DICEBAR_VERSION', '1.9.1' );
+define( 'DICEBAR_VERSION', '1.11.0' );
 define( 'DICEBAR_MIN_PHP', '7.4' );
 define( 'DICEBAR_FILE', __FILE__ );
 define( 'DICEBAR_PATH', plugin_dir_path( __FILE__ ) );
@@ -75,6 +75,7 @@ require_once DICEBAR_PATH . 'includes/class-dicebar-render.php';
 require_once DICEBAR_PATH . 'includes/class-dicebar-assets.php';
 require_once DICEBAR_PATH . 'includes/class-dicebar-presets.php';
 require_once DICEBAR_PATH . 'includes/class-dicebar-shortcode.php';
+require_once DICEBAR_PATH . 'includes/class-dicebar-block.php';
 
 if ( is_admin() ) {
 	require_once DICEBAR_PATH . 'admin/class-dicebar-admin.php';
@@ -83,6 +84,10 @@ if ( is_admin() ) {
 
 add_action( 'init', array( 'DiceBar_Settings', 'register' ) );
 add_action( 'init', array( 'DiceBar_Shortcode', 'register' ) );
+
+// register() only adds its own init hook, so this is registered the same way
+// as the rest and the block lands on init like every other block.
+DiceBar_Block::register();
 add_action( 'wp_enqueue_scripts', array( 'DiceBar_Assets', 'enqueue' ) );
 add_filter( 'script_loader_tag', array( 'DiceBar_Assets', 'protect_script' ), 10, 2 );
 

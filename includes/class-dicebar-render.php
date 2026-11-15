@@ -138,8 +138,32 @@ class DiceBar_Render {
 
 		$markup = '';
 
+		// Past four items a label has nowhere to go: at 320 pixels wide it is
+		// cut short rather than shrinking. So the bar drops to icons only,
+		// whatever the label setting says.
+		//
+		// Asked per screen, because an item can now be desktop-only: three
+		// buttons on a phone and six on a desktop is the point of that, and a
+		// single yes-or-no would have dropped the phone's labels because of
+		// items the phone never shows.
+		//
+		// Fitting everywhere means labels and no aria-label: the visible text
+		// is the accessible name. Fitting nowhere means no labels and an
+		// aria-label on every item.
+		//
+		// Fitting on some screens and not others means both: the labels go in
+		// the markup, DiceBar_Styles hides them at the widths where they do
+		// not fit, and the aria-label is what is left there -- display:none
+		// takes a label out of the accessibility tree as well as off the
+		// screen, so without it those items would have no name at exactly
+		// those widths.
+		$fits        = self::labels_fit_per_screen( $settings );
+		$fits_any    = (bool) array_filter( $fits );
+		$fits_all    = ! in_array( false, $fits, true );
+		$name_needed = ! $fits_all;
+
 		foreach ( $items as $item ) {
-			$markup .= self::item( $item, $settings );
+			$markup .= self::item( $item, $settings, $fits_any, $name_needed );
 		}
 
 		return sprintf(
@@ -213,18 +237,96 @@ class DiceBar_Render {
 	}
 
 	/**
+	 * How many items show on each screen.
+	 *
+	 * An item's own rule wins where it has one; `inherit` means it shows
+	 * wherever the bar does. Both are measured against the same
+	 * DiceBar_Sanitize::shows_on(), so this cannot drift from the stylesheet.
+	 *
+	 * @param array $settings The configuration.
+	 * @return array Screen name => how many items show there.
+	 */
+	public static function items_per_screen( array $settings ) {
+		$items = self::visible_items( $settings );
+		$bar   = $settings['display']['devices'];
+		$out   = array();
+
+		foreach ( DiceBar_Sanitize::SCREENS as $screen ) {
+			$count = 0;
+
+			foreach ( $items as $item ) {
+				$rule = $item['show']['devices'];
+
+				if ( 'inherit' === $rule ) {
+					$rule = $bar;
+				} elseif ( ! DiceBar_Sanitize::shows_on( $bar, $screen ) ) {
+					// The bar is not on this screen, so nothing on it is,
+					// whatever the item asked for.
+					continue;
+				}
+
+				if ( DiceBar_Sanitize::shows_on( $rule, $screen ) ) {
+					++$count;
+				}
+			}
+
+			$out[ $screen ] = $count;
+		}
+
+		return $out;
+	}
+
+	/**
+	 * Whether labels fit on each screen that shows anything.
+	 *
+	 * Screens showing no items are left out rather than counted as fitting.
+	 * Counting them was the first version, and it was wrong in a way the
+	 * tests caught: a bar set to phones and tablets shows nothing on a
+	 * desktop, that empty desktop answered "the labels fit here", and five
+	 * items on a phone kept their labels on the strength of a screen the bar
+	 * never appears on.
+	 *
+	 * Leaving the screen out instead means no label rule is written for it,
+	 * which is right -- the bar is not there to need one.
+	 *
+	 * @param array $settings The configuration.
+	 * @return array Screen name => bool, for the screens that show items.
+	 */
+	public static function labels_fit_per_screen( array $settings ) {
+		$out = array();
+
+		foreach ( self::items_per_screen( $settings ) as $screen => $count ) {
+			if ( $count < 1 ) {
+				continue;
+			}
+
+			$out[ $screen ] = $count <= DiceBar_Sanitize::LABELS_FIT;
+		}
+
+		return $out;
+	}
+
+	/**
 	 * One item.
 	 *
-	 * @param array $item     Sanitised item with its href resolved.
+	 * @param array $item        Sanitised item with its href resolved.
 	 * @param array $settings The configuration.
+	 * @param bool  $labels_fit  Whether labels fit on any screen this bar shows on.
+	 * @param bool  $name_needed Whether the label is hidden at some widths, so the
+	 *                           item needs an aria-label as well as its text.
 	 * @return string
 	 */
-	private static function item( array $item, array $settings ) {
+	private static function item( array $item, array $settings, $labels_fit = true, $name_needed = false ) {
 		$label      = '' !== $item['label'] ? $item['label'] : self::default_label( $item );
 		$mode       = $settings['style']['label']['mode'];
-		$show_label = 'icon' !== $mode;
-		$show_icon  = 'label' !== $mode;
-		$icon       = $show_icon ? DiceBar_Icons::render( $item['icon'] ) : '';
+		$show_label = 'icon' !== $mode && $labels_fit;
+
+		// An icon is what is left when the label goes, so a bar set to labels
+		// only still has something to show once there are too many of them.
+		// Kept on whenever the label might be hidden at some width, or that
+		// bar would be empty on a desktop and full on a phone.
+		$show_icon = 'label' !== $mode || ! $labels_fit || $name_needed;
+		$icon      = $show_icon ? DiceBar_Icons::render( $item['icon'] ) : '';
 
 		$classes = array( 'dicebar__item' );
 
@@ -267,9 +369,18 @@ class DiceBar_Render {
 		}
 
 		// An icon-only item has no visible text, so it needs an accessible
-		// name. A labelled one already has one and must not have both, or a
-		// screen reader announces it twice.
-		if ( ! $show_label ) {
+		// name of its own.
+		//
+		// A labelled item normally takes its name from that text and gets no
+		// aria-label, because two sources of the same name is a smell even
+		// where it is harmless. The exception is a label the stylesheet hides
+		// at some widths: there, the visible text is gone from the
+		// accessibility tree on those screens and the aria-label is the only
+		// name left. It carries exactly the label's own words, which is what
+		// WCAG 2.5.3 asks of a name that sits over visible text -- and
+		// aria-label replaces the name rather than adding to it, so nothing
+		// is announced twice.
+		if ( ! $show_label || $name_needed ) {
 			$attributes .= sprintf( ' aria-label="%s"', esc_attr( $label ) );
 		}
 

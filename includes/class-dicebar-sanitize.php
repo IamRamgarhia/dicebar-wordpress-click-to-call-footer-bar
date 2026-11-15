@@ -27,6 +27,94 @@ class DiceBar_Sanitize {
 	const ALLOWED_SCHEMES = array( 'http', 'https', 'tel', 'mailto', 'sms' );
 
 	/**
+	 * How many items a bar may hold.
+	 *
+	 * Four used to be the limit, because at 320 pixels wide a fifth item
+	 * clips its label rather than shrinking. That reasoning was about labels,
+	 * not about items: past four the bar drops its labels and shows icons
+	 * only, which is what DiceBar_Render marks with the `dicebar--tight`
+	 * class, so nothing clips and a row of social icons fits.
+	 *
+	 * Eight because 320 / 8 is 40 pixels an item, which still holds a
+	 * 24-pixel icon with room either side to tap. A ninth would not.
+	 */
+	const MAX_ITEMS = 8;
+
+	/**
+	 * Items past which the bar shows icons only.
+	 */
+	const LABELS_FIT = 4;
+
+	/**
+	 * The three screen sizes, narrowest first.
+	 *
+	 * Phone is up to phone_max, tablet up to breakpoint, desktop above it.
+	 */
+	const SCREENS = array( 'phone', 'tablet', 'desktop' );
+
+	/**
+	 * Where a single item may show.
+	 *
+	 * Every option here used to narrow downwards -- phones only, phones and
+	 * tablets, everywhere -- which left no way to say "and one more once
+	 * there is room for it". tablet_up, tablet and desktop are the other
+	 * direction, so a bar can carry three buttons on a phone and six on a
+	 * desktop without two bars or a shortcode per template.
+	 */
+	const ITEM_DEVICES = array( 'inherit', 'phone', 'phone_tablet', 'tablet', 'tablet_up', 'desktop', 'all' );
+
+	/**
+	 * Where the bar as a whole may show.
+	 *
+	 * Same vocabulary as an item, without `inherit`: there is nothing above
+	 * the bar for it to inherit from.
+	 */
+	const BAR_DEVICES = array( 'phone', 'phone_tablet', 'tablet', 'tablet_up', 'desktop', 'all' );
+
+	/**
+	 * Whether one device rule shows on one screen.
+	 *
+	 * The single answer to "does this show here", so the stylesheet, the
+	 * label arithmetic and the preview cannot disagree about it.
+	 *
+	 * @param string $rule   A value from ITEM_DEVICES or BAR_DEVICES.
+	 * @param string $screen One of SCREENS.
+	 * @return bool
+	 */
+	public static function shows_on( $rule, $screen ) {
+		$map = self::device_map();
+
+		// `inherit` is the item saying "whatever the bar does", and the bar's
+		// own rule has already been applied by the time anything asks.
+		if ( ! isset( $map[ $rule ] ) ) {
+			return true;
+		}
+
+		return in_array( $screen, $map[ $rule ], true );
+	}
+
+	/**
+	 * Which screens each device rule covers.
+	 *
+	 * Public because the settings screen's preview has to answer the same
+	 * question in the browser, and a second copy of this table written in
+	 * JavaScript is a second copy to get wrong. The preview is handed this
+	 * one.
+	 *
+	 * @return array Rule => screens.
+	 */
+	public static function device_map() {
+		return array(
+			'phone'        => array( 'phone' ),
+			'phone_tablet' => array( 'phone', 'tablet' ),
+			'tablet'       => array( 'tablet' ),
+			'tablet_up'    => array( 'tablet', 'desktop' ),
+			'desktop'      => array( 'desktop' ),
+			'all'          => array( 'phone', 'tablet', 'desktop' ),
+		);
+	}
+
+	/**
 	 * An integer inside a range, or the fallback.
 	 *
 	 * Out of range falls back rather than clamping, because a clamped value
@@ -267,7 +355,7 @@ class DiceBar_Sanitize {
 			'show'    => array(
 				'devices' => self::choice(
 					isset( $show['devices'] ) ? $show['devices'] : 'inherit',
-					array( 'inherit', 'phone', 'phone_tablet', 'all' ),
+					self::ITEM_DEVICES,
 					'inherit'
 				),
 				'users'   => self::choice(
@@ -362,11 +450,13 @@ class DiceBar_Sanitize {
 	 * @param int   $max   Maximum number of items to keep.
 	 * @return array
 	 */
-	public static function items( $value, $max = 4 ) {
+	public static function items( $value, $max = null ) {
 		if ( ! is_array( $value ) ) {
 			return array();
 		}
 
+		$max   = ( null === $max ) ? self::MAX_ITEMS : (int) $max;
+		$value = self::in_position_order( $value );
 		$clean = array();
 		$seen  = array();
 
@@ -390,6 +480,47 @@ class DiceBar_Sanitize {
 		}
 
 		return $clean;
+	}
+
+	/**
+	 * Put items in the order the position fields ask for.
+	 *
+	 * The screen offers both: drag a row, or pick its number from a select.
+	 * Dragging renumbers the selects in the browser; the selects are what
+	 * actually travels, so the order survives with JavaScript switched off,
+	 * on a touch screen where there is nothing to drag, and for anyone
+	 * driving the form from the keyboard.
+	 *
+	 * A stable sort, so two rows claiming the same number keep the order they
+	 * arrived in rather than swapping on every save. Rows with no position at
+	 * all sort last, which is where a newly added one belongs.
+	 *
+	 * @param array $value Untrusted items.
+	 * @return array
+	 */
+	private static function in_position_order( array $value ) {
+		$ordered = array();
+		$i       = 0;
+
+		foreach ( $value as $raw ) {
+			$at = ( is_array( $raw ) && isset( $raw['position'] ) && is_numeric( $raw['position'] ) )
+				? (int) $raw['position']
+				: PHP_INT_MAX;
+
+			// The arrival index is the tie-break, which is what makes this
+			// stable: usort() in PHP is not.
+			$ordered[] = array( $at, $i, $raw );
+			++$i;
+		}
+
+		usort(
+			$ordered,
+			static function ( $a, $b ) {
+				return ( $a[0] === $b[0] ) ? ( $a[1] <=> $b[1] ) : ( $a[0] <=> $b[0] );
+			}
+		);
+
+		return wp_list_pluck( $ordered, 2 );
 	}
 
 	/**
@@ -423,7 +554,7 @@ class DiceBar_Sanitize {
 			'display'                 => array(
 				'devices'    => self::choice(
 					self::pick( $display, 'devices', $defaults['display']['devices'] ),
-					array( 'phone', 'phone_tablet', 'all' ),
+					self::BAR_DEVICES,
 					$defaults['display']['devices']
 				),
 				'breakpoint' => self::int_in_range( self::pick( $display, 'breakpoint', 1023 ), 320, 2560, 1023 ),

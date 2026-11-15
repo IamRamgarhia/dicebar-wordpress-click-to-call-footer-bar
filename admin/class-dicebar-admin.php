@@ -70,7 +70,7 @@ class DiceBar_Admin {
 		return array(
 			'items'     => array(
 				'label' => __( 'Items', 'dicebar' ),
-				'blurb' => __( 'What sits in the bar. Four is the most that fits.', 'dicebar' ),
+				'blurb' => __( 'What sits in the bar. Eight is the most that fits, and past four it shows icons only.', 'dicebar' ),
 			),
 			'design'    => array(
 				'label' => __( 'Design', 'dicebar' ),
@@ -168,14 +168,19 @@ class DiceBar_Admin {
 			'dicebar-admin',
 			'dicebarAdmin',
 			array(
-				'maxItems'    => 4,
+				'maxItems'    => DiceBar_Sanitize::MAX_ITEMS,
+				'labelsFit'   => DiceBar_Sanitize::LABELS_FIT,
+				'deviceMap'   => DiceBar_Sanitize::device_map(),
+				'screens'     => DiceBar_Sanitize::SCREENS,
 				'types'       => self::types_for_script(),
 				'icons'       => DiceBar_Icons::names(),
 				'brands'      => DiceBar_Icons::brand_names(),
 				'brandColors' => DiceBar_Icons::brand_colors(),
 				'presets'     => DiceBar_Presets::for_script(),
 				'strings'     => array(
-					'full'         => __( 'Four items is the most that fits. At 320 pixels wide a fifth one clips its label.', 'dicebar' ),
+					'full'         => __( 'Eight items is the most that fits. At 320 pixels wide a ninth leaves too little to tap.', 'dicebar' ),
+					'tight'        => __( 'Past four items the bar shows icons only, so no label is cut short.', 'dicebar' ),
+					'position'     => __( 'Position', 'dicebar' ),
 					'confirm'      => __( 'Remove this item?', 'dicebar' ),
 					'untitled'     => __( 'New item', 'dicebar' ),
 					'newId'        => __( 'Saved when you save', 'dicebar' ),
@@ -194,14 +199,13 @@ class DiceBar_Admin {
 					'less'         => __( 'Hide advanced options', 'dicebar' ),
 					'previewEmpty' => __( 'Add an item to see it here.', 'dicebar' ),
 					'previewTight' => __( 'That word is long for this many buttons. On a narrow phone it will be cut short. Try a shorter word, one item fewer, or icons only.', 'dicebar' ),
+					'previewOff'   => __( 'The bar does not show on this screen. Change "Show the bar on" to include it.', 'dicebar' ),
+					'previewIcons' => __( 'More than four buttons here, so this screen shows icons only.', 'dicebar' ),
+					/* translators: %d: how many buttons show on the screen being previewed. */
+					'previewCount' => __( '%d on this screen', 'dicebar' ),
 				),
 				'choices'     => array(
-					'devices' => array(
-						'inherit'      => __( 'Whatever the bar does', 'dicebar' ),
-						'phone'        => __( 'Phones only', 'dicebar' ),
-						'phone_tablet' => __( 'Phones and tablets', 'dicebar' ),
-						'all'          => __( 'Every screen', 'dicebar' ),
-					),
+					'devices' => self::item_device_choices(),
 					'users'   => array(
 						'inherit' => __( 'Whatever the bar does', 'dicebar' ),
 						'all'     => __( 'Everyone', 'dicebar' ),
@@ -289,6 +293,42 @@ class DiceBar_Admin {
 		);
 
 		exit;
+	}
+
+	/**
+	 * What to call each place an item can show.
+	 *
+	 * Narrowest first, then the two that widen rather than narrow. Kept here
+	 * rather than written out at each of the three places that used to list
+	 * them, because three copies is how two of them end up disagreeing.
+	 *
+	 * @return array Value => label.
+	 */
+	public static function item_device_choices() {
+		return array(
+			'inherit'      => __( 'Whatever the bar does', 'dicebar' ),
+			'phone'        => __( 'Phones only', 'dicebar' ),
+			'phone_tablet' => __( 'Phones and tablets', 'dicebar' ),
+			'tablet'       => __( 'Tablets only', 'dicebar' ),
+			'tablet_up'    => __( 'Tablets and desktops', 'dicebar' ),
+			'desktop'      => __( 'Desktops only', 'dicebar' ),
+			'all'          => __( 'Every screen', 'dicebar' ),
+		);
+	}
+
+	/**
+	 * The same, for the bar as a whole.
+	 *
+	 * Without `inherit`: there is nothing above the bar to inherit from.
+	 *
+	 * @return array Value => label.
+	 */
+	public static function bar_device_choices() {
+		$out = self::item_device_choices();
+
+		unset( $out['inherit'] );
+
+		return $out;
 	}
 
 	/**

@@ -37,13 +37,19 @@
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="dicebar"/>
+			<property name="text_domain" type="array">
+				<element value="dicebar"/>
+			</property>
 		</properties>
 	</rule>
 
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
-			<property name="prefixes" type="array" value="dicebar,TBar,TBAR"/>
+			<property name="prefixes" type="array">
+				<element value="dicebar"/>
+				<element value="TBar"/>
+				<element value="TBAR"/>
+			</property>
 		</properties>
 	</rule>
 </ruleset>

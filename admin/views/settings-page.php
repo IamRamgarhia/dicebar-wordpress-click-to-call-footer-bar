@@ -27,12 +27,7 @@ foreach ( $types as $dicebar_slug => $dicebar_type ) {
 	$dicebar_type_choices[ $dicebar_slug ] = $dicebar_type['label'];
 }
 
-$dicebar_device_choices = array(
-	'inherit'      => __( 'Whatever the bar does', 'dicebar' ),
-	'phone'        => __( 'Phones only', 'dicebar' ),
-	'phone_tablet' => __( 'Phones and tablets', 'dicebar' ),
-	'all'          => __( 'Every screen', 'dicebar' ),
-);
+$dicebar_device_choices = DiceBar_Admin::item_device_choices();
 
 $dicebar_user_choices = array(
 	'inherit' => __( 'Whatever the bar does', 'dicebar' ),
@@ -130,7 +125,7 @@ $dicebar_user_choices = array(
 				<div class="dicebarui__card-head">
 					<h2><?php esc_html_e( 'What goes in the bar', 'dicebar' ); ?></h2>
 					<p class="dicebarui__panel-note"><?php echo esc_html( $tabs['items']['blurb'] ); ?></p>
-					<p><?php esc_html_e( 'Drag to reorder. Four is the most that fits: at 320 pixels wide a fifth item clips its label rather than shrinking.', 'dicebar' ); ?></p>
+					<p><?php esc_html_e( 'Drag a row to reorder it, or pick its number. Eight is the most that fits. Past four the bar shows icons only, so no label is cut short.', 'dicebar' ); ?></p>
 				</div>
 
 				<div class="dicebarui__kits">
@@ -149,6 +144,17 @@ $dicebar_user_choices = array(
 					</div>
 				</div>
 
+				<?php
+				// One entry per slot the bar can hold, so a row can be moved
+				// without dragging it: a touch screen has nothing to drag, and
+				// a keyboard cannot drag at all.
+				$dicebar_positions = array();
+
+				for ( $dicebar_slot = 1; $dicebar_slot <= DiceBar_Sanitize::MAX_ITEMS; $dicebar_slot++ ) {
+					$dicebar_positions[ (string) $dicebar_slot ] = (string) $dicebar_slot;
+				}
+				?>
+
 				<div id="dicebar-items" class="dicebarui__items">
 					<?php foreach ( $settings['items'] as $dicebar_index => $dicebar_item ) : ?>
 						<div class="dicebarui__item" data-index="<?php echo esc_attr( $dicebar_index ); ?>" draggable="true">
@@ -157,6 +163,17 @@ $dicebar_user_choices = array(
 								<strong class="dicebarui__item-title">
 									<?php echo esc_html( '' !== $dicebar_item['label'] ? $dicebar_item['label'] : $dicebar_type_choices[ $dicebar_item['type'] ] ); ?>
 								</strong>
+								<label class="dicebarui__position">
+									<span class="screen-reader-text"><?php esc_html_e( 'Position', 'dicebar' ); ?></span>
+									<?php
+									DiceBar_Admin::select(
+										'dicebar[items][' . $dicebar_index . '][position]',
+										$dicebar_positions,
+										(string) ( $dicebar_index + 1 )
+									);
+									?>
+								</label>
+
 								<code class="dicebarui__item-id"><?php echo esc_html( $dicebar_item['id'] ); ?></code>
 								<button type="button" class="dicebarui__remove" aria-label="<?php esc_attr_e( 'Remove this item', 'dicebar' ); ?>">
 									<?php esc_html_e( 'Remove', 'dicebar' ); ?>
@@ -231,7 +248,7 @@ $dicebar_user_choices = array(
 
 				<div class="dicebarui__empty"<?php echo $settings['items'] ? ' hidden' : ''; ?>>
 					<p><strong><?php esc_html_e( 'Nothing in the bar yet.', 'dicebar' ); ?></strong></p>
-					<p><?php esc_html_e( 'Most sites start with a phone number and a WhatsApp link. Add one and look at your site on a phone.', 'dicebar' ); ?></p>
+					<p><?php esc_html_e( 'Nothing shows on your site until something is in here. Pick a kit above for a filled-in bar in one click, or add items one at a time — most sites start with a phone number and a WhatsApp link.', 'dicebar' ); ?></p>
 				</div>
 
 				<div class="dicebarui__card-foot">
@@ -273,11 +290,7 @@ $dicebar_user_choices = array(
 							<?php
 							DiceBar_Admin::select(
 								'dicebar[display][devices]',
-								array(
-									'phone'        => __( 'Phones only', 'dicebar' ),
-									'phone_tablet' => __( 'Phones and tablets', 'dicebar' ),
-									'all'          => __( 'Every screen', 'dicebar' ),
-								),
+								DiceBar_Admin::bar_device_choices(),
 								$settings['display']['devices']
 							);
 							?>
@@ -749,6 +762,11 @@ $dicebar_user_choices = array(
 					<button type="button" data-stage="photo" class="is-current"><?php esc_html_e( 'Photo', 'dicebar' ); ?></button>
 					<button type="button" data-stage="light"><?php esc_html_e( 'Light', 'dicebar' ); ?></button>
 					<button type="button" data-stage="dark"><?php esc_html_e( 'Dark', 'dicebar' ); ?></button>
+				</div>
+				<div class="dicebarui__preview-screens">
+					<button type="button" data-screen="phone" class="is-current"><?php esc_html_e( 'Phone', 'dicebar' ); ?></button>
+					<button type="button" data-screen="tablet"><?php esc_html_e( 'Tablet', 'dicebar' ); ?></button>
+					<button type="button" data-screen="desktop"><?php esc_html_e( 'Desktop', 'dicebar' ); ?></button>
 				</div>
 				<div class="dicebarui__preview-widths">
 					<button type="button" data-width="320" class="is-current">320</button>

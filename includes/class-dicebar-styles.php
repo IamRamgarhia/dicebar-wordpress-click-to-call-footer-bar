@@ -119,7 +119,18 @@ class DiceBar_Styles {
 	}
 
 	/**
-	 * The two device media queries.
+	 * The device media queries.
+	 *
+	 * Two bands, from three settings: a phone is up to phone_max, a tablet up
+	 * to breakpoint, a desktop anything above it. Every rule below is one of
+	 * those two edges, written as a min-width where the thing should stop
+	 * showing or a max-width where it should not start.
+	 *
+	 * Written out per rule rather than generated from shows_on() in a loop,
+	 * because the result is a stylesheet a person may well read in their
+	 * browser's inspector while working out why a button is not where they
+	 * expected it, and a loop would emit the same rules in a less readable
+	 * order.
 	 *
 	 * @param array $settings The configuration.
 	 * @return string
@@ -128,21 +139,99 @@ class DiceBar_Styles {
 		$breakpoint = (int) $settings['display']['breakpoint'];
 		$phone_max  = (int) $settings['display']['phone_max'];
 
+		$wider_than_phone  = '@media (min-width:' . ( $phone_max + 1 ) . 'px){';
+		$wider_than_tablet = '@media (min-width:' . ( $breakpoint + 1 ) . 'px){';
+		$phone_only        = '@media (max-width:' . $phone_max . 'px){';
+		$upto_tablet       = '@media (max-width:' . $breakpoint . 'px){';
+
 		$css = '';
 
-		// The bar itself, by its device setting.
-		$css .= '@media (min-width:' . ( $breakpoint + 1 ) . 'px){'
+		// --- Rules that stop showing as the screen gets wider. ------------
+
+		$css .= $wider_than_tablet
 			. '.dicebar--fixed.dicebar--device-phone_tablet{display:none}'
+			. '.dicebar__item--device-phone_tablet{display:none}'
+			. '.dicebar--fixed.dicebar--device-tablet{display:none}'
+			. '.dicebar__item--device-tablet{display:none}'
 			. '}';
 
-		$css .= '@media (min-width:' . ( $phone_max + 1 ) . 'px){'
+		$css .= $wider_than_phone
 			. '.dicebar--fixed.dicebar--device-phone{display:none}'
 			. '.dicebar__item--device-phone{display:none}'
 			. '}';
 
-		$css .= '@media (min-width:' . ( $breakpoint + 1 ) . 'px){'
-			. '.dicebar__item--device-phone_tablet{display:none}'
+		// --- Rules that do not start showing until it is wider. -----------
+		//
+		// The mirror of the block above, and what makes "one more button on a
+		// desktop" expressible at all.
+
+		$css .= $phone_only
+			. '.dicebar--fixed.dicebar--device-tablet{display:none}'
+			. '.dicebar__item--device-tablet{display:none}'
+			. '.dicebar--fixed.dicebar--device-tablet_up{display:none}'
+			. '.dicebar__item--device-tablet_up{display:none}'
+			. '.dicebar--fixed.dicebar--device-desktop{display:none}'
+			. '.dicebar__item--device-desktop{display:none}'
 			. '}';
+
+		$css .= $upto_tablet
+			. '.dicebar--fixed.dicebar--device-desktop{display:none}'
+			. '.dicebar__item--device-desktop{display:none}'
+			. '}';
+
+		$css .= self::label_queries( $settings, $phone_max, $breakpoint );
+
+		return $css;
+	}
+
+	/**
+	 * Hide the labels at the widths where too many items show to fit them.
+	 *
+	 * Labels used to be a single yes or no, decided by the item count, which
+	 * worked while every item showed on every screen. Once an item can be
+	 * desktop-only the count is different on each screen -- three on a phone
+	 * and six on a desktop is the whole point of the feature -- so the answer
+	 * has to be per width as well.
+	 *
+	 * DiceBar_Render emits the label markup whenever labels fit on ANY screen
+	 * and adds an aria-label alongside it, so an item whose label is hidden
+	 * here still has an accessible name. That is why this can be done in CSS
+	 * at all: display:none takes the label out of the accessibility tree, and
+	 * the aria-label is what is left.
+	 *
+	 * @param array $settings   The configuration.
+	 * @param int   $phone_max  Widest phone.
+	 * @param int   $breakpoint Widest tablet.
+	 * @return string
+	 */
+	private static function label_queries( array $settings, $phone_max, $breakpoint ) {
+		$fits = DiceBar_Render::labels_fit_per_screen( $settings );
+
+		// All three the same needs no query: Render showed or dropped the
+		// labels outright.
+		if ( count( array_unique( $fits ) ) < 2 ) {
+			return '';
+		}
+
+		// The space matters: the label is inside the bar, not the bar itself.
+		// Without it this reads as one element carrying both classes, which
+		// matches nothing, and the labels this is meant to hide stay on
+		// screen and clip -- the exact failure the whole per-screen
+		// arithmetic exists to prevent.
+		$hide  = ' .dicebar__label{display:none}';
+		$edges = array(
+			'phone'   => '@media (max-width:' . $phone_max . 'px){',
+			'tablet'  => '@media (min-width:' . ( $phone_max + 1 ) . 'px) and (max-width:' . $breakpoint . 'px){',
+			'desktop' => '@media (min-width:' . ( $breakpoint + 1 ) . 'px){',
+		);
+
+		$css = '';
+
+		foreach ( $edges as $screen => $query ) {
+			if ( empty( $fits[ $screen ] ) ) {
+				$css .= $query . '.dicebar' . $hide . '}';
+			}
+		}
 
 		return $css;
 	}

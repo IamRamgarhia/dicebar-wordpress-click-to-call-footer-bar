@@ -20,6 +20,7 @@ const fs = require( 'fs' );
 const os = require( 'os' );
 const path = require( 'path' );
 const { execFileSync } = require( 'child_process' );
+const zip = require( './lib/zip' );
 
 const SLUG = 'dicebar';
 const root = path.resolve( __dirname, '..' );
@@ -88,14 +89,29 @@ if ( fs.existsSync( path.join( svnRoot, 'tags', version ) ) ) {
 	process.exit( 1 );
 }
 
-// 2. Unpack the archive to a scratch directory. The archive is the source of
-//    truth, so trunk only ever holds what users actually receive.
+// 2. Read the archive back. It is the source of truth, so trunk only ever
+//    holds what users actually receive.
+//
+//    Read with our own zip library rather than by shelling out. This used to
+//    run `unzip`, which Windows does not have, so staging a release failed
+//    with `spawnSync unzip ENOENT` on the platform this plugin is developed
+//    on -- after building the archive, which made it look as though the build
+//    had broken. The library already wrote the archive; now it reads it, and
+//    checks every entry's CRC on the way through.
+const archive = zip.extract( fs.readFileSync( path.join( root, 'dist', SLUG + '.zip' ) ) );
+
 const scratch = fs.mkdtempSync( path.join( os.tmpdir(), 'dicebar-svn-' ) );
-
-// unzip, not tar: GNU tar (Git Bash, most Linux) cannot read zip archives.
-execFileSync( 'unzip', [ '-q', '-o', path.join( root, 'dist', SLUG + '.zip' ), '-d', scratch ] );
-
 const built = path.join( scratch, SLUG );
+
+for ( const [ name, data ] of archive ) {
+	// Entry names are archive-relative and always forward-slashed, so they
+	// are split here rather than handed to path.join whole.
+	const target = path.join( scratch, ...name.split( '/' ) );
+
+	fs.mkdirSync( path.dirname( target ), { recursive: true } );
+	fs.writeFileSync( target, data );
+}
+
 const builtFiles = new Set( listFiles( built ) );
 const trunkFiles = listFiles( trunk );
 

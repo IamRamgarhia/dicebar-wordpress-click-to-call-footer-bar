@@ -113,6 +113,22 @@
 	 *
 	 * @return {Object} Choices for a type select.
 	 */
+	/**
+	 * The slot numbers a row can be moved to.
+	 *
+	 * @returns {Object} Value to label, both the slot number.
+	 */
+	function positionChoices() {
+		var out = {};
+		var i;
+
+		for ( i = 1; i <= config.maxItems; i++ ) {
+			out[ i ] = String( i );
+		}
+
+		return out;
+	}
+
 	function typeChoices() {
 		var choices = {};
 
@@ -208,6 +224,10 @@
 		var head = make( 'div', { class: 'dicebarui__item-head' }, [
 			make( 'span', { class: 'dicebarui__grip', 'aria-hidden': 'true' } ),
 			make( 'strong', { class: 'dicebarui__item-title', text: strings.untitled } ),
+			make( 'label', { class: 'dicebarui__position' }, [
+				make( 'span', { class: 'screen-reader-text', text: strings.position } ),
+				select( base + '[position]', positionChoices(), String( index + 1 ) ),
+			] ),
 			make( 'code', { class: 'dicebarui__item-id', text: strings.newId } ),
 			make( 'button', {
 				type: 'button',
@@ -297,6 +317,15 @@
 			Array.prototype.forEach.call( row.querySelectorAll( '[name^="dicebar[items]"]' ), function ( input ) {
 				input.name = input.name.replace( /dicebar\[items\]\[\d+\]/, 'dicebar[items][' + index + ']' );
 			} );
+
+			// The number has to follow the row. PHP sorts by these selects, so
+			// a dragged row carrying its old number would be put straight back
+			// where it came from on save.
+			var slot = row.querySelector( '.dicebarui__position select' );
+
+			if ( slot ) {
+				slot.value = String( index + 1 );
+			}
 		} );
 
 		updateState();
@@ -304,6 +333,47 @@
 		if ( typeof window.dicebarRefreshPreview === 'function' ) {
 			window.dicebarRefreshPreview();
 		}
+	}
+
+	/**
+	 * Move a row to the slot its select now names.
+	 *
+	 * @param {Element} row The item row.
+	 */
+	function moveToPosition( row ) {
+		var slot = row.querySelector( '.dicebarui__position select' );
+
+		if ( ! slot ) {
+			return;
+		}
+
+		var rows = Array.prototype.slice.call( list.querySelectorAll( '.dicebarui__item' ) );
+		var want = parseInt( slot.value, 10 ) - 1;
+
+		if ( isNaN( want ) ) {
+			return;
+		}
+
+		// Clamped to what is actually there: the select offers every slot the
+		// bar can hold, and a bar with three items has no eighth row to sit
+		// after.
+		want = Math.max( 0, Math.min( want, rows.length - 1 ) );
+
+		var at = rows.indexOf( row );
+
+		if ( at === want ) {
+			reindex();
+
+			return;
+		}
+
+		rows.splice( at, 1 );
+		rows.splice( want, 0, row );
+		rows.forEach( function ( each ) {
+			list.appendChild( each );
+		} );
+
+		reindex();
 	}
 
 	/**
@@ -406,6 +476,15 @@
 				selectIcon( row, type.icon );
 				syncIconField( row, type );
 			}
+		}
+
+		// Picking a number moves the row there and then, so the screen shows
+		// the order that will be saved rather than only showing it after a
+		// reload.
+		if ( event.target.name && event.target.name.indexOf( '[position]' ) !== -1 ) {
+			moveToPosition( row );
+
+			return;
 		}
 
 		// A social item's glyph is its network, so choosing a network has
@@ -699,6 +778,63 @@
 	 * a change is visible before anything is saved. That is the whole point:
 	 * choosing a look from a written description is guesswork.
 	 */
+	// Which of the three screens the preview stands in for. The width buttons
+	// move within a screen; this moves between them, and it decides which
+	// items the preview shows at all.
+	var previewOn = 'phone';
+
+	// A representative width for each.
+	var screenWidths = { phone: 320, tablet: 768, desktop: 1280 };
+
+	/**
+	 * Whether a device rule shows on a screen.
+	 *
+	 * The table comes from PHP (config.deviceMap), so this cannot disagree
+	 * with the stylesheet or with what gets saved.
+	 *
+	 * @param {string} rule   A device rule, already resolved from 'inherit'.
+	 * @param {string} screen One of the three screens.
+	 * @returns {boolean} Whether it shows.
+	 */
+	function showsOn( rule, screen ) {
+		var map = config.deviceMap || {};
+
+		if ( ! map[ rule ] ) {
+			return true;
+		}
+
+		return map[ rule ].indexOf( screen ) !== -1;
+	}
+
+	/**
+	 * Scale the frame down when the screen it stands in for is wider than the
+	 * column it sits in.
+	 *
+	 * A desktop bar is 1280 pixels of layout beside a 300-pixel sidebar.
+	 * Shown at a quarter of the size the proportions are honest; shown as
+	 * desktop items inside a phone-width frame they would not be.
+	 */
+	function fitPreview() {
+		if ( ! previewScreen || ! previewScreen.parentNode ) {
+			return;
+		}
+
+		var frame = previewScreen.parentNode;
+		var want = screenWidths[ previewOn ] || 320;
+		var room = frame.clientWidth || want;
+		var scale = want > room ? room / want : 1;
+
+		previewScreen.style.transformOrigin = 'top left';
+		previewScreen.style.transform = scale < 1 ? 'scale(' + scale.toFixed( 3 ) + ')' : '';
+
+		// A transformed element still takes its untransformed space, so the
+		// frame has to be told the height the scaled one actually occupies or
+		// the panel below it leaves a gap.
+		frame.style.height = scale < 1
+			? Math.round( previewScreen.offsetHeight * scale ) + 'px'
+			: '';
+	}
+
 	function refreshPreview() {
 		if ( ! preview || ! previewInner ) {
 			return;
@@ -706,19 +842,6 @@
 
 		var mode = chosen( 'dicebar[style][label][mode]', 'icon_label' );
 		var look = chosen( 'dicebar[style][preset]', 'glass' );
-
-		preview.className = [
-			'dicebar',
-			'dicebar--preview',
-			previewStage === 'dark' ? 'dicebar--scheme-dark' : 'dicebar--scheme-light',
-			'dicebar--preset-' + look,
-			'dicebar--item-' + value( 'dicebar[style][item][shape]', 'plain' ),
-			'dicebar--shadow-' + value( 'dicebar[style][shadow]', 'soft' ),
-			'dicebar--show-' + mode.replace( '_', '-' ),
-			'dicebar--divider-' + ( value( 'dicebar[style][divider]', '' ) ? 'hairline' : 'none' ),
-			'dicebar--case-upper',
-			value( 'dicebar[style][blur]', '' ) ? 'dicebar--blur' : 'dicebar--no-blur',
-		].join( ' ' );
 
 		var palette = previewStage === 'dark' ? 'dark' : 'light';
 
@@ -742,17 +865,55 @@
 			previewInner.removeChild( previewInner.firstChild );
 		}
 
-		var rows = list.querySelectorAll( '.dicebarui__item' );
+		var barRule = chosen( 'dicebar[display][devices]', 'phone_tablet' );
 
-		if ( ! rows.length ) {
+		// The bar's own rule comes first: an item cannot show on a screen the
+		// bar is not on, whatever the item asks for.
+		var barHere = showsOn( barRule, previewOn );
+
+		var rows = Array.prototype.filter.call(
+			list.querySelectorAll( '.dicebarui__item' ),
+			function ( row ) {
+				var control = row.querySelector( '[name$="[show][devices]"]' );
+				var rule = control ? control.value : 'inherit';
+
+				return showsOn( 'inherit' === rule ? barRule : rule, previewOn );
+			}
+		);
+
+		if ( ! barHere || ! rows.length ) {
 			var empty = document.createElement( 'p' );
 
 			empty.className = 'dicebarui__preview-empty';
-			empty.textContent = strings.previewEmpty;
+			empty.textContent = barHere ? strings.previewEmpty : strings.previewOff;
 			previewInner.appendChild( empty );
 			previewNote.textContent = '';
+			preview.className = 'dicebar dicebar--preview';
+			fitPreview();
+
 			return;
 		}
+
+		// Past four on THIS screen the bar shows icons only, the same rule
+		// PHP applies. Decided after the filtering, because the count that
+		// matters is the count on the screen being shown -- three on a phone
+		// and six on a desktop is the whole point of the device rules.
+		var drawMode = rows.length > config.labelsFit ? 'icon' : mode;
+
+		preview.className = [
+			'dicebar',
+			'dicebar--preview',
+			previewStage === 'dark' ? 'dicebar--scheme-dark' : 'dicebar--scheme-light',
+			'dicebar--preset-' + look,
+			'dicebar--item-' + value( 'dicebar[style][item][shape]', 'plain' ),
+			'dicebar--shadow-' + value( 'dicebar[style][shadow]', 'soft' ),
+			'dicebar--show-' + drawMode.replace( '_', '-' ),
+			'dicebar--divider-' + ( value( 'dicebar[style][divider]', '' ) ? 'hairline' : 'none' ),
+			'dicebar--case-upper',
+			value( 'dicebar[style][blur]', '' ) ? 'dicebar--blur' : 'dicebar--no-blur',
+		].join( ' ' );
+
+		mode = drawMode;
 
 		var longest = 0;
 
@@ -812,10 +973,21 @@
 		// The four-item cap exists because a fifth clips its label at 320. The
 		// same arithmetic warns when one long word will clip in a smaller row.
 		var perItem = Math.floor( ( 320 - 28 - 12 - ( rows.length - 1 ) * 11 ) / rows.length );
+		var why = '';
 
-		previewNote.textContent = mode !== 'icon' && longest * 7 > perItem
-			? strings.previewTight
-			: '';
+		if ( 'icon' === drawMode && 'icon' !== chosen( 'dicebar[style][label][mode]', 'icon_label' ) ) {
+			// Said rather than left to be noticed: the labels are gone from
+			// this screen on purpose, and the count is the reason.
+			why = strings.previewIcons;
+		} else if ( mode !== 'icon' && longest * 7 > perItem ) {
+			why = strings.previewTight;
+		}
+
+		var count = ( strings.previewCount || '%d' ).replace( '%d', rows.length );
+
+		previewNote.textContent = why ? count + ' \u2014 ' + why : count;
+
+		fitPreview();
 	}
 
 	if ( preview && form ) {
@@ -830,6 +1002,27 @@
 
 				previewStage = button.getAttribute( 'data-stage' );
 				previewScreen.setAttribute( 'data-stage', previewStage );
+				refreshPreview();
+			} );
+		} );
+
+		Array.prototype.forEach.call( document.querySelectorAll( '.dicebarui__preview-screens button' ), function ( button ) {
+			button.addEventListener( 'click', function () {
+				Array.prototype.forEach.call( button.parentNode.children, function ( other ) {
+					other.classList.toggle( 'is-current', other === button );
+				} );
+
+				previewOn = button.getAttribute( 'data-screen' );
+				previewScreen.style.width = screenWidths[ previewOn ] + 'px';
+
+				// The width buttons are phone widths, so they only mean
+				// anything while the phone is the screen being shown.
+				var widths = document.querySelector( '.dicebarui__preview-widths' );
+
+				if ( widths ) {
+					widths.hidden = 'phone' !== previewOn;
+				}
+
 				refreshPreview();
 			} );
 		} );

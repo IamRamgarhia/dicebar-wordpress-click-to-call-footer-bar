@@ -142,10 +142,15 @@ noticeably raises how many people actually send one.
 
 ### How many buttons fit in a mobile footer bar?
 
-Four. At 320 pixels wide, the narrowest phone still in real use, the bar has 288
-pixels of usable width. Four labelled buttons is 72 pixels each, which fits a
-word of about eight characters. A fifth button does not shrink the words, it cuts
-them off, so the plugin caps the list at four and explains why.
+Four with labels, eight without. At 320 pixels wide, the narrowest phone still in
+real use, the bar has 288 pixels of usable width. Four labelled buttons is 72
+pixels each, which fits a word of about eight characters; a fifth does not shrink
+the words, it cuts them off.
+
+So the limit is four *labels*, not four buttons. Past four on a screen the bar
+drops the labels and shows icons only, which fits eight with room to tap, and
+each icon keeps an accessible name. Buttons can also be set to appear only on
+tablets or desktops, so a phone can show three and a desktop six from one bar.
 
 ### Does a sticky footer bar slow a site down?
 

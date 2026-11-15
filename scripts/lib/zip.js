@@ -173,4 +173,86 @@ const build = ( entries ) => {
 	return Buffer.concat( [ Buffer.concat( locals ), centralBuffer, end ] );
 };
 
-module.exports = { build, crc32 };
+/**
+ * Read an archive back, as a map of entry name to contents.
+ *
+ * The mirror of build(), and here for the same reason: the release script used
+ * to shell out to `unzip`, which is not installed on Windows, so staging a
+ * release failed with `spawnSync unzip ENOENT` on the one platform this plugin
+ * is actually developed on. A reader of our own removes that dependency the
+ * way build() removed Compress-Archive.
+ *
+ * The central directory is the authority on what an archive holds, so this
+ * reads that rather than walking local headers: only the central directory
+ * knows how many entries there are, and a local header's sizes may be zero
+ * with the real values in a trailing data descriptor.
+ *
+ * Every entry's CRC is checked. trunk is staged from what this returns, so a
+ * silently truncated archive would be published rather than noticed.
+ *
+ * @param {Buffer} buffer The archive.
+ * @return {Map<string, Buffer>} Entry name to contents; directories are omitted.
+ */
+const extract = ( buffer ) => {
+	// The end-of-central-directory record is last, but a zip comment may
+	// follow it, so it is found by scanning back for its signature. 22 is the
+	// record's own length; 0xffff is the longest comment the format allows.
+	let end = -1;
+
+	for ( let at = buffer.length - 22; at >= 0 && at >= buffer.length - 22 - 0xffff; at-- ) {
+		if ( buffer.readUInt32LE( at ) === END_OF_CENTRAL ) {
+			end = at;
+			break;
+		}
+	}
+
+	if ( end < 0 ) {
+		throw new Error( 'Not a zip archive: no end-of-central-directory record.' );
+	}
+
+	const count = buffer.readUInt16LE( end + 10 );
+	let at = buffer.readUInt32LE( end + 16 );
+
+	const out = new Map();
+
+	for ( let i = 0; i < count; i++ ) {
+		if ( buffer.readUInt32LE( at ) !== CENTRAL_HEADER ) {
+			throw new Error( 'Corrupt zip: central directory entry ' + i + ' has no signature.' );
+		}
+
+		const method = buffer.readUInt16LE( at + 10 );
+		const checksum = buffer.readUInt32LE( at + 16 );
+		const packed = buffer.readUInt32LE( at + 20 );
+		const nameLength = buffer.readUInt16LE( at + 28 );
+		const extraLength = buffer.readUInt16LE( at + 30 );
+		const commentLength = buffer.readUInt16LE( at + 32 );
+		const localAt = buffer.readUInt32LE( at + 42 );
+		const name = buffer.toString( 'utf8', at + 46, at + 46 + nameLength );
+
+		at += 46 + nameLength + extraLength + commentLength;
+
+		if ( name.endsWith( '/' ) ) {
+			continue;
+		}
+
+		// The local header's name and extra fields are its own: the extra
+		// field in particular is routinely a different length from the
+		// central one, so the data offset has to be read from here.
+		const localNameLength = buffer.readUInt16LE( localAt + 26 );
+		const localExtraLength = buffer.readUInt16LE( localAt + 28 );
+		const from = localAt + 30 + localNameLength + localExtraLength;
+		const body = buffer.subarray( from, from + packed );
+
+		const raw = method === DEFLATED ? zlib.inflateRawSync( body ) : Buffer.from( body );
+
+		if ( crc32( raw ) !== checksum ) {
+			throw new Error( 'Corrupt zip: ' + name + ' failed its checksum.' );
+		}
+
+		out.set( name, raw );
+	}
+
+	return out;
+};
+
+module.exports = { build, extract, crc32 };

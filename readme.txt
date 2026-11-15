@@ -4,7 +4,7 @@ Tags: click to call, footer bar, mobile menu, bottom navigation, sticky bar
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.9.1
+Stable tag: 1.11.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,9 +20,9 @@ anywhere on your site.
 You can add a **call now button** without touching a theme file, and it works
 with every theme and every page builder.
 
-Most people arrive on a phone. On a phone, a phone number in the footer is four
-scrolls away, and a contact form is a wall. A bottom bar puts the action under
-the thumb on every page, which is the whole idea.
+Most people arrive on a phone, where a number in the footer is four scrolls away
+and a contact form is a wall. A bottom bar puts the action under the thumb on
+every page.
 
 = What you can put in it =
 
@@ -31,13 +31,13 @@ the thumb on every page, which is the whole idea.
 * **Text message button** — SMS, with a prefilled body
 * **Email button** — with a prefilled subject
 * **Directions button** — opens the map app with your address
-* **Social profile buttons** — thirty networks, drawn in their own colours
-* **Link, page, or scroll to a section**
-* **Share and back to top**
+* **Social profile buttons** — thirty networks, in their own colours
+* **Link, page, or scroll to a section**, **share**, and **back to top**
 
-Four buttons is the most that fits on a narrow phone without labels being cut
-short, so the plugin caps it there and tells you why rather than letting you
-find out on a visitor's screen.
+Up to **eight buttons**, in whatever order you want them. Drag a row to move it
+or pick its number from the list beside it — the number works on a touch screen
+and from the keyboard, where there is nothing to drag. Past four on a screen the
+labels step aside so nothing is cut short.
 
 = Nine starter kits =
 
@@ -49,10 +49,9 @@ stays editable afterwards.
 = Four looks, including a frosted glass dock =
 
 Glass, the default, is a frosted panel floating clear of the screen edges, much
-like the dock at the bottom of a phone. Sliders set how see-through it is and
-how strongly it blurs what sits behind it. Solid drops the translucency for busy
-photography. Minimal removes the panel entirely. Bold fills the bar in a colour
-you choose.
+like a phone's own dock, with sliders for how see-through it is
+and how strongly it blurs. Solid drops the translucency for busy photography,
+Minimal removes the panel, and Bold fills the bar in a colour you choose.
 
 Light and dark colour sets are set separately, so dark mode is what you decided
 rather than an automatic inversion of your brand colour.
@@ -60,51 +59,85 @@ rather than an automatic inversion of your brand colour.
 = See it before you save =
 
 The settings screen shows a live preview of the real bar, drawn with the real
-stylesheet, standing on a photograph, a light page or a dark page, at 320, 375
-and 414 pixels wide. It warns you when a label is too long for the number of
-buttons.
+stylesheet, standing on a photograph, a light page or a dark page.
+
+Switch it between **Phone, Tablet and Desktop** to see what each one gets: only
+the buttons that screen shows, counted for you, with the labels dropped where
+that screen has too many for them, exactly as the site will. Phone widths of
+320, 375 and 414 are a click apart. It warns you when a label is too long for
+the number of buttons.
 
 = Works with any theme, and with page builders =
 
 The bar needs no placement work: it appears by itself on every page you allow
 it on, in any theme.
 
-To also drop the same row of buttons inside your content, use the shortcode
-`[dicebar]`. It works in the block editor, in a widget, in a theme
-template, and in Elementor, Divi, Beaver Builder, Bricks and Oxygen. Elementor
-users also get a DiceBar widget in the panel.
+To also drop the same row of buttons inside your content, there is a **DiceBar
+block** in the block editor: insert it and the real bar appears in the editor,
+drawn by the same code that draws it on the site. It can show every button or
+only the ones you name.
 
-= Choose exactly where it appears =
+Everywhere else, the shortcode `[dicebar]` does the same job — in a widget, in a
+theme template, and in Divi, Beaver Builder, Bricks and Oxygen. Elementor users
+get a DiceBar widget in the panel.
 
-* Phones only, phones and tablets, or every screen, with the widths settable
+= One bar, every screen =
+
+Each button can be set to the screens it belongs on, so the bar grows with the
+window instead of being a phone-only compromise: a phone gets call, WhatsApp and
+directions, a desktop gets those plus your social icons. Past four buttons on a
+screen the labels step aside and the icons carry it, so nothing is cut in half.
+
+* Phones only, phones and tablets, tablets only, tablets and desktops, desktops
+  only, or every screen — with the widths that divide them settable
 * Everywhere, only on chosen pages, or everywhere except chosen pages
 * Everyone, signed in visitors only, or signed out visitors only
 * Per item as well as per bar, so one button can appear where another does not
 
 = Built to behave =
 
-* **Works with page caching.** Rules that depend on the page are worked out on
-  the server; rules that change between two visitors on the same page are worked
-  out in the browser. A cached page is never wrong.
+* **Works with page caching.** Page-dependent rules are decided on the server,
+  visitor-dependent ones in the browser, so a cached page is never wrong.
 * **Loads nothing when it shows nothing.** No stylesheet, no script.
 * **No tracking of any kind.** No analytics, no phoning home, no external
-  requests. A tap fires an event your own tag manager can listen for, and
-  nothing leaves the visitor's browser because of us.
+  requests. A tap fires an event your own tag manager can listen for.
 * **Accessible.** Real links and buttons, a navigation landmark, visible focus,
   an accessible name on every icon-only button, and reduced motion respected.
 * **Gets out of the way.** Optionally hides while scrolling down, steps aside
-  when a section you name is on screen, leaves room for a cookie banner, and
-  never prints.
+  for a section you name, leaves room for a cookie banner, and never prints.
 * **Safe area aware**, so it sits above the home indicator instead of under it.
 
 = Free, all of it =
 
-Every feature described here is in the free plugin. There is no locked tier and
-no adverts in your dashboard.
+Every feature here is in the free plugin. No locked tier, no dashboard adverts.
 
 **Full documentation:** [dicecodes.com/mobile-bottom-bar-wordpress-plugin](https://dicecodes.com/mobile-bottom-bar-wordpress-plugin/)
 
 Built and maintained by [Dice Codes](https://dicecodes.com/).
+
+== External Services ==
+
+DiceBar connects to nothing. It makes no request to any server, ours included:
+no analytics, no fonts, no icon service, no update check of its own, no licence
+call. The stylesheet, the script and every icon are files inside the plugin, so
+the bar works on a site with no outbound internet access at all.
+
+Two of the buttons you can add are links to someone else's site, and a link is
+only followed when a visitor taps it:
+
+* **WhatsApp chat** builds a `https://wa.me/` link from the number you enter,
+  with your pre-written message in the query string if you set one. Tapping it
+  opens WhatsApp, which is operated by Meta: [terms](https://www.whatsapp.com/legal/terms-of-service) and [privacy policy](https://www.whatsapp.com/legal/privacy-policy). Both pages are served to people but refuse automated readers with a 400, so a link checker reports a failure for pages that are genuinely there.
+* **Directions** builds a `https://www.google.com/maps/search/` link from the
+  address or place you enter. Tapping it opens Google Maps: [terms](https://policies.google.com/terms) and [privacy policy](https://policies.google.com/privacy).
+
+Nothing is sent to either service until a visitor taps the button, and what is
+sent is the address in the link — the number or place you typed into the
+settings. No visitor data is added to it, and the plugin stores nothing about
+who tapped what.
+
+The **Call**, **SMS** and **Email** buttons use `tel:`, `sms:` and `mailto:`
+links, which open an app on the visitor's own device and reach no third party.
 
 == Installation ==
 
@@ -152,6 +185,18 @@ requests.
 Yes. Choose everywhere, only on the pages you list, or everywhere except the
 pages you list. Individual buttons can also have their own rules.
 
+= Can I show more buttons on a desktop than on a phone? =
+
+Yes, and that is the intended way to use a bar with a lot in it. Set each button
+to the screens it belongs on: the first three to **Whatever the bar does**, a
+fourth to **Tablets and desktops**, your social icons to **Desktops only**. A
+phone then gets three buttons, a tablet four and a desktop six, from one bar.
+
+Labels are judged per screen, so the phone keeps its words while the desktop
+shows icons only — whichever screen has more than four buttons loses its labels,
+and the others keep theirs. The preview's Phone, Tablet and Desktop buttons show
+you each one before you save.
+
 = Can I show only icons, without words? =
 
 Yes. Icons and words, icons only, or words only, applied to the whole bar. It is
@@ -181,6 +226,20 @@ entirely your own code's business.
 5. Choosing where the bar appears.
 
 == Changelog ==
+
+= 1.11.0 =
+* Items can now be set to show on tablets and desktops, not only on phones. The old choices all narrowed downwards — phones, phones and tablets, everywhere — so there was no way to say "and one more once there is room". There are three new ones: Tablets only, Tablets and desktops, Desktops only.
+* That means one bar can carry three buttons on a phone, four on a tablet and six on a desktop, instead of needing a second bar or a shortcode per template.
+* Labels are now judged per screen rather than on the total. A bar with three phone buttons and six desktop ones keeps its labels on the phone, where they fit, and shows icons only on the desktop, where they do not. Items whose label is hidden at some widths carry an aria-label, so they never lose their name to a screen reader.
+* The preview has Phone, Tablet and Desktop buttons. It shows the items that screen actually gets, applies the same label rule, says how many buttons are on it, and scales a desktop preview down to fit rather than pretending a desktop bar is phone-width.
+* The bar as a whole can also be set to tablets or desktops only.
+
+= 1.10.0 =
+* Up to eight items, not four. Past four the bar shows icons only, so no label is cut short — which was the whole reason for the old limit. Enough for a row of social icons.
+* Every item now carries a position number you can pick from a list, as well as the drag handle. Dragging needs a mouse; the number works on a touch screen, from the keyboard, and with JavaScript switched off.
+* A DiceBar block for the block editor. It draws the real bar in the editor through the same code that renders it on the site, so what you see while editing is the bar itself. The shortcode and the Elementor widget are unchanged.
+* The items screen now says why nothing shows on the site yet, and points at the starter kits above it.
+* Added an External Services section to this readme. The plugin still connects to nothing — the section says so, and explains that the WhatsApp and Directions buttons are links a visitor taps rather than requests the plugin makes.
 
 = 1.9.1 =
 * The plugins screen now links to the plugin's directory page, support forum and reviews.

@@ -377,6 +377,22 @@
 	border-bottom: 1px solid var( --dicebarui-line );
 }
 
+/* The slot number, beside the grip.
+ *
+ * A grip is the obvious control on a desktop and no control at all on a
+ * touch screen or a keyboard, so the number is the one that always works
+ * and the grip is the shortcut. The title's flex-grow already pushes
+ * everything after it to the right, so this needs no margin of its own.
+ */
+.dicebarui__position {
+	flex: none;
+}
+
+.dicebarui__position select {
+	min-height: 30px;
+	padding: 0 24px 0 8px;
+}
+
 /* A six-dot grip reads as draggable without needing a label. */
 .dicebarui__grip {
 	width: 12px;
@@ -820,6 +836,14 @@
 
 /* ---- The phone --------------------------------------------------------- */
 
+/* The frame clips, because a desktop preview is scaled down inside it and a
+ * transformed element still occupies its untransformed box. The script sets
+ * the height to match the scaled one; this stops the overflow in the meantime.
+ */
+.dicebarui__phone {
+	overflow: hidden;
+}
+
 .dicebarui__phone {
 	display: flex;
 	justify-content: center;
@@ -870,12 +894,14 @@
 	z-index: 1;
 }
 
+.dicebarui__preview-screens,
 .dicebarui__preview-widths {
 	display: flex;
 	justify-content: center;
 	gap: 6px;
 }
 
+.dicebarui__preview-screens button,
 .dicebarui__preview-widths button {
 	padding: 5px 12px;
 	font-size: 12px;
@@ -886,6 +912,7 @@
 	cursor: pointer;
 }
 
+.dicebarui__preview-screens button.is-current,
 .dicebarui__preview-widths button.is-current {
 	border-color: var( --dicebarui-brand );
 	color: var( --dicebarui-brand );
