@@ -1,10 +1,10 @@
 === DiceBar — Mobile Bottom Bar, Click to Call & Chat ===
 Contributors: dicecodes
-Tags: click to call, footer bar, mobile menu, bottom navigation, sticky bar
+Tags: click to call, footer bar, whatsapp, bottom navigation, sticky bar
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.11.0
+Stable tag: 1.12.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,17 +34,15 @@ every page.
 * **Social profile buttons** — thirty networks, in their own colours
 * **Link, page, or scroll to a section**, **share**, and **back to top**
 
-Up to **eight buttons**, in whatever order you want them. Drag a row to move it
-or pick its number from the list beside it — the number works on a touch screen
-and from the keyboard, where there is nothing to drag. Past four on a screen the
-labels step aside so nothing is cut short.
+Up to **eight buttons**, in any order. Drag a row, or pick its number from the
+list beside it — the number works on a touch screen and from the keyboard. Past
+four on a screen the labels step aside so nothing is cut short.
 
 = Nine starter kits =
 
 Deciding what belongs in the bar is harder than configuring it, so there is a
-one-click starting point for a restaurant, a clinic or salon, a trade call-out,
-an online shop, a blog, a portfolio, and a row of social profiles. Everything
-stays editable afterwards.
+one-click starting point for a restaurant, a clinic, a trade call-out, a shop, a
+blog, a portfolio and a row of social profiles. All editable afterwards.
 
 = Four looks, including a frosted glass dock =
 
@@ -98,14 +96,16 @@ screen the labels step aside and the icons carry it, so nothing is cut in half.
 
 * **Works with page caching.** Page-dependent rules are decided on the server,
   visitor-dependent ones in the browser, so a cached page is never wrong.
-* **Loads nothing when it shows nothing.** No stylesheet, no script.
+* **Loads nothing when it shows nothing.**
 * **No tracking of any kind.** No analytics, no phoning home, no external
-  requests. A tap fires an event your own tag manager can listen for.
+  requests. A tap fires an event your tag manager can listen for.
+* **No nagging.** It asks about a review once, after the bar has run a
+  fortnight, on its own screen only, and no is permanent.
 * **Accessible.** Real links and buttons, a navigation landmark, visible focus,
   an accessible name on every icon-only button, and reduced motion respected.
-* **Gets out of the way.** Optionally hides while scrolling down, steps aside
-  for a section you name, leaves room for a cookie banner, and never prints.
-* **Safe area aware**, so it sits above the home indicator instead of under it.
+* **Gets out of the way.** Hides while scrolling down if you want, steps aside
+  for a section you name, leaves room for a cookie banner, never prints.
+* **Safe area aware**, so it sits above the home indicator, not under it.
 
 = Free, all of it =
 
@@ -226,6 +226,10 @@ entirely your own code's business.
 5. Choosing where the bar appears.
 
 == Changelog ==
+
+= 1.12.0 =
+* Asks for a review, once, and only if the bar has been set up and running for two weeks. Never on activation, never on a screen that is not DiceBar's own, and never more than twice in the life of the install. "No thanks" is permanent and is recorded as such. Nothing is sent anywhere — the whole thing is one option on your own site.
+* Swapped the "mobile menu" tag for "whatsapp", which is a feature the plugin has and was not findable by.
 
 = 1.11.0 =
 * Items can now be set to show on tablets and desktops, not only on phones. The old choices all narrowed downwards — phones, phones and tablets, everywhere — so there was no way to say "and one more once there is room". There are three new ones: Tablets only, Tablets and desktops, Desktops only.

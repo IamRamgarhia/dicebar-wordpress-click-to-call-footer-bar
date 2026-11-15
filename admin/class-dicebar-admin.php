@@ -279,6 +279,10 @@ class DiceBar_Admin {
 		update_option( DiceBar_Settings::OPTION, DiceBar_Sanitize::settings( $raw ) );
 		DiceBar_Settings::flush();
 
+		// Starts the clock the first time the bar actually has something in
+		// it. An installed plugin that was never set up has earned nothing.
+		DiceBar_Review::note_configured();
+
 		$tab = isset( $_POST['dicebar_tab'] ) ? sanitize_key( wp_unslash( $_POST['dicebar_tab'] ) ) : 'items';
 
 		wp_safe_redirect(

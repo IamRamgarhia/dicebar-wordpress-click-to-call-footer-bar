@@ -26,6 +26,7 @@ function dicebar_uninstall_site() {
 
 	delete_option( 'dicebar_settings' );
 	delete_option( 'dicebar_version' );
+	delete_option( 'dicebar_review' );
 }
 
 if ( is_multisite() ) {
